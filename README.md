@@ -4,6 +4,8 @@ Culturestride was an online language learning platform teaching Mandarin Chinese
 
 This is an [internet archive version](https://web.archive.org/web/20230227115913/https://culturestride.com/) of the final version of the site before we shut it down.
 
+No guarantees for reliability or lack of bugs :-)
+
 ## Application Technology Stack
 ### Backend
 This is an [Express](https://expressjs.com/) web app built on Node.js connecting to a MySQL backend database. The web app is hosted on Amazon Web Services (AWS) using [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/), our MySQL database is also hosted on AWS. We are also using [AWS S3 Object Storage](https://aws.amazon.com/s3/) to store files (user uploaded attachments and images).
