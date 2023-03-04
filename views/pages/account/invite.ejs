@@ -1,0 +1,103 @@
+<!-- TOAST -->
+<div id="copyToast" class="toast mobileHide" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true"
+    style="position: fixed;bottom: 0;left: 0;z-index:20;">
+    <div class="toast-header">
+        <strong class="mr-auto">Notification</strong>
+        <span class="badge badge-pill badge-primary">now</span>
+
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        Text copied to clipboard
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:40px 40px;text-align:left">
+                <div class="row">
+                    <h3 class="feature-title h3-mobile" style="margin-top:0px">Lesson guest pass</h3>
+                    <p>
+                        Have a friend curious about learning Chinese with you? Invite them to join your next lesson free!
+                        <br><br>
+                        <div style="width:100%" id="copy"><%- sFirstName %> <%- sLastName %> has invited you to join their next Culturestride lesson. <br>Join this meeting link when the lesson starts: <%- meetingUrl %></div>
+
+                        <a class="button button-secondary button-block button-shadow" style="margin-top:20px;"
+                            onclick="copy('copy');ajaxReferBtnClickedGP();">Copy Text</a>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:40px 40px;text-align:left">
+                <div class="row">
+                    <h3 class="feature-title h3-mobile" style="margin-top:0px">Give $20, Get $20.</h3>
+                    <p>
+                        Invite a friend to get started on Culturestride and if they continue past the free lessons, you both get $20 off your next lesson payment.
+                        <br><br>
+                        <div style="width:100%" id="copy2"><%- sFirstName %> <%- sLastName %> has invited you to start learning Mandarin with them. <br>Sign up for 3 free 1 on 1 online lessons: https://culturestride.com/start</div>
+
+                        <a class="button button-secondary button-block button-shadow" style="margin-top:20px;"
+                            onclick="copy('copy2');ajaxReferBtnClickedRB()">Copy Text</a>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function copy(el) {
+        var inp = document.createElement('input');
+        document.body.appendChild(inp)
+        var that = document.getElementById(el).textContent;
+        inp.value = that
+        inp.select();
+        document.execCommand('copy', false);
+        inp.remove();
+        $('#copyToast').toast('show'); // toast notification
+    }
+    
+    function ajaxReferBtnClickedGP() { // ajax for update session var so that custom mark view is saved
+            $.ajax({
+                type: "POST",
+                url: "/ajaxReferBtnClickedGP",
+                timeout: 30000,
+                success: function (data) {
+                    //show content
+                    console.log('successful post');
+                },
+                error: function (jqXHR, textStatus, err) {
+                    //show error message
+                    console.log('unsuccessful post');
+                }
+            });
+        }
+        function ajaxReferBtnClickedRB() { // ajax for update session var so that custom mark view is saved
+            $.ajax({
+                type: "POST",
+                url: "/ajaxReferBtnClickedRB",
+                timeout: 30000,
+                success: function (data) {
+                    //show content
+                    console.log('successful post');
+                },
+                error: function (jqXHR, textStatus, err) {
+                    //show error message
+                    console.log('unsuccessful post');
+                }
+            });
+        }
+</script>

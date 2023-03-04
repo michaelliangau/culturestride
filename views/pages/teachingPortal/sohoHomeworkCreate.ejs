@@ -1,0 +1,340 @@
+<div class="row">
+    <div class="col-sm-6">
+        <form method="post" enctype="multipart/form-data" validate action="/sohohomeworkcreate">
+            <div class="form-group">
+                <label for="questionType">Question Type</label>
+                <select id="questionType" name="questionType" class="custom-select"
+                    onchange="updateQTypePreview(this);initUniqueElements();" required>
+                    <option value="">Please select...</option>
+                    <option value="Reading">Reading</option>
+                    <option value="Writing">Writing</option>
+                    <option value="Listening">Listening</option>
+                    <option value="Speaking">Speaking</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="display:none" id="audiofile">
+                <div class="file-field input-field">
+                    <label for="audiofile">Audio Recording</label>
+
+                    <input id="audio" type="file" class="form-control-file" name="file-to-upload">
+                    <small id="noteHelp" class="form-text text-muted">File name should be: "hsk(#)unit(#).mp3" - i.e.
+                        "hsk1unit3.mp3" - mp3 file formats supported.</small>
+                    <div class="invalid-feedback">
+                        Please upload a valid audio file.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="question">Question</label>
+                <textarea id="tinyTextEditor" name="question" required>
+            </textarea>
+            </div>
+
+
+            <div class="form-group">
+                <label for="hskLevel">Question Level</label>
+                <br>
+                HSK
+                <input type="number" id="hskLevel" name="hskLevel" min="0" max="6"
+                    onchange="updateLevelPreviewHSK(this)" required>
+                Unit
+                <input type="number" id="hskUnit" name="hskUnit" min="0" max="20"
+                    onchange="updateLevelPreviewUnit(this)" required>
+            </div>
+
+            <div class="form-group">
+                <label for="difficulty">Difficulty</label>
+                <input type="number" class="form-control" id="difficulty" min="1" max="10" name="difficulty"
+                    onchange="updateDifficultyPreview(this)" placeholder="number from 1 (easy) to 10 (hard)" required>
+            </div>
+
+            <div class="form-group">
+                <label for="assign">Assign To (optional)</label>
+                <select id="assign" name="assign" class="custom-select">
+                    <option value="">Please select...</option>
+                    <% for (var i = 0 ; i < (classes.length) ; i ++) { %>
+                    <% if (classes[i].sohoUID == sohoUID) { %>
+                    <option value="<%- classes[i].sohoCID %>">
+                        <%- classes[i].className %></option>
+                    <% } else { %>
+                    <option style="background-color: #ffeaa7;" value="<%- classes[i].sohoCID %>">
+                        <%- '[' + classes[i].firstName + ' ' + classes[i].lastName + '] ' + classes[i].className %>
+                    </option>
+
+                    <% } %>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkboxAddToRepo" name="checkboxAddToRepo" checked>
+                <label class="form-check-label" for="checkboxAddToRepo">This homework piece can be sent to all
+                    students</label>
+            </div>
+
+            <button class="button button-primary button-block button-shadow" style="margin: 20px auto"
+                type="submit">Save</button>
+
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <h3>Student Preview</h3>
+
+
+        <div class="box-shadow" style="width: 100%;position:inherit">
+            <div style="padding:40px;text-align:left">
+                <span class="badge badge-pill badge-light">ID: 42</span>
+                <span class="badge badge-pill badge-light">Level: <span id="HSKPreview">1</span>.<span
+                        id="UnitPreview">2</span> <span id="qTypePreview">Reading</span></span>
+                <span class="badge badge-pill badge-light">Difficulty: <span id="difficultyPreview">5</span></span>
+                <% var todayDate = new Date().toISOString().slice(0,10); %>
+                <span class="badge badge-pill badge-light">Assigned Date: <%- todayDate %></span>
+                <span class="badge badge-pill badge-light">Assigned By: <%- sohoFirstName + ' ' + sohoLastName %></span>
+
+                <div id="questionAudioPreview"></div>
+                <div id="questionPreview" style="font-size:0.9rem;margin-bottom:30px">
+
+                </div>
+
+
+
+
+
+                <div style="text-align: right">
+                    <span style="display:inline" id="audioRecordBtnPreview"></span>
+
+                </div>
+
+                <textarea id="tinyTextEditorPreview" name="tinyTextEditorPreview">
+        </textarea>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // start tinymce editor
+    tinymce.init({
+        setup: function (ed) {
+            ed.on('keyup', function (e) {
+                if (event.key == 1 || event.key == 2 || event.key == 3 || event.key ==
+                    4) { // the update function only runs if 1-4 is inputted
+                    // console.log('Editor contents was modified. Contents: ' + ed.getContent());
+                    var bm = ed.selection.getBookmark(2,
+                        false
+                    ); // define caret location (tinymce bookmarks) - idk what 2, false does but it works
+                    // run replace function on content
+                    var content = ed.getContent({
+                        format: 'html'
+                    });
+
+                    var newContent = pinyinTonify(content);
+
+                    // set content
+                    ed.setContent(newContent, {
+                        format: 'html'
+                    });
+                    ed.selection.moveToBookmark(bm); // move caret to bookmark
+                }
+
+                document.getElementById("questionPreview").innerHTML = ed.getContent();
+
+
+            });
+
+        },
+        selector: 'textarea',
+        min_height: 500,
+        height: '50vh',
+        content_style: "body {font-size: 12pt;}",
+        fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt",
+        menubar: false,
+        invalid_elements: "span",
+        forced_root_block: false,
+        paste_as_text: true, // paste as plain text
+        plugins: "autosave",
+        toolbar: [{
+                name: 'color',
+                items: ['forecolor', 'backcolor']
+            },
+            {
+                name: 'fontsize',
+                items: ['fontsizeselect']
+            },
+            {
+                name: 'formatting',
+                items: ['bold', 'italic', 'underline', 'strikethrough']
+            },
+            {
+                name: 'alignment',
+                items: ['alignleft', 'aligncenter', 'alignright']
+            }
+
+        ],
+    });
+
+
+
+    document.getElementById("audio").addEventListener("change", handleFiles, false);
+
+    function handleFiles(event) {
+        var files = event.target.files;
+        $("#audioPreview").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("audio").load();
+    }
+
+
+    function initUniqueElements(element) {
+        if (document.getElementById("questionType").value == 'Listening') {
+            document.getElementById("audiofile").style.display = "block";
+            document.getElementById("audio").required = true;
+            document.getElementById("questionAudioPreview").innerHTML = `
+                    <figure>
+						<audio controls id="audioPreview"
+							src=""
+							type="audio/mp3">
+							Your browser does not support this 
+							<code>audio</code> element.
+						</audio>
+                    </figure>
+                    `;
+
+        } else if (document.getElementById("questionType").value == 'Speaking') {
+            tinymce.remove("#tinyTextEditorPreview");
+            document.getElementById("tinyTextEditorPreview").style.display = "none";
+
+            document.getElementById("audioRecordBtnPreview").innerHTML = `
+            <button class="button button-secondary button-block button-shadow"
+                        style="margin: 10px 0px; height: 100%; padding: 15px; border-radius: 50%; display:inline" disabled>
+                        <span style="width:15px; height:15px" class="dot"></span>
+                      </button>
+          `;
+
+
+        } else {
+            document.getElementById("audiofile").style.display = "none";
+            document.getElementById("audio").required = false;
+            document.getElementById("questionAudioPreview").innerHTML = ``;
+        }
+    }
+
+
+    function updateQTypePreview(element) {
+        document.getElementById("qTypePreview").innerHTML = document.getElementById("questionType").value;
+    }
+
+    function updateLevelPreviewHSK(element) {
+        document.getElementById("HSKPreview").innerHTML = document.getElementById("hskLevel").value;
+    }
+
+    function updateLevelPreviewUnit(element) {
+        document.getElementById("UnitPreview").innerHTML = document.getElementById("hskUnit").value;
+    }
+
+    function updateDifficultyPreview(element) {
+        document.getElementById("difficultyPreview").innerHTML = document.getElementById("difficulty").value;
+    }
+
+
+    // turn text into pinyin - if you edit this function, edit this in all files across the app...
+    function pinyinTonify(word) {
+        for (var i = 0; i < tonesArr.length; i++) {
+            var regEx = new RegExp("(" + tonesArr[i].str + ")(?!([^<]+)?>)",
+                "gi"); // only replace outside of html tags
+            word = word.replace(regEx, tonesArr[i].toneStr);
+        }
+        return (word);
+    }
+
+    // PREPARE FOR PINYIN TONIFY
+    var tonesArr = [];
+    // create pairs
+    createPairs('a1', 'ā');
+    createPairs('a2', 'á');
+    createPairs('a3', 'ǎ');
+    createPairs('a4', 'à');
+    createPairs('e1', 'ē');
+    createPairs('e2', 'é');
+    createPairs('e3', 'ě');
+    createPairs('e4', 'è');
+    createPairs('i1', 'ī');
+    createPairs('i2', 'í');
+    createPairs('i3', 'ǐ');
+    createPairs('i4', 'ì');
+    createPairs('o1', 'ō');
+    createPairs('o2', 'ó');
+    createPairs('o3', 'ǒ');
+    createPairs('o4', 'ò');
+    createPairs('u1', 'ū');
+    createPairs('u2', 'ú');
+    createPairs('u3', 'ǔ');
+    createPairs('u4', 'ù');
+    createPairs('ü1', 'ǖ');
+    createPairs('ü2', 'ǘ');
+    createPairs('ü3', 'ǚ');
+    createPairs('ü4', 'ǜ');
+    createPairs('an1', 'ān');
+    createPairs('an2', 'án');
+    createPairs('an3', 'ǎn');
+    createPairs('an4', 'àn');
+    createPairs('ang1', 'āng');
+    createPairs('ang2', 'áng');
+    createPairs('ang3', 'ǎng');
+    createPairs('ang4', 'àng');
+    createPairs('en1', 'ēn');
+    createPairs('en2', 'én');
+    createPairs('en3', 'ěn');
+    createPairs('en4', 'èn');
+    createPairs('eng1', 'ēng');
+    createPairs('eng2', 'éng');
+    createPairs('eng3', 'ěng');
+    createPairs('eng4', 'èng');
+    createPairs('in1', 'īn');
+    createPairs('in2', 'ín');
+    createPairs('in3', 'ǐn');
+    createPairs('in4', 'ìn');
+    createPairs('ong1', 'ōng');
+    createPairs('ong2', 'óng');
+    createPairs('ong3', 'ǒng');
+    createPairs('ong4', 'òng');
+    createPairs('ing1', 'īng');
+    createPairs('ing2', 'íng');
+    createPairs('ing3', 'ǐng');
+    createPairs('ing4', 'ìng');
+    createPairs('un1', 'ūn');
+    createPairs('un2', 'ún');
+    createPairs('un3', 'ǔn');
+    createPairs('un4', 'ùn');
+    createPairs('er2', 'ér');
+    createPairs('er3', 'ěr');
+    createPairs('er4', 'èr');
+    createPairs('aō', 'āo');
+    createPairs('aó', 'áo');
+    createPairs('aǒ', 'ǎo');
+    createPairs('aò', 'ào');
+    createPairs('oū', 'ōu');
+    createPairs('oú', 'óu');
+    createPairs('oǔ', 'ǒu');
+    createPairs('où', 'òu');
+    createPairs('aī', 'āi');
+    createPairs('aí', 'ái');
+    createPairs('aǐ', 'ǎi');
+    createPairs('aì', 'ài');
+    createPairs('eī', 'ēi');
+    createPairs('eí', 'éi');
+    createPairs('eǐ', 'ěi');
+    createPairs('eī', 'èi');
+
+
+    function createPairs(str, toneStr) {
+        var pairs = {
+            str: str,
+            toneStr: toneStr,
+        }
+        tonesArr.push(pairs);
+    }
+</script>

@@ -1,0 +1,870 @@
+  
+<!-- Homework save TOAST -->
+<div id="homeworkSaveToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Homework correction saved successfully</span>
+  </div>
+</div>
+
+<div class="row" style="margin:-30px">
+
+  <div class="col-sm-3" style="height:100vh;background: #f6f9fc;overflow: hidden;overflow-y: scroll;">
+
+    <a class="button button-secondary button-block button-shadow" style="margin: 10px 0px;display:inline-block"
+      href="/sohohomeworkcreate" data-toggle="tooltip" data-placement="bottom" title="Create homework">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square"
+        viewBox="0 0 16 16">
+        <path
+          d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+      </svg>
+    </a>
+    <a class="button button-secondary button-block button-shadow" style="margin: 10px 0px;display:inline-block"
+      href="/sohohomeworkcollection" data-toggle="tooltip" data-placement="bottom" title="Your homework pieces">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder"
+        viewBox="0 0 16 16">
+        <path
+          d="M.54 3.87L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z" />
+      </svg>
+    </a>
+    <a class="button button-secondary button-block button-shadow" style="margin: 10px 0px;display:inline-block"
+      href="/sohohomeworkall" data-toggle="tooltip" title="All homework pieces">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z" />
+      </svg>
+    </a>
+
+    <select id="class" name="class" class="selectpicker form-control" data-live-search="true" data-size="20"
+      onchange="loadClassHomework(this)">
+      <option value="unmarked">All Unmarked Homework</option>
+
+      <% for (var i = 0 ; i < (classes.length) ; i ++) { %>
+
+      <% if (classes[i].sohoUID == sohoUID) { %>
+
+      <% if (classes[i].sumTeaAction > 0) { %>
+      <option data-className='<%- classes[i].className %>' value="<%- classes[i].sohoCID %>" class="notifDropdown"
+        data-content="<span class='badge badge-danger'><%- classes[i].sumTeaAction %></span> <%- classes[i].className %>">
+        <%- classes[i].className %></option>
+      <% } else { %>
+      <option data-className='<%- classes[i].className %>' value="<%- classes[i].sohoCID %>"><%- classes[i].className %>
+      </option>
+      <% } %>
+
+      <% } else { %>
+
+      <% if (classes[i].sumTeaAction > 0) { %>
+      <option style="background-color: #ffeaa7;" data-className='<%- classes[i].className %>'
+        value="<%- classes[i].sohoCID %>" class="notifDropdown"
+        data-content="<span class='badge badge-danger'><%- classes[i].sumTeaAction %></span> <span class='badge badge-light'><%- classes[i].firstName + ' ' + classes[i].lastName %></span> <%- classes[i].className %>">
+        <%- classes[i].className %>
+      </option>
+      <% } else { %>
+      <option style="background-color: #ffeaa7;" data-className='<%- classes[i].className %>'
+        value="<%- classes[i].sohoCID %>"
+        data-content="<span class='badge badge-light'><%- classes[i].firstName + ' ' + classes[i].lastName %></span> <%- classes[i].className %>">
+        <%- classes[i].className %>
+      </option>
+      <% } %>
+
+      <% } %>
+      <% } %>
+
+    </select>
+    <span class="badge badge-secondary" id="filterNotif" style="display: none;">Filter: Last Updated >
+      <%- lastUpdatedDate %></span>
+    <ul id="middleBar" style="display: inline-block;padding-left:5px;width:100%">
+
+    </ul>
+
+  </div>
+
+  <div class="col-sm-9" style="height: 100vh;overflow: hidden;overflow-y: scroll;" id="rightBar">
+
+  </div>
+  <div id="preloadClassID" style="display:none"><%- preloadClassID %></div>
+  <div id="lastUpdatedDate" style="display:none"><%- lastUpdatedDate %></div>
+
+</div>
+
+<script>
+  var preloadClassID = document.getElementById("preloadClassID").innerHTML;
+
+  if (preloadClassID != "") {
+    document.getElementById("class").value = preloadClassID;
+    loadClassHomework(document.getElementById("class"));
+  } else {
+    var hwToMark = <%- JSON.stringify(hwToMark) %> ;
+    var toggleStuName = 1; // off
+    var selectedClass = 0;
+    loadMiddleAndRightBar(hwToMark, selectedClass, toggleStuName);
+  }
+
+  function loadClassHomework(e) {
+    var selectedClass = document.getElementById("class").value;
+    var lastUpdatedDate = document.getElementById("lastUpdatedDate").textContent;
+    var className = e.options[e.selectedIndex].getAttribute('data-className');
+
+    // toggle on filter notif
+    if (lastUpdatedDate != '') {
+      document.getElementById('filterNotif').style = "flex";
+    }
+    if (selectedClass == 'unmarked') {
+      var toggleStuName = 1; // on
+      var selectedClass = 0;
+      loadMiddleAndRightBar(hwToMark, selectedClass, toggleStuName);
+    } else {
+      // ajax load the the homework assignments pertaining to this one
+      ajaxGetHomeworkAssignment(selectedClass, className, lastUpdatedDate);
+    }
+  }
+
+  function ajaxGetHomeworkAssignment(selectedClass,
+    className, lastUpdatedDate) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxGetHomeworkAssignment",
+      timeout: 30000,
+      data: {
+        selectedClass: selectedClass,
+        lastUpdatedDate: lastUpdatedDate,
+      },
+      success: function (data) {
+        // console.log('data: ' + JSON.stringify(data));
+        //show content
+        console.log('successful post');
+        var toggleStuName = 0; // off
+        loadMiddleAndRightBar(data, selectedClass, toggleStuName);
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function loadMiddleAndRightBar(data, selectedClass, toggleStuName) {
+
+    // clear middle and right bar
+    document.getElementById("middleBar").innerHTML = "";
+    document.getElementById("rightBar").innerHTML = "";
+
+    // remove all tiny mce editors
+    for (var i = tinymce.editors.length - 1; i > -1; i--) {
+      var ed_id = tinymce.editors[i].id;
+      tinyMCE.execCommand("mceRemoveEditor", true, ed_id);
+    }
+
+    // populate middle bar with assignment objects
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].state == 'teaAction') { // red dot
+        var stateBadge = 'badge-danger';
+        var disableFade = '';
+      } else if (data[i].state == 'complete') {
+        var stateBadge = 'badge-success';
+        var disableFade = 'disableFade'
+      } else if (data[i].state == 'corrected') {
+        var stateBadge = 'badge-warning';
+        var disableFade = '';
+      } else {
+        var stateBadge = 'badge-light';
+        var disableFade = '';
+      }
+
+      // star?
+      if (data[i].assignedBy != null) {
+        var starHTML = `
+        <span class="badge badge-light badge-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" style="display:inline; color:gold;" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+          </svg>
+        </span>
+        `;
+      } else {
+        var starHTML = '';
+      }
+
+      var content = `
+               <li class="nav-menu-item">
+      <div class="nav-wrapper">
+          <a class="nav-menu-link ${disableFade}" href="#box` + data[i].sohoHAID + `">
+              <span>
+                  <span class="badge badge-pill ${stateBadge}" id="idPillMid${data[i].sohoHAID}">ID: ` + data[i].sohoHAID + `</span>
+                  <span class="badge badge-pill badge-light">HSK ` + data[i].level + `</span>
+                  ${starHTML}
+              </span>
+          </a>
+      </div>
+  </li>
+  `;
+
+
+      document.getElementById("middleBar").insertAdjacentHTML("beforeend", content);
+
+      // populate right section with detailed view of assignment objects
+
+      // red dot - label html
+
+      if (data[i].state == 'teaAction') {
+        var stateBadge = 'badge-danger';
+      } else if (data[i].state == 'complete') {
+        var stateBadge = 'badge-success';
+      } else if (data[i].state == 'corrected') {
+        var stateBadge = 'badge-warning';
+      } else {
+        var stateBadge = 'badge-light';
+      }
+
+
+      // define answerHTML
+      var textAnswerHTML;
+      if (data[i].answerType == 'text') {
+        if (data[i].answer == null || data[i].answer == 'null') {
+          textAnswerHTML = '';
+        } else {
+          textAnswerHTML = data[i].answer;
+        }
+      }
+
+      var answerHTML;
+
+      if (data[i].answerType == 'text') {
+        var answerHTML = `
+<div id="htmlTextEditor` + i + `" onclick="tinyMCEinit(` + i + `,` + data[i].sohoHAID + `,` + data[i].sohoHID +
+        `,` + data[i].sohoCID + `)" class="border-secondary tinyPlaceholderTextBox" style="word-break: break-word;">
+<div id="tooltip` + i + `" class="subtext badge badge-pill badge-light" style="float: right; " >
+            
+</div>
+  ${textAnswerHTML}
+    </div>
+
+<textarea data-id="<%- i %>" data-homeworkAssignmentID="` + data[i].sohoHAID + `"
+id="tinyTextEditor` + i + `" name="tinyTextEditor" style="display:none">
+${textAnswerHTML}
+</textarea>
+`;
+      } else { // audio
+      var answerHTML = `
+      <div id="" class="subtext badge badge-pill badge-light">你需要打开你的VPN才能听到学生的录音! Turn on your VPN to listen to student recordings!.</div>
+      <br>
+      <div class="qAudio"><figure><audio controls="" id="audioPreview" src="${data[i].answer}" type="audio/mp3" preload="none">Your browser does not support this <code>audio</code> element.</audio></figure></div>
+`;
+      }
+
+      // define stuNameHTML
+      if (toggleStuName == 1) {
+        var stuNameHTML = `<span class="badge badge-pill badge-secondary">` + data[i].className + `</span>`;
+      } else {
+        var stuNameHTML = '';
+      }
+
+      // add teacher name if admin
+      if (data[i].firstName) {
+        var teaNameHTML = `<span class="badge badge-pill badge-light">` + data[i].firstName + ' ' + data[i].lastName +
+          `</span>`;
+      } else {
+        var teaNameHTML = '';
+      }
+
+
+      // star?
+      if (data[i].assignedBy != null) {
+        var starHTML = `
+        <span class="badge badge-light badge-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" style="display:inline; color:gold;" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+          </svg>
+          Assigned by teacher
+        </span>
+        `;
+      } else {
+        var starHTML = '';
+      }
+
+      // thumb HTML
+      if (data[i].userLikeCount > 0) { // filled in thumb
+        var thumbHTML = `<svg id="thumbsvg${data[i].sohoHAID}" xmlns="http://www.w3.org/2000/svg" style="display:inline-flex;"  width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+  <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+</svg>`;
+        var thumbDisableHTML = `disabled`;
+      } else {
+        var thumbHTML = `<svg id="thumbsvg${data[i].sohoHAID}" xmlns="http://www.w3.org/2000/svg" style="display:inline-flex; width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+  <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>
+</svg>`;
+var thumbDisableHTML = ``;
+      }
+
+      // comment html
+      if (data[i].content) { // if there exists a comment
+        if (data[i].sFirstName) { // student
+          var commentHTML = `<a class="subtext" href="javascript:void(0);" onclick="viewAllComments(${data[i].sohoHAID});">View all comments</a>
+<div id="comments${data[i].sohoHAID}" class="subtext">
+<b>${data[i].sFirstName + ' ' + data[i].sLastName}</b>
+<br>
+${data[i].content}
+<br>
+</div>`;
+        } else { // teacher
+          var commentHTML = `
+          <a class="subtext" href="javascript:void(0);" onclick="viewAllComments(${data[i].sohoHAID});">View all comments</a>
+<div id="comments${data[i].sohoHAID}" class="subtext">
+<b>${data[i].tFirstName + ' ' + data[i].tLastName}</b>
+<br>
+${data[i].content}
+<br>
+</div>
+          `;
+        }
+      } else {
+        var commentHTML = `<div id="comments${data[i].sohoHAID}" class="subtext"></div>`;
+      }
+
+      // CONTENT
+      var content = `
+<div id="box` + data[i].sohoHAID + `" class="box-shadow" style="width: 100%;position:inherit">
+<div style="padding:40px;text-align:left">
+<span class="badge badge-pill ${stateBadge}" id="idPillRight${data[i].sohoHAID}">ID: ` + data[i].sohoHAID + `</span>
+${stuNameHTML}
+${teaNameHTML}
+<span class="badge badge-pill badge-light">HSK ` + data[i].level + ` ` + data[i].questionType + `</span>
+<span class="badge badge-pill badge-light">Difficulty: ` + data[i].difficulty + `</span>
+<span class="badge badge-pill badge-light">Last Updated: ` + data[i].lastUpdated + `</span>
+${starHTML}
+<div style="font-size:0.9rem" class="pinyinAudio">
+
+` + data[i].question + `
+</div>
+<form method="post">
+<div style="text-align: right">
+
+<input type="hidden" name='class' id='class' value='` + selectedClass + `'>
+<input type="hidden" name='homeworkID' id='homeworkID' value='` + data[i].sohoHAID + `'>
+
+<button type="button" onclick="like(${data[i].sohoHAID},${i})" id="likeButton` + i + `"
+style="margin:10px 0px 10px auto;display:inline-flex;"
+      class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="This homework is fine" ${thumbDisableHTML}>
+${thumbHTML}
+<span class="badge badge-light" id="likeCount${data[i].sohoHAID}">${data[i].likeCount}</span>
+
+</button>
+
+<button type="button" onclick="save(${data[i].sohoHAID},${i})"  id="saveButton` + i + `"
+style="margin:10px 0px 10px auto;display:none;"
+class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Submit correction">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:inline-flex;" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+        <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707V11.5z"/>
+        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+      </svg>
+</button>
+
+
+</div>
+
+
+
+${answerHTML}
+
+</form>
+
+<br>
+<figure id="audioWrapper` + i + `" style="display:none;max-width:400px">
+  <audio controls id="audio` + i + `" src="" type="audio/mp3" preload="none">
+    Your browser does not support this
+    <code>audio</code> element.
+  </audio>
+</figure>
+
+<div id="annotated` + i + `">
+<!-- ANNOTATED TEXT -->
+<h5 id="annotatedTitle` + i + `" style="margin-top:12px;display:none">Annotated Text</h5>
+
+<p id="annotatedText` + i + `" class="subtext" style="display:none"></p>
+
+<!-- OTHER STUDENT ANSWERS -->
+<h5 id="answerTitle` + i + `" style="margin-top:12px;display:none">Student Answers</h5>
+<div id="answerText` + i + `" class="subtext" style="display:none;max-height:50vh;overflow:scroll"></div>
+
+</div>
+
+<!-- COMMENTS -->
+${commentHTML}
+
+<div style="display: inline-flex;width: 100%;" >
+  <textarea id="commentBox${data[i].sohoHAID}" type="text" class="commentBox form-control"
+          placeholder="Write a comment..." rows="1" style="font-size:0.8rem;" data-value="${data[i].sohoHAID}"></textarea>
+
+        <div class="input-group-append" style="margin: auto 0 0 0;">
+          
+          <button class="button button-secondary button-shadow message_form__button" type="button" onclick="comment(${data[i].sohoHAID})" style="border-radius: 0px 10px 10px 0px;"
+            id="commentBtn${data[i].sohoHAID}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-symmetry-horizontal" viewBox="0 0 16 16">
+              <path
+                d="M13.5 7a.5.5 0 0 0 .24-.939l-11-6A.5.5 0 0 0 2 .5v6a.5.5 0 0 0 .5.5h11zm.485 2.376a.5.5 0 0 1-.246.563l-11 6A.5.5 0 0 1 2 15.5v-6a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .485.376zM11.539 10H3v4.658L11.54 10z" />
+            </svg></button>
+        </div>
+        
+</div>
+
+
+</div>
+</div>
+`
+
+
+      document.getElementById("rightBar").insertAdjacentHTML("beforeend", content);
+
+    }
+
+    // Random integer function
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    // tooltips
+    $(document).ready(
+      function () {
+        var tooltips = ["You can type tone marks using numbers (e.g. ni1 = nī)",
+          `Click <img src="https://www.tiny.cloud/docs/images/icons/translate.svg" style="filter: brightness(0); display: inline-block; width: 20px"/> to enable audio and pinyin for Chinese characters`,
+          `Click <img src="https://www.tiny.cloud/docs/images/icons/accessibility-check.svg" style="filter: brightness(0); display: inline-block; width: 18px; padding-bottom: 3px"/> to see other student answers`
+        ];
+        for (var i = 0; i < data.length; i++) {
+          var index = getRandomInt(tooltips.length);
+          document.getElementById('tooltip' + i).innerHTML = "Tip: " + tooltips[index];
+
+        }
+
+        // tooltips
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip({
+            boundary: 'window'
+          })
+        });
+      });
+
+      // load comment box to have the right attributes and behaviour
+      loadCommentBox();
+
+
+
+  }
+
+  function tinyMCEinit(id, homeworkAssignmentID, homeworkID, classID) {
+    // change archive as done button to submit 
+    document.getElementById('likeButton' + id).style.display = "none";
+    document.getElementById('saveButton' + id).style.display = "inline-flex";
+
+    // display tiny text editor
+    document.getElementById('tinyTextEditor' + id).style.display = "flex";
+    document.getElementById('htmlTextEditor' + id).style.display = "none";
+
+    tinymce.init({
+      setup: function (ed) {
+        ed.on('keyup', function (e) {
+          if (event.key == 1 || event.key == 2 || event.key == 3 || event.key ==
+            4) { // the update function only runs if 1-4 is inputted
+            // console.log('Editor contents was modified. Contents: ' + ed.getContent());
+            var bm = ed.selection.getBookmark(2,
+              false); // define caret location (tinymce bookmarks) - idk what 2, false does but it works
+            // run replace function on content
+            var content = ed.getContent({
+              format: 'html'
+            });
+
+            var newContent = pinyinTonify(content);
+
+            // set content
+            ed.setContent(newContent, {
+              format: 'html'
+            });
+            ed.selection.moveToBookmark(bm); // move caret to bookmark
+          }
+
+        });
+        ed.on('focus', function (e) {
+          timeArray = [];
+          console.log('timeArray: ' + id + timeArray)
+        });
+        // Add the custom hint button - other student answers
+        ed.ui.registry.addButton('hintBtn', {
+          icon: 'accessibility-check',
+          tooltip: 'See other student answers to this question',
+          onAction: function (_) {
+            document.getElementById('audioWrapper' + id).style.display = 'block';
+            // ajax get answers for this question
+            ajaxGetAnswersForHomework(homeworkID, id, classID);
+          },
+        });
+
+      },
+      selector: '#tinyTextEditor' + id,
+      min_height: 500,
+      height: '30vh',
+      content_style: "body {font-size: 12pt;letter-spacing:0.07em;}",
+      fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt 20pt",
+      menubar: false,
+      forced_root_block: false,
+      plugins: "autosave",
+      content_css: '/css/tinystyle.css',
+      toolbar: [{
+          name: 'custom',
+          items: ['hintBtn']
+        }
+      ],
+    });
+
+  }
+
+  // turn text into pinyin - if you edit this function, edit this in all files across the app...
+  function pinyinTonify(word) {
+    for (var i = 0; i < tonesArr.length; i++) {
+      var regEx = new RegExp("(" + tonesArr[i].str + ")(?!([^<]+)?>)", "gi"); // only replace outside of html tags
+      word = word.replace(regEx, tonesArr[i].toneStr);
+    }
+    return (word);
+  }
+
+  // PREPARE FOR PINYIN TONIFY
+  var tonesArr = [];
+  // create pairs
+  createPairs('a1', 'ā');
+  createPairs('a2', 'á');
+  createPairs('a3', 'ǎ');
+  createPairs('a4', 'à');
+  createPairs('e1', 'ē');
+  createPairs('e2', 'é');
+  createPairs('e3', 'ě');
+  createPairs('e4', 'è');
+  createPairs('i1', 'ī');
+  createPairs('i2', 'í');
+  createPairs('i3', 'ǐ');
+  createPairs('i4', 'ì');
+  createPairs('o1', 'ō');
+  createPairs('o2', 'ó');
+  createPairs('o3', 'ǒ');
+  createPairs('o4', 'ò');
+  createPairs('u1', 'ū');
+  createPairs('u2', 'ú');
+  createPairs('u3', 'ǔ');
+  createPairs('u4', 'ù');
+  createPairs('ü1', 'ǖ');
+  createPairs('ü2', 'ǘ');
+  createPairs('ü3', 'ǚ');
+  createPairs('ü4', 'ǜ');
+  createPairs('an1', 'ān');
+  createPairs('an2', 'án');
+  createPairs('an3', 'ǎn');
+  createPairs('an4', 'àn');
+  createPairs('ang1', 'āng');
+  createPairs('ang2', 'áng');
+  createPairs('ang3', 'ǎng');
+  createPairs('ang4', 'àng');
+  createPairs('en1', 'ēn');
+  createPairs('en2', 'én');
+  createPairs('en3', 'ěn');
+  createPairs('en4', 'èn');
+  createPairs('eng1', 'ēng');
+  createPairs('eng2', 'éng');
+  createPairs('eng3', 'ěng');
+  createPairs('eng4', 'èng');
+  createPairs('in1', 'īn');
+  createPairs('in2', 'ín');
+  createPairs('in3', 'ǐn');
+  createPairs('in4', 'ìn');
+  createPairs('ong1', 'ōng');
+  createPairs('ong2', 'óng');
+  createPairs('ong3', 'ǒng');
+  createPairs('ong4', 'òng');
+  createPairs('ing1', 'īng');
+  createPairs('ing2', 'íng');
+  createPairs('ing3', 'ǐng');
+  createPairs('ing4', 'ìng');
+  createPairs('un1', 'ūn');
+  createPairs('un2', 'ún');
+  createPairs('un3', 'ǔn');
+  createPairs('un4', 'ùn');
+  createPairs('er2', 'ér');
+  createPairs('er3', 'ěr');
+  createPairs('er4', 'èr');
+  createPairs('aō', 'āo');
+  createPairs('aó', 'áo');
+  createPairs('aǒ', 'ǎo');
+  createPairs('aò', 'ào');
+  createPairs('oū', 'ōu');
+  createPairs('oú', 'óu');
+  createPairs('oǔ', 'ǒu');
+  createPairs('où', 'òu');
+  createPairs('aī', 'āi');
+  createPairs('aí', 'ái');
+  createPairs('aǐ', 'ǎi');
+  createPairs('aì', 'ài');
+  createPairs('eī', 'ēi');
+  createPairs('eí', 'éi');
+  createPairs('eǐ', 'ěi');
+  createPairs('eī', 'èi');
+
+
+  function createPairs(str, toneStr) {
+    var pairs = {
+      str: str,
+      toneStr: toneStr,
+    }
+    tonesArr.push(pairs);
+  }
+
+
+  // get answers to hw
+  function ajaxGetAnswersForHomework(homeworkId, id, classID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxGetAnswersForHomework",
+      timeout: 30000,
+      data: {
+        homeworkId: homeworkId,
+        classID: classID,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        console.log('data: ' + JSON.stringify(data));
+        // show and update some html element
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+            var content = `
+            <b>` + data[i].firstName + ' ' + data[i].lastName + `</b>
+            <span class="badge badge-pill badge-light">` + data[i].assignDate.substring(0, 10) + `</span>
+            <span class="badge badge-pill badge-light">ID: ` + data[i].sohoHAID + `</span>
+            <p>` + data[i].answer + `</p>
+            `;
+            document.getElementById('answerText' + id).insertAdjacentHTML("beforeend", content);
+          }
+          mandarinspot.annotate('#answerText' + id);
+          mandarinspot.showInline("visible");
+        } else {
+          var content = `
+            <b>No completed homework tasks available - You're the first!</b>
+            `;
+          document.getElementById('answerText' + id).insertAdjacentHTML("beforeend", content);
+        }
+        document.getElementById('answerTitle' + id).style.display = 'block';
+        document.getElementById('answerText' + id).style.display = 'block';
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+
+  // tool tips
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+      boundary: 'window'
+    })
+  });
+
+  
+  function like(homeworkID, i) {
+    ajaxLikeHomework(homeworkID, i);
+  }
+
+    // ajax like hw
+    function ajaxLikeHomework(homeworkID, i) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxLikeHomework",
+      timeout: 30000,
+      data: {
+        homeworkID: homeworkID,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // incremenet like number
+        var currentLikeNo = parseInt(document.getElementById('likeCount' + homeworkID).textContent);
+        document.getElementById('likeCount' + homeworkID).textContent = currentLikeNo + 1;
+        // change thumb to filled thumb
+        document.getElementById('thumbsvg' + homeworkID).innerHTML = `<path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>`;
+        // disable thumb
+        document.getElementById('likeButton' + i).disabled = true;
+        // change pill color
+        document.getElementById('idPillRight' + homeworkID).classList.add("badge-warning");
+        document.getElementById('idPillMid' + homeworkID).classList.add("badge-warning");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-danger");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-danger");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-light");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-light");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-success");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-success");
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function comment(homeworkID) {
+    var comment = document.getElementById('commentBox' + homeworkID).value;
+    ajaxCommentHomework(comment, homeworkID)
+  }
+
+  // ajax comment
+  function ajaxCommentHomework(comment, homeworkID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCommentHomework",
+      timeout: 30000,
+      data: {
+        comment: comment,
+        homeworkID: homeworkID,
+        who: 'tea',
+      },
+      success: function (data) {
+        console.log('successful post');
+      document.getElementById("commentBox" + homeworkID).value = '';
+      var content = `<b>You</b>
+        <br>
+        ${nl2br(comment)}
+        <br>`;
+
+      document.getElementById("comments" + homeworkID).insertAdjacentHTML("beforeend", content); 
+      
+      // change state to corrected
+      document.getElementById('idPillRight' + homeworkID).classList.add("badge-warning");
+        document.getElementById('idPillMid' + homeworkID).classList.add("badge-warning");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-danger");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-danger");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-light");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-light");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-success");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-success");
+
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function nl2br(str, is_xhtml) { // new line to br
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+  }
+
+  function viewAllComments(homeworkID) {
+    ajaxViewAllComments(homeworkID)
+  }
+
+  // ajax comment
+  function ajaxViewAllComments(homeworkID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxViewAllComments",
+      timeout: 30000,
+      data: {
+        homeworkID: homeworkID,
+      },
+      success: function (data) {
+        console.log('successful post');
+      document.getElementById("comments" + homeworkID).innerHTML = '';
+
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].sFirstName) { // it's a student comment
+          var content = `<b>${data[i].sFirstName + ' ' + data[i].sLastName}</b>
+        <br>
+        ${data[i].content}
+        <br>`;
+          } else {
+            var content = `<b>${data[i].tFirstName + ' ' + data[i].tLastName}</b>
+        <br>
+        ${data[i].content}
+        <br>`;
+          }
+
+
+      document.getElementById("comments" + homeworkID).insertAdjacentHTML("beforeend", content);
+
+}
+       
+      
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function loadCommentBox() {
+  $(".commentBox").keypress(function (e) {
+      this.style.height = "";
+      this.style.height = this.scrollHeight + "px";
+
+      var id = e.target.getAttribute('data-value');
+      if (e.which == 13 && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById("commentBtn" + id).click(); // trigger click event to trigger eventlistener
+        // reset height
+          document.getElementById('commentBox' + id).setAttribute('style', 'height:46px;overflow-y:scroll;font-size:0.8rem;max-height: 8em');
+      }
+    });
+  }
+    
+    // SAVE HW
+    function save(homeworkID, i) {
+    var text = tinymce.activeEditor.getContent({format: 'raw'});
+    ajaxSaveHomeworkTea(text, homeworkID, i)
+  }
+
+  // ajax save
+  function ajaxSaveHomeworkTea(text, homeworkID, i) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxSaveHomeworkTea",
+      timeout: 30000,
+      data: {
+        text: text,
+        homeworkID: homeworkID,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // close the tinymce editor - with updated text
+        tinymce.activeEditor.remove();
+        document.getElementById('tinyTextEditor' + i).style.display = 'none';
+        document.getElementById('htmlTextEditor' + i).style.display = 'block';
+        document.getElementById('htmlTextEditor' + i).innerHTML = data;
+        // change pill colors
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-danger");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-success");
+        document.getElementById('idPillRight' + homeworkID).classList.remove("badge-light");
+        document.getElementById('idPillRight' + homeworkID).classList.add("badge-warning");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-danger");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-success");
+        document.getElementById('idPillMid' + homeworkID).classList.remove("badge-light");
+        document.getElementById('idPillMid' + homeworkID).classList.add("badge-warning");
+        // show toast
+        $('#homeworkSaveToast').toast('show'); // toast notification
+   // switch archive save button
+   document.getElementById('likeButton' + i).style.display = "inline-flex";
+    document.getElementById('saveButton' + i).style.display = "none";
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+</script>

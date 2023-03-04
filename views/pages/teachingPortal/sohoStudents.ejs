@@ -1,0 +1,596 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+
+<div class="cardWithShadow">
+<div class="highlightBox" style="margin: 0">
+    <b>Noticeboard</b>
+    <ol style="margin: 0">
+        <li>You can now see your reviews in your <a href="/sohoprofile">profile page</a> and your public profile. Ask students for reviews by sending them this link: https://culturestride.com/a/classadmin. Students can submit one review for every class, so if you have lots of classes in the past, you can instantly have lots of great ratings! </li>
+        <li>Complete your public <a href="/sohoprofile">profile</a> </li>
+        <li>Upload a profile video <a href="https://drive.google.com/drive/folders/17y8I_SJ0q5_JSOt8bj6a8rwF6LPTC0XF?usp=sharing">here</a> - ask Masae if you have any questions. </li>
+    </ol>
+
+<div style="width:100%;text-align: right;">
+    <span class="minitext">Michael (Co-Founder)</span>
+</div>
+</div></div>
+<!-- Upcoming Classes -->
+<div class="cardWithShadow">
+
+<h4 style="display:inline-block">Upcoming Classes (48 Hours)</h4>
+
+<div style="text-align: center">
+    <!-- Current slot allocations table -->
+    <table class="striped highlight" style="overflow-x:scroll; width:100%; display:block;">
+
+        <!-- Top row -->
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th id="whenHeaderUpcoming">When</th>
+                <th>Hours</th>
+                <th>Details</th>
+                <th> </th>
+            </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody>
+            <% for (var i = 0 ; i < upcomingClass.length ; i ++ ) { %>
+                <% if (upcomingClass[i].confirmed == 1 || upcomingClass[i].confirmed == 3 || upcomingClass[i].confirmed == -1) { %>
+                    <% var confirmedClass = 'disableFade'; %>
+                <% } else { %>
+                    <% var confirmedClass = ''; %>
+                <% } %>
+
+            <tr class="<%- confirmedClass %>">
+                <td><%- upcomingClass[i].title %> 
+                    <% if (upcomingClass[i].confirmed == 1 || upcomingClass[i].confirmed == 3 || upcomingClass[i].confirmed == -1) { %>
+                        <span class="badge badge-light badge-pill">unconfirmed</span>
+                    <% } %>
+                </td>
+                <td id="whenUpcoming<%- i %>">
+                    <script>
+                        var mom = moment('<%- upcomingClass[i].start %>', 'YYYY-MM-DDTHH:mm:ssZ').local().format('dddd DD/MM/YYYY, HH:mm'); 
+                        document.getElementById('whenUpcoming<%- i %>').textContent = mom;
+                    </script>
+                </td>
+                <td>
+                    <% var startMom = moment( upcomingClass[i].start , 'YYYY-MM-DDTHH:mm:ssZ');
+                    var endMom = moment( upcomingClass[i].end , 'YYYY-MM-DDTHH:mm:ssZ')
+                    var diff = endMom.diff(startMom, 'hours', true); %>
+
+                    <% if (upcomingClass[i].lessonType == 'practical' && upcomingClass[i].sCount == 1) { %>
+                        <span data-toggle="tooltip" title="Practical class has <%- upcomingClass[i].sCount %> student so teach for 0.5 hour">0.5</span>
+                    <% } else if (upcomingClass[i].lessonType == 'practical' && upcomingClass[i].sCount == 2) { %>
+                        <span data-toggle="tooltip" title="Practical class has <%- upcomingClass[i].sCount %> student so teach for 0.75 hour">0.75</span>
+                    <% } else if (upcomingClass[i].lessonType == 'practical') { %>
+                        <span data-toggle="tooltip" title="Practical class has <%- upcomingClass[i].sCount %> students so teach for 1 hour"><%- diff %></span>
+                    <% } else { %>
+                        <%- diff %>
+                    <% } %>
+                </td>
+
+                </td>
+              <td>
+                  
+                  <% var memberJSON = JSON.parse(upcomingClass[i].memberJSON); %>
+                  <% if (memberJSON[0].className != null) { %>
+                  <% for (var j = 0 ; j < memberJSON.length ; j ++ ) { %>
+                    <%- memberJSON[j].className %>,
+                    <% } %>
+                    <% } %>
+                  </td>
+                <td>
+                    <% if (upcomingClass[i].meetingUrl) { %>
+                        <a 
+                            style="display:inline-flex;width: fit-content;position:relative;top:-3px;"
+                            class="button button-primary button-block button-shadow button-icon" href="<%- upcomingClass[i].meetingUrl %>"
+                            target="_blank">Join
+                            <svg style="margin-left:5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                              class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd"
+                                d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+                            </svg>
+                          </a>
+                    <% } else if (sohoVideoConfPMI) { %>
+                        <a 
+                            style="display:inline-flex;width: fit-content;position:relative;top:-3px;"
+                            class="button button-primary button-block button-shadow button-icon" href="<%- sohoVideoConfPMI %>"
+                            target="_blank">Join
+                            <svg style="margin-left:5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                              class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd"
+                                d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+                            </svg>
+                          </a>
+                    <% } %>
+
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+<% if (sohoFirst.length > 0) { %>
+    <div class="cardWithShadow">
+
+<!-- UNCONFIRMED CLASSES -->
+<h4>New Classes Request</h4>
+
+<div style="text-align: center">
+    <!-- Current slot allocations table -->
+    <table class="striped highlight" style="overflow-x:scroll; width:100%; display:block;">
+
+        <!-- Top row -->
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Type</th>
+                <th id="whenNewClassesRequestHeader">When</th>
+                <th> </th>
+            </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody> 
+            <% for (var i = 0 ; i < sohoFirst.length ; i ++ ) { %>
+
+            <% if (sohoFirst[i].confirmed == 0) { %>
+            <tr>
+                <td style="width:20vw;">
+                    <%- sohoFirst[i].title %>
+                    <% if (sohoFirst[i].manualBook == 0) { %>
+                        <span class="badge badge-light badge-pill">new student</span>
+                    <% } %>
+                </td>
+                <% var startMom = moment(sohoFirst[i].start, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                <% var endMom = moment(sohoFirst[i].end, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+
+                
+                <td><span class="badge badge-light badge-pill"><%- sohoFirst[i].lessonType %></span></td>
+                <td id="whenNewClassesRequest<%- i %>">
+                    <script>
+                        var mom = moment('<%- sohoFirst[i].start %>', 'YYYY-MM-DDTHH:mm:ssZ').local().format('dddd DD/MM/YYYY, HH:mm'); 
+                        var mom2 = moment('<%- sohoFirst[i].end %>', 'YYYY-MM-DDTHH:mm:ssZ').local().format('HH:mm')
+                        document.getElementById('whenNewClassesRequest<%- i %>').textContent = mom + ' - ' + mom2;
+                    </script>
+                </td>
+
+                <td>
+
+                    <form method="post">
+                        <input type="hidden" name='sohoAID' id='sohoAID' value='<%- sohoFirst[i].sohoAID %>'>
+                        <button type="submit" style="padding: 16px 20px;display:inline-block"
+                            formaction="/sohoAcceptTrialStudent"
+                            class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Accept"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                              </svg></button>
+                        <button type="submit" style="padding: 16px 20px;display:inline-block"
+                            formaction="/sohoRejectTrialStudent"
+                            class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Reject"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                              </svg></button>
+                    </form>
+                </td>
+            </tr>
+            <% } else if (sohoFirst[i].confirmed == -1){ %>
+            <tr style="background:#fab1a0">
+                <td>
+                    <%- sohoFirst[i].firstName + ' ' + sohoFirst[i].lastName %>
+                </td>
+                <td><span class="badge badge-light badge-pill"><%- sohoFirst[i].lessonType %></span></td>
+
+                <% var startMom = moment(sohoFirst[i].start, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                <% var endMom = moment(sohoFirst[i].end, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+
+                <td><%- startMom.clone().local().format('dddd DD/MM/YYYY, HH:mm') + ' - ' + endMom.clone().local().format('HH:mm Z') %></td>
+                <td>
+                    Rejected - Michael/Masae will contact you
+                </td>
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<% } %>
+
+
+
+
+
+<% if (sohoPermission == 0) { %>
+<!-- EXISTING STUDENTS -->
+<div>
+    <h4 style="display:inline-block">All Students</h4>
+</div>
+<div style="text-align: center">
+    <!-- Current slot allocations table -->
+    <table class="striped highlight" style="overflow-x:scroll; width:100%; display:block;">
+        <!-- Top row -->
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Details</th>
+                <th>Last Class</th>
+                <th>Next Class</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+            <% for (var i = 0 ; i < sohoStudents.length ; i ++ ) { %>
+            <tr id="activeStudentRow<%-sohoStudents[i].sohoCID %>">
+                <td style="max-width: 200px;overflow: auto;">
+                    <%- sohoStudents[i].sFirstName + ' ' + sohoStudents[i].sLastName %>
+                </td>
+                <td>
+                    <% if (sohoStudents[i].classType == 'free') { %>
+                        <span class="badge badge-primary badge-pill"><%- sohoStudents[i].classType + ' ' + sohoStudents[i].classCount %></span>
+                    <% } else { %>
+                        <span class="badge badge-light badge-pill"><%- sohoStudents[i].classType + ' ' + sohoStudents[i].classCount %></span>
+                    <% } %>
+                    <% if (sohoStudents[i].toggleDailyHW == 1) { %>
+                        <span class="badge badge-light badge-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="display:inline" width="16" height="16" fill="currentColor" class="bi bi-vector-pen" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.646.646a.5.5 0 0 1 .708 0l4 4a.5.5 0 0 1 0 .708l-1.902 1.902-.829 3.313a1.5 1.5 0 0 1-1.024 1.073L1.254 14.746 4.358 4.4A1.5 1.5 0 0 1 5.43 3.377l3.313-.828L10.646.646zm-1.8 2.908l-3.173.793a.5.5 0 0 0-.358.342l-2.57 8.565 8.567-2.57a.5.5 0 0 0 .34-.357l.794-3.174-3.6-3.6z"/>
+                                <path fill-rule="evenodd" d="M2.832 13.228L8 9a1 1 0 1 0-1-1l-4.228 5.168-.026.086.086-.026z"/>
+                              </svg>
+                            on</span>
+                    <% } else if (sohoStudents[i].toggleDailyHW == 2) { %>
+                        <span class="badge badge-light badge-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="display:inline" width="16" height="16" fill="currentColor" class="bi bi-vector-pen" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.646.646a.5.5 0 0 1 .708 0l4 4a.5.5 0 0 1 0 .708l-1.902 1.902-.829 3.313a1.5 1.5 0 0 1-1.024 1.073L1.254 14.746 4.358 4.4A1.5 1.5 0 0 1 5.43 3.377l3.313-.828L10.646.646zm-1.8 2.908l-3.173.793a.5.5 0 0 0-.358.342l-2.57 8.565 8.567-2.57a.5.5 0 0 0 .34-.357l.794-3.174-3.6-3.6z"/>
+                                <path fill-rule="evenodd" d="M2.832 13.228L8 9a1 1 0 1 0-1-1l-4.228 5.168-.026.086.086-.026z"/>
+                              </svg>
+                            on (R/W only)</span>
+                        <% } else if (sohoStudents[i].toggleDailyHW == 3) { %>
+                            <span class="badge badge-light badge-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="display:inline" width="16" height="16" fill="currentColor" class="bi bi-vector-pen" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.646.646a.5.5 0 0 1 .708 0l4 4a.5.5 0 0 1 0 .708l-1.902 1.902-.829 3.313a1.5 1.5 0 0 1-1.024 1.073L1.254 14.746 4.358 4.4A1.5 1.5 0 0 1 5.43 3.377l3.313-.828L10.646.646zm-1.8 2.908l-3.173.793a.5.5 0 0 0-.358.342l-2.57 8.565 8.567-2.57a.5.5 0 0 0 .34-.357l.794-3.174-3.6-3.6z"/>
+                                    <path fill-rule="evenodd" d="M2.832 13.228L8 9a1 1 0 1 0-1-1l-4.228 5.168-.026.086.086-.026z"/>
+                                  </svg>
+                                on (L/S only)</span>
+                    <% } %>
+                    <span class="badge badge-light badge-pill">
+                        
+                        <svg style="display:inline" xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                        <path
+                            d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                    </svg>
+                        <%- sohoStudents[i].readWriteHSKLevel %>
+                        
+                        <svg style="display:inline" xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
+                        <path
+                            d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z" />
+                    </svg>
+                    <%- sohoStudents[i].listenSpeakHSKLevel %></span>
+                    
+                    <span class="badge badge-light badge-pill"><%- sohoStudents[i].tFirstName + ' ' + sohoStudents[i].tLastName %></span>
+                </td>
+                <td id="whenLastClass<%- i %>">
+                    <% if (sohoStudents[i].lastClass != null ) { %>
+                    <script>
+                        var now = moment();
+                        var mom = moment('<%- sohoStudents[i].lastClass %>', 'YYYY-MM-DDTHH:mm:ssZ'); 
+                        var diff = now.diff(mom, 'days');
+                        if (diff > 14) { 
+                            var diffHTML = `<span class="badge badge-primary badge-pill">${diff} days ago</span>`;
+                        } else {
+                            var diffHTML = `<span class="badge badge-light badge-pill">${diff} days ago</span>`;
+                        }
+                        document.getElementById('whenLastClass<%- i %>').innerHTML = mom.local().format('DD/MM/YYYY HH:mm') + ' ' + diffHTML;
+                    </script>
+                    <% } %>
+                </td>
+                <td id="whenNextClass<%- i %>">
+                    <% if (sohoStudents[i].nextClass != null) { %>
+                    <script>
+                        var mom = moment('<%- sohoStudents[i].nextClass %>', 'YYYY-MM-DDTHH:mm:ssZ').local().format('DD/MM/YYYY HH:mm'); 
+                        document.getElementById('whenNextClass<%- i %>').innerHTML = mom;
+                    </script>
+                    <% } %>
+                </td>
+                <td>
+                    <span  data-toggle="collapse" data-target="<%- '#sef' + i %>">
+                        <a style="padding: 16px 20px; display:inline-flex;;" class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Student Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-flex;" width="16" height="16" fill="currentColor" class="bi bi-file-medical" viewBox="0 0 16 16">
+                                <path d="M8.5 4.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L7 6l-.549.317a.5.5 0 1 0 .5.866l.549-.317V7.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L9 6l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V4.5zM5.5 9a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                              </svg>
+                        </a>
+                        </span>
+                    
+                    
+                      <a style="padding: 16px 20px;display:inline-flex;" class="button button-secondary button-block button-shadow" target="_blank"
+                        href="<%- '/soholessonhistory/' + sohoStudents[i].sohoCID %>" data-toggle="tooltip" title="Lesson History"><svg  style="display: inline-flex;;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                    <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z"/>
+                    <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
+                    <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg></a>
+                  
+                  
+            </tr> 
+            
+            <tr>
+                <td colspan="6" class="collapse" id="<%- 'sef' + i %>">
+                <form>
+                    <div class="form-group">
+                        <div style="display:flex;justify-content: space-between;">
+                        <label for="studentDetailsNotes<%- sohoStudents[i].sohoCID %>" style="display:inline-flex;">Notes</label> 
+                        <button type="button" onclick="saveStudentDetailNotes(<%- sohoStudents[i].sohoCID %>)" id="saveStudentDetailNotesBtn<%- sohoStudents[i].sohoCID %>"
+                        style="margin:0px 0px 10px auto;display:none;"
+                        class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Save">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                          </svg>
+                        </button>
+                    </div>
+                    
+            <div id="htmlTextEditor<%- sohoStudents[i].sohoCID %>" onclick="tinyMCEinit(<%- sohoStudents[i].sohoCID %>)" class="border-secondary tinyPlaceholderTextBox" style="min-height:8vh;max-height:20vh;">
+                <div id="tooltip<%- sohoStudents[i].sohoCID %>" class="subtext badge badge-pill badge-light" style="float: right; opacity: 1; " >
+                  </div>
+                  <%- sohoStudents[i].notes %>
+            </div>
+  
+            <textarea id="tinyTextEditor<%- sohoStudents[i].sohoCID %>"
+              name="tinyTextEditor" style="display:none"> 
+              <%- sohoStudents[i].notes %>
+        </textarea>
+        
+                      </div>
+                </form>
+                <p class="subtext" style="margin-bottom:0">
+                    Contact: <a href="mailto:<%- sohoStudents[i].email %>"><%- sohoStudents[i].email %></a><br>
+                    Teacher: <%- sohoStudents[i].tFirstName + ' ' + sohoStudents[i].tLastName %><br>
+                    Language Goal: <%- sohoStudents[i].entryGoal %><br>
+                    History: <%- sohoStudents[i].entryHistory %>
+                </p>
+                    <hr>
+                <p class="subtext" style="margin-bottom:0">
+                    Self Judged Level: <%- sohoStudents[i].primaryLevel %><br>
+                    Reading Level: <%- sohoStudents[i].entryReadingLevel %><br>
+                    Listening Level: <%- sohoStudents[i].entryListeningLevel %><br>
+                    Speaking Level:<br>
+                    <% if (sohoStudents[i].entrySpeakingLevel) { %>
+                        <audio  preload="none" id="audio" src="<%- sohoStudents[i].entrySpeakingLevel %>" controls></audio>
+                    <% } else { %>
+                        <span class="badge badge-light badge-pill">No student input</span> 
+                    <% } %>
+                    <br>
+                    Writing Level: <%- sohoStudents[i].entryWritingLevel %>
+                    </p>
+                </td>
+            </tr>
+            
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<% } %>
+
+
+<div id="firstName" style="display:none"><%- sohoFirstName %></div>
+<div id="slug" style="display:none"><%- sohoSlug %></div>
+<div id="profileImage" style="display:none"><%- sohoProfileImage %></div>
+
+<script>
+    $(document).ready(function () {
+        var optional_config = {
+            allowInput: true,
+            enableTime: true,
+            altInput: true,
+            altFormat: "Y-m-d H:i:00",
+            dateFormat: 'Z',
+            time_24hr: true,
+            onChange: function (dateObj, dateStr) {
+                dateObj = dateObj[0];
+                const utc = moment(dateObj).utc();
+                test.selectedDateObj = utc.toDate();
+                test.input.value = utc.format();
+                timezone.textContent = utc.utcOffset();
+            }
+        }
+        $("#flatpickr").flatpickr(optional_config);
+        // region for when
+var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    try {
+        document.getElementById('whenNewClassesRequestHeader').textContent = 'When (' + region + ')';
+    } catch(e) {
+        console.log(e);
+    }
+    try {
+        document.getElementById('whenHeaderUpcoming').textContent = 'When (' + region + ')';
+    } catch(e) {
+        console.log(e);
+    }
+    try {
+        document.getElementById('whenPractical').textContent = 'Next Class (' + region + ')';
+    } catch(e) {
+        console.log(e);
+    }
+
+    
+    });
+
+        // tooltip
+        $(function () {
+		$('[data-toggle="tooltip"]').tooltip({
+			boundary: 'window'
+		})
+	});
+
+    function makeInactive(id, i) {
+        ajaxMakeClassInactive(id, i);
+    }
+
+    function ajaxMakeClassInactive(id, i) {
+        
+        $.ajax({
+            type: "POST",
+            url: "/ajaxMakeClassInactive",
+            timeout: 30000,
+            data: {
+                id: id,
+            },
+            success: function (data) {
+                //show content
+                console.log('successful post');
+                // hide modal
+                $('#deleteClassModal' + i).modal('hide');
+                // hide class
+                document.getElementById('activeStudentRow' + id).style.display = "none";
+            },
+            error: function (jqXHR, textStatus, err) {
+                //show error message
+                console.log('unsuccessful post');
+            }
+        });
+    }
+
+    // save student details notes
+    function saveStudentDetailNotes(id) {
+        var text = tinymce.activeEditor.getContent();
+        ajaxSaveStudentDetailNotes(id, text);
+    }
+
+    function ajaxSaveStudentDetailNotes(id, text) {
+    console.log("file: sohoStudents.ejs ~ line 579 ~ ajaxSaveStudentDetailNotes ~ id", id)
+        
+        $.ajax({
+            type: "POST",
+            url: "/ajaxSaveStudentDetailNotes",
+            timeout: 30000,
+            data: {
+                id: id,
+                text: text,
+            },
+            success: function (data) {
+                //show content
+                console.log('successful post');
+                 // remove tinymce
+                 tinymce.activeEditor.remove();
+                 // toggle elements
+                 document.getElementById('tinyTextEditor' + id).style.display = "none";
+                document.getElementById('htmlTextEditor' + id).style.display = "block";
+                document.getElementById('saveStudentDetailNotesBtn' + id).style.display = "none";
+        document.getElementById('htmlTextEditor' + id).innerHTML = text;
+
+               
+               
+            },
+            error: function (jqXHR, textStatus, err) {
+                //show error message
+                console.log('unsuccessful post');
+            }
+        });
+    }
+
+
+    function tinyMCEinit(id) {
+    document.getElementById('tinyTextEditor' + id).style.display = "flex";
+    document.getElementById('htmlTextEditor' + id).style.display = "none";
+    document.getElementById('saveStudentDetailNotesBtn' + id).style.display = "inline-flex";
+
+    tinymce.init({
+      setup: function (ed) {
+        ed.on('focus', function (e) {
+          timeArray = [];
+          console.log('timeArray: ' + id + timeArray)
+        });
+      },
+      selector: '#tinyTextEditor' + id,
+      min_height: 800,
+      height: '20vh',
+      content_style: "body {font-size: 12pt;}",
+      fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt 20pt",
+      menubar: false,
+      forced_root_block: false,
+      plugins: "autosave",
+      toolbar: [{
+          name: 'color',
+          items: ['forecolor', 'backcolor']
+        },
+        {
+          name: 'fontsize',
+          items: ['fontsizeselect']
+        },
+        {
+          name: 'formatting',
+          items: ['bold', 'italic', 'underline', 'strikethrough']
+        },
+        {
+          name: 'alignment',
+          items: ['alignleft', 'aligncenter', 'alignright']
+        }
+      ]
+    });
+
+  }
+
+  $('form').submit(function () {
+        $('button[type=submit]', this).attr('disabled', 'disabled');
+    });
+
+function sohoAcceptJoinGroupClass(groupMemberId, time) {
+    ajaxSohoAcceptJoinGroupClass(groupMemberId, time)
+}
+function ajaxSohoAcceptJoinGroupClass(groupMemberId, time) {
+    $.ajax({
+        type: "POST",
+        url: "/sohoAcceptJoinGroupClass",
+        timeout: 30000,
+        data: {
+            groupMemberId: groupMemberId,
+            time: time,
+        },
+        success: function (data) {
+            //show content
+            console.log('successful post');
+        $('#acceptGroupJoin' + groupMemberId).modal('hide');
+        location.reload();
+
+        },
+        error: function (jqXHR, textStatus, err) {
+            //show error message
+            console.log('unsuccessful post');
+        }
+    });
+}
+function sohoRejectJoinGroupClass(groupMemberId) {
+
+ajaxSohoRejectJoinGroupClass(groupMemberId)
+}
+function ajaxSohoRejectJoinGroupClass(groupMemberId) {
+$.ajax({
+    type: "POST",
+    url: "/sohoRejectJoinGroupClass",
+    timeout: 30000,
+    data: {
+        groupMemberId: groupMemberId,
+    },
+    success: function (data) {
+        //show content
+        console.log('successful post');
+    $('#acceptGroupJoin' + groupMemberId).modal('hide');
+    location.reload();
+
+    },
+    error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+    }
+});
+}
+
+
+</script>

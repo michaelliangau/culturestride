@@ -1,0 +1,419 @@
+
+    <!-- Tiny Text Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js"></script>
+
+
+<div class="row">
+
+  <div class="col-sm-6" style="padding:20px 20px 20px 30px;height:100vh;overflow: hidden;overflow-y: scroll;">
+    <span class="badge badge-light badge-pill">Save your notes immediately elsewhere after class otherwise it may be overwritten</span>
+    <p id="annotatedText" style="height:95%;overflow-x:hidden;padding:10px" class="pinyinAudioShowPY" ></p>
+
+
+  </div>
+
+  <div class="col-sm-6" style="height: 100vh;overflow: hidden;overflow-y: scroll;">
+
+    <div id="externalClassroomBox0" class="box-shadow" style="width: 100%;position:inherit; margin: 0;">
+      <div style="padding:40px;text-align:left">
+
+        <h4 id="rightBarTitleLive"
+          style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">
+          Live Notes Session
+        </h4>
+
+
+          <div id="htmlTextEditorLive" class="border-secondary tinyPlaceholderTextBox" style="max-height:60vh;">
+            <div id="tooltip0" class="minitext badge badge-pill badge-light" style="float: right; opacity: 1; ">
+
+            </div>
+
+          </div>
+
+          <textarea data-id="0" data-notesID="0" id="tinyTextEditorLive" name="tinyTextEditor"
+            style="display:none;width:100%">
+          
+          </textarea>
+
+
+      </div>
+    </div>
+
+    <div id="rightBar"></div>
+
+
+  </div>
+
+
+
+</div>
+
+<div style="display:none" id="code"><%- code %></div>
+<script>
+
+  function tinyMCEinit(notesID, type, code) {
+    document.getElementById('tinyTextEditor' + notesID).style.display = "flex";
+    document.getElementById('htmlTextEditor' + notesID).style.display = "none";
+
+
+    // docId
+      var docId = 'classroom-' + code;
+
+      var randomAnimalArr = ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig'];
+      var randomAnimal =  randomAnimalArr[Math.floor(Math.random() * randomAnimalArr.length)]; 
+      var username = 'Anonymous ' + randomAnimal;
+      console.log("file: classroom.ejs ~ line 67 ~ tinyMCEinit ~ username", username)
+
+    var tempContentText = ``;
+    var tempContentRaw = ``;
+
+    tinymce.init({
+      setup: function (ed) {
+        ed.on('SelectionChange', debounce(annotateText, 1500));
+        ed.on('focus', function (e) {
+          timeArray = [];
+        });
+        ed.ui.registry.addButton('annotatePinyinBtn', {
+          icon: 'translate',
+          tooltip: 'See your Chinese characters annotated with pinyin',
+          onAction: function (_) {
+            annotateText();
+          },
+        });
+        // Add the custom annotate pinyin button
+        ed.ui.registry.addButton('pinyinTonifyBtn', {
+          icon: 'orientation',
+          tooltip: 'Annotate pinyin tones (ni1 = ní)',
+          onAction: function (_) {
+            tonify();
+          },
+        });
+
+        function debounce(cb, interval, immediate) {
+          var timeout;
+          return function () {
+            var context = this,
+              args = arguments;
+            var later = function () {
+              timeout = null;
+              if (!immediate) cb.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, interval);
+            if (callNow) cb.apply(context, args);
+          };
+        };
+
+        
+          function tonify() {
+              // console.log('Editor contents was modified. Contents: ' + ed.getContent());
+              var bm = ed.selection.getBookmark(2,
+                false); // define caret location (tinymce bookmarks) - idk what 2, false does but it works
+              // run replace function on content
+              var content = ed.getContent({
+                format: 'html'
+              });
+
+              var newContent = pinyinTonify(content);
+
+              // set content
+              ed.setContent(newContent, {
+                format: 'html'
+              });
+              ed.selection.moveToBookmark(bm); // move caret to bookmark
+
+          }
+
+        function annotateText() {
+          var content = ed.getContent({
+            format: 'text'
+          });
+
+          if (tempContentText != content) {
+            // send the full text to the dictionary api
+            ajaxPinyinAPI(content);
+            tempContentText = content;
+          }
+        }
+
+
+        function ajaxPinyinAPI(content) {
+          $.ajax({
+            type: "POST",
+            url: "/ajaxPinyinApi",
+            timeout: 30000,
+            data: {
+              content: content,
+            },
+            success: function (data) {
+              var text = ed.getContent({
+                format: 'raw'
+              });
+              var charType = 'simp';
+              var buildHTML = '';
+
+              for (let i = 0; i < data.length; i++) {
+
+                if (data[i]) {
+                  try { // we need this to stop this from crashing on spaces ' '
+                    // pinyin element
+                    var pinyinElement = `<rt>${data[i].dataArr[0].pinyin}</rt>`;
+                    if (charType == 'trad'){
+                      var charElement = `<rb>${data[i].dataArr[0].trad}</rb>`;
+                    } else {
+                      var charElement = `<rb>${data[i].dataArr[0].simp}</rb>`;
+                    }
+                    var tooltipElement = '';
+
+                    for (let l = 0; l < data[i].dataArr.length; l++) {
+                      var defElement = ``;
+
+                      for (let j = 0; j < data[i].dataArr[l].definitions.length; j++) {
+                        defElement += `${j+1}. ${data[i].dataArr[l].definitions[j]}<br>`;
+                      }
+                      var tooltipComponent =
+                        `<div>${data[i].dataArr[l].simp} (${data[i].dataArr[l].trad})<br>${data[i].dataArr[l].pinyin}<br></div><div class="popupDef">${defElement}</div></div><br>`;
+                      tooltipElement += tooltipComponent;
+
+                      var encodedTooltipElement = tooltipElement.replace(/"/g,
+                      '&#34;'); // allow us to dispay " without breaking - cannot use replaceAll here because of older browsers - sogou
+
+                      var rubyElement =
+                        `<ruby data-toggle="tooltip" data-html="true" title="${encodedTooltipElement}">${charElement}${pinyinElement}</ruby>`; // replace with a class element
+
+                      // get index of first instance of that character
+                      var index = text.indexOf(data[i].originalWord);
+                      var length = data[i].dataArr[0].simp.length;
+                    }
+
+
+
+                    // grab everything up until index then put it into buildHTML (english chars)
+                    if (index > 0) {
+                      var substr = text.substr(0, index);
+                      buildHTML += substr;
+                    }
+
+                    // add ruby to build html
+                    buildHTML += rubyElement;
+
+                    // remove chinese set from text
+                    if (index > -1) { // multiple chars with spans within it (i.e. highlighting half a chinese character pair) are repeated because of this
+                      text = text.slice(index + length);
+                    }
+
+
+                  } catch (e) {
+                    console.log(e);
+                  }
+                }
+              }
+
+              // if there's anything left in text, add it to build html
+              buildHTML += text;
+
+              document.getElementById('annotatedText').innerHTML = buildHTML;
+
+
+              // tooltip
+              document.querySelectorAll('.tooltip').forEach(e => e
+            .remove()); // clear tooltips that were previously on the dom
+
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip({
+                  boundary: 'window',
+                });
+              });
+
+
+              // scroll to bottom of annotated text div if it's scrolled to the bottom
+              // var scrollable = $('#annotatedTextWrapper');
+              // var inner = $('#annotatedTextWrapper > .inner');
+              // var atBottom = Math.abs(inner.offset().top) + scrollable.height() + scrollable.offset().top >= inner.outerHeight();
+              // if ( atBottom ) {
+              // var annotatedTextWrapper = document.getElementById("annotatedTextWrapper");
+              //   annotatedTextWrapper.scrollTop = annotatedTextWrapper.scrollHeight;
+              // }
+
+
+              console.log('successful post');
+            },
+            error: function (jqXHR, textStatus, err) {
+              //show error message
+              console.log('unsuccessful post');
+            }
+          });
+        }
+      },
+      selector: '#tinyTextEditor' + notesID,
+      height: '80vh',
+      fontsize_formats: "12pt 14pt 15pt 16pt 18pt 20pt 24pt 32pt",
+      menubar: false,
+      content_css: '/css/tinystyle.css',
+      forced_root_block: false,
+      plugins: "autosave",
+      toolbar: [{
+          name: 'custom',
+          items: ['annotatePinyinBtn','pinyinTonifyBtn']
+        },
+        {
+          name: 'color',
+          items: ['forecolor', 'backcolor']
+        },
+        {
+          name: 'fontsize',
+          items: ['fontsizeselect']
+        },
+        {
+          name: 'formatting',
+          items: ['bold', 'italic', 'underline', 'strikethrough']
+        },
+        {
+          name: 'undo',
+          items: ['undo', 'redo']
+        },
+      ],
+      external_plugins: {
+        "wave": "https://cdn2.codox.io/waveTinymce/plugin.min.js" // wave is used to enable real time collaboration
+      },
+      wave: {
+        "docId": docId, // unique document id,
+        "username": username, // unique username or email address
+        "apiKey": "" // this is your actual API Key - trial 30 days ending 28/06/2020, 100K max sessions/month 3 users max
+        // "apiKey": "7bdf58a1-e722-4868-bee9-b7e7c65a09b6" // this is a demo API key - 100 session a month 2 users max
+      },
+    });
+
+  }
+
+
+  // turn text into pinyin - if you edit this function, edit this in all files across the app...
+  function pinyinTonify(word) {
+    for (var i = 0; i < tonesArr.length; i++) {
+      var regEx = new RegExp("(" + tonesArr[i].str + ")(?!([^<]+)?>)", "gi"); // only replace outside of html tags
+      word = word.replace(regEx, tonesArr[i].toneStr);
+    }
+    return (word);
+  }
+
+  // PREPARE FOR PINYIN TONIFY
+  var tonesArr = [];
+  // create pairs
+  createPairs('a1', 'ā');
+  createPairs('a2', 'á');
+  createPairs('a3', 'ǎ');
+  createPairs('a4', 'à');
+  createPairs(
+    'e1', 'ē');
+  createPairs('e2', 'é');
+  createPairs('e3', 'ě');
+  createPairs('e4', 'è');
+  createPairs('i1',
+    'ī');
+  createPairs('i2', 'í');
+  createPairs('i3', 'ǐ');
+  createPairs('i4', 'ì');
+  createPairs('o1',
+    'ō');
+  createPairs('o2', 'ó');
+  createPairs('o3', 'ǒ');
+  createPairs('o4', 'ò');
+  createPairs('u1',
+    'ū');
+  createPairs('u2', 'ú');
+  createPairs('u3', 'ǔ');
+  createPairs('u4', 'ù');
+  createPairs('ü1',
+    'ǖ');
+  createPairs('ü2', 'ǘ');
+  createPairs('ü3', 'ǚ');
+  createPairs('ü4', 'ǜ');
+  createPairs('an1',
+    'ān');
+  createPairs('an2', 'án');
+  createPairs('an3', 'ǎn');
+  createPairs('an4', 'àn');
+  createPairs('ang1',
+    'āng');
+  createPairs('ang2', 'áng');
+  createPairs('ang3', 'ǎng');
+  createPairs('ang4', 'àng');
+  createPairs('en1',
+    'ēn');
+  createPairs('en2', 'én');
+  createPairs('en3', 'ěn');
+  createPairs('en4', 'èn');
+  createPairs('eng1',
+    'ēng');
+  createPairs('eng2', 'éng');
+  createPairs('eng3', 'ěng');
+  createPairs('eng4', 'èng');
+  createPairs('in1',
+    'īn');
+  createPairs('in2', 'ín');
+  createPairs('in3', 'ǐn');
+  createPairs('in4', 'ìn');
+  createPairs('ong1',
+    'ōng');
+  createPairs('ong2', 'óng');
+  createPairs('ong3', 'ǒng');
+  createPairs('ong4', 'òng');
+  createPairs(
+    'ing1', 'īng');
+  createPairs('ing2', 'íng');
+  createPairs('ing3', 'ǐng');
+  createPairs('ing4',
+    'ìng');
+  createPairs('un1', 'ūn');
+  createPairs('un2', 'ún');
+  createPairs('un3', 'ǔn');
+  createPairs('un4',
+    'ùn');
+  createPairs('er2', 'ér');
+  createPairs('er3', 'ěr');
+  createPairs('er4', 'èr');
+  createPairs('aō',
+    'āo');
+  createPairs('aó', 'áo');
+  createPairs('aǒ', 'ǎo');
+  createPairs('aò', 'ào');
+  createPairs('oū',
+    'ōu');
+  createPairs('oú', 'óu');
+  createPairs('oǔ', 'ǒu');
+  createPairs('où', 'òu');
+  createPairs('aī',
+    'āi');
+  createPairs('aí', 'ái');
+  createPairs('aǐ', 'ǎi');
+  createPairs('aì', 'ài');
+  createPairs('eī',
+    'ēi');
+  createPairs('eí', 'éi');
+  createPairs('eǐ', 'ěi');
+  createPairs('eī', 'èi');
+
+
+  function createPairs(str, toneStr) {
+    var pairs = {
+      str: str,
+      toneStr: toneStr,
+    }
+    tonesArr.push(pairs);
+  }
+
+
+  // tooltips
+  $(document).ready(
+    function () {
+      // tooltips bootstrap
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip({
+          boundary: 'window'
+        })
+      });
+      var code = document.getElementById('code').textContent;
+      tinyMCEinit('Live', 'initial', code);
+    });
+</script>

@@ -1,0 +1,157 @@
+<div class="row">
+  <div class="col-xl-12">
+    <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+      <div style="padding:40px 40px;text-align:left">
+        <h4>Create a new Type B class</h4>
+
+        <form method="post" class="needs-validation" validate>
+
+          <input type="hidden" name='newClassTime'  id='newClassTime'  value="">
+
+
+
+
+
+          <div class="form-group">
+            <label style="margin-bottom:0px" for="classType">Is this a one-off or recurring class?</label>
+            <br>
+            <i class="subtext"></i>
+            
+            <select id="classType" name="classType" class="custom-select" required>
+              <!-- <option value="">Please select...</option> -->
+              <option value="single">One-off</option>
+              <!-- <option value="recurring">Recurring</option> -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label style="margin-bottom:0px" for="level">What level is this class suitable for? (Your current level: HSK 1)</label>
+            <br>
+            <i class="subtext"></i>
+            
+            <select id="level" name="level" class="custom-select" required>
+              <option value="1">HSK 1</option>
+              <option value="2">HSK 2</option>
+              <option value="3">HSK 3</option>
+              <option value="4">HSK 4</option>
+              <option value="5">HSK 5</option>
+              <option value="6">HSK 6</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label style="margin-bottom:0px" for="teacher">Select preferred teacher</label>
+            <i class="subtext"></i>
+            
+            <select id="teacher" name="teacher" class="custom-select" onchange="initCal(this)" required>
+              <option value="">Please select...</option>
+
+              <% for (var i = 0 ; i < teacher.length ; i ++) { %>
+                <option value="<%- teacher[i].sohoUID %>"><%- teacher[i].firstName + ' ' + teacher[i].lastName %></option>
+
+              <% } %>
+            </select>
+          </div>
+
+          <label id="timeSlot">Select a free/green time slot from the calendar (1 hour class)</label>
+          <br>
+          <div class="form-group">
+            <input class="form-control readonly" type="text" name="newClassTimeInput" id="newClassTimeInput" value="" required>
+            <div class="invalid-feedback">
+              Please select a class time
+            </div>
+          </div>
+          
+          <br>
+
+        <button class="button button-primary button-block button-shadow" style="margin: 0px auto 20px auto"
+            type="submit">Submit Request</button>
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="fullCalendar" style="display: none;" class="row">
+  <div class="col-xl-12">
+    <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+      <div style="padding:40px 40px;text-align:left">
+
+<h4><span id="teacherCalendar"></span>'s Calendar (Free Times)</h4>
+
+<span class="badge badge-light badge-pill" style="margin-bottom:10px;">Timzeone: <span id="timezone"></span></span>
+
+<div id="calendar"></div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- FULL CALENDAR -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js"></script>
+<!-- MOMENT  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<script>
+  // build timezone
+  var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var hrOffset = -(new Date().getTimezoneOffset() / 60);
+  if (hrOffset > 0) {
+    var offset = 'UTC +' + hrOffset + ':00';
+  } else {
+    var offset = 'UTC ' + hrOffset + ':00';
+  }
+  document.getElementById('timezone').innerHTML = offset + ' ' + region;
+
+
+  function initCal(e) {
+    document.getElementById('fullCalendar').style.display = "block";
+    var id = e.value;
+    var name = e.options[e.selectedIndex].text;
+
+    document.getElementById('teacherCalendar').textContent = name;
+  // FULL CALENDAR INITIATLISATION
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    headerToolbar: {
+      left: 'prev,next',
+      right: 'dayGridMonth,timeGridWeek'
+    },
+    allDaySlot: false,
+    firstDay: 1, // set first day to monday
+    editable: false,
+    height: "auto",
+    selectable: false,
+    slotEventOverlap: false,
+    slotDuration: "01:00:00",
+    events: '/getCalendarEventsForTeacher?id=' + id + '&region=' + region,
+
+    eventClick: function (info) {
+    var newTime = moment(info.event.start);
+    document.getElementById("newClassTime").value = newTime.clone().utc().format();
+    document.getElementById('newClassTimeInput').value = newTime.clone().local().format('LLL');
+
+          // scroll to the updated value
+          location.href = "#timeSlot";
+    }
+
+  });
+  calendar.render();
+
+  }
+
+  // read only
+  $(".readonly").on('keydown paste focus mousedown', function(e){
+        if(e.keyCode != 9) // ignore tab
+            e.preventDefault();
+    });
+  
+
+</script>

@@ -1,0 +1,97 @@
+<!-- This is the page where society directors do final confirmation of all of their accepted applicants -->
+<%- contentFor('body') %>
+
+<body>
+    <div style="margin:0 25px">
+
+        <!-- Title -->
+        <h3><%- sohoStudentsName.firstName + ' ' + sohoStudentsName.lastName %></h3>
+        <% if (sohoStudents.length == 0) { %>
+        <p>No lesson history</p>
+        <% } else { %>
+
+
+
+
+
+        <table class="striped highlight">
+
+            <!-- Top row -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>When</th>
+                    <th>Hours</th>
+                    <th>Time Submitted</th>
+                    <th> </th>
+                </tr>
+            </thead>
+
+            <!-- Table body -->
+            <tbody>
+
+                <% for (var i = 0 ; i < sohoStudents.length ; i ++ ) { %>
+                <tr>
+                    <td>
+                        <%- sohoStudents[i].dateOfClass %>
+                    </td>
+                    <td>
+                        <%- sohoStudents[i].lessonType %>
+                    </td>
+                    <td>
+                        <%- sohoStudents[i].hours %>
+                    </td>
+                    <td>
+                        <%- sohoStudents[i].ts %>
+                    </td>
+                    <td>
+                        <%- sohoStudents[i].sohoLID %>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name='sohoCID' value='<%- sohoStudents[i].sohoCID %>'>
+                            <input type="hidden" name='sohoHours' value='<%- sohoStudents[i].hours %>'>
+                            <button type="button" style="padding: 16px 20px"
+                                class="button button-secondary button-block button-shadow" data-toggle="modal"
+                                data-target="<%- '#deleteClassModal' + i %>">
+                                DELETE</button>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="<%- 'deleteClassModal' + i %>" tabindex="-1" role="dialog"
+                                aria-labelledby="deleteClassModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteClassModalLabel">Confirm Delete Class?
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Deleting this class will remove this lesson from the lesson history. Only do
+                                            this for incorrect records.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="button button-primary button-block button-shadow"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" formaction="<%- '/soholessonhistory/' + sohoStudents[i].sohoLID %>"
+                                                class="button button-block button-shadow">Confirm Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <% } %>
+    </div>
+</body>

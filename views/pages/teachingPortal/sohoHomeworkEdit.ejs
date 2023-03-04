@@ -1,0 +1,202 @@
+<div class="row">
+    <div class="col-sm-6">
+        <h3>Editting Homework ID: <%- hw.sohoHID %></h3>
+        <form method="post" validate action="/sohohomeworkedit">
+            <input type="hidden" name='id' id='id' value='<%- hw.sohoHID %>'>
+            <input type="hidden" name="referer" value='<%- referer %>' >
+
+
+            <div class="form-group">
+                <label for="questionType">Question Type</label>
+                <select id="questionType" name="questionType" class="custom-select"
+                    onchange="updateQTypePreview(this);initUniqueElements();" required>
+                    <% if (hw.questionType == 'Reading') { %>
+                    <option value="Reading" selected>Reading</option>
+                    <option value="Writing">Writing</option>
+                    <option value="Listening">Listening</option>
+                    <option value="Speaking">Speaking</option>
+                    <% } else if (hw.questionType == 'Writing') { %>
+                        <option value="Reading">Reading</option>
+                        <option value="Writing" selected>Writing</option>
+                        <option value="Listening">Listening</option>
+                        <option value="Speaking">Speaking</option>
+                    <% } else if (hw.questionType == 'Listening') { %>
+                        <option value="Reading" selected>Reading</option>
+                        <option value="Writing">Writing</option>
+                        <option value="Listening" selected>Listening</option>
+                        <option value="Speaking">Speaking</option>
+                    <% } else { %>
+                        <option value="Reading" selected>Reading</option>
+                        <option value="Writing">Writing</option>
+                        <option value="Listening">Listening</option>
+                        <option value="Speaking" selected>Speaking</option>
+                    <% } %>
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="question">Question</label>
+                <textarea id="tinyTextEditor" name="question" required>
+                    <%- hw.question %>
+            </textarea>
+            </div>
+
+            <% 
+            var hskArr = [];
+            hskArr = hw.level.split('.');
+            %>
+
+            <div class="form-group">
+                <label for="hskLevel">Question Level</label>
+                <br>
+                HSK
+                <input type="number" id="hskLevel" name="hskLevel" min="0" max="6"
+                    onchange="updateLevelPreviewHSK(this)" required value="<%- hskArr[0] %>">
+                Unit
+                <input type="number" id="hskUnit" name="hskUnit" min="0" max="20"
+                    onchange="updateLevelPreviewUnit(this)" required value="<%- hskArr[1] %>">
+            </div>
+
+            <div class="form-group">
+                <label for="difficulty">Difficulty</label>
+                <input type="number" class="form-control" id="difficulty" min="1" max="10" name="difficulty"
+                    onchange="updateDifficultyPreview(this)" placeholder="number from 1 to 10" required
+                    value="<%- hw.difficulty %>">
+            </div>
+
+            <button class="button button-primary button-block button-shadow" style="margin: 0px auto 20px auto"
+                type="submit">Save</button>
+
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <h3>Student Preview</h3>
+
+
+        <div class="box-shadow" style="width: 100%;position:inherit">
+            <div style="padding:40px;text-align:left">
+                <span class="badge badge-pill badge-light">ID: <%- hw.sohoHID %></span>
+                <span class="badge badge-pill badge-light">Level: <span id="HSKPreview"><%- hskArr[0] %></span>.<span
+                        id="UnitPreview"><%- hskArr[1] %></span> <span id="qTypePreview">Reading</span></span>
+                <span class="badge badge-pill badge-light">Difficulty: <span id="difficultyPreview"><%- hw.difficulty %></span></span>
+                <% var todayDate = new Date().toISOString().slice(0,10); %>
+                <span class="badge badge-pill badge-light">Assigned Date: <%- todayDate %></span>
+                <span class="badge badge-pill badge-light">Assigned By: <%- sohoFirstName + ' ' + sohoLastName %></span>
+
+                <div id="questionAudioPreview"></div>
+                <div id="questionPreview" style="font-size:0.9rem;margin-bottom:30px">
+                    <%- hw.question %>
+                </div>
+
+                <div style="text-align: right">
+                    <span style="display:inline" id="audioRecordBtnPreview"></span>
+
+
+
+                <textarea id="tinyTextEditorPreview" name="tinyTextEditorPreview">
+
+        </textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Required to start the TINYMCE editor + initiate real time collaboration -->
+<script>
+    tinymce.init({
+        setup: function (ed) {
+            ed.on('keyup', function (e) {
+                console.log('Editor contents was modified. Contents: ' + ed.getContent());
+                document.getElementById("questionPreview").innerHTML = ed.getContent();
+            });
+
+        },
+        selector: 'textarea',
+        min_height: 500,
+        height: '50vh',
+        content_style: "body {font-size: 12pt;}",
+        fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt",
+        menubar: false,
+        invalid_elements: "span",
+        forced_root_block: false,
+        plugins: "autosave",
+        toolbar: [{
+                name: 'color',
+                items: ['forecolor', 'backcolor']
+            },
+            {
+                name: 'fontsize',
+                items: ['fontsizeselect']
+            },
+            {
+                name: 'formatting',
+                items: ['bold', 'italic', 'underline', 'strikethrough']
+            },
+            {
+                name: 'alignment',
+                items: ['alignleft', 'aligncenter', 'alignright']
+            }        
+        ],
+    });
+
+
+initUniqueElements(document.getElementById("questionType"));
+
+    function initUniqueElements(element) {
+
+        if (document.getElementById("questionType").value == 'Listening') {
+            document.getElementById("audiofile").style.display = "block";
+            document.getElementById("audio").required = true;
+            document.getElementById("questionAudioPreview").innerHTML = `
+                    <figure>
+						<audio controls id="audioPreview"
+							src=""
+							type="audio/mp3">
+							Your browser does not support this 
+							<code>audio</code> element.
+						</audio>
+                    </figure>
+                    `;
+
+        } else if (document.getElementById("questionType").value == 'Speaking') {
+            document.getElementById("questionAudioPreview").innerHTML = ``;
+
+            tinymce.remove("#tinyTextEditorPreview");
+            document.getElementById("tinyTextEditorPreview").style.display = "none";
+
+            document.getElementById("audioRecordBtnPreview").innerHTML = `
+            <button class="button button-secondary button-block button-shadow"
+                        style="margin: 10px 0px; height: 100%; padding: 15px; border-radius: 50%; display:inline" disabled>
+                        <span style="width:15px; height:15px" class="dot"></span>
+                      </button>
+          `;
+
+
+        } else {
+            document.getElementById("audiofile").style.display = "none";
+            document.getElementById("audio").required = false;
+            document.getElementById("questionAudioPreview").innerHTML = ``;
+        }
+    }
+
+
+
+    function updateQTypePreview(element) {
+        document.getElementById("qTypePreview").innerHTML = document.getElementById("questionType").value;
+    }
+
+    function updateLevelPreviewHSK(element) {
+        document.getElementById("HSKPreview").innerHTML = document.getElementById("hskLevel").value;
+    }
+
+    function updateLevelPreviewUnit(element) {
+        document.getElementById("UnitPreview").innerHTML = document.getElementById("hskUnit").value;
+    }
+
+    function updateDifficultyPreview(element) {
+        document.getElementById("difficultyPreview").innerHTML = document.getElementById("difficulty").value;
+    }
+</script>

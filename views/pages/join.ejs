@@ -1,0 +1,31 @@
+<div class="features-wrap" style="margin-top:40px">
+	<div class="features-header text-center">
+		<div class="container-sm" style="padding: 0px 16px">
+			<h2 class="section-title mt-0" style="margin-bottom:0px">Join your Culturestride class</h2>
+			<hr>
+
+			
+			<p>1. Join the live class notes session
+			</p>
+			<a style="margin:10px auto;" id="notesBtn" class="button button-primary button-block button-shadow" href="<%- joinNotesLink %>" onclick="updateBtnColors()" target="_blank">Join Live Class Notes &#x2197</a>
+			<br>
+			<p>2. Join the meeting link
+			</p>
+			<a style="margin:10px auto;" id="linkBtn" class="button button-secondary button-block button-shadow" href="<%- meetingLink %>">Join Meeting Link</a>
+
+		</div>
+	</div>
+</div>
+
+<script>
+function updateBtnColors() {
+	var notesBtn = document.getElementById('notesBtn');
+	var linkBtn = document.getElementById('linkBtn');
+
+	notesBtn.classList.remove("button-primary");
+	notesBtn.classList.add("button-secondary");
+
+	linkBtn.classList.remove("button-secondary");
+	linkBtn.classList.add("button-primary");
+}
+</script>

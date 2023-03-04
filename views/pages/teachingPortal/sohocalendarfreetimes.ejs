@@ -1,0 +1,203 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+<script>
+  function initDatePicker(id, time) {
+    console.log("file: sohocalendarfreetimes.ejs ~ line 6 ~ initDatePicker ~ id", id)
+    console.log("file: sohocalendarfreetimes.ejs ~ line 6 ~ initDatePicker ~ time", time)
+    var optional_config = {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      minuteIncrement: 30,
+      defaultDate: time,
+
+      onChange: function (dstr, dobjs, fp) {
+        setTimeout(function () {
+          var i = fp.latestSelectedDateObj;
+          const d = i ? i : new Date();
+          const mins = d.getMinutes();
+
+          if (mins % 30) d.setMinutes(30 * Math.round(d.getMinutes() / 30));
+
+          fp.setDate(d, false);
+        }, 1000);
+        updateDayInterval();
+      }
+
+    };
+
+    document.getElementById(id).flatpickr(optional_config);
+
+  };
+</script>
+<div class="row">
+  <div class="col-xl-12">
+    <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+      <div style="padding:40px 40px;text-align:left">
+        <h4>Update your free times (<%- timezone %> time)</h4>
+        <p>See your full profile: <a href="/teacher/<%- sohoUID %>">https://culturestride.com/teacher/<%- sohoUID %></a>
+        </p>
+        <form method="post" class="needs-validation" id="form" validate >
+          <input type='hidden' name='rule' id='rule' value=''>
+          <input type='hidden' name='region' id='region' value=''>
+
+          <% for (var j = 0 ; j < 7 ; j ++) { %>
+          <% var day = j + 1; %>
+
+          <div id="day<%- day %>">
+            <span>
+              <% if (day == 1) { %>
+              Monday
+              <% } else if (day == 2) { %>
+              Tuesday
+              <% } else if (day == 3) { %>
+              Wednesday
+              <% } else if (day == 4) { %>
+              Thursday
+              <% } else if (day == 5) { %>
+              Friday
+              <% } else if (day == 6) { %>
+              Saturday
+              <% } else if (day == 7) { %>
+              Sunday
+              <% } %>
+            </span>
+            <a class="button button-secondary button-block button-shadow" onclick="add(<%- day %>)" type="submit">+</a>
+            <br>
+            <% if (rule[j].length != 0) { %>
+            <% for (var i = 0; i < rule[j].length ; i ++) { %>
+            <div style="margin:10px 0px"><input id="intervalStart<%- day %><%-i%>"
+                class="startInterval<%- day %> interval<%- day %> interval" data-value="startTime" type="text"
+                autocomplete="off" required> -
+              <input id="intervalEnd<%- day %><%-i%>" class="endInterval<%- day %> interval<%- day %> interval"
+                data-value="endTime" type="text" autocomplete="off" required>
+              <a class='button button-secondary button-shadow button-icon'
+                onclick="deleteWrapper(this);updateDayInterval();" href='javascript:void(0);'>
+                <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block" width="16" height="16"
+                  fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                  <path fill-rule="evenodd"
+                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                </svg>
+              </a>
+            </div>
+            <script>
+              initDatePicker("intervalStart<%- day %><%-i%>", "<%- rule[j][i].startHour + ':' + rule[j][i].startMin %>")
+              initDatePicker("intervalEnd<%- day %><%-i%>", "<%- rule[j][i].endHour + ':' + rule[j][i].endMin %>")
+            </script>
+            <% } %>
+            <% } %>
+          </div>
+
+          <% } %>
+
+          <button onclick="updateDayInterval();required()" class="button button-primary button-block button-shadow"
+            style="margin: 0px auto 20px auto" type="button">Update</button>
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.getElementById('region').value = region;
+
+  $(document).ready(function () {
+    updateDayInterval();
+  });
+
+
+  function add(day) {
+    console.log("file: sohocalendarfreetimes.ejs ~ line 35 ~ add ~ day", day)
+    var content =
+      `<div style="margin:10px 0px"><input class="startInterval${day} interval${day} interval" data-value="startTime" type="time" autocomplete="off" required> - 
+    <input class="endInterval${day} interval${day} interval" data-value="endTime" type="text" autocomplete="off" required>
+    <a class='button button-secondary button-shadow button-icon' onclick="deleteWrapper(this);updateDayInterval();" href='javascript:void(0);'>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+                    <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+                  </svg></a>
+    </div>`;
+
+    var wrapper = document.getElementById('day' + day);
+    wrapper.insertAdjacentHTML('beforeend', content);
+
+
+    var optional_config = {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      minuteIncrement: 30,
+      onChange: function (dstr, dobjs, fp) {
+        setTimeout(function () {
+          var i = fp.latestSelectedDateObj;
+          const d = i ? i : new Date();
+          const mins = d.getMinutes();
+
+          if (mins % 30) d.setMinutes(30 * Math.round(d.getMinutes() / 30));
+
+          fp.setDate(d, false);
+        }, 1000);
+        updateDayInterval();
+      }
+
+    };
+
+    var intervalDay = document.getElementsByClassName("interval" + day);
+    for (var i = 0; i < intervalDay.length; i++) {
+      intervalDay[i].flatpickr(optional_config);
+    }
+
+
+  }
+
+  function updateDayInterval() {
+    var weekInterval = [];
+    for (let j = 0; j < 7; j++) {
+      var interval = []; // day interval
+
+      // get all the inputs related to monday
+      var startInterval = document.getElementsByClassName("startInterval" + (j + 1));
+      var endInterval = document.getElementsByClassName("endInterval" + (j + 1));
+      for (var i = 0; i < startInterval.length; i++) {
+        var obj = {
+          startTime: startInterval[i].value,
+          endTime: endInterval[i].value
+        }
+        interval.push(obj)
+      }
+      console.log("file: sohocalendarfreetimes.ejs ~ line 85 ~ updateDayInterval ~ interval", interval)
+
+      weekInterval.push(interval);
+    }
+    document.getElementById('rule').value = JSON.stringify(weekInterval);
+
+  }
+
+  function deleteWrapper(e) {
+    e.parentElement.remove();
+  }
+
+  function required() {
+    var interval = document.getElementsByClassName("interval");
+    var allHasValues = 1;
+    for (let i = 0; i < interval.length; i++) {
+      var value = interval[i].value;
+      if (value == '') {
+        allHasValues = 0;
+        break;
+      }
+    }
+
+    if (allHasValues == 1) {
+      document.getElementById('form').submit();;
+    } else {
+      alert('Fill in all fields');
+    }
+  }
+</script>

@@ -1,0 +1,377 @@
+<section style="background-color:#f6f9fc;z-index:0;height:200vh">
+
+    <div class="container">
+        <h1 class="m-0">
+            <a href="/">
+                <img src="/img/cslogotrans.png" style="max-width: 5vh;
+                    margin: 20px auto;" />
+            </a>
+        </h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <form method="post" id="form" style="width:100%">
+                <div class="col-sm-12 formStep" style="display:block;text-align: center;margin: 0px 0px 30px 0px;" id="getStarted">
+                    <h1 style="margin-top:20px">FREE CLASSES AND STARTER CHINESE PACK</h1>
+                    <br>
+                    <p style="color:black"  >
+                        Claim your 100% FREE no obligation starter Chinese pack ($300 value). This is strictly for
+                        people who are hungry to start learning Chinese. If that's you then let's get started!
+                    </p>
+
+                    <a class='button button-primary button-block button-shadow' style="    height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+                        onclick="nextStep('nameStep')">Get Started</a>
+                </div>
+
+                <div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+                    id="nameStep">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+
+                    <h1 style="margin-top:20px">Firstly, we don't want to be rude, what's your name?</h1>
+                    <br>
+                    <div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+                        <input type="text" class="form-control" name="nameDummy" id="nameDummy" placeholder="Full name" required>
+                        <div class="invalid-feedback" id="nameInvalid">
+                            Please input a valid name.
+                        </div>
+                    </div>
+
+                    <a class='button button-primary button-block button-shadow' style="    height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+                        onclick="if (validateForm('nameDummy')){nextStep('emailStep')}">Continue</a>
+                </div>
+                
+                <div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+                id="emailStep">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                <h1 style="margin-top:20px">And what's your email address?</h1>
+                <br>
+                <div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+                    <input type="email" class="form-control" name="emailDummy" id="emailDummy" placeholder="" required>
+                    <div class="invalid-feedback" id="emailInvalid">
+                        Please input a valid email.
+                    </div>
+                </div>
+
+                <a class='button button-primary button-block button-shadow' style="    height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+                    onclick="if (validateForm('emailDummy')){nextStep('howLongStep')}">Continue</a>
+            </div>
+
+            <div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+            id="howLongStep">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            <h1 style="margin-top:20px">How long have you studied Chinese for?</h1>
+            <br>
+            <div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+                <input type="text" class="form-control" name="howLong" id="howLong" placeholder="" required>
+                <div class="invalid-feedback" id="howLongInvalid">
+                    Please input valid text.
+                </div>
+            </div>
+
+            <a class='button button-primary button-block button-shadow' style="    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+                onclick="if (validateForm('howLong')){nextStep('whatLangStep')}">Continue</a>
+        </div>
+
+        <div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+        id="whatLangStep">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        <h1 style="margin-top:20px">What languages do you speak?</h1>
+        <br>
+        <div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+            <input type="text" class="form-control" name="whatLang" id="whatLang" placeholder="" required>
+            <div class="invalid-feedback" id="whatLangInvalid">
+                Please input valid text.
+            </div>
+        </div>
+
+        <a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+            onclick="if (validateForm('whatLang')){nextStep('whyLearnStep')}">Continue</a>
+    </div>
+
+    <div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+    id="whyLearnStep">
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    <h1 style="margin-top:20px">Why are you learning Chinese?</h1>
+    <br>
+
+    <div class="form-group" style="margin:auto 0;">
+        <textarea class="form-control subtext" id="whyLearn" name="whyLearn" rows="4"
+            placeholder=""
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required></textarea>
+    </div>
+
+
+    <a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+        onclick="if (validateForm('whyLearn')){nextStep('whyNowStep')}">Continue</a>
+</div>
+
+
+<div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+id="whyNowStep">
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+<h1 style="margin-top:20px">Why learn Chinese now?</h1>
+<br>
+<div class="form-group" style="margin:auto 0;">
+    <textarea class="form-control subtext" id="whyNow" name="whyNow" rows="4"
+        placeholder=""
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required></textarea>
+</div>
+
+<a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+    onclick="if (validateForm('whyNow')){nextStep('whenStartStep')}">Continue</a>
+</div>
+
+<div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+id="whenStartStep">
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+<h1 style="margin-top:20px">When do you want to start taking classes?</h1>
+<br>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="whenStart" id="whenStart1" value="asap">
+    <label class="form-check-label" for="whenStart1">
+      ASAP
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="whenStart" id="whenStart2" value="2weeks">
+    <label class="form-check-label" for="whenStart2">
+      In the next 2 weeks
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="whenStart" id="whenStart3" value="3months">
+    <label class="form-check-label" for="whenStart3">
+      In the next 3 months
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="whenStart" id="whenStart4" value="6months">
+    <label class="form-check-label" for="whenStart4">
+      In the next 6 months
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="whenStart" id="whenStart5" value="noIntention">
+    <label class="form-check-label" for="whenStart5">
+      I don't intend to
+    </label>
+  </div>
+<a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+    onclick="if (validateForm('whenStart')){nextStep('whyUsStep')}">Continue</a>
+</div>
+
+
+<div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+id="whyUsStep">
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+<h1 style="margin-top:20px">There are lots of ways to learn Chinese, why us?</h1>
+<br>
+<div class="form-group" style="margin:auto 0;">
+    <textarea class="form-control subtext" id="whyUs" name="whyUs" rows="4"
+        placeholder=""
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required></textarea>
+</div>
+
+<a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+    onclick="if (validateForm('whyUs')){nextStep('scaleStep')}">Continue</a>
+</div>
+
+
+<div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+id="scaleStep">
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+<h1 style="margin-top:20px">On a scale of 1 - 10, how interested are you in starting Chinese classes?</h1>
+<br>
+<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+    <input type="number" min="1" max="10" step="1" class="form-control" name="scale" id="scale" placeholder="" required>
+    <div class="invalid-feedback" id="scaleInvalid">
+        Please input valid text.
+    </div>
+</div>
+<a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+    onclick="if (validateForm('scale')){nextStep('pinkyStep')}">Continue</a>
+</div>
+
+<div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+id="pinkyStep">
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+<h1 style="margin-top:20px">Pinky promise that if you book a class with the credits we give you, you'll show up for it?</h1>
+<br>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="pinky" id="pinky1" value="yes">
+    <label class="form-check-label" for="pinky1">
+      Yes
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="pinky" id="pinky2" value="no">
+    <label class="form-check-label" for="pinky2">
+      No
+    </label>
+  </div>
+ 
+
+<a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+    onclick="if (validateForm('pinky')){nextStep('whyYouStep')}">Continue</a>
+</div>
+
+<div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;"
+id="whyYouStep">
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+<h1 style="margin-top:20px">Why should we teach you?</h1>
+<p>
+    (Seriously! We don't just allow anyone join our community of Chinese learners) 
+</p>
+<br>
+<div class="form-group" style="margin:auto 0;">
+    <textarea class="form-control subtext" id="whyYou" name="whyYou" rows="4"
+        placeholder=""
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required></textarea>
+</div>
+
+<a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+    onclick="if (validateForm('pinky')){nextStep('eligibleStep')}">Continue</a>
+</div>
+
+
+<div class="col-sm-12 formStep" style="display:none;text-align: center;margin: 0px 0px 30px 0px;height:100vh"
+id="eligibleStep">
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+<h1 style="margin-top:20px">You're eligible for the starter Chinese pack!</h1>
+<p style="color:black">
+    In it, you'll receive:
+    <br>
+    <ul style="color:black;text-align: left;">
+        <li>"How To Not Waste 6 Months Learning Chinese Naively (It's Hard!)" PDF with extra "umbrella concept" content</li>
+        <li>5 beginner Chinese lecture videos taught by a Culturestride teacher</li>
+        <li>1 Theory Class Ticket</li>
+        <li>1 Practical Class Ticket</li>
+    </ul>
+</p>
+<br>
+<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto;  ">
+    <label for="name">Full Name</label>
+    <input type="text" class="form-control" name="name" id="name" required>
+    <div class="invalid-feedback" id="nameInvalid">
+        Please input a valid name.
+    </div>
+</div>
+<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto;  ">
+    <label for="name">Email</label>
+    <input type="text" class="form-control" name="email" id="email" placeholder="" required>
+    <div class="invalid-feedback" id="emailInvalid">
+        Please input a valid name.
+    </div>
+</div>
+
+
+<a class='button button-primary button-block button-shadow' style="    height: 65px;
+display: flex;
+align-items: center;
+justify-content: center;font-size:18px;margin:30px auto;white-space: normal;line-height: 20px;"
+    onclick="if (validateForm('name') && validateForm('email') && validateEmail('email')){submitForm()}">Finish</a>
+</div>
+
+    
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    function nextStep(id) {
+        var formSteps = document.getElementsByClassName('formStep');
+        for (let i = 0; i < formSteps.length; i++) {
+            formSteps[i].style.display = "none";
+        }
+        document.getElementById(id).style.display = "block";
+    }
+
+    function validateForm(id) {
+        let x = document.forms["form"][id].value;
+        if (x == "") {
+            alert("Field is empty!");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function validateEmail(id) {
+        var email = document.getElementById(id).value;
+        var emailValidationRE = /\S+@\S+\.\S+/;
+    var emailValid = emailValidationRE.test(email);
+    if (!emailValid) {
+        alert("Email is invalid!");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function submitForm() {
+        document.getElementById('form').submit();
+    }
+</script>

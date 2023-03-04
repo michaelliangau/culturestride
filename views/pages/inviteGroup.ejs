@@ -1,0 +1,452 @@
+<!-- MOMENT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+
+<section class="hero" style="padding-bottom:60px">
+	<div class="container">
+		<div class="hero-inner">
+			<div class="hero-copy">
+				<h1 class="hero-title mt-0" id="heroTitle">
+					Join HSK <%- groupData[0].level %> Practical Class
+				</h1>
+				<p class="hero-paragraph" style="margin-bottom:0px">
+					Join this weekly online Practical group conversational class to learn Mandarin with 
+					<% for (var i = 0 ; i < groupData.length; i ++) { %>
+						<%- groupData[i].sFirstName + ' ' + groupData[i].sLastName %>
+						<% if (i == (groupData.length-2)) { %>
+							 and 
+						<% } %>
+						<% if (i != (groupData.length-1) && i != (groupData.length-2)) { %>
+							,
+						<% } %>
+					<% } %>.
+					<br><br>
+					
+					<% 
+					var start = groupData[0].start;
+					
+					var options = {
+						tz: 'UTC'
+					  };
+					  
+					  try {
+						var interval = parser.parseExpression(start, options);
+						var nextClass = interval.next().toISOString();
+
+					} catch (err) {
+						console.log('Error: ' + err.message);
+					  }
+
+
+				%>
+
+
+
+					Next class: <b id="nextClass"></b> (<span id="region"></span> time)
+					<script>
+						var mom = moment('<%- nextClass %>', 'YYYY-MM-DDTHH:mm:ssZ');
+						var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+						var formattedStart = mom.local().format('LLLL'); 
+						document.getElementById('nextClass').textContent = formattedStart;
+						document.getElementById('region').textContent = region;
+					</script>
+					<br><br>
+					Facilitated by: <%- groupData[0].tFirstName + ' ' + groupData[0].tLastName %>
+					<br><br>
+					Price: 1st session is free, 9 AUD for subsequent weekly sessions.
+				</p>
+				
+				<div class="hero-form field field-grouped" style="margin:20px 0px">
+					<div class="control">
+						<a class="button button-primary button-block button-shadow" style="display:inline-block; margin: 10px 0px" href="/start?group=<%- groupId %>">Request to Join</a>
+
+					</div>
+				</div>
+				
+
+
+			</div>
+
+			<div class="hero-illustration">
+				<div class="hero-shape hero-shape-1">
+					<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+						<circle class="anime-element fadeup-animation" cx="20" cy="20" r="20" fill="#FFD8CD"
+							fill-rule="evenodd" />
+					</svg>
+				</div>
+				<div class="hero-shape hero-shape-2">
+					<svg width="88" height="88" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+						<circle class="anime-element fadeup-animation" cx="44" cy="44" r="44" fill="#FFD2DA"
+							fill-rule="evenodd" />
+					</svg>
+				</div>
+				<div class="hero-main-shape">
+					<svg width="940" height="647" viewBox="0 0 940 647" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow:visible">
+						<defs>
+							<linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="hero-illustration-a">
+								<stop stop-color="#261FB6" offset="0%" />
+								<stop stop-color="#4950F6" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="89.764%" y1="16.809%" x2="11.987%" y2="82.178%"
+								id="hero-illustration-b">
+								<stop stop-color="#FC8464" offset="0%" />
+								<stop stop-color="#FB5C32" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="100%" y1="23.096%" x2="4.439%" y2="96.586%" id="hero-illustration-c">
+								<stop stop-color="#1ADAB7" offset="0%" />
+								<stop stop-color="#55EBD0" offset="100%" />
+							</linearGradient>
+							<filter x="-13%" y="-150%" width="126.1%" height="400%" filterUnits="objectBoundingBox"
+								id="hero-illustration-d">
+								<feGaussianBlur stdDeviation="32" in="SourceGraphic" />
+							</filter>
+							<linearGradient x1="0%" y1="100%" x2="46.694%" y2="42.915%" id="hero-illustration-f">
+								<stop stop-color="#EEF1FA" offset="0%" />
+								<stop stop-color="#FFF" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="100%" y1="-12.816%" x2="0%" y2="-12.816%" id="hero-illustration-g">
+								<stop stop-color="#D2DAF0" stop-opacity="0" offset="0%" />
+								<stop stop-color="#D2DAF0" offset="50.045%" />
+								<stop stop-color="#D2DAF0" stop-opacity="0" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="116.514%" y1="-21.201%" x2="0%" y2="100%" id="hero-illustration-h">
+								<stop stop-color="#55EBD0" offset="0%" />
+								<stop stop-color="#4950F6" offset="100%" />
+							</linearGradient>
+							<path id="hero-illustration-j" d="M0 0h308v288H0z" />
+							<filter x="-15.6%" y="-12.5%" width="139%" height="141.7%" filterUnits="objectBoundingBox"
+								id="hero-illustration-i">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-k" cx="16" cy="16" r="16" />
+							<linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="hero-illustration-m">
+								<stop stop-color="#C6FDF3" offset="0%" />
+								<stop stop-color="#C6FDF3" stop-opacity="0" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="2.875%" y1="89.028%" x2="99.412%" y2="6.885%" id="hero-illustration-n">
+								<stop stop-color="#83F0DD" offset="0%" />
+								<stop stop-color="#1ADAB7" offset="50.924%" />
+								<stop stop-color="#55EBD0" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="50%" y1="1.569%" x2="50%" y2="97.315%" id="hero-illustration-o">
+								<stop stop-color="#FF97AA" offset="0%" />
+								<stop stop-color="#FF6381" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="hero-illustration-p">
+								<stop stop-color="#FCAC96" offset="0%" />
+								<stop stop-color="#FC8464" offset="100%" />
+							</linearGradient>
+							<circle id="hero-illustration-r" cx="28" cy="28" r="28" />
+							<filter x="-85.7%" y="-64.3%" width="314.3%" height="314.3%" filterUnits="objectBoundingBox"
+								id="hero-illustration-q">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-t" cx="36" cy="36" r="36" />
+							<filter x="-66.7%" y="-50%" width="266.7%" height="266.7%" filterUnits="objectBoundingBox"
+								id="hero-illustration-s">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-v" cx="28" cy="28" r="28" />
+							<filter x="-85.7%" y="-64.3%" width="314.3%" height="314.3%" filterUnits="objectBoundingBox"
+								id="hero-illustration-u">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-x" cx="24" cy="24" r="24" />
+							<filter x="-100%" y="-75%" width="350%" height="350%" filterUnits="objectBoundingBox"
+								id="hero-illustration-w">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+						</defs>
+						<g fill="none" fill-rule="evenodd">
+							<path class="anime-element stroke-animation"
+								d="M600,300 C600,465.685425 465.685425,600 300,600 C134.314575,600 1.3749042e-14,465.685425 3.60373576e-15,300 C-6.54157051e-15,134.314575 134.314575,-1.29473326e-14 300,-2.30926389e-14 C465.685425,-3.32379452e-14 600,134.314575 600,300 Z"
+								stroke="#4950F6" />
+							<g transform="translate(435 450)">
+								<circle class="anime-element fadeup-animation" fill="url(#hero-illustration-b)" cx="106"
+									cy="32" r="32" />
+								<circle class="anime-element fadeup-animation" fill="url(#hero-illustration-c)" cx="12"
+									cy="117" r="12" />
+							</g>
+							<g class="anime-element fadeleft-animation">
+								<g transform="translate(0 50)">
+									<!-- <path fill-opacity=".24" fill="#11103E" filter="url(#hero-illustration-d)"
+											d="M32 410h736v64H32z" /> -->
+									<use fill="url(#hero-illustration-f)" xlink:href="#hero-illustration-e" />
+									<image x="-2" width="450" xlink:href="../../../img/shanghai.png" />
+
+								</g>
+							</g>
+							<!-- <g class="anime-element fadeleft-animation">
+											<g transform="translate(220 250)">
+												<image x="-2" width="400" xlink:href="dist/images/test.jpg" />
+											</g>
+										</g> -->
+							<g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(164 483)">
+										<use fill="#000" filter="url(#hero-illustration-q)"
+											xlink:href="#hero-illustration-r" />
+										<use fill="#FFF" xlink:href="#hero-illustration-r" />
+									</g>
+									<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="19" fill="#11103E"
+										transform="translate(162 481)">
+										<tspan x="17" y="36">🥣</tspan>
+									</text> -->
+									<g transform="translate(177 493)">
+										<image style="width:30px"
+											xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAACkUlEQVRoge2YP2gTcRTHP+/SCG0d/INgqaCLmIIOUkRasSAVBEVwKkWEOuXaKFLcCqJRFHRRp6TnYhEKoiDqIorgII2DuIhDyNZBRNRBsFZte8+hmNIQe7+73K8lcJ8t5Pd+3/fu/TsOEhISmhqxdfFUV9cxUfUAFd/P9lQqz2zoODYuBRDVcaAT2OaLeLZ0rAWwWlgLwBHfTbct/Em3zv92Uura0mmxdfH+c5VdCOsAEHbiYqUHrDSxjnMUeMLSA5pDOS4jPI9bK/YS0iKDwCOWZzeN8FiLDMStF1sGtMBGHK4D2YCjDxFy4vI1Dt2GA9AinQhnABfYZGj2DcUDCjLCx0b0QwWgN2mlnS1ABp99CEeAHqIPg3mghPICh7dAmRm+yHlmTS8IJ9zOLZTFkRhP8bUAfQh9aFXDA4ZNLwiXAUXwGARGgd1AWxj7FfgJfABu43JfpBpOIA09x1ImYyy0Er3lcmQ/mv5VIrZN/KBcXvZ7IJMJ9X9Umj4DkWpPFeEOYyjXYvJijCw3wjTvkqkBmsdhM1tJs53FuX8K2BtWLMCTd/hMorwhxTSf+Cx5/CAzsx7ooFCd/7ZQuhG6EUCBDrN9YJYBe/O/ltD7IFIPxDX/a4myD5p+CiV7YK0JXXPqMYQyYcEXgCEZ5l4Yg3Bvox4nUCaxN4Vm8DkpOZ6aGpiN0SI7EC4Cp01tGsBHmGCOK3KW6aDDdZ3Ru2xglj2kOIByGDjE6veLD7xCeMkCU6R4Ly7faw/Vn0K/GMXhUvg3k1hxgH6UfhzA5zKQrz3033LQAgdxuAD0AutteRnAD6CEz1XJ8breAaN6trV5gzDZzE2/B2L/Nlq7cWuJawP/o+kzkASw1iQBJCQkJDTEXxvarlJroW1CAAAAAElFTkSuQmCC" />
+									</g>
+								</g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(400 480)">
+										<use fill="#000" filter="url(#hero-illustration-s)"
+											xlink:href="#hero-illustration-t" />
+										<use fill="#FFF" xlink:href="#hero-illustration-t" />
+										<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="19"
+											fill="#11103E" transform="translate(6 6)">
+											<tspan x="17" y="36">🏓</tspan>
+										</text> -->
+										<g transform="translate(24 25)">
+											<image style="width:30px"
+												xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFLklEQVRoge2YW2wUZRTHf2d2t9SlpYiUq0paKF0pYotA5R4uQgqEy4P4YkIM8RINBjVgSTRijAFTiYIYJSZqjC9ieBAEFQRCwFhb6BailgZqCaTeI1Db3W5nZ44PbZdt2VtnW3jp7+mb+c78z//szJzvm4UBBhhggNuJ9PaCt08uzw+rvUhFFgjkA6OA3M7pv4E/gAZRjqu6jm6af6CxD/3eREoF7Dn9oKc5MOpRRF8EinuZwS/ojuzMv/Y+Ne2M6cRkYvkkVJxcsQbsncA9aea6jPLcpnmHvkxTpxtxC9hVWTYkZMo7wON9m1A+ssS18aU5+//rG70YbD+yOMedmXFYYUZfJImR1R9WWbRl7sGr6UoZPU/sqiwb4srM+LbfzAMoJW61D755amV2ulI3FRAyZTdQmq5wUkRmGhrembZM9EHFibKFGPJdz/MAvze1UFXVBMCM0rGMHpOVUDjVeDV06ebZXx925J6oO7BVtxoY8n4s8wBVVU0EgybBoEl1p7FEpBovtuxU7f161EWkAO+pqiXARKdCaeDb8f2yxU4vjhQgsDpR4IzSsXi9HrxeD9NLxyQVjhWvqpimRSBg0trSTnNziOvX22htad/utAB31PihRIGjx2SxcnVhysLR8ZalBAMmZruFxoi1bE1duAfRBeQ5FYmHbSvBoEnYtAEwxMPY7CJyvT6GZeaRaeTgcWUhiHfNec8loElVKsXg6LUM49iCvLy2ZDkiL0/FyWUm3QtKi3DYJhBoR20Y5Mqi4K6F5GXPJ8NIsfULf4qy22j3vDdlyri4C170OtCSpucIpmkRaOkwPzp7Mg+Pe5XCnBWpmwdQRiq8bg0y62rrGlbEC4su4JJzyzewwjbBVhMFinKXM2vUBga5cpwLKiNVdH9NfUN5rOnoAn50nqUzl2rHYwNMyi3DN3QVDj45YiGiuq22/sILPSdutFFhX7pZQm1hbBtyB+fjG5qwKztCVSr8dRdnRZ+LFHDvb4OPAeediyuhkIUhBlNHrEP65pfviaHCB6oa8R0ZrF37haXKy06Vzc5WOSqriCz36JgxJ6pqqPjwU05U++PqJIsRuN9/4deFXcfddqOb5x3aB+zttXs6Og/AuCHxN7LVZ3+m3QxTdfantGJE9bGu8U3baW84sB60JjXbN7DCHWtsdsbdcWOmF09mkMdD6QOT04pBKekaxnxQt51cfqdb7YOIzEzqvJPma20osGr8TtzGHale5pTrJb4JQyHGHQDYMvfg1Vave7EIn6Qs2S/vbFwyugYxCwDYOu1AIIz1VqqKhnRUELTT/sxNjhD5wIhbAIBLXY+kqmm4OgpoDl1x7CtlVCojeZOERhdgA3sMW6eK8gTCZwh+4AoQcLtd7SJiNQXO/NsPlrshyueRcbyg7aeWFrnU1dXLzmEYT2+a/dUPycT3qroK6htqgQRtJC3OFReOLxERGxLcgc7HJwC81jps8PRUzAOsFbFEjPWA1Sd2uxPCsNd1mYdE+38lwzJc95XPOXC5t1mKC/Or/HUXyxEqHBqN6UiRjVMnTqyNPtmvzc9fd2ELIm/0QZ6wIE8W+8Z/3HOi37t3bd2FpSryEZD8n4A4CHxT7JtQFmeu//E3Ng4lZD2LsAFlpAOJliyXDi8oKAj1nLil6+fxxsbMnHZrgQGLVJlJx10Z0Tn9D9AkUI3KCcX2IVIOdHyH2saSkkn5R3pq3toNQC85XV8/3K2uVxSeAd1d4it4/nZ7csTZXy5Orqm/+O7t9jHAAAMMcDP/A+c21Cb4EAj5AAAAAElFTkSuQmCC" />
+										</g>
+									</g>
+								</g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(200 40)">
+										<use fill="#000" filter="url(#hero-illustration-u)"
+											xlink:href="#hero-illustration-v" />
+										<use fill="#FFF" xlink:href="#hero-illustration-v" />
+									</g>
+									<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="19" fill="#11103E"
+										transform="translate(200 40)">
+										<tspan x="17" y="36">🤗</tspan>
+									</text> -->
+									<g transform="translate(214 54)">
+										<image style="width:30px"
+											xlink:href="data:image/png;base64,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" />
+									</g>
+								</g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(530 200)">
+										<use fill="#000" filter="url(#hero-illustration-w)"
+											xlink:href="#hero-illustration-x" />
+										<use fill="#FFF" xlink:href="#hero-illustration-x" />
+									</g>
+									<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="16" fill="#11103E"
+										transform="translate(530 200)">
+										<tspan x="13" y="31">👋</tspan>
+									</text> -->
+									<g transform="translate(542 213)">
+										<image style="width:25px"
+											xlink:href="data:image/png;base64,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" />
+									</g>
+								</g>
+							</g>
+						</g>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section style="padding:40px 0px 80px 0px;background: #f6f9fc;z-index:0">
+	<div class="container">
+
+
+		
+
+
+
+
+		<!-- PLAN -->
+
+		<div class="row">
+			<div class="col-sm-12">
+				<h3 class="mobileText">A social <span style="color:#4950F6">communicative</span> approach to learning Mandarin online</h3>
+			</div>
+			<div class="col-sm-12">
+
+				<div class="row" id="lineHSK2">
+					<div class="col-auto text-center flex-column d-none d-sm-flex">
+						<div class="row h-50">
+							<div class="col border-right">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+						<h5 class="m-2">
+							<span style="background-color:#dee2e6 !important" class="badge badge-pill bg-success">&nbsp;</span>
+						</h5>
+						<div class="row h-50">
+							<div class="col">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+					</div>
+					<div class="col py-2">
+						<div class="feature cardHoverExpand cardWithShadow"
+							style="background:white;">
+							<div class="row">
+								<div class="col-sm-5">
+									<h4 class="card-title">
+										Practical Class
+										<span class="badge badge-pill badge-light">Group Conversation</span>
+									</h4>
+									<p class="card-text">
+										Play with Mandarin in meaningful interactions.
+									</p>
+									<ul>
+										<li>
+											Teachers facilitate conversations between 2-3 students
+										</li>
+										<li>
+											Retain your Mandarin better by using it in unpredictable conversation settings
+										</li>
+										<li>
+											Build reading, speaking and listening skills
+										</li>
+									</ul>
+								</div>
+								<div class="col-sm-7">
+									<img style="width:100%" src="../../../img/group.jpg" />
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+
+
+			</div>
+		</div>
+
+
+	</div></section>
+
+	<section class="" style="background: #0a2540;padding:40px 0px 80px 0px;z-index:0">
+		<div class="container">
+	
+
+
+
+				<div class="row mobileText">
+					<div class="col-sm-12">
+						<h3 class="mobileText" style="color:white" >Practical classes lead by native teachers living in China</h3>
+					</div>
+				</div>
+				<div class="row">
+							<div class="col-sm-6 mobileText">
+								<div class="cardWithShadow" style="border-radius:10px;margin:10px 0px;background:#06182c">
+									<b style="color:white">Learn real Mandarin</b>
+									<p style="color:#adbdcc">Imitate native tones and expressions to help you speak like a local</p>								
+								</div>
+								<div class="cardWithShadow" style="border-radius:10px;margin:10px 0px;background:#06182c">
+									<b style="color:white">Get the aid of dialects</b>
+									<p style="color:#adbdcc">Speed up your Mandarin learning with Cantonese/Shanghainese and English speaking teachers.
+									</p>
+								</div>
+							</div>
+							<div class="col-sm-6 mobileText">
+							<img style="border-radius:10px;margin:10px 0px" src="../../../img/practical.jpg" />
+
+		</div>
+		
+
+	</div>
+
+
+		</div>
+	</section>
+
+
+			<section class="section" style="padding:40px 0px 80px 0px;z-index:0">
+				<div class="container">
+			
+			
+					
+		<div class="row" id="pricing">
+			<div class="col-sm-12">
+
+				<div class="row mobileText">
+					<div class="col-sm-12">
+						<h3 class="mobileText langPageH3">A path to proficiency on any budget</h3>
+					</div>
+				</div>
+
+				<div class="row" style="margin-bottom:50px">
+
+					<div class="col-sm-4">
+						<div class="cardWithShadow" style="height:100%;text-align: center;">
+							<span class="badge badge-light badge-pill" >Practical Class - Group Conversation</span>
+
+							<div style="padding:20px" class="text-center">
+								<h3 style="margin-top:0px;font-size:2.5em;line-height: 1em;font-weight: 100;">$9</h3>
+								<h6>Per Hour</h6>
+
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="cardWithShadow" style="height:100%;text-align: center;">
+							<span class="badge badge-light badge-pill" >Theory + Practical class</span>
+
+							<div style="padding:20px" class="text-center">
+								<h3 style="margin-top:0px;font-size:2.5em;line-height: 1em;font-weight: 100;">$39</h3>
+							<span class="badge badge-light badge-pill" >Add extra Practical class for +$9</span>
+
+								<h6>1 Hour Theory +<br> 1 Hour Practical</h6>
+
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="cardWithShadow" style="height:100%;text-align: center;">
+							<span class="badge badge-light badge-pill" >Theory Class - Private 1-on-1</span>
+
+							<div style="padding:20px" class="text-center">
+								<h3 style="margin-top:0px;font-size:2.5em;line-height: 1em;font-weight: 100;">$39</h3>
+								<h6>Per Hour</h6>
+
+							</div>
+							
+						</div>
+					</div>
+
+				</div>
+				<div class="row" style="margin-bottom:50px">
+					<p class="subtext" style="text-align: center;">Prices are in AUD</p>
+
+					<a class="button button-primary button-block button-shadow" href="/" style="margin:0 auto">Learn more</a>
+</div>
+				</div>
+			</div>
+
+</div>
+</section>
+
+ 

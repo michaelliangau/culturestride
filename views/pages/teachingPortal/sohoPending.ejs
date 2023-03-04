@@ -1,0 +1,283 @@
+<!-- Confirmed CLASSES -->
+<h3>Confirmed Classes</h3>
+<p class="subtext">Classes in which the teacher and the student has both confirmed attendance</p>
+
+<div style="text-align: center">
+    <!-- Current slot allocations table -->
+    <table class="striped highlight" style="overflow-x:scroll; width:fit-content; display:block;max-height:70vh;">
+
+        <!-- Top row -->
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Teacher</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody>
+            <% for (var i = 0 ; i < future.length ; i ++ ) { %>
+                <% if (future[i].confirmed == 2) { %>
+            <tr  data-toggle="collapse" data-target="<%- '#accordionConfirm' + i %>" style="cursor:pointer">
+                <td>
+                    <%- future[i].stuFirstName + ' ' + future[i].stuLastName %>
+                    <span class="badge badge-primary badge-pill"><%- future[i].classType %></span>
+                    <% if (future[i].entryGoal == null) { %>
+                        <span class="badge badge-danger badge-pill">No Entry Form</span>
+                    <% } %>
+                </td>
+                <td>
+                    <%- future[i].teaFirstName + ' ' + future[i].teaLastName %>
+                </td>
+                <% var startMom = moment(future[i].start, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                <% var endMom = moment(future[i].end, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                
+                <td><%- startMom.clone().format('DD/MM/YYYY, HH:mm') + ' - ' + endMom.clone().format('HH:mm Z') %></td>
+            </tr>
+          
+            <tr>
+                <td colspan="5" class="collapse" id="<%- 'accordionConfirm' + i %>">
+                <p class="subtext" style="margin-bottom:0">
+                    <b>Student Entry Form</b>
+                    <br>
+                    Level: <%- future[i].primaryLevel %><br>
+                    Goal: <%- future[i].entryGoal %><br>
+                    Reading Level: <%- future[i].entryReadingLevel %><br>
+                    History: <%- future[i].entryHistory %><br>
+                    Speaking Level (Introduce yourself):<br>
+                    <audio id="audio" src="<%- future[i].entrySpeakingLevel %>" controls></audio>
+
+                </p>
+                </td>
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Pending Student Confirmation -->
+<h3>Awaiting Student Confirmation</h3>
+<p class="subtext">If the student does not confirm attendance 12 hours before the class and complete their student entry form, it will be automatically cancelled. They can sign up again after.</p>
+
+<div style="text-align: center">
+    <!-- Current slot allocations table -->
+    <table class="striped highlight" style="overflow-x:scroll; width:fit-content; display:block;max-height:70vh;">
+
+        <!-- Top row -->
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Teacher</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody>
+            <% for (var i = 0 ; i < pending.length ; i ++ ) { %>
+                <% if (pending[i].confirmed == 1) { %>
+
+            <tr  data-toggle="collapse" data-target="<%- '#accordionConfirm' + i %>" style="cursor:pointer">
+                <td>
+                    <%- pending[i].stuFirstName + ' ' + pending[i].stuLastName %>
+                    <span class="badge badge-primary badge-pill"><%- pending[i].lessonType %></span>
+                    <% if (pending[i].entryGoal == null) { %>
+                        <span class="badge badge-danger badge-pill">No Entry Form</span>
+                    <% } %>
+                </td>
+                <td>
+                    <%- pending[i].teaFirstName + ' ' + pending[i].teaLastName %>
+                </td>
+                <% var startMom = moment(pending[i].start, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                <% var endMom = moment(pending[i].end, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                
+                <td><%- startMom.clone().format('DD/MM/YYYY, HH:mm') + ' - ' + endMom.clone().format('HH:mm Z') %></td>
+            </tr>
+          
+            <tr>
+                <td colspan="5" class="collapse" id="<%- 'accordionConfirm' + i %>">
+                <p class="subtext" style="margin-bottom:0">
+                    <b>Student Entry Form</b>
+                    <br>
+                    Level: <%- pending[i].primaryLevel %><br>
+                    Goal: <%- pending[i].entryGoal %><br>
+                    Reading Level: <%- pending[i].entryReadingLevel %><br>
+                    History: <%- pending[i].entryHistory %><br>
+                    Speaking Level (Introduce yourself):<br>
+                    <audio id="audio" src="<%- pending[i].entrySpeakingLevel %>" controls></audio>
+
+                </p>
+                </td>
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<hr>
+<!-- Pending Teacher Confirmation -->
+<h3>Pending Teacher Confirmation</h3>
+<p class="subtext">Teacher must check and accept class.</p>
+
+<div style="text-align: center">
+    <!-- Current slot allocations table -->    
+    <table class="striped highlight" style="overflow-x:scroll; width:fit-content; display:block;max-height:70vh;">
+
+        <!-- Top row -->
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Teacher</th>
+                <th>Time</th>
+                <th> </th>
+            </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody>
+            <% for (var i = 0 ; i < pending.length ; i ++ ) { %>
+            <% if (pending[i].confirmed == 0) { %>
+            <tr data-toggle="collapse" data-target="<%- '#accordionPending' + i %>" style="cursor:pointer">
+                <td>
+                    <%- pending[i].stuFirstName + ' ' + pending[i].stuLastName %>
+                    <span class="badge badge-primary badge-pill"><%- pending[i].classType %></span>
+                    <% if (pending[i].entryGoal == null) { %>
+                        <span class="badge badge-danger badge-pill">No Entry Form</span>
+                    <% } %>
+                </td>
+                <td>
+                    <%- pending[i].teaFirstName + ' ' + pending[i].teaLastName %>
+                </td>
+                
+                <% var startMom = moment(pending[i].start, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                <% var endMom = moment(pending[i].end, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                
+                <td><%- startMom.clone().format('DD/MM/YYYY, HH:mm') + ' - ' + endMom.clone().format('HH:mm Z') %></td>
+
+                <td>
+
+                    <form method="post">
+                        <input type="hidden" name='sohoAID' id='sohoAID' value='<%- pending[i].sohoAID %>'>
+                        <button type="button" style="padding: 16px 20px;display:inline-block"
+                            
+                            class="button button-secondary button-block button-shadow" data-toggle="modal"
+                            data-target="<%- '#deleteClassModal' + i %>">Delete</button>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="<%- 'deleteClassModal' + i %>" tabindex="-1" role="dialog"
+                                aria-labelledby="deleteClassModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteClassModalLabel">Confirm Delete Class?
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Deleting this class will remove this lesson from the lesson history. Only do
+                                            this for incorrect records.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="button button-primary button-block button-shadow"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" formaction="/sohoDeletePendingClass"
+                                                class="button button-block button-shadow">Confirm Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                            
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5" class="collapse" id="<%- 'accordionPending' + i %>">
+                <p class="subtext" style="margin-bottom:0">
+                    <b>Student Entry Form</b>
+                    <br>
+                    Level: <%- pending[i].primaryLevel %><br>
+                    Goal: <%- pending[i].entryGoal %><br>
+                    Reading Level: <%- pending[i].entryReadingLevel %><br>
+                    History: <%- pending[i].entryHistory %><br>
+                    Speaking Level (Introduce yourself):<br>
+                    <audio id="audio" src="<%- pending[i].entrySpeakingLevel %>" controls></audio>
+
+                </p>
+                </td>
+            </tr>
+
+            <% } else if (pending[i].confirmed == -1) { %>
+            <tr style="background:#fab1a0">
+                <td>
+                    <%- pending[i].stuFirstName + ' ' + pending[i].stuLastName %>
+                    <span class="badge badge-primary badge-pill"><%- pending[i].classType %></span>
+                    <% if (pending[i].entryGoal == null) { %>
+                        <span class="badge badge-danger badge-pill">No Entry Form</span>
+                    <% } %>
+                </td>
+                <td>
+                    <%- pending[i].teaFirstName + ' ' + pending[i].teaLastName %>
+                </td>
+                <% var startMom = moment(pending[i].start, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                <% var endMom = moment(pending[i].end, 'YYYY-MM-DDTHH:mm:ssZ'); %>
+                
+                <td><%- startMom.clone().format('DD/MM/YYYY, HH:mm') + ' - ' + endMom.clone().format('HH:mm Z') %></td>
+
+                <td>
+                    <form method="post">
+                        <input type="hidden" name='sohoAID' id='sohoAID' value='<%- pending[i].sohoAID %>'>
+                        <button type="button" style="padding: 16px 20px;display:inline-block"
+                            
+                            class="button button-secondary button-block button-shadow" data-toggle="modal"
+                            data-target="<%- '#deleteClassModal' + i %>">Delete</button>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="<%- 'deleteClassModal' + i %>" tabindex="-1" role="dialog"
+                                aria-labelledby="deleteClassModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteClassModalLabel">Confirm Delete Class?
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Deleting this class will remove this lesson from the lesson history. Only do
+                                            this for incorrect records.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="button button-primary button-block button-shadow"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" formaction="/sohoDeletePendingClass"
+                                                class="button button-block button-shadow">Confirm Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </td>
+            </tr> 
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+

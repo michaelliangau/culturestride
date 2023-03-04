@@ -1,0 +1,452 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<div class="container">
+  
+  <% if (lessonCount.practicalCount == 0) { %>
+    <div class="highlightBox subtext">
+      <svg style="display:inline;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+        <path
+          d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+      </svg>
+      This Practical class is free and will not be counted to your class usage.
+    </div>
+    <% } %>
+    <% if (!cardDetailsExist) { %>
+    <div class="highlightBox subtext">
+      <svg style="display:inline;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+        <path
+          d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+      </svg>
+      You need to add a <a href="/a/start/card">payment method</a> before you can book your free Practical class.
+    </div>
+    <% } %>
+<div class="row">
+
+
+  <div class="col-sm-8">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+      <div style="padding:20px">
+        <div style="text-align: left;">
+        <h3 >Practical Class</h3>
+
+
+        <% if (teacher.level == 0) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK <%- teacher.level %> (absolute beginner)</span>
+          <% } else if (teacher.level == 1) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:rgb(73, 80, 246);color:white;">HSK <%- teacher.level %> (beginner)</span>
+        <% } else if (teacher.level == 2) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#f1c40f;color:white;">HSK <%- teacher.level %> (beginner)</span>
+        <% } else if (teacher.level == 3) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#1abc9c;color:white;">HSK <%- teacher.level %> (intermediate)</span>
+        <% } else if (teacher.level == 4) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#e67e22;color:white;">HSK <%- teacher.level %> (intermediate)</span>
+        <% } else if (teacher.level == 5) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#9b59b6;color:white;">HSK <%- teacher.level %> (advanced)</span>
+          <% } else if (teacher.level == 6) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#34495e;color:white;">HSK <%- teacher.level %> (advanced)</span>
+        <% } %>
+
+        <% if (teacher.userSignedUp > 0) { %>
+          <span class="badge badge-light">Already booked</span>
+          <% } else if (teacher.sCount >= 3) { %>
+          <span class="badge badge-light">Full class</span>
+          <% } else { %>
+          <span class="badge badge-primary">Joinable</span>
+            <% } %>
+
+							<div style="margin: 10px 0px;">
+        
+        When: <span id="when"></span> (<span id="region"></span>)
+        <script>
+          var mom = moment('<%- teacher.start %>', 'YYYY-MM-DDTHH:mm:ssZ').local().format('LLLL'); 
+          document.getElementById('when').textContent = mom;
+          </script>
+              </div>
+							<div style="margin: 10px 0px;">
+
+        Confirmed attendees:
+        <div class="row">
+            <div class="col-sm">
+              <% if (teacher.profileImage) { %>
+                <img class="circle" src="<%- teacher.profileImage %>" style="margin:10px auto;">
+                <% } else { %>
+                <img class="circle" src="/img/guru.png" style="margin:10px auto;">
+                <% } %>
+
+              <p class="subtext" style="text-align: center;">
+          <%- teacher.firstName + ' ' + teacher.lastName %>
+              </p>
+            </div>
+            <% var memberJSON = JSON.parse(teacher.memberJSON); 
+            for (let i = 0; i < memberJSON.length; i++) { 
+              if (memberJSON[i].sFirstName != null) { %>
+              
+              <div class="col-sm">
+                <% if (memberJSON[i].sProfileImage) { %>
+                  <img class="circle" src="<%- memberJSON[i].sProfileImage %>" style="margin:10px auto;">
+                  <% } else { %>
+                    <img class="circle" src="/img/guru.png" style="margin:10px auto;">
+                    <% } %>
+
+                      <p class="subtext" style="text-align: center;">
+                  <%- memberJSON[i].sFirstName + ' ' + memberJSON[i].sLastName %>
+                      </p>
+                    </div>
+            <% } %>
+            <% } %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="col-sm-4">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+  
+      <div class="highlightBox">
+        <b><a href="/#pricing">Pricing (<span id="currencyCode">AUD</span>)</a></b>
+        <br>
+        <p class="subtext" style="margin-bottom:0px;">
+          Theory class: $<span
+      id="theoryPrice">39</span>
+          <br>
+          <br>
+          Theory + Practical class: $<span
+      id="theoryPracPrice">39</span>
+          <br>
+          <br>
+          Practical Class: $<span
+      id="pracPrice">9</span>
+        </p>
+      </div>
+
+    <hr>
+
+  
+
+
+          <% if (teacher.sCount < 3 && teacher.userSignedUp < 1) { %>
+           
+            <span data-toggle="modal" data-target="#joinModal">
+              <button type="button" style="padding: 16px 20px; margin:20px 0px 0px 0px;"
+                class="button button-primary button-block button-shadow">
+                Book Class
+              </button>
+            </span>
+
+            <div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
+              aria-labelledby="joinModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="joinModalLabel">Book Practical Class
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form method="post" class="needs-validation" validate>
+                    <input type='hidden' name='calendarID' id='calendarID<%- sohoAID %>'
+                      value='<%- sohoAID %>'>
+                    <input type='hidden' name='teacherID' id='teacherID<%- sohoAID %>'
+                      value='<%- teacher.sohoUID %>'>
+                    <input type='hidden' name='start' id='start<%- sohoAID %>'
+                      value='<%- teacher.start %>'>
+                    <input type='hidden' name='groupID' id='groupID<%- sohoAID %>'
+                      value='<%- teacher.sohoGID %>'>
+                    <div class="modal-body" style="text-align: left;">
+                      You class length will vary based on the number of students booked in this class slot:
+                      <br>
+                      <table>
+                        <tr>
+                          <th>Students</th>
+                          <th>Time</th>
+                        </tr>
+                        <tr style="text-align: center;">
+                          <td>3 Students</td>
+                          <td>1 Hour</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                          <td>2 Students</td>
+                          <td>45 minutes</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                          <td>1 Student</td>
+                          <td>30 minutes</td>
+                        </tr>
+                      </table>
+
+                      You'll be charged the normal Practical class fee if you no-show or cancel your attendance
+                      within
+                      24 hours of the class time.
+                      <br>
+                      <br>
+                      <div class="form-group">
+                        <label style="margin-bottom:0px" for="repeatNo">Join future sessions of this class</label>
+                        <span style="display: inline-flex;" data-toggle="tooltip"
+                          title="You can still cancel or reschedule classes 24 hours in advance.">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path
+                              d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                          </svg>
+                        </span>
+                        <select id="repeatNo<%- sohoAID %>" name="repeatNo" class="custom-select"
+                          onchange="updateRepeatClass(<%- sohoAID %>);" required>
+                          <% if (lessonCount.practicalCount == 0) { %>
+                          <option value="1" selected>Join this class only</option>
+                          <option value="5" style="color:lightgray" disabled>Join next 5 classes</option>
+                          <option value="10" style="color:lightgray" disabled>Join next 10 classes</option>
+                          <option value="20" style="color:lightgray" disabled>Join next 20 classes</option>
+                          <% }  else { %>
+                          <option value="1" selected>Join this class only</option>
+                          <option value="5">Join next 5 classes</option>
+                          <option value="10">Join next 10 classes</option>
+                          <option value="20">Join next 20 classes</option>
+                          <% } %>
+
+                        </select>
+
+                      </div>
+                      <div id="repeatClass<%- sohoAID %>"></div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" formaction="/ajaxJoinPracticalClass"
+                        id="bookBtn<%- sohoAID %>"
+                        class="button button-primary button-block button-shadow">Confirm Booking</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+         <% } %>
+  
+  
+    </div>
+  </div>
+
+
+
+  
+<% if (teacher.video3) { %>
+
+  <div class="col-sm-12">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+  <h3 style="margin-top:0px">What to expect in class</h3>
+  <div class="row">
+  
+    <div class="embed-responsive embed-responsive-4by3" style="max-height:400px" id="video">
+      <iframe loading="lazy" src="https://www.youtube.com/embed/<%- teacher.video3 %>"
+        srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/<%- teacher.video3 %>?autoplay=1><img src=https://img.youtube.com/vi/<%- teacher.video3 %>/hqdefault.jpg alt='Culturestride Teacher'><span>▶</span></a>"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen title="Culturestride"></iframe>
+    </div>
+  
+  
+  </div>
+  
+  </div>
+  </div>
+  
+  <% } %>
+
+
+
+  <div class="col-sm-12" id="availability">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+        <% if (teacher.video1) { %>
+        <div class="embed-responsive embed-responsive-4by3" style="max-height:400px" id="video">
+          <iframe loading="lazy" src="https://www.youtube.com/embed/<%- teacher.video1 %>"
+            srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/<%- teacher.video1 %>?autoplay=1><img src=https://img.youtube.com/vi/<%- teacher.video1 %>/hqdefault.jpg alt='Culturestride Teacher'><span>▶</span></a>"
+            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen title="Culturestride"></iframe>
+        </div>
+
+        <% } else { %>
+        <div id="video">
+        </div>
+        <% } %>
+<hr>
+
+        <div style="text-align: center;">
+        <% if (teacher.profileImage) { %>
+        <img class="circle" src="<%- teacher.profileImage %>" style="margin:10px auto;">
+        <% } else { %>
+          <img class="circle" src="/img/guru.png" style="margin:10px auto;">
+          <% } %>
+
+
+        <p>
+          <%- teacher.firstName + ' ' + teacher.lastName %>
+          <br> 
+          <% if (reviewStats.noReviews > 0) { %>
+            <span class="star">&#9733;</span> <span class="subtext"><%- reviewStats.avgStars %> (<%- reviewStats.noReviews %>)</span>
+            <br>
+          <% } %>
+          <span class="subtext"><%- teacher.location %></span>
+        </p>
+
+      </div>
+
+        <span>Languages</span>
+        <br>
+        <p class="subtext">
+          <%- teacher.lang %>
+        </p>
+        <span>About me</span>
+        <br>
+        <p class="subtext">
+          <%- teacher.desc1 %>
+        </p>
+        <span>My teaching</span>
+        <br>
+        <p class="subtext">
+          <%- teacher.desc2 %>
+        </p>
+  
+  </div>
+
+</div>
+
+<% if (review.length > 0) { %>
+
+<div class="col-sm-12">
+  <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+<h3 style="margin-top:0px">Student reviews</h3>
+<div class="row">
+
+<% for (let i = 0; i < review.length; i++) { %>
+<div class="col-sm-6">
+  <div class="cardWithShadow" style="padding:20px;margin-bottom:20px;">
+    <%- review[i].firstName + ' ' + review[i].lastName %> <span class="star">&#9733;</span> <span class="subtext"><%- review[i].stars %></span>
+    <br>
+    <p class="subtext">
+    <%- review[i].comments %>
+  </p>
+  </div>
+</div>
+<% } %>
+</div>
+
+</div>
+</div>
+<% } %>
+
+</div>
+
+
+
+
+
+<script>
+						var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+						document.getElementById('region').textContent = region;
+
+
+      var repeatClassCheck = 0; // to determine whether or not to enable the book button
+
+      function updateRepeatClass(id) {
+        repeatClassCheck = 0;
+        var repeatNo = document.getElementById('repeatNo' + id).value;
+        var start = document.getElementById('start' + id).value;
+        var groupID = document.getElementById('groupID' + id).value;
+
+        if (repeatNo > 1) {
+          var content = `<div class="highlightBox" id="repeatClassHighlightBox" style="margin-top:10px;">
+  <span class="subtext">Bookings are stored in UTC time and may deviate from the printed times with timezone adjustments like daylight savings.</span>
+  <br><br>
+  Selected classes:<br><div id="pracClassInstances${id}"></div></div>
+  `;
+          getNextPracticalClassInstances(groupID, start, repeatNo, id);
+          content += `</div>`;
+          document.getElementById('repeatClass' + id).innerHTML = content;
+        } else if (repeatNo == 1) { // no repeat
+          document.getElementById('repeatClass' + id).innerHTML = ``;
+          // reset book button
+          document.getElementById('bookBtn' + id).classList.remove("disableFade");
+          document.getElementById('bookBtn' + id).removeAttribute("data-toggle");
+          document.getElementById('bookBtn' + id).removeAttribute("title");
+          document.getElementById('bookBtn' + id).removeAttribute("data-original-title");
+        }
+
+      }
+
+      function getNextPracticalClassInstances(groupID, start, repeatNo, id) {
+        $.ajax({
+          type: "POST",
+          url: "/getNextPracticalClassInstances",
+          timeout: 30000,
+          data: {
+            groupID: groupID,
+            start: start,
+            repeatNo: repeatNo,
+          },
+          success: function (data) {
+            //show content
+            console.log('successful post');
+            var content = ``;
+            var repeatClassCheck = 1; // to determine whether or not to enable the book button
+            for (let i = 0; i < data.length; i++) {
+              const e = data[i];
+              var mom = moment(e.start).format('LLL'); // create moment
+              if (e.sCount < 3) { // class not full
+                var check = `<svg xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" title="Available" style="color: green;display: inline-flex;margin-left: 5px;" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+</svg>`;
+              } else if (e.sCount >= 3) { // class full
+                var check = `<svg xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" title="Full" style="color: red;display: inline-flex;margin-left: 5px;" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>`;
+                repeatClassCheck = 0;
+              }
+
+              var contentTemp = mom + check + `<br>`;
+              content += contentTemp;
+            }
+            document.getElementById('pracClassInstances' + id).innerHTML = content;
+
+            // edit confirm booking button
+            if (repeatClassCheck == 0) {
+              document.getElementById('bookBtn' + id).classList.add("disableFade");
+              document.getElementById('bookBtn' + id).setAttribute("data-toggle", "tooltip");
+              document.getElementById('bookBtn' + id).setAttribute("title",
+                "Some of your selected class times are invalid, please adjust your booking");
+              document.getElementById('bookBtn' + id).setAttribute("data-original-title",
+                "Some of your selected class times are invalid, please adjust your booking");;
+            }
+
+            // tool tips
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip({
+                boundary: 'window',
+              });
+            });
+          },
+          error: function (jqXHR, textStatus, err) {
+            //show error message
+            console.log('unsuccessful post');
+          }
+        });
+      }
+
+      
+  var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	if (region.indexOf("Australia") < 0) {
+		// convert to USD
+		document.getElementById('currencyCode').textContent = 'USD';
+    document.getElementById('pracPrice').textContent = '7';
+		document.getElementById('theoryPracPrice').textContent = '29';
+		document.getElementById('theoryPrice').textContent = '29';
+	}
+</script>

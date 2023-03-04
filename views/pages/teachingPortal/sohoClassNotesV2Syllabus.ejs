@@ -1,0 +1,1176 @@
+<!-- save TOAST -->
+<div id="saveToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Notes saved successfully</span>
+  </div>
+</div>
+
+<!-- add page TOAST -->
+<div id="addPageToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    New page successfully added</span>
+  </div>
+</div>
+
+
+<!-- delete TOAST -->
+<div id="deletePageToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    New page successfully deleted</span>
+  </div>
+</div>
+
+<div class="row" style="margin:-30px">
+
+
+
+  <div class="col-sm-7"
+    style="height:100vh;overflow: hidden;overflow-y: scroll;padding-top: 10px; display:flex; flex-direction:column;border-right:0.5px solid lightgray">
+
+    <div class="row">
+      <div class="col-sm-8">
+
+        <select id="class" name="class" class="selectpicker form-control" data-live-search="true" data-size="10"
+          onchange="loadSyllabus(this), collapseSidebar('on')">
+
+          <option value="">Please select...</option>
+          <% for (var i = 0 ; i < (syllabus.length) ; i ++) { %>
+          <option value="<%- syllabus[i].sohoYID %>"><%- syllabus[i].title %></option>
+          <% } %>
+        </select>
+      </div>
+      <div class="col-sm-4">
+
+        <button class="button button-secondary button-block button-shadow button-icon" type="button"
+          onclick="nextPage()" data-toggle="tooltip" title="Next page"
+          style="margin: 0px 5px; float: right; display:inline-flex;"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+            <path
+              d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
+          </svg></button>
+
+        <button class="button button-secondary button-block button-shadow button-icon" type="button"
+          onclick="prevPage()" data-toggle="tooltip" title="Previous page"
+          style="margin: 0px 5px; float: right; display:inline-flex;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left"
+            viewBox="0 0 16 16">
+            <path
+              d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="syllabusContent" style="height: auto;overflow: scroll;"></div>
+    <div id="notesContent" class="subtext"
+      style="margin: auto 0 0 0; padding-bottom:10px;height:fit-content; max-height:30vh;overflow:scroll; width:100%;border-top: 1px solid lightgray;">
+    </div>
+
+
+
+  </div>
+
+
+  <div class="col-sm-5" style="height:100vh;overflow: hidden;overflow-y: scroll;">
+    <span class="badge badge-pill badge-light minitext" style="white-space: normal;margin-bottom: 5px;">Students can
+      join the live notes
+      session by: <span style="color: #4950F6">Class Notes &#8594; Join Live Notes (<svg
+          xmlns="http://www.w3.org/2000/svg" style="display: inline;margin:0 2px" width="16" height="16"
+          fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+          <path
+            d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+        </svg>) &#8594; Code:
+        <%- sohoUID %></span></span>
+    <div class="row" style="height:50%;overflow:scroll;margin: 0px 5px;">
+      <select id="class" name="class" class="selectpicker form-control" data-live-search="true" data-size="20"
+        onchange="loadClassNotes(this), collapseSidebar('on')">
+
+        <option value="">Please select...</option>
+        <% for (var i = 0 ; i < (classes.length) ; i ++) { %>
+        <% if (classes[i].sohoUID == sohoUID) { %>
+        <option value="<%- classes[i].sohoCID %>" data-className="<%- classes[i].className %>">
+          <%- classes[i].className %>
+        </option>
+        <% } else { %>
+        <option value="<%- classes[i].sohoCID %>" style="background-color: #ffeaa7;"
+          data-className="<%- classes[i].className %>"
+          data-content="<span class='badge badge-light'><%- classes[i].firstName + ' ' + classes[i].lastName %></span> <%- classes[i].className %>">
+          <%- classes[i].className %></option>
+        <% } %>
+        <% } %>
+
+      </select>
+
+
+      <ul id="middleBar" style="display: inline-block;padding-left:5px;width:100%;margin: 0px;">
+      </ul>
+
+      <div id="box0" class="box-shadow" style="width: 100%;position:inherit; margin: 0;">
+        <div style="padding:20px 5px;text-align:left">
+
+          <h4 contenteditable="true" onblur="updateTitleInitial(this)" id="rightBarTitleLive"
+            class="classroomNotesTitle"
+            style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">
+            Untitled Page
+          </h4>
+
+          <form method="post">
+            <input type="hidden" name='titleInput' id='titleInput' value='Untitled Page'>
+
+            <span data-toggle="modal" data-target="#savePageModal0">
+              <button class="button button-secondary button-block button-shadow button-icon" type="button"
+                data-toggle="tooltip" title="Save copy to student notes"
+                style="margin: 10px 0px 10px 10px; float: right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                </svg>
+              </button>
+            </span>
+            <br>
+
+            <!-- Modal -->
+            <div class="modal fade" id="savePageModal0" tabindex="-1" role="dialog"
+              aria-labelledby="savePageModalLabel0" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="savePageModalLabel0">Save a copy to student notes?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>This will save a copy to a new notes page for the students you select.</p>
+                    <div class="form-group" id="saveGroup">
+                      <label for="save"><b>Select students</b></label>
+
+                      <select id="save" name="save" class="selectpicker form-control" data-live-search="true"
+                        data-size="5" multiple required>
+
+                        <option value="">Please select...</option>
+                        <% for (var i = 0 ; i < (allStudent.length) ; i ++) { %>
+                        <option value="<%- allStudent[i].sohoCID %>">
+                          <%- allStudent[i].className %>
+                        </option>
+                        <% } %>
+
+                      </select>
+
+                    </div>
+                    
+                  <div class="form-group" id="saveGroupByGroup">
+                    <label for="saveByGroup"><b>Select groups</b></label>
+
+                    <select id="saveByGroup" name="saveByGroup" class="selectpicker form-control" data-live-search="true"
+                      data-size="5" >
+
+                      <option value="">Please select...</option>
+                      <% for (var i = 0 ; i < (groups.length) ; i ++) { %>
+                        <% var membersArr = JSON.parse(groups[i].memberJSON); %>
+                      <option value="<%- groups[i].classIDArr %>">
+                        <span class="subtext">
+                        <%- groups[i].groupName %> - 
+                        <% for (var j = 0 ; j < membersArr.length ; j ++ ) { %>
+                          <%- membersArr[j].className %>
+                        <% } %>
+                      </span>
+                      </option>
+                      <% } %>
+
+                    </select>
+
+
+                  </div>
+
+
+                  </div>
+                  <br>
+                  <div class="modal-footer">
+                    <button type="button" class="button button-block button-shadow" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="saveNotesGroup()"
+                      class="button  button-primary button-block button-shadow">Save copy to students notes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="htmlTextEditorLive" class="border-secondary tinyPlaceholderTextBox" style="max-height:60vh;">
+              <div id="tooltip0" class="minitext badge badge-pill badge-light" style="float: right; opacity: 1; ">
+
+              </div>
+
+            </div>
+
+            <textarea data-id="0" data-notesID="0" id="tinyTextEditorLive" name="tinyTextEditor"
+              style="display:none;width:100%">
+            <%- notes.groupnotes %>
+          
+          </textarea>
+          </form>
+
+
+        </div>
+      </div>
+
+
+
+      <div id="rightBar" style="width:100%"></div>
+
+    </div>
+    <div class="row" style="height:50%;overflow:scroll;border-top: 0.5px solid lightgray">
+      <p id="annotatedText" style="padding:10px;height:95%;overflow-x:hidden;" class="subtext pinyinAudioShowPY"></p>
+
+    </div>
+
+
+
+
+  </div>
+
+  <script src="//mandarinspot.com/static/mandarinspot.min.js" charset="UTF-8"></script>
+  <div id="preloadClassID" style="display:none"><%- preloadClassID %></div>
+  <div id="teacherID" style="display:none"><%- sohoUID %></div>
+
+</div>
+
+<script>
+  var preloadClassID = document.getElementById("preloadClassID").innerHTML;
+  if (preloadClassID != "") {
+    var e = document.getElementById("class");
+    e.value = preloadClassID;
+    loadClassNotes(e);
+  }
+
+  function loadClassNotes(e) {
+    var selectedClass = e.value;
+    var className = e.options[e.selectedIndex].getAttribute('data-className');
+    ajaxGetClassNotes(selectedClass, className); // ajax load the the homework assignments pertaining to this one
+  }
+
+  function loadSyllabus(e) {
+    var selectedSyllabus = e.value;
+    ajaxGetSyllabus(selectedSyllabus); // ajax load the the homework assignments pertaining to this one
+  }
+
+  var visibleSyllabus = 0;
+  var maxPageSyllabus = 0;
+
+  function ajaxGetSyllabus(selectedSyllabus) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxGetSyllabus",
+      timeout: 30000,
+      data: {
+        selectedSyllabus: selectedSyllabus,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+
+        // clear syllabus content
+        document.getElementById("syllabusContent").innerHTML = "";
+        document.getElementById("notesContent").innerHTML = "";
+
+        // populate middle bar with assignment objects
+        for (let i = 0; i < data.length; i++) {
+          // content
+          var content = `<div id="syllabus${i}" style="display:none; flex-direction:column;">${data[i].content}
+          </div>
+          `;
+          document.getElementById("syllabusContent").insertAdjacentHTML("beforeend", content);
+
+
+          // notes
+          var content = `<div id="notes${i}" style="display:none">
+            ${data[i].notes}
+            </div>`;
+          document.getElementById("notesContent").insertAdjacentHTML("beforeend", content);
+        }
+
+        if (data.length > 0) {
+          document.getElementById('syllabus0').style.display = "block";
+          document.getElementById('notes0').style.display = "block";
+
+
+        }
+
+        visibleSyllabus = 0;
+        maxPageSyllabus = data.length - 1;
+
+        mandarinspot.annotate("#syllabusContent");
+
+
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.log(err)
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+
+
+  function nextPage() {
+    if (visibleSyllabus < maxPageSyllabus) {
+      document.getElementById('syllabus' + visibleSyllabus).style.display = "none";
+      document.getElementById('syllabus' + (visibleSyllabus + 1)).style.display = "block";
+      document.getElementById('notes' + visibleSyllabus).style.display = "none";
+      document.getElementById('notes' + (visibleSyllabus + 1)).style.display = "flex";
+      visibleSyllabus++;
+    }
+  }
+
+
+  function prevPage() {
+    if (visibleSyllabus > 0) {
+      document.getElementById('syllabus' + visibleSyllabus).style.display = "none";
+      document.getElementById('syllabus' + (visibleSyllabus - 1)).style.display = "block";
+      document.getElementById('notes' + visibleSyllabus).style.display = "none";
+      document.getElementById('notes' + (visibleSyllabus - 1)).style.display = "flex";
+      visibleSyllabus--;
+    }
+  }
+
+
+  function ajaxGetClassNotes(selectedClass,
+    className) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxGetClassNotes",
+      timeout: 30000,
+      data: {
+        selectedClass: selectedClass,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+
+        // clear middle and right bar
+        document.getElementById("middleBar").innerHTML = "";
+        document.getElementById("rightBar").innerHTML = "";
+
+        // remove all tiny mce editors
+        for (var i = tinymce.editors.length - 1; i > -1; i--) {
+          var ed_id = tinymce.editors[i].id;
+          if (ed_id != 'tinyTextEditorLive') {
+            tinyMCE.execCommand("mceRemoveEditor", true, ed_id);
+          }
+        }
+
+
+        // populate middle bar with assignment objects
+        var content =
+          `
+        <form method="post" style="display:inline;">
+      <input type="hidden" name='addPageClass' id='addPageClass' value='${selectedClass}'>
+      <button class="button button-secondary button-block button-shadow" type="button" onclick="addPage()"
+        style="margin: 10px 0px;display:inline-flex;" data-toggle="tooltip" title="Add Page">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:inline" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>
+        </button>
+
+  </form>
+    `
+
+        document.getElementById("middleBar").insertAdjacentHTML("beforeend", content);
+
+
+        for (var i = 0; i < data.classNotes.length; i++) {
+          if (data.classNotes[i].text == null) { // null text doesn't show as "null"
+            data.classNotes[i].text = '';
+          }
+
+          // status of page title
+          var pageTitlePulse = '';
+          if (data.classNotes[i].title == "Untitled Page") { // null text doesn't show as "null"
+            pageTitlePulse = 'pulse-blue-highlight';
+          }
+
+          // populate right section with detailed view of assignment objects
+          var content = `
+<div id="box` + data.classNotes[i].sohoNID + `" class="box-shadow" style="width: 100%;position:inherit; margin: 0;">
+  <div style="padding:40px 5px;text-align:left">
+      <h4 contenteditable="true" onblur="updateTitle(this,` + data.classNotes[i].sohoNID + `)" id="rightBarTitle` +
+            data.classNotes[i]
+            .sohoNID +
+            `" class="classroomNotesTitle ` + pageTitlePulse +
+            `"
+          style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">` +
+            data.classNotes[i].title + `
+        </h4>
+
+      <span class="badge badge-pill badge-light minitext">ID: ` + data.classNotes[i].sohoNID + `</span>
+    <span class="badge badge-pill badge-light minitext">` + data.classNotes[i].ts.substring(0, 10) + `</span>
+    <form method="post">
+        <input type="hidden" name='class' id='class' value='` + selectedClass + `'>
+          <button class="button button-secondary button-block button-shadow button-icon" type="button" onclick="save(${data.classNotes[i].sohoNID})"
+            data-toggle="tooltip" title="Save"
+            style="margin: 10px 0px 10px 10px; float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+              <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg></button>
+
+          <span  data-toggle="modal" data-target="#deletePageModal` + data.classNotes[i].sohoNID + `">
+          <button class="button button-secondary button-block button-shadow button-icon" type="button"
+          data-toggle="tooltip" title="Delete"
+            style="margin: 10px 0px 10px 10px; float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+            </button>
+            </span>
+            <br>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="deletePageModal` + data.classNotes[i].sohoNID + `" tabindex="-1" role="dialog"
+              aria-labelledby="deletePageModalLabel` + data.classNotes[i].sohoNID + `" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="deletePageModalLabel` + data.classNotes[i].sohoNID + `">Confirm Delete Page?</h5>
+                          <button type="button" class="close" data-dismiss="modal"
+                              aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          This action cannot be undone.
+                      </div>
+                        <br>
+                      <div class="modal-footer">
+                          <button type="button"
+                              class="button button-primary button-block button-shadow"
+                              data-dismiss="modal">Close</button>
+                          <button type="button" onclick="deletePage(${data.classNotes[i].sohoNID})"
+                              class="button button-block button-shadow">Confirm</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <div id="htmlTextEditor` + data.classNotes[i].sohoNID + `" onclick="tinyMCEinit(` + data.classNotes[i]
+            .sohoNID + `,'notes',null)" class="border-secondary tinyPlaceholderTextBox" style="max-height:60vh;">
+              <div id="tooltip` + data.classNotes[i].sohoNID + `" class="minitext badge badge-pill badge-light" style="float: right; opacity: 1; " >
+                    
+                </div>
+                ` + data.classNotes[i].text + ` 
+                
+          </div>
+
+          <textarea data-id="` + data.classNotes[i].sohoNID + `" data-notesID="` + data.classNotes[i].sohoNID +
+            `" id="tinyTextEditor` + data.classNotes[i].sohoNID + `"
+            name="tinyTextEditor" style="display:none;width:100%">
+          ` + data.classNotes[i].text + ` 
+      </textarea>
+        </form>     
+
+      </div>
+    </div>
+`
+
+          document.getElementById("rightBar").insertAdjacentHTML("beforeend", content);
+        }
+        // Random integer function
+        function getRandomInt(max) {
+          return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        // tooltips
+        $(document).ready(
+          function () {
+            var tooltips = ["You can type tone marks using numbers (e.g. ni1 = nī)",
+              `Click <img
+                src="https://www.tiny.cloud/docs/images/icons/translate.svg" style="filter: brightness(0); display: inline-block; width: 20px"/> to enable audio and pinyin for Chinese characters`
+            ];
+            for (var i = 0; i < data.classNotes.length; i++) {
+              var index = getRandomInt(tooltips.length);
+              document.getElementById('tooltip' + i).innerHTML = "Tip: " + tooltips[index];
+            }
+            // tooltips bootstrap
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip({
+                boundary: 'window'
+              })
+            });
+          });
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.log(err)
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function tinyMCEinit(notesID, type, teacherID) {
+    document.getElementById('tinyTextEditor' + notesID).style.display = "flex";
+    document.getElementById('htmlTextEditor' + notesID).style.display = "none";
+
+    // collapse 
+    collapseSidebar('on');
+
+    // docId
+    if (type == 'initial') {
+      var docId = 'groupNotes' + teacherID;
+      var toggle = 'on'; // autosave toggle
+    } else {
+      var docId = 'classroomNotes' + notesID;
+      var toggle = 'off';
+    }
+
+    var tempContentText = ``;
+    var tempContentRaw = ``;
+
+    tinymce.init({
+      setup: function (ed) {
+        ed.on('SelectionChange', debounce(annotateText, 1500));
+        ed.on('SelectionChange', debounce(autosaveGroupNotes, 8000));
+        ed.on('focus', function (e) {
+          timeArray = [];
+        });
+        ed.ui.registry.addButton('annotatePinyinBtn', {
+          icon: 'translate',
+          tooltip: 'See your Chinese characters annotated with pinyin',
+          onAction: function (_) {
+            annotateText();
+          },
+        });
+                // Add the custom annotate pinyin button
+                ed.ui.registry.addButton('pinyinTonifyBtn', {
+          icon: 'orientation',
+          tooltip: 'Annotate pinyin tones (ni1 = ní)',
+          onAction: function (_) {
+            tonify();
+          },
+        });
+
+        function debounce(cb, interval, immediate) {
+          var timeout;
+          return function () {
+            var context = this,
+              args = arguments;
+            var later = function () {
+              timeout = null;
+              if (!immediate) cb.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, interval);
+            if (callNow) cb.apply(context, args);
+          };
+        };
+
+        function autosaveGroupNotes() {
+          if (toggle == 'on') {
+            var content = ed.getContent({
+              format: 'raw'
+            });
+            if (tempContentRaw != content) {
+              ajaxAutosaveGroupNotes(content);
+              tempContentRaw = content;
+            }
+          }
+        }
+        function tonify() {
+            // console.log('Editor contents was modified. Contents: ' + ed.getContent());
+            var bm = ed.selection.getBookmark(2,
+              false); // define caret location (tinymce bookmarks) - idk what 2, false does but it works
+            // run replace function on content
+            var content = ed.getContent({
+              format: 'html'
+            });
+
+            var newContent = pinyinTonify(content);
+
+            // set content
+            ed.setContent(newContent, {
+              format: 'html'
+            });
+            ed.selection.moveToBookmark(bm); // move caret to bookmark
+
+        }
+
+
+        function annotateText() {
+          var content = ed.getContent({
+            format: 'text'
+          });
+
+          if (tempContentText != content) {
+            // send the full text to the dictionary api
+            ajaxPinyinAPI(content);
+            tempContentText = content;
+          }
+        }
+
+
+        function ajaxPinyinAPI(content) {
+          $.ajax({
+            type: "POST",
+            url: "/ajaxPinyinApi",
+            timeout: 30000,
+            data: {
+              content: content,
+            },
+            success: function (data) {
+              var text = ed.getContent({
+                format: 'raw'
+              });
+              var buildHTML = '';
+
+              for (let i = 0; i < data.length; i++) {
+
+                if (data[i]) {
+                  try { // we need this to stop this from crashing on spaces ' '
+                    // pinyin element
+                    var pinyinElement = `<rt>${data[i].dataArr[0].pinyin}</rt>`;
+                    var charElement = `<rb>${data[i].dataArr[0].simp}</rb>`;
+                    var tooltipElement = '';
+
+                    for (let l = 0; l < data[i].dataArr.length; l++) {
+                    var defElement = ``;
+                      for (let j = 0; j < data[i].dataArr[l].definitions.length; j++) {
+                        defElement += `${j+1}. ${data[i].dataArr[l].definitions[j]}<br>`;
+                      }
+                      var tooltipComponent =
+                        `<div>${data[i].dataArr[l].simp} (${data[i].dataArr[l].trad})<br>${data[i].dataArr[l].pinyin}<br></div><div class="popupDef">${defElement}</div></div><br>`;
+                      tooltipElement += tooltipComponent;
+
+                      var encodedTooltipElement = tooltipElement.replace(/"/g,
+                        '&#34;'
+                        ); // allow us to dispay " without breaking - cannot use replaceAll here because of older browsers - sogou
+
+                      var rubyElement =
+                        `<ruby data-toggle="tooltip" data-html="true" title="${encodedTooltipElement}">${charElement}${pinyinElement}</ruby>`; // replace with a class element
+
+                      // get index of first instance of that character
+                      var index = text.indexOf(data[i].originalWord);
+                      var length = data[i].dataArr[0].simp.length;
+                    }
+
+
+
+                    // grab everything up until index then put it into buildHTML (english chars)
+                    if (index > 0) {
+                      var substr = text.substr(0, index);
+                      buildHTML += substr;
+                    }
+
+                    // add ruby to build html
+                    buildHTML += rubyElement;
+
+                    // remove chinese set from text
+                                        if (index > -1) { // multiple chars with spans within it (i.e. highlighting half a chinese character pair) are repeated because of this
+                      text = text.slice(index + length);
+                    }
+                  } catch (e) {
+                    console.log(e);
+                  }
+                }
+              }
+
+              // if there's anything left in text, add it to build html
+              buildHTML += text;
+
+              document.getElementById('annotatedText').innerHTML = buildHTML;
+
+
+              // tooltip
+              document.querySelectorAll('.tooltip').forEach(e => e
+                .remove()); // clear tooltips that were previously on the dom
+
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip({
+                  boundary: 'window',
+                });
+              });
+
+
+              // scroll to bottom of annotated text div if it's scrolled to the bottom
+              // var scrollable = $('#annotatedTextWrapper');
+              // var inner = $('#annotatedTextWrapper > .inner');
+              // var atBottom = Math.abs(inner.offset().top) + scrollable.height() + scrollable.offset().top >= inner.outerHeight();
+              // if ( atBottom ) {
+              // var annotatedTextWrapper = document.getElementById("annotatedTextWrapper");
+              //   annotatedTextWrapper.scrollTop = annotatedTextWrapper.scrollHeight;
+              // }
+
+
+              console.log('successful post');
+            },
+            error: function (jqXHR, textStatus, err) {
+              //show error message
+              console.log('unsuccessful post');
+            }
+          });
+        }
+      },
+      selector: '#tinyTextEditor' + notesID,
+      height: '50vh',
+      fontsize_formats: "12pt 14pt 15pt 16pt 18pt 20pt 24pt 32pt",
+      menubar: false,
+      content_css: '/css/tinystyle.css',
+      forced_root_block: false,
+      plugins: "autosave",
+      toolbar: [{
+          name: 'custom',
+          items: ['annotatePinyinBtn','pinyinTonifyBtn']
+        },
+        {
+          name: 'color',
+          items: ['forecolor', 'backcolor']
+        },
+        {
+          name: 'fontsize',
+          items: ['fontsizeselect']
+        },
+        {
+          name: 'formatting',
+          items: ['bold', 'italic', 'underline', 'strikethrough']
+        },
+        {
+          name: 'undo',
+          items: ['undo', 'redo']
+        },
+      ],
+      external_plugins: {
+        "wave": "https://cdn2.codox.io/waveTinymce/plugin.min.js" // wave is used to enable real time collaboration
+      },
+      wave: {
+        "docId": docId, // unique document id,
+        "username": "<%- sohoFirstName %>", // unique username or email address
+        "apiKey": "" // this is your actual API Key - trial 30 days ending 28/06/2020, 100K max sessions/month 3 users max
+        // "apiKey": "7bdf58a1-e722-4868-bee9-b7e7c65a09b6" // this is a demo API key - 100 session a month 2 users max
+      },
+    });
+
+  }
+
+  // ajax save
+  function ajaxAutosaveGroupNotes(text) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxAutosaveGroupNotes",
+      timeout: 30000,
+      data: {
+        text: text,
+      },
+      success: function (data) {
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+
+  function updateTitle(e, notesID) {
+    var text = e.textContent;
+    text = text.trim();
+    // ajax post to change title
+    ajaxUpdateTitle(text, notesID);
+    // update middlebar
+    var middleBarTitle = document.getElementById("middleBarTitle" + notesID);
+    middleBarTitle.textContent = text;
+  };
+
+
+
+  function ajaxUpdateTitle(text, notesID) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxUpdateTitle",
+      timeout: 30000,
+      data: {
+        text: text,
+        notesID: notesID
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  // turn text into pinyin - if you edit this function, edit this in all files across the app...
+  function pinyinTonify(word) {
+    for (var i = 0; i < tonesArr.length; i++) {
+      var regEx = new RegExp("(" + tonesArr[i].str + ")(?!([^<]+)?>)", "gi"); // only replace outside of html tags
+      word = word.replace(regEx, tonesArr[i].toneStr);
+    }
+    return (word);
+  }
+
+  // PREPARE FOR PINYIN TONIFY
+  var tonesArr = [];
+  // create pairs
+  createPairs('a1', 'ā');
+  createPairs('a2', 'á');
+  createPairs('a3', 'ǎ');
+  createPairs('a4', 'à');
+  createPairs(
+    'e1', 'ē');
+  createPairs('e2', 'é');
+  createPairs('e3', 'ě');
+  createPairs('e4', 'è');
+  createPairs('i1',
+    'ī');
+  createPairs('i2', 'í');
+  createPairs('i3', 'ǐ');
+  createPairs('i4', 'ì');
+  createPairs('o1',
+    'ō');
+  createPairs('o2', 'ó');
+  createPairs('o3', 'ǒ');
+  createPairs('o4', 'ò');
+  createPairs('u1',
+    'ū');
+  createPairs('u2', 'ú');
+  createPairs('u3', 'ǔ');
+  createPairs('u4', 'ù');
+  createPairs('ü1',
+    'ǖ');
+  createPairs('ü2', 'ǘ');
+  createPairs('ü3', 'ǚ');
+  createPairs('ü4', 'ǜ');
+  createPairs('an1',
+    'ān');
+  createPairs('an2', 'án');
+  createPairs('an3', 'ǎn');
+  createPairs('an4', 'àn');
+  createPairs('ang1',
+    'āng');
+  createPairs('ang2', 'áng');
+  createPairs('ang3', 'ǎng');
+  createPairs('ang4', 'àng');
+  createPairs('en1',
+    'ēn');
+  createPairs('en2', 'én');
+  createPairs('en3', 'ěn');
+  createPairs('en4', 'èn');
+  createPairs('eng1',
+    'ēng');
+  createPairs('eng2', 'éng');
+  createPairs('eng3', 'ěng');
+  createPairs('eng4', 'èng');
+  createPairs('in1',
+    'īn');
+  createPairs('in2', 'ín');
+  createPairs('in3', 'ǐn');
+  createPairs('in4', 'ìn');
+  createPairs('ong1',
+    'ōng');
+  createPairs('ong2', 'óng');
+  createPairs('ong3', 'ǒng');
+  createPairs('ong4', 'òng');
+  createPairs(
+    'ing1', 'īng');
+  createPairs('ing2', 'íng');
+  createPairs('ing3', 'ǐng');
+  createPairs('ing4',
+    'ìng');
+  createPairs('un1', 'ūn');
+  createPairs('un2', 'ún');
+  createPairs('un3', 'ǔn');
+  createPairs('un4',
+    'ùn');
+  createPairs('er2', 'ér');
+  createPairs('er3', 'ěr');
+  createPairs('er4', 'èr');
+  createPairs('aō',
+    'āo');
+  createPairs('aó', 'áo');
+  createPairs('aǒ', 'ǎo');
+  createPairs('aò', 'ào');
+  createPairs('oū',
+    'ōu');
+  createPairs('oú', 'óu');
+  createPairs('oǔ', 'ǒu');
+  createPairs('où', 'òu');
+  createPairs('aī',
+    'āi');
+  createPairs('aí', 'ái');
+  createPairs('aǐ', 'ǎi');
+  createPairs('aì', 'ài');
+  createPairs('eī',
+    'ēi');
+  createPairs('eí', 'éi');
+  createPairs('eǐ', 'ěi');
+  createPairs('eī', 'èi');
+
+
+  function createPairs(str, toneStr) {
+    var pairs = {
+      str: str,
+      toneStr: toneStr,
+    }
+    tonesArr.push(pairs);
+  }
+
+
+  // Delete
+  function deletePage(notesID) {
+    ajaxDeleteClassNotesPage(notesID)
+  }
+
+  // ajax save
+  function ajaxDeleteClassNotesPage(notesID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxDeleteClassNotesPage",
+      timeout: 30000,
+      data: {
+        notesID: notesID,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // close the tinymce editor - with updated text
+        document.getElementById('box' + notesID).innerHTML = ``;
+        // show toast
+        $('#deletePageToast').toast('show'); // toast notification
+        // hide modal
+        $('#deletePageModal' + notesID).modal('hide');
+        $('body').removeClass('modal-open'); // removes fade backdrop
+        $('.modal-backdrop').remove(); // removes fade backdrop
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+
+  // SAVE
+  function save(notesID) {
+    var text = tinymce.get("tinyTextEditor" + notesID).getContent({
+      format: 'raw'
+    });
+    ajaxSaveClassNotes(text, notesID)
+  }
+
+  // ajax save
+  function ajaxSaveClassNotes(text, notesID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxSaveClassNotes",
+      timeout: 30000,
+      data: {
+        text: text,
+        notesID: notesID,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // close the tinymce editor - with updated text
+        tinymce.get("tinyTextEditor" + notesID).remove();
+        document.getElementById('tinyTextEditor' + notesID).style.display = 'none';
+        document.getElementById('htmlTextEditor' + notesID).style.display = 'block';
+        document.getElementById('htmlTextEditor' + notesID).innerHTML = text;
+        // show toast
+        $('#saveToast').toast('show'); // toast notification
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+
+  // SAVE
+    function saveNotesGroup() {
+    var text = tinymce.get("tinyTextEditorLive").getContent({
+      format: 'raw'
+    });
+    var title = document.getElementById('titleInput').value;
+    var groupMembers = $("#save").val();
+    var group = $("#saveByGroup").val();
+
+    // combine the arrs if both are selected
+    if (group != '' && groupMembers.length > 0) {
+      var groupString = groupMembers + ',' + group;
+    } else if (group != ''){
+      var groupString = group;
+    } else {
+      var groupString = groupMembers;
+    }
+
+    ajaxSaveClassNotesGroup(text, title, groupString)
+  }
+
+
+  // ajax save
+  function ajaxSaveClassNotesGroup(text, title, groupString) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxSaveClassNotesGroup?groupMembers=" + groupString,
+      timeout: 30000,
+      data: {
+        text: text,
+        title: title,
+      },
+      success: function (data) {
+        console.log('successful post');
+
+        // show toast
+        $('#saveToast').toast('show'); // toast notification
+        $('#savePageModal0').modal('toggle');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  // add page
+  function addPage() {
+    var addPageClass = document.getElementById('addPageClass').value;
+    ajaxAddClassNotesPage(addPageClass)
+  }
+
+  // ajax save
+  function ajaxAddClassNotesPage(addPageClass) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxAddClassNotesPage",
+      timeout: 30000,
+      data: {
+        addPageClass: addPageClass,
+      },
+      success: function (data) {
+        console.log('successful post');
+
+        // show toast
+        $('#addPageToast').toast('show'); // toast notification
+
+        // populate right section with notes
+        var date = new Date();
+        var content = `
+<div id="box${data}" class="box-shadow" style="width: 100%;position:inherit; margin: 0;">
+  <div style="padding:40px 5px;text-align:left">
+      <h4 contenteditable="true" onblur="updateTitle(this,${data})" id="rightBarTitle${data}" class="classroomNotesTitle pulse-blue-highlight"
+          style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">Untitled Page
+        </h4>
+
+      <span class="badge badge-pill badge-light minitext">ID: ${data}</span>
+    <span class="badge badge-pill badge-light minitext">${date.toISOString().substring(0, 10)}</span>
+    <form method="post">
+        <input type="hidden" name='class' id='class' value='` + addPageClass + `'>
+          <button class="button button-secondary button-block button-shadow button-icon" type="button" onclick="save(${data})"
+            data-toggle="tooltip" title="Save"
+            style="margin: 10px 0px 10px 10px; float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+              <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg></button>
+
+          <span  data-toggle="modal" data-target="#deletePageModal${data}">
+          <button class="button button-secondary button-block button-shadow button-icon" type="button"
+          data-toggle="tooltip" title="Delete"
+            style="margin: 10px 0px 10px 10px; float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+            </button>
+            </span>
+            <br>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="deletePageModal${data}" tabindex="-1" role="dialog"
+              aria-labelledby="deletePageModalLabel${data}" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="deletePageModalLabel${data}">Confirm Delete Page?</h5>
+                          <button type="button" class="close" data-dismiss="modal"
+                              aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          This action cannot be undone.
+                      </div>
+                        <br>
+                      <div class="modal-footer">
+                          <button type="button"
+                              class="button button-primary button-block button-shadow"
+                              data-dismiss="modal">Close</button>
+                          <button type="button" onclick="deletePage(${data})"
+                              class="button button-block button-shadow">Confirm</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <div id="htmlTextEditor${data}" onclick="tinyMCEinit(${data},'notes',null)" class="border-secondary tinyPlaceholderTextBox" style="max-height:60vh;">
+              <div id="tooltip${data}" class="minitext badge badge-pill badge-light" style="float: right; opacity: 1; " >
+                    
+                </div>
+                
+          </div>
+
+          <textarea data-id="${data}" data-notesID="${data}" id="tinyTextEditor${data}"
+            name="tinyTextEditor" style="display:none;width:100%">
+      </textarea>
+        </form>     
+
+      </div>
+    </div>
+`
+
+        document.getElementById("rightBar").insertAdjacentHTML("afterbegin", content);
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+
+  // tooltips
+  $(document).ready(
+    function () {
+      // tooltips bootstrap
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip({
+          boundary: 'window'
+        })
+      });
+      var teacherID = document.getElementById('teacherID').textContent;
+      tinyMCEinit('Live', 'initial', teacherID);
+    });
+</script>

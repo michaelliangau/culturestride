@@ -1,0 +1,269 @@
+<div class="row" style="margin-bottom:20px">
+    <div class="col-sm-12">
+
+        <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:40px 40px;text-align:left">
+                <div class="row">
+                    <h3 class="feature-title h3-mobile" style="margin-top:0px">
+                        Theory Class -
+                        <% if (lesson[0].start != 'noClass') {  %>
+
+                        <span id="startTimeText"></span> -
+                        <span id="endTimeText"></span>
+                        (<span id="regionTimeText"></span>)
+
+
+                        <% } else { %>
+                        <span class="badge badge-light">No class has been booked</span>
+                        <% } %>
+                    </h3>
+                </div>
+                <div class="row">
+                    <p class="subtext">
+                        <% if (lesson[0].confirmed == 0 || lesson[0].confirmed == -1) { %>
+                        <span class="badge badge-danger badge-pill" style="font-size:1em">Status: Waiting for the
+                            teacher to accept your class</span>
+                        <br>
+                        <% } else if (lesson[0].confirmed == 1) { %>
+                        <span class="badge badge-danger badge-pill" style="font-size:1em">Status: Waiting for you to
+                            confirm attendance</span>
+                        <br>
+                        <% } else if (lesson[0].confirmed == 2) { %>
+                        <span class="badge badge-success badge-pill" style="font-size:1em">Status: Class
+                            confirmed</span>
+                        <br>
+                        <% } %>
+                    </p>
+
+                        <h4 style="width: 100%;">What's next</h4>
+                        <br>
+                        <ul class="subtext">
+                            <li>
+                                You will receive an email with your assigned teacher (usually in the next 48 hours)
+                            </li>
+                            <li>
+                                You will receive an email asking you to re-confirm your class attendance
+                            </li>
+                            <li>
+                                You will receive a calendar invite and join link after you re-confirm your attendance
+                            </li>
+                        </ul>
+                        <p class="subtext" style="margin-bottom:0">
+                            By continuing, you are agreeing to abide by our <a href="/studentcode"
+                                target="_blank">student code of conduct </a>.
+
+                        </p>
+
+                            <h4>Before class</h4>
+
+                            <p class="subtext" style="width:100%">
+                                <ul class="subtext">
+                                    <% if (sef.entryGoal == null) { %>
+                                    <li>Complete the compulsory
+                                        <a href="/a/onboarding/studententryform" target="_blank">Student Entry Form</a>
+                                    </li>
+                                    <% } %>
+                                    <li>
+                                        Install and sign up for <a
+                                            href="https://voovmeeting.com/download-center.html?from=1001"
+                                            target="_blank">Voov</a> (primary meeting software - <a href="/voov"
+                                            target="_blank">what is/why do we use Voov?</a>)
+                                    </li>
+                                    <li>
+                                        Install and sign up for <a href="https://zoom.us/download"
+                                            target="_blank">Zoom</a> (backup meeting software)
+                                    </li>
+                                </ul>
+
+                            </p>
+
+
+
+                </div>
+                <div class="row">
+                    <form method="post" class="needs-validation" id="confirmAttendanceForm">
+                        <input type='hidden' name='groupSlug' id='groupSlug' value='<%- lesson[0].groupSlug %>'>
+                        <input type='hidden' name='sohoAID' id='sohoAID' value='<%- lesson[0].sohoAID %>'>
+                        <% var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; %>
+                        <input type='hidden' name='timezone' id='timezone' value='<%- timezone %>'>
+                        <% if (lesson[0].confirmed == 1) { %>
+                        <button id="confirmAttendanceBtn" class="button button-primary button-block button-shadow"
+                            style="margin:10px" type="submit" formaction="/confirmStuAttendance">Confirm
+                            Attendance</button>
+                        <% } %>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:20px">
+    <div class="col-sm-12">
+
+        <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:40px 40px;text-align:left">
+                <div class="row">
+
+                    <h3 class="feature-title h3-mobile" style="margin-top:0px">
+                        Practical Class - 
+                        <% if (prac.start != 'noClass') {  %>
+                            <span id="pracStartTimeText"></span> -
+                            <span id="pracEndTimeText"></span>
+                            (<span id="pracRegionTimeText"></span>)
+    
+    
+                            <% } else { %>
+                            <span class="badge badge-light">No class has been booked</span>
+                            <% } %>
+
+
+                    </h3>
+                </div>
+                <div class="row">
+                    <p class="subtext">
+                    <% if (prac.state == 'pending') { %>
+                        <span class="badge badge-danger badge-pill" style="font-size:1em">Status: Waiting for the
+                            teacher to accept your class</span>
+                        <br>
+                        <% } else if (prac.state == 'pendingStuConfirm') { %>
+                        <span class="badge badge-danger badge-pill" style="font-size:1em">Status: Waiting for you to
+                            confirm attendance</span>
+                        <br>
+                        <% } else if (prac.state == 'confirmed') { %>
+                        <span class="badge badge-success badge-pill" style="font-size:1em">Status: Class
+                            confirmed</span>
+                        <br>
+                        <% } %>
+                    </p>
+                        <h4 style="width: 100%;">What's next</h4>
+                        <br>
+                        <ul class="subtext">
+                            <li>
+                                You will receive an email asking you to re-confirm your class attendance
+                            </li>
+                            <li>
+                                You will receive a calendar invite and join link after you re-confirm your attendance
+                            </li>
+                        </ul>
+                        <p class="subtext" style="margin-bottom:0">
+                            By continuing, you are agreeing to abide by our <a href="/studentcode"
+                                target="_blank">student code of conduct </a>.
+
+                        </p>
+
+                     
+
+                            <h4>Before class</h4>
+
+                            <p class="subtext" style="width:100%">
+                                <ul class="subtext">
+                                    <% if (sef.entryGoal == null) { %>
+                                    <li>Complete the compulsory
+                                        <a href="/a/onboarding/studententryform" target="_blank">Student Entry Form</a>
+                                    </li>
+                                    <% } %>
+                                    <li>
+                                        Install and sign up for <a
+                                            href="https://voovmeeting.com/download-center.html?from=1001"
+                                            target="_blank">Voov</a> (primary meeting software - <a href="/voov"
+                                            target="_blank">what is/why do we use Voov?</a>)
+                                    </li>
+                                    <li>
+                                        Install and sign up for <a href="https://zoom.us/download"
+                                            target="_blank">Zoom</a> (backup meeting software)
+                                    </li>
+                                </ul>
+
+                            </p>
+
+                            <%
+var start = prac.start;
+
+var options = {
+    tz: 'UTC'
+  };
+  
+  try {
+    var interval = parser.parseExpression(start, options);
+    var nextClass = interval.next().toISOString();
+  } catch (err) {
+    console.log('Error: ' + err.message);
+  }
+  %>
+
+                            <div class="row">
+                                <form method="post" class="needs-validation" id="confirmAttendancePracForm">
+                                    <input type='hidden' name='groupMemberID' id='groupMemberID' value='<%- prac.sohoGMID %>'>
+                                    <input type='hidden' name='time' id='time' value='<%- nextClass %>'>
+                                    <% if (prac.state == 'pendingStuConfirm') { %>
+                                    <button id="confirmAttendancePracBtn" class="button button-primary button-block button-shadow"
+                                        style="margin:10px" type="submit" formaction="/confirmStuAttendancePrac">Confirm
+                                        Attendance</button>
+                                    <% } %>
+            
+                                </form>
+            
+            
+                            </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="display: none;" id="autoConfirm" data-value="<%- autoConfirm %>"></div>
+<div style="display: none;" id="autoConfirmPrac" data-value="<%- autoConfirmPrac %>"></div>
+<div style="display: none;" id="startTime"><%- lesson[0].start %></div>
+<div style="display: none;" id="endTime"><%- lesson[0].end %></div>
+
+<div style="display: none;" id="pracStartTime"><%- nextClass %></div>
+
+<script>
+   var autoConfirm = document.getElementById('autoConfirm').getAttribute("data-value");
+    if (autoConfirm == 1) {
+        // submit the confirm attendance form
+        document.getElementById("confirmAttendanceBtn").click();
+    }
+    var autoConfirmPrac = document.getElementById('autoConfirmPrac').getAttribute("data-value");
+
+    if (autoConfirmPrac == 1) {
+        // submit the confirm attendance form
+        document.getElementById("confirmAttendancePracBtn").click();
+    }
+
+
+
+        // convert class time to browser time and display it
+        var start = document.getElementById('startTime').textContent;
+    var end = document.getElementById('endTime').textContent;
+    var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (start != 'noClass') {
+    var startMom = moment(start, 'YYYY-MM-DDTHH:mm:ssZ').utc();
+    var endMom = moment(end, 'YYYY-MM-DDTHH:mm:ssZ').utc();
+
+    var formattedStart = startMom.clone().local().format('LLLL');
+    var formattedEnd = endMom.clone().local().format('LT');
+
+    document.getElementById('startTimeText').textContent = formattedStart;
+    document.getElementById('endTimeText').textContent = formattedEnd;
+    document.getElementById('regionTimeText').textContent = region;
+}
+
+var pracStart = document.getElementById('pracStartTime').textContent;
+var pracStartMom = moment(pracStart, 'YYYY-MM-DDTHH:mm:ssZ').utc();
+var pracEndMom = pracStartMom.clone().add('1','hours').utc();
+var formattedPracStart = pracStartMom.clone().local().format('LLLL');
+var formattedPracEnd = pracEndMom.clone().local().format('LT');
+document.getElementById('pracStartTimeText').textContent = formattedPracStart;
+    document.getElementById('pracEndTimeText').textContent = formattedPracEnd;
+    document.getElementById('pracRegionTimeText').textContent = region;
+
+</script>

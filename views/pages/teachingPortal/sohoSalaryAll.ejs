@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+
+
+<h4>Salary</h4>
+<form name="/sohosalaryall" method="post" id="">
+
+    <div class="form-group">
+        <label for="startDate" id="startDateLabel">Start Date</label>
+        <br>
+        <input name="startDate" id="startDate" type="text" autocomplete="off" required>
+    </div>
+
+    <div class="form-group">
+        <label for="endDate" id="endDateLabel">End Date</label>
+        <br>
+        <input name="endDate" id="endDate" type="text" autocomplete="off" required>
+    </div>
+
+    <button class="button button-primary button-block button-shadow" style="margin: 0px auto 20px auto"
+        type="submit">Refresh</button>
+</form>
+
+
+<hr>
+<div style="width:100%;">
+    <% for (var i = 0 ; i < salary.length ; i ++) { %>
+        Name: <%- salary[i].name %> (<%- salary[i].rate %> RMB / hr)
+    <br>
+    Theory Due: <%- salary[i].theoryPay %>
+    <br>
+    Practical Due: <%- salary[i].pracPay %>
+    <br>
+
+
+    <table class="striped highlight">
+
+        <thead >
+            <tr>
+                <th>ID</th>
+                <th>Who</th>
+                <th>When</th>
+                <th>Type</th>
+                <th>Hours</th>
+                <th> </th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <% 
+            for (var j = 0 ; j < salary[i].lesson.length ; j ++) { %>
+                <% var e = salary[i].lesson[j]; %>
+                    <tr style="text-align: center;">
+    
+                    <td>
+                        <%- e.sohoLID %>
+                    </td>
+                    <td>
+                        <% if (e.lessonType == 'practical') { %>
+                            <% var memberJSON = JSON.parse(e.memberJSON) 
+                            
+                            %>
+                            <% for (var k= 0 ; k< memberJSON.length ; k++) { %>
+                                <%- memberJSON[k].firstName  + ' ' + memberJSON[k].lastName %>,
+                            <% } %>
+                        <% } else { %>
+                        <%- e.firstName + ' ' + e.lastName %>
+                        <% } %>
+                    </td>
+                <td>
+                    <%- e.start %>
+                </td>
+                <td>
+                    <%- e.lessonType %>
+                </td>
+                <td>
+                    <%- e.hours %>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    
+    
+    <% } %>
+</div>
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        var optional_config = {
+            altInput: true,
+            altFormat: "Y-m-d H:i:00",
+                dateFormat: 'Z',
+            onChange: function (dateObj, dateStr) {
+                dateObj = dateObj[0];
+                const utc = moment(dateObj).utc();
+                test.selectedDateObj = utc.toDate();
+                test.input.value = utc.format();
+                timezone.textContent = utc.utcOffset();
+            }
+        }
+        $("#startDate").flatpickr(optional_config);
+        $("#endDate").flatpickr(optional_config);
+
+
+    });
+
+</script>

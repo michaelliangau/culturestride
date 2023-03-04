@@ -1,0 +1,179 @@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:20px;text-align:left">
+                <form method="post" enctype="multipart/form-data" validate action="/sohoprofile">
+                    <h4>Your Profile</h4>
+                    <span class="subtext">See your public profile: <a href="/teacher/<%- sohoUID %>"
+                            target="_blank">https://culturestride.com/teacher/<%- sohoUID %></a></span>
+                    <br>
+                    <div class="form-group">
+                        <label for="availableToBeBooked">Accept new students</label>
+                        <select id="availableToBeBooked" name="availableToBeBooked" class="selectpicker form-control">
+                            <% if (teacher.availableToBeBooked == 1) { %>
+                                <option value="1" >I am accepting new students right now</option>
+                                <option value="0">I am not accepting new students right now</option>
+                            <% } else { %>
+                                <option value="0">I am not accepting new students right now</option>
+                                <option value="1" >I am accepting new students right now</option>
+                            <% } %>
+                        </select>
+                        <small class="minitext form-text text-muted">Students who have taken classes with you before can always book you</small>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="file-field input-field">
+                            <label for="profileImage">Profile Image (upload a 96px x 96px square png file)</label>
+                            <p class="subtext">Current image is: <a href="<%- teacher.profileImage %>"><%- teacher.profileImage %></a></p>
+        
+                            <input id="profileImage" type="file" class="form-control-file" name="file-to-upload">
+                            <div class="invalid-feedback">
+                                Please upload a valid image file.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName"
+                            value="<%- teacher.firstName %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" id="lastName"
+                            value="<%- teacher.lastName %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location (e.g. Shanghai, China)</label>
+                        <input type="text" class="form-control" name="location" id="location"
+                            value="<%- teacher.location %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="languages">Languages (e.g. Mandarin, English, Cantonese)</label>
+                        <input type="text" class="form-control" name="languages" id="languages"
+                            value="<%- teacher.lang %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc1">About me (less than 1000 characters)</label>
+                        <textarea class="form-control" id="desc1" name="desc1"><%- teacher.desc1 %>
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc2">My teaching (less than 1000 characters)</label>
+                        <textarea class="form-control" id="desc2" name="desc2"><%- teacher.desc2 %></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="videoConfPMI">Video conferencing link</label>
+                        <input type="text" class="form-control" name="videoConfPMI" id="videoConfPMI"
+                            value="<%- teacher.videoConfPMI %>" required>
+                        <small class="minitext form-text text-muted">e.g. https://voovmeeting.com/p/1234567891</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="video1">Personal intro video link (YouTube)</label>
+                        <% if (teacher.video1) { %>
+                            <input type="text" class="form-control" name="video1" id="video1"
+                            value="https://www.youtube.com/watch?v=<%- teacher.video1 %>">
+                        <% } else { %>
+                            <input type="text" class="form-control" name="video1" id="video1"
+                            value="<%- teacher.video1 %>">
+                        <% } %>
+
+                        <small class="minitext form-text text-muted">Only YouTube links are accepted in the format: https://www.youtube.com/watch?v=123123</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="video2">Theory (1-on-1) class sample link (5-minutes YouTube)</label>
+                        <% if (teacher.video2) { %>
+                            <input type="text" class="form-control" name="video2" id="video2"
+                            value="https://www.youtube.com/watch?v=<%- teacher.video2 %>">
+                        <% } else { %>
+                            <input type="text" class="form-control" name="video2" id="video2"
+                            value="<%- teacher.video2 %>">
+                        <% } %>
+
+                        <small class="minitext form-text text-muted">Only YouTube links are accepted in the format: https://www.youtube.com/watch?v=123123</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="video3">Practical (group) class sample link (5-minutes YouTube)</label>
+                        <% if (teacher.video3) { %>
+                            <input type="text" class="form-control" name="video3" id="video3"
+                            value="https://www.youtube.com/watch?v=<%- teacher.video3 %>">
+                        <% } else { %>
+                            <input type="text" class="form-control" name="video3" id="video3"
+                            value="<%- teacher.video3 %>">
+                        <% } %>
+
+                        <small class="minitext form-text text-muted">Only YouTube links are accepted in the format: https://www.youtube.com/watch?v=123123</small>
+                    </div>
+
+                    <button class="button button-primary button-block button-shadow" type="submit">Submit</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:20px;text-align:left">
+                <h4>Student Reviews</h4>
+                <span class="subtext">
+                Total: <%- review.length %> reviews
+                </span>
+                <br>
+                <span class="subtext">Reviews help you attract new students. Ask your students to review you here in their 'Past Classes' section: <a href="javascript:void(0);">https://culturestride.com/a/classadmin</a></span>
+                <% for (var i = 0; i < review.length ; i ++) { %>
+                    <div class="cardWithShadowInner subtext">
+                        <span class="star">&#9733;</span> <span class="subtext"><%- review[i].stars %></span>
+                        <br>
+                        <%- review[i].comments %>
+                    <div style="width:100%;text-align: right;margin-top:10px;" class="minitext">
+                        <%- review[i].firstName + ' ' + review[i].lastName + ' - ' %>
+                        <span id="when<%- i %>"></span>
+                        <script>
+                                    var mom = moment('<%- review[i].ts %>', 'YYYY-MM-DDTHH:mm:ssZ');
+                                    var formattedMom = mom.local().format('LLL');
+                                    document.getElementById('when<%- i %>').textContent = formattedMom;
+                        </script>
+
+
+                    </div>
+                </div>
+                <% } %>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        tinyMCEinit('#desc1');
+        tinyMCEinit('#desc2');
+    });
+
+
+    function tinyMCEinit(id) {
+        tinymce.init({
+            selector: id,
+            height: '30vh',
+            content_css: '/css/tinystyle.css',
+            menubar: false,
+            forced_root_block: false,
+            plugins: 'emoticons',
+            toolbar: [{
+                    name: 'undo',
+                    items: ['undo', 'redo']
+                }, {
+                    name: 'formatting',
+                    items: ['bold', 'italic', 'underline']
+                },
+                {
+                    name: 'misc',
+                    items: ['emoticons']
+                },
+
+            ],
+        });
+
+    }
+</script>

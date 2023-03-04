@@ -1,0 +1,346 @@
+<div class="row" style="margin:-30px">
+
+  <div class="col-sm-3" style="height:100vh;background: #f6f9fc;overflow: hidden;overflow-y: scroll;">
+    <a class="button button-secondary button-block button-shadow" style="margin: 10px 0px;display:inline-block"
+      href="/sohohomeworkcreate" data-toggle="tooltip" data-placement="bottom" title="Create homework">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>
+    </a>
+    <a class="button button-secondary button-block button-shadow" style="margin: 10px 0px;display:inline-block"
+      href="/sohohomeworkcollection" data-toggle="tooltip" data-placement="bottom" title="Your homework pieces">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+        <path d="M.54 3.87L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+      </svg>
+    </a>
+    <a class="button button-secondary button-block button-shadow" style="margin: 10px 0px;display:inline-block"
+    href="/sohohomeworkall" data-toggle="tooltip" title="All homework pieces">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection" viewBox="0 0 16 16">
+      <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+    </svg>
+  </a>
+
+
+    <ul style="display: inline-block;padding-left:5px;width:100%">
+
+      <% for (var i = 0 ; i < hw.length ; i ++) { %>
+      <li onclick="openHW(<%- hw[i].sohoHID %>)" class="nav-menu-item">
+        <div class="nav-wrapper">
+
+          <a class="nav-menu-link" href="<%- '#box' + hw[i].sohoHID %>">
+            <span>
+              <% if (hw[i].state == 'teaRepo') { %>
+                <span class="badge badge-pill badge-danger"><%- 'ID: ' + hw[i].sohoHID %></span>
+                <% } else { %>
+              <span class="badge badge-pill badge-light"><%- 'ID: ' + hw[i].sohoHID %></span>
+              <% } %>
+
+              <% if (hw[i].level < 2) { %>
+              <span class="badge badge-pill badge-light" style="background-color: #ffffe0;"><%- 'HSK ' +  hw[i].level %></span>
+              <% } else if(hw[i].level < 3) { %>
+              <span class="badge badge-pill badge-light" style="background-color: #ffeaa7;"><%- 'HSK ' +  hw[i].level %></span>
+              <% } else if(hw[i].level < 4) { %>
+              <span class="badge badge-pill badge-light" style="background-color: #fdcb6e;"><%- 'HSK ' +  hw[i].level %></span>
+              <% } else if(hw[i].level < 5) { %>
+              <span class="badge badge-pill badge-light" style="background-color: #fab1a0;"><%- 'HSK ' +  hw[i].level %></span>
+              <% } else if(hw[i].level < 6) { %>
+              <span class="badge badge-pill badge-light" style="background-color: #ff7979;"><%- 'HSK ' +  hw[i].level %></span>
+              <% } else { %>
+              <span class="badge badge-pill badge-light" style="background-color: #e17055;"><%- 'HSK ' +  hw[i].level  %></span>
+              <% } %>
+
+              <% if (hw[i].questionType == 'Reading') { %>
+                <span class="badge badge-pill badge-light"><%- hw[i].questionType %></span>
+                <% } else if(hw[i].questionType == 'Writing') { %>
+                <span class="badge badge-pill badge-light"><%- hw[i].questionType %></span>
+                <% } else if(hw[i].questionType == 'Listening') { %>
+                <span class="badge badge-pill badge-light"><%- hw[i].questionType %></span>
+                <% } else if(hw[i].questionType == 'Speaking') { %>
+                  <span class="badge badge-pill badge-light"><%- hw[i].questionType %></span>
+                  <% } %>
+
+
+            </span>
+          </a>
+        </div>
+      </li>
+      <% } %>
+
+    </ul>
+
+  </div>
+
+  <div class="col-sm-9" id="rightBar" style="height: 100vh;overflow: hidden;overflow-y: scroll;">
+
+
+
+
+       
+
+  </div>
+</div>
+
+<script>
+  // tool tips
+  $(function () {
+		$('[data-toggle="tooltip"]').tooltip({
+			boundary: 'window'
+		})
+	});
+
+  // AJAX open hw
+  function openHW(id) {
+    ajaxOpenHW(id);
+  }
+
+  function ajaxOpenHW(id) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxOpenHW",
+      timeout: 30000,
+      data: {
+        id: id,
+      },
+      success: function (data) {
+      console.log("file: sohoHomeworkAll.ejs ~ line 305 ~ ajaxOpenHW ~ data", data)
+        //show content
+        console.log('successful post');
+
+        // tearepo
+        if (data.hw.state == 'teaRepo') {
+            var teaRepoHTML = `
+          <span class="badge badge-pill badge-danger">Exists only in teacher's homework repository</span>
+            `;
+        } else {
+          var teaRepoHTML = '';
+        }
+
+        // badge level
+        if (data.hw.level < 2) {
+          var badgeHTML = `<span class="badge badge-pill badge-light" style="background-color: #ffffe0;">HSK ${data.hw.level} ${data.hw.questionType}</span>`;
+        } else if(data.hw.level < 3) {
+          var badgeHTML = `<span class="badge badge-pill badge-light" style="background-color: #ffeaa7;">HSK ${data.hw.level} ${data.hw.questionType}</span>`;
+        } else if(data.hw.level < 4) {
+          var badgeHTML = `<span class="badge badge-pill badge-light" style="background-color: #fdcb6e;">HSK ${data.hw.level} ${data.hw.questionType}</span>`;
+        } else if(data.hw.level < 5) {
+          var badgeHTML = `<span class="badge badge-pill badge-light" style="background-color: #fab1a0;">HSK ${data.hw.level} ${data.hw.questionType}</span>`;
+        } else if(data.hw.level < 6) {
+          var badgeHTML = `<span class="badge badge-pill badge-light" style="background-color: #ff7979;">HSK ${data.hw.level} ${data.hw.questionType}</span>`;
+        } else  {
+          var badgeHTML = `<span class="badge badge-pill badge-light" style="background-color: #e17055;">HSK ${data.hw.level} ${data.hw.questionType}</span>`;
+        }
+
+        // drop down
+
+        var dropdownHTML = ``;
+        
+      for (var j = 0 ; j < (data.classes.length) ; j ++) {
+        if (data.classes[j].sohoUID == data.sohoUID) {
+        var optionHTML = `
+      <option value="${data.classes[j].sohoCID}" data-className="${data.classes[j].className}">${data.classes[j].className}</option>
+      `;
+        } else {
+        var optionHTML = `<option value="${data.classes[j].sohoCID}" style="background-color: #ffeaa7;" data-className="${data.classes[j].className}"
+        data-content="<span class='badge badge-light'>${data.classes[j].firstName} ${data.classes[j].lastName}</span> ${data.classes[j].className}"></option>
+        `;
+        }
+        dropdownHTML += optionHTML;
+        }
+
+
+        // add to automated button
+        if (data.hw.state == 'teaRepo') {
+            var automatedHTML = `
+            <span data-toggle="modal" data-target="#convertModal${data.hw.sohoHID}">
+              <a style="margin:10px 0px 10px auto;display:inline-block"
+                class="button button-secondary button-block button-shadow" data-toggle="tooltip"
+                title="Add to automated Culturestride homework">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: inline;" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
+                  <path d="M.5 3l.04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z"/>
+                  <path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+              </a>
+            </span>
+
+            <!-- Modal -->
+            <div class="modal fade" id="convertModal${data.hw.sohoHID}" tabindex="-1" role="dialog"
+              aria-labelledby="convertClassModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="convertClassModalLabel">Add to Culturestride homework
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" style="text-align: left;">
+                    This will allow the below question to be received by all Culturestride students every day:
+                    <br><br>
+                    ${data.hw.question}
+
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="submit" formaction="/sohoAddToHomeworkRepo"
+                      class="button button-primary  button-block button-shadow">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            `;
+        } else {
+          var automatedHTML = '';
+        }
+
+        var content = `
+    <div id="box${data.hw.sohoHID}" class="box-shadow" style="width: 100%;position:inherit">
+      <div style="padding:40px;text-align:left">
+          ${teaRepoHTML}
+        <span class="badge badge-pill badge-light">ID: ${data.hw.sohoHID}</span>
+
+        ${badgeHTML}
+
+        <span class="badge badge-pill badge-light">Difficulty: ${data.hw.difficulty}</span>
+        <span class="badge badge-pill badge-light">Created By: ${data.hw.firstName} ${data.hw.lastName}</span>
+        <span class="badge badge-pill badge-light">Date Created: ${data.hw.ts}</span>
+
+        <div style="font-size:0.9rem" class="pinyinAudio">
+
+          ${data.hw.question}
+        </div>
+          <div style="text-align: right">
+
+            
+          <form method="post" style="display:inline-block">
+            <input type="hidden" name='sohoHID' id='sohoHID' value=${data.hw.sohoHID}>
+            ${automatedHTML}
+
+            <span data-toggle="modal" data-target="#assignModal${data.hw.sohoHID}">
+              <a style="margin:10px 0px 10px auto;display:inline-block"
+                class="button button-secondary button-block button-shadow" data-toggle="tooltip"
+                title="Assign to student">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display:inline" width="16" height="16"
+                  fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                  <path
+                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                  <path fill-rule="evenodd"
+                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+                </svg>
+              </a>
+            </span>
+
+            <!-- Modal -->
+            <div class="modal fade" id="assignModal${data.hw.sohoHID}" tabindex="-1" role="dialog"
+              aria-labelledby="assignClassModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="assignClassModalLabel">Assign homework (ID: ${data.hw.sohoHID}) to
+                      student
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" style="text-align: left;">
+                    ${data.hw.question}
+                    <br>
+                    <b>Assign to</b>
+                    <select id="assign${data.hw.sohoHID}" name="assign" class="selectpicker form-control" data-live-search="true" data-size="20">
+                      
+                      <option value="">Please select...</option>
+                      ${dropdownHTML}
+                
+                    </select>
+
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="submit" formaction="/sohoAssignHomework"
+                      class="button button-primary  button-block button-shadow">Assign</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="/sohohomeworkedit/${data.hw.sohoHID}"
+              style="margin:10px 0px 10px auto;display:inline-block"
+              class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Edit">
+              <svg xmlns="http://www.w3.org/2000/svg" style="display:inline" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+              </svg>
+            </a>
+
+
+                <span data-toggle="modal" data-target="#deleteModal${data.hw.sohoHID}">
+                  <button type="button" style="padding: 16px 20px;display:inline-block"
+                    class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display:inline" width="16" height="16"
+                      fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path
+                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                      <path fill-rule="evenodd"
+                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg>
+                  </button>
+                </span>
+
+                <!-- Modal -->
+                <div class="modal fade" id="deleteModal${data.hw.sohoHID}" tabindex="-1" role="dialog"
+                    aria-labelledby="deleteClassModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteClassModalLabel">Confirm Delete Homework?
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                This action cannot be undone - this will not affect all existing homework assignments.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="button button-primary button-block button-shadow"
+                                    data-dismiss="modal">Close</button>
+                                <button type="submit" formaction="/sohoDeleteHomework"
+                                    class="button button-block button-shadow">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+          </div>
+
+
+
+       
+      </div>
+    </div>
+
+        
+        `;
+      document.getElementById("rightBar").insertAdjacentHTML("beforeend", content);
+      $('#assign' + data.hw.sohoHID).selectpicker('render');
+
+ // tool tips
+ $(function () {
+		$('[data-toggle="tooltip"]').tooltip({
+			boundary: 'window'
+		})
+	});
+
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+</script>

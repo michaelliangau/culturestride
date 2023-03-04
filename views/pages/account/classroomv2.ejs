@@ -1,0 +1,989 @@
+<!-- TOAST -->
+<div id="saveToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Notes saved successfully</span>
+  </div>
+</div>
+
+<div id="groupNotesConnectedToast" class="toast mobileHide" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Successfully connected to live notes session.</span>
+  </div>
+</div>
+
+
+<!-- add page TOAST -->
+<div id="addPageToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    New page successfully added</span>
+  </div>
+</div>
+
+<!-- delete TOAST -->
+<div id="deletePageToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    New page successfully deleted</span>
+  </div>
+</div>
+
+
+<div class="row" style="margin:-30px">
+
+  <div class="col-sm-6 midBar" style="overflow: hidden;overflow-y: scroll; border-right: 0.5px solid lightgray">
+
+    <div style="width: fit-content; display:inline-block; ">
+    <form method="post" style="display:inline-block; ">
+      <input type="hidden" name='addPageClass' id='addPageClass' value='<%- classID %>'>
+      <button class="button button-secondary button-block button-shadow button-icon" type="button" onclick="addPage()"
+        style="margin: 10px 0px; height: 100%; display:inline-flex" data-toggle="tooltip"
+        title="Add Page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square"
+          viewBox="0 0 16 16">
+          <path
+            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+          <path
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg>
+      </button>
+
+    </form>
+
+    <span data-toggle="modal" data-target="#groupNotesModal" style="display:inline-block; ">
+
+      <button class="button button-secondary button-block button-shadow button-icon"
+      style="margin: 10px 0px; height: 100%; display:inline-flex" data-toggle="tooltip"
+      title="Join Live Notes">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+      </svg>
+    </button>
+  </span>
+
+       <!-- Modal -->
+   <div class="modal fade" id="groupNotesModal" tabindex="-1" role="dialog"
+   aria-labelledby="resetNotesLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="resetNotesLabel">Enter Live Notes Code</h5>
+               <button type="button" class="close" data-dismiss="modal"
+                   aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+
+            <div class="form-group" id="hoursTypeAGroup">
+                <input class="form-control" type="number" name="joinNotesCode" id="joinNotesCode" min="1" value="<%- joinNotesCode %>"
+                    required>
+                <div class="invalid-feedback">
+                    Please input valid live notes code
+                </div>
+            </div>
+
+           </div>
+           <div class="modal-footer">
+               <button type="button" onclick="joinGroupNotes();" class="button  button-primary button-block button-shadow">Join Live Notes</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<span class="badge badge-light badge-pill" style="display: none;" id="connectedToGroupNotes">Connected to Live Notes: <span id="connectedTojoinNotesCode"></span></span>
+</div>
+
+    
+
+    <div id="realtimeHelpTextBox" class="mobileHide scrollHighlight" style="width: 100%;position:inherit;height:70vh; opacity: 1;">
+      <div class="homework-box subtext"
+        style="position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);width:100%;text-align:center">
+        Open the notes your teacher is currently editting or join live notes (<svg xmlns="http://www.w3.org/2000/svg" style="display: inline;margin:0 2px" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+          </svg>) to see realtime annotations here
+      </div>
+    </div>
+
+    <p id="annotatedText" style="padding:10px;height:90%;overflow-x:hidden;display: none;">
+
+
+    </p>
+
+    <div class="mobileHide">
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-6" style="height: 100vh;overflow: hidden;overflow-y: scroll;">
+    <div id="rightBarLive"></div>
+
+    <div id="rightBar"></div>
+    <% if (classNotes.length == 0) { %>
+    <div class="mobileHide scrollHighlight" style="width: 100%;position:inherit;height:100vh; opacity: 1;">
+      <div class="homework-box"
+        style="position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%); width:100%;text-align: center;">
+        Click the <svg xmlns="http://www.w3.org/2000/svg" style="margin:0 5px; display: inline;" width="16" height="16"
+          fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+          <path
+            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+          <path
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg> icon to create your first page.
+      </div>
+    </div>
+    <% } %>
+
+
+    <% for (var i = 0 ; i < classNotes.length ; i ++) { %>
+
+    <div id="<%- 'box' + classNotes[i].sohoNID %>" class="box-shadow" style="width: 100%;position:inherit;margin: 0;">
+      <div style="padding:40px;text-align:left">
+        <% if (classNotes[i].title == 'Untitled Page') { %>
+        <h4 contenteditable="true" onblur="<%- 'updateTitle(this,' + classNotes[i].sohoNID + ')' %>"
+          id="<%- 'rightBarTitle' + classNotes[i].sohoNID %>" class="classroomNotesTitle pulse-blue-highlight"
+          style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">
+          <%- classNotes[i].title %>
+        </h4>
+        <% } else { %>
+        <h4 contenteditable="true" onblur="<%- 'updateTitle(this,' + classNotes[i].sohoNID + ')' %>"
+          id="<%- 'rightBarTitle' + classNotes[i].sohoNID %>" class="classroomNotesTitle"
+          style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">
+          <%- classNotes[i].title %>
+        </h4>
+        <% } %>
+        <span class="badge badge-pill badge-light minitext"><%- 'ID: ' + classNotes[i].sohoNID %></span>
+        <span
+          class="badge badge-pill badge-light minitext"><%- classNotes[i].ts.toISOString().substring(0, 10)  %></span>
+
+        <form method="post">
+          <input type='hidden' name='notesID' id='notesID' value='<%- classNotes[i].sohoNID %>'>
+
+          <button class="button button-secondary button-block button-shadow button-icon" type="button" onclick="save(<%- classNotes[i].sohoNID %>)"
+            style="margin: 10px 0px 10px 10px; float: right;" data-toggle="tooltip" title="Save">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+              viewBox="0 0 16 16">
+              <path
+                d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+            </svg>
+          </button>
+
+          <span data-toggle="modal" data-target="#deletePageModal<%- classNotes[i].sohoNID %>">
+            <button class="button button-secondary button-block button-shadow button-icon" type="button"
+              data-toggle="tooltip" title="Delete" style="margin: 10px 0px 10px 10px; float: right;"><svg
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                viewBox="0 0 16 16">
+                <path
+                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                <path fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+              </svg>
+            </button>
+          </span>
+
+          <br>
+
+          <!-- Modal -->
+          <div class="modal fade" id="deletePageModal<%- classNotes[i].sohoNID %>" tabindex="-1" role="dialog"
+            aria-labelledby="deletePageModalLabel<%- classNotes[i].sohoNID %>" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deletePageModalLabel<%- classNotes[i].sohoNID %>">Confirm Delete Page?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  This action cannot be undone.
+                </div>
+                <br>
+                <div class="modal-footer">
+                  <button type="button" class="button button-primary button-block button-shadow"
+                    data-dismiss="modal">Close</button>
+                  <button type="button" onclick="deletePage(<%- classNotes[i].sohoNID %>)"
+                    class="button button-block button-shadow">Confirm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="htmlTextEditor<%- classNotes[i].sohoNID %>" onclick="tinyMCEinit('<%- classNotes[i].sohoNID %>')"
+            class="border-secondary tinyPlaceholderTextBox" style="max-height:60vh">
+
+            <%- classNotes[i].text %>
+          </div>
+
+
+          <textarea data-id="<%- classNotes[i].sohoNID %>" data-notesID="<%- classNotes[i].sohoNID %>" id="<%- 'tinyTextEditor' + classNotes[i].sohoNID %>"
+            name="tinyTextEditor" style="display:none; width:100%">
+          <%- classNotes[i].text %>
+      </textarea>
+
+        </form>
+      </div>
+    </div>
+
+
+    <% } %>
+
+  </div>
+</div>
+
+<div id="firstName" style="display:none"><%- sFirstName %></div>
+<div id="slug" style="display:none"><%- sSlug %></div>
+<div id="sClassID" style="display:none"><%- classID %></div>
+<div id="sCharType" style="display:none"><%- charType %></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/TimeMe.js/2.0.0/timeme.min.js"></script>
+
+<script>
+  // timeme
+  TimeMe.initialize({
+    currentPageName: "classroom", // current page
+    idleTimeoutInSeconds: 300, // seconds
+  });
+
+  var newTimeInFocus = 0;
+  var timeInFocusInterval;
+
+  function initTinyTimer() {
+    newTimeInFocus++;
+  }
+
+  // tinymce
+  var timeArray = [];
+
+  function tinyMCEinit(notesID, joinNotesCode) {
+    document.getElementById('annotatedText').style.display = 'block';
+    document.getElementById('tinyTextEditor' + notesID).style.display = "flex";
+    document.getElementById('htmlTextEditor' + notesID).style.display = "none";
+
+    if (joinNotesCode) { // join a different wave session if a group code is given
+      var waveDocId = 'groupNotes'+ joinNotesCode;
+    } else {
+      var waveDocId = 'classroomNotes'+ notesID;
+    }
+
+    var tempContentText = ``;
+
+    tinymce.init({
+      setup: function (ed) {
+      
+        ed.on('focus', function (e) {
+          timeArray = [];
+          timeInFocusInterval = setInterval(function () {
+            initTinyTimer();
+          }, 1000);
+        });
+        ed.on('blur', function (e) {
+          clearInterval(timeInFocusInterval)
+        });
+        ed.on('SelectionChange', debounce(annotateText, 1500));
+
+        // Add the custom annotate pinyin button
+        ed.ui.registry.addButton('annotatePinyinBtn', {
+          icon: 'translate',
+          tooltip: 'Refresh Chinese annotations',
+          onAction: function (_) {
+            annotateText();
+          },
+        });
+
+                // Add the custom annotate pinyin button
+                ed.ui.registry.addButton('pinyinTonifyBtn', {
+          icon: 'orientation',
+          tooltip: 'Annotate pinyin tones (ni1 = ní)',
+          onAction: function (_) {
+            tonify();
+          },
+        });
+
+        function debounce(cb, interval, immediate) {
+          var timeout;
+          return function () {
+            var context = this,
+              args = arguments;
+            var later = function () {
+              timeout = null;
+              if (!immediate) cb.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, interval);
+            if (callNow) cb.apply(context, args);
+          };
+        };
+
+        function tonify() {
+            // console.log('Editor contents was modified. Contents: ' + ed.getContent());
+            var bm = ed.selection.getBookmark(2,
+              false); // define caret location (tinymce bookmarks) - idk what 2, false does but it works
+            // run replace function on content
+            var content = ed.getContent({
+              format: 'html'
+            });
+
+            var newContent = pinyinTonify(content);
+
+            // set content
+            ed.setContent(newContent, {
+              format: 'html'
+            });
+            ed.selection.moveToBookmark(bm); // move caret to bookmark
+
+        }
+
+        function annotateText() {
+      document.getElementById('realtimeHelpTextBox').style.display = "none";
+
+          var content = ed.getContent({
+            format: 'text'
+          });
+          if (tempContentText != content) {
+            // send the full text to the dictionary api
+            ajaxPinyinAPI(content);
+            tempContentText = content;
+          }
+
+        }
+
+        function ajaxPinyinAPI(content) {
+          $.ajax({
+            type: "POST",
+            url: "/ajaxPinyinApi",
+            timeout: 30000,
+            data: {
+              content: content,
+            },
+            success: function (data) {
+              var text = ed.getContent({
+                format: 'raw'
+              });
+              var charType = document.getElementById('sCharType').textContent;
+              var buildHTML = '';
+
+              for (let i = 0; i < data.length; i++) {
+
+                if (data[i]) {
+                  try { // we need this to stop this from crashing on spaces ' '
+                     // pinyin element
+                     var pinyinElement = `<rt>${data[i].dataArr[0].pinyin}</rt>`;
+                     if (charType == 'trad') {
+                      var charElement = `<rb>${data[i].dataArr[0].trad}</rb>`;
+                     } else {
+                      var charElement = `<rb>${data[i].dataArr[0].simp}</rb>`;
+                     }
+                    var tooltipElement = '';
+
+                    for (let l = 0; l < data[i].dataArr.length; l++) {
+                      var defElement = ``;
+
+                      for (let j = 0; j < data[i].dataArr[l].definitions.length; j++) {
+                        defElement += `${j+1}. ${data[i].dataArr[l].definitions[j]}<br>`;
+                      }
+                      var tooltipComponent =
+                        `<div>${data[i].dataArr[l].simp} (${data[i].dataArr[l].trad})<br>${data[i].dataArr[l].pinyin}<br></div><div class="popupDef">${defElement}</div></div><br>`;
+                      tooltipElement += tooltipComponent;
+
+                      var encodedTooltipElement = tooltipElement.replace(/"/g, '&#34;'); // allow us to dispay " without breaking - cannot use replaceAll here because of older browsers - sogou
+
+                      var rubyElement =
+                        `<ruby data-toggle="tooltip" data-html="true" title="${encodedTooltipElement}">${charElement}${pinyinElement}</ruby>`; // replace with a class element
+
+                      // get index of first instance of that character
+                      var index = text.indexOf(data[i].originalWord);
+                      var length = data[i].dataArr[0].simp.length;
+                    }
+
+
+
+                  // grab everything up until index then put it into buildHTML (english chars)
+                  if (index > 0) {
+                    var substr = text.substr(0, index);
+                    buildHTML += substr;
+                  }
+
+                  // add ruby to build html
+                  buildHTML += rubyElement;
+
+                  // remove chinese set from text
+                    if (index > -1) { // multiple chars with spans within it (i.e. highlighting half a chinese character pair) are repeated because of this
+                      text = text.slice(index + length);
+                    }
+                } catch (e) {
+                  console.log(e);
+                }
+                }
+              }
+
+              // if there's anything left in text, add it to build html
+              buildHTML += text;
+
+
+              document.getElementById('annotatedText').innerHTML = buildHTML;
+
+              // tooltip
+              document.querySelectorAll('.tooltip').forEach(e => e.remove()); // clear tooltips that were previously on the dom
+
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip({
+                  boundary: 'window'
+                })
+              });
+
+              console.log('successful post');
+            },
+            error: function (jqXHR, textStatus, err) {
+              //show error message
+              console.log('unsuccessful post');
+            }
+          });
+        }
+      },
+      selector: '#tinyTextEditor' + notesID,
+      height: '70vh',
+      content_css: '/css/tinystyle.css',
+      fontsize_formats: "12pt 14pt 15pt 16pt 18pt 20pt 24pt 32pt",
+      menubar: false,
+      forced_root_block: false,
+      plugins: "autosave",
+      toolbar: [{
+          name: 'custom',
+          items: ['annotatePinyinBtn', 'pinyinTonifyBtn']
+        },
+        {
+          name: 'color',
+          items: ['forecolor', 'backcolor']
+        },
+        {
+          name: 'fontsize',
+          items: ['fontsizeselect']
+        },
+        {
+          name: 'formatting',
+          items: ['bold', 'italic', 'underline', 'strikethrough']
+        },
+        {
+          name: 'undo',
+          items: ['undo', 'redo']
+        },
+      ],
+      external_plugins: {
+        "wave": "https://cdn2.codox.io/waveTinymce/plugin.min.js" // wave is used to enable real time collaboration
+      },
+      wave: {
+        "docId": waveDocId, // unique document id,
+        "username": "<%- sFirstName %>", // unique username or email address
+        "apiKey": "" // this is your actual API Key - trial 30 days ending 28/06/2020, 100K max sessions/month 3 users max
+        // "apiKey": "7bdf58a1-e722-4868-bee9-b7e7c65a09b6" // this is a demo API key - 100 session a month 2 users max
+      },
+    });
+
+  }
+
+  // turn text into pinyin - if you edit this function, edit this in all files across the app...
+  function pinyinTonify(word) {
+    for (var i = 0; i < tonesArr.length; i++) {
+      var regEx = new RegExp("(" + tonesArr[i].str + ")(?!([^<]+)?>)", "gi"); // only replace outside of html tags
+      word = word.replace(regEx, tonesArr[i].toneStr);
+    }
+    return (word);
+  }
+
+  // PREPARE FOR PINYIN TONIFY
+  var tonesArr = [];
+  // create pairs
+  createPairs('a1', 'ā');
+  createPairs('a2', 'á');
+  createPairs('a3', 'ǎ');
+  createPairs('a4', 'à');
+  createPairs('e1', 'ē');
+  createPairs('e2', 'é');
+  createPairs('e3', 'ě');
+  createPairs('e4', 'è');
+  createPairs('i1', 'ī');
+  createPairs('i2', 'í');
+  createPairs('i3', 'ǐ');
+  createPairs('i4', 'ì');
+  createPairs('o1', 'ō');
+  createPairs('o2', 'ó');
+  createPairs('o3', 'ǒ');
+  createPairs('o4', 'ò');
+  createPairs('u1', 'ū');
+  createPairs('u2', 'ú');
+  createPairs('u3', 'ǔ');
+  createPairs('u4', 'ù');
+  createPairs('ü1', 'ǖ');
+  createPairs('ü2', 'ǘ');
+  createPairs('ü3', 'ǚ');
+  createPairs('ü4', 'ǜ');
+  createPairs('an1', 'ān');
+  createPairs('an2', 'án');
+  createPairs('an3', 'ǎn');
+  createPairs('an4', 'àn');
+  createPairs('ang1', 'āng');
+  createPairs('ang2', 'áng');
+  createPairs('ang3', 'ǎng');
+  createPairs('ang4', 'àng');
+  createPairs('en1', 'ēn');
+  createPairs('en2', 'én');
+  createPairs('en3', 'ěn');
+  createPairs('en4', 'èn');
+  createPairs('eng1', 'ēng');
+  createPairs('eng2', 'éng');
+  createPairs('eng3', 'ěng');
+  createPairs('eng4', 'èng');
+  createPairs('in1', 'īn');
+  createPairs('in2', 'ín');
+  createPairs('in3', 'ǐn');
+  createPairs('in4', 'ìn');
+  createPairs('ong1', 'ōng');
+  createPairs('ong2', 'óng');
+  createPairs('ong3', 'ǒng');
+  createPairs('ong4', 'òng');
+  createPairs('ing1', 'īng');
+  createPairs('ing2', 'íng');
+  createPairs('ing3', 'ǐng');
+  createPairs('ing4', 'ìng');
+  createPairs('un1', 'ūn');
+  createPairs('un2', 'ún');
+  createPairs('un3', 'ǔn');
+  createPairs('un4', 'ùn');
+  createPairs('er2', 'ér');
+  createPairs('er3', 'ěr');
+  createPairs('er4', 'èr');
+  createPairs('aō', 'āo');
+  createPairs('aó', 'áo');
+  createPairs('aǒ', 'ǎo');
+  createPairs('aò', 'ào');
+  createPairs('oū', 'ōu');
+  createPairs('oú', 'óu');
+  createPairs('oǔ', 'ǒu');
+  createPairs('où', 'òu');
+  createPairs('aī', 'āi');
+  createPairs('aí', 'ái');
+  createPairs('aǐ', 'ǎi');
+  createPairs('aì', 'ài');
+  createPairs('eī', 'ēi');
+  createPairs('eí', 'éi');
+  createPairs('eǐ', 'ěi');
+  createPairs('eī', 'èi');
+
+
+  function createPairs(str, toneStr) {
+    var pairs = {
+      str: str,
+      toneStr: toneStr,
+    }
+    tonesArr.push(pairs);
+  }
+
+
+
+  function updateTitle(e, notesID) {
+    var text = e.textContent;
+    text = text.trim();
+    // ajax post to change title
+    ajaxUpdateTitle(text, notesID);
+    // update middlebar
+    var middleBarTitle = document.getElementById("middleBarTitle" + notesID);
+    middleBarTitle.textContent = text;
+  };
+
+
+
+  function ajaxUpdateTitle(text, notesID) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxUpdateTitle",
+      timeout: 30000,
+      data: {
+        text: text,
+        notesID: notesID
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  // Random integer function
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  // timeme
+  var updateStudyTimerInterval;
+  var timeSpentOnPage;
+  var oldTimeInFocus = 0;
+  var totalTimeToday;
+  var timeUploadedAlready = parseFloat(document.getElementById('studyTimer').getAttribute("data-value"));
+  var startingTimerValue = parseFloat(document.getElementById('studyTimer').getAttribute("data-value"));
+  $(document).ready(
+    function () {
+
+      // study session update
+      updateStudyTimerInterval = setInterval(function () {
+        updateStudyTimer();
+      }, 1000);
+
+      // study session update
+      var ajaxUpdateTimerInterval = setInterval(function () {
+        ajaxUpdateTimer();
+      }, 30000); // update the display every second
+
+      // connect to group notes if there's a query
+      var joinNotesCode = document.getElementById('joinNotesCode').value;
+      if (joinNotesCode) {
+        joinGroupNotes();
+      }
+
+    });
+
+
+  function updateStudyTimer() { // visual update
+    var newTimeSpentOnPage = Math.round(TimeMe.getTimeOnCurrentPageInSeconds()); // round to nearest second
+    var oldTimeSpentOnPage = timeSpentOnPage;
+
+    if (newTimeSpentOnPage == oldTimeSpentOnPage && newTimeInFocus >
+      oldTimeInFocus) { // if timespent on page hasn't incremented but newTimeInFocus has then user is in tinymce editor
+      oldTimeInFocus = newTimeInFocus;
+    } else {
+      timeSpentOnPage = newTimeSpentOnPage;
+    }
+    totalTimeToday = startingTimerValue + newTimeSpentOnPage + newTimeInFocus;
+    var formattedTime = new Date(totalTimeToday * 1000).toISOString().substr(11, 8);
+    document.getElementById('studyTimer').textContent = formattedTime;
+
+  }
+
+
+  function ajaxUpdateTimer() { // system update of time
+    var timeToAdd = totalTimeToday - timeUploadedAlready;
+    var classID = document.getElementById('sClassID').textContent;
+    timeUploadedAlready = totalTimeToday;
+    $.ajax({
+      type: "POST",
+      url: "/timer",
+      timeout: 30000,
+      data: {
+        time: timeToAdd,
+        classID: classID,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+  // tool tips bootstrap
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+      boundary: 'window'
+    })
+  });
+
+
+  // SAVE
+  function save(notesID) {
+    var text = tinymce.get("tinyTextEditor" + notesID).getContent({
+      format: 'raw'
+    });
+    ajaxSaveClassNotes(text, notesID)
+  }
+
+  // ajax save
+  function ajaxSaveClassNotes(text, notesID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxSaveClassNotes",
+      timeout: 30000,
+      data: {
+        text: text,
+        notesID: notesID,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // close the tinymce editor - with updated text
+        tinymce.get("tinyTextEditor" + notesID).remove();
+        document.getElementById('tinyTextEditor' + notesID).style.display = 'none';
+        document.getElementById('htmlTextEditor' + notesID).style.display = 'block';
+        document.getElementById('htmlTextEditor' + notesID).innerHTML = text;
+
+        // show toast
+        $('#saveToast').toast('show'); // toast notification
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function joinGroupNotes() {
+    var joinNotesCode = document.getElementById('joinNotesCode').value;
+   
+    // create group notes instance
+    var content = `
+    <div id="box0" class="box-shadow" style="width: 100%;position:inherit; margin: 0;">
+      <div style="padding:40px;text-align:left">
+
+        <h4 id="rightBarTitleLive"
+          style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">
+          Live Notes Session ${joinNotesCode}
+        </h4>
+
+        <form method="post">
+          <input type="hidden" name='titleInput' id='titleInput' value='Untitled Page'>
+       
+
+          <div id="htmlTextEditorLive"  class="border-secondary tinyPlaceholderTextBox"
+            style="max-height:60vh;">
+
+          </div>
+
+          <textarea data-id="0" data-notesID="0" id="tinyTextEditorLive" name="tinyTextEditor"
+            style="display:none;width:100%">
+          </textarea>
+        </form>
+
+
+      </div>
+    </div>
+    `;
+
+    document.getElementById('rightBarLive').insertAdjacentHTML('afterBegin', content)
+
+    tinyMCEinit('Live',joinNotesCode);
+
+
+    // remove the modal
+    $('#groupNotesModal').modal('hide');
+    $('#groupNotesConnectedToast').toast('show'); // toast notification
+
+    // show that you're connected to the right group notes
+    document.getElementById('connectedToGroupNotes').style.display = 'inline-block';
+    document.getElementById('connectedTojoinNotesCode').textContent = joinNotesCode;
+  }
+
+  
+// add page
+function addPage() {
+    var addPageClass = document.getElementById('addPageClass').value;
+    ajaxAddClassNotesPage(addPageClass)
+  }
+
+  // ajax save
+  function ajaxAddClassNotesPage(addPageClass) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxAddClassNotesPage",
+      timeout: 30000,
+      data: {
+        addPageClass: addPageClass,
+      },
+      success: function (data) {
+        console.log('successful post');
+
+        // show toast
+        $('#addPageToast').toast('show'); // toast notification
+
+        // populate right section with notes
+        var date = new Date();
+
+      
+        var content = `
+<div id="box${data}" class="box-shadow" style="width: 100%;position:inherit; margin: 0;">
+  <div style="padding:40px;text-align:left">
+      <h4 contenteditable="true" onblur="updateTitle(this,${data})" id="rightBarTitle${data}" class="classroomNotesTitle pulse-blue-highlight"
+          style="display:inline-block;margin-top:0px; padding:2px 10px; border: transparent solid 1px; border-radius: 5px">Untitled Page
+        </h4>
+
+      <span class="badge badge-pill badge-light minitext">ID: ${data}</span>
+    <span class="badge badge-pill badge-light minitext">${date.toISOString().substring(0, 10)}</span>
+    <form method="post">
+        <input type="hidden" name='class' id='class' value='` + addPageClass + `'>
+          <button class="button button-secondary button-block button-shadow button-icon" type="button" onclick="save(${data})"
+            data-toggle="tooltip" title="Save"
+            style="margin: 10px 0px 10px 10px; float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+              <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg></button>
+
+          <span  data-toggle="modal" data-target="#deletePageModal${data}">
+          <button class="button button-secondary button-block button-shadow button-icon" type="button"
+          data-toggle="tooltip" title="Delete"
+            style="margin: 10px 0px 10px 10px; float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+            </button>
+            </span>
+            <br>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="deletePageModal${data}" tabindex="-1" role="dialog"
+              aria-labelledby="deletePageModalLabel${data}" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="deletePageModalLabel${data}">Confirm Delete Page?</h5>
+                          <button type="button" class="close" data-dismiss="modal"
+                              aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          This action cannot be undone.
+                      </div>
+                        <br>
+                      <div class="modal-footer">
+                          <button type="button"
+                              class="button button-primary button-block button-shadow"
+                              data-dismiss="modal">Close</button>
+                          <button type="button" onclick="deletePage(${data})"
+                              class="button button-block button-shadow">Confirm</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <div id="htmlTextEditor${data}" onclick="tinyMCEinit('${data}',null)" class="border-secondary tinyPlaceholderTextBox" style="max-height:60vh;">
+              <div id="tooltip${data}" class="minitext badge badge-pill badge-light" style="float: right; opacity: 1; " >
+                    
+                </div>
+                
+          </div>
+
+          <textarea data-id="${data}" data-notesID="${data}" id="tinyTextEditor${data}"
+            name="tinyTextEditor" style="display:none;width:100%">
+      </textarea>
+        </form>     
+
+      </div>
+    </div>
+`
+
+        document.getElementById("rightBar").insertAdjacentHTML("afterbegin", content);
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  
+  // SAVE
+  function save(notesID) {
+    var text = tinymce.get("tinyTextEditor" + notesID).getContent({
+      format: 'raw'
+    });
+
+    ajaxSaveClassNotes(text, notesID)
+  }
+
+  // ajax save
+  function ajaxSaveClassNotes(text, notesID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxSaveClassNotes",
+      timeout: 30000,
+      data: {
+        text: text,
+        notesID: notesID,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // close the tinymce editor - with updated text
+        tinymce.get("tinyTextEditor" + notesID).remove();
+        document.getElementById('tinyTextEditor' + notesID).style.display = 'none';
+        document.getElementById('htmlTextEditor' + notesID).style.display = 'block';
+        document.getElementById('htmlTextEditor' + notesID).innerHTML = text;
+        // show toast
+        $('#saveToast').toast('show'); // toast notification
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  
+  // Delete
+  function deletePage(notesID) {
+    ajaxDeleteClassNotesPage(notesID)
+  }
+
+  // ajax save
+  function ajaxDeleteClassNotesPage(notesID) {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxDeleteClassNotesPage",
+      timeout: 30000,
+      data: {
+        notesID: notesID,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // close the tinymce editor - with updated text
+        document.getElementById('box' + notesID).innerHTML = ``;
+        // show toast
+        $('#deletePageToast').toast('show'); // toast notification
+        // hide modal
+        $('#deletePageModal' + notesID).modal('hide');
+        $('body').removeClass('modal-open'); // removes fade backdrop
+        $('.modal-backdrop').remove(); // removes fade backdrop
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+</script>

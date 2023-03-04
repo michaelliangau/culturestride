@@ -1,0 +1,351 @@
+    <!-- bootstrap select -->
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" />
+    <!-- bootstrap select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+
+    <!-- TOAST -->
+    <div id="joinSuccessToast" class="toast mobileHide" data-delay="5000" role="alert" aria-live="assertive"
+      aria-atomic="true" style="position: fixed;bottom: 0;left: 0;z-index:20;">
+      <div class="toast-header">
+        <strong class="mr-auto">Notification</strong>
+        <span class="badge badge-pill badge-primary">now</span>
+
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        Successfully booked</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12" style="text-align: center;">
+
+      </div>
+    </div>
+
+
+    <section id="classSchedule" class="section" style="padding:0px 0px 80px 0px;z-index:0">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+              <div class="highlightBox" style="margin-bottom:0px;">
+                Available Practical class credit: <%- pracCreditAvailable %>
+                <br>
+                <span class="subtext">
+                  To support your learning with real conversations, Theory and Practical classes come as a bundle so you
+                  receive Practical class credit for every Theory class you book.
+                </span>
+                <br>
+                <span class="badge badge-light badge-pill"><a href="/speakingtest" target="_blank">What level should I
+                    join?</a></span>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+
+                <div class="form-group" style="max-width: 500px;">
+                  <select id="filterByLevel" name="filterByLevel" class="selectpicker form-control"
+                    title="Filter by level" onchange="filter()" multiple>
+                    <option value="0">HSK 0 (absolute beginner)</option>
+                    <option value="1">HSK 1 (beginner)</option>
+                    <option value="2">HSK 2 (beginner)</option>
+                    <option value="3">HSK 3 (intermediate)</option>
+                    <option value="4">HSK 4 (intermediate)</option>
+                    <option value="5">HSK 5 (advanced)</option>
+                    <option value="6">HSK 6 (advanced)</option>
+
+                  </select>
+
+                </div>
+              </div>
+              <div class="col-sm-4">
+
+                <div class="form-group" style="max-width: 500px;">
+                  <select id="filterByDay" name="filterByDay" class="selectpicker form-control" onchange="filter()"
+                    title="Filter by day" multiple>
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                    <option value="7">Sunday</option>
+
+                  </select>
+
+                </div>
+              </div>
+              <div class="col-sm-4">
+
+                <div class="form-group" style="max-width: 500px;">
+                  <select id="filterByTeacher" name="filterByTeacher" class="selectpicker form-control" onchange="filter()"
+                    title="Filter by teacher" multiple>
+                  <% for (var i = 0 ; i < uniqueTeacher.length ; i ++) { %>
+                    <option value="<%- uniqueTeacher[i].sohoUID %>"><%- uniqueTeacher[i].firstName + ' ' + uniqueTeacher[i].lastName %></option>
+                  <% } %>
+
+                  </select>
+
+                </div>
+              </div>
+            </div>
+
+            <% for (var i = 0 ; i < classes.length ; i ++) { %>
+
+              <% var sCount = parseInt(classes[i].groupMemberCount);
+                if (sCount >= 3 || classes[i].userSignedUp > 0) {
+                  var fade = 'disableFade';
+                } else {
+                  var fade = '';
+                }
+              %>
+
+            <div class="box-shadow pracClassRow <%- fade %>" id="pracClassRow<%- classes[i].sohoAID %>"
+              style="padding:16px;margin:0px;max-width: none;width: 100%;position:inherit"
+              data-level="<%- classes[i].level %>" data-teacher="<%- classes[i].sohoUID %>" data-day="">
+              <a href="/a/book/practical/<%- classes[i].sohoAID %>">
+                <span class="link-spanner"></span>
+              </a>
+              <div style="padding:10px;text-align:left">
+                <% if (classes[i].level == 0) { %>
+                <span class="badge badge-light" style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK
+                  <%- classes[i].level %> (absolute beginner)</span>
+                <% } else if (classes[i].level == 1) { %>
+                <span class="badge badge-light"
+                  style="margin-bottom:10px;background-color:rgb(73, 80, 246);color:white;">HSK <%- classes[i].level %>
+                  (beginner)</span>
+                <% } else if (classes[i].level == 2) { %>
+                <span class="badge badge-light" style="margin-bottom:10px;background-color:#f1c40f;color:white;">HSK
+                  <%- classes[i].level %> (beginner)</span>
+                <% } else if (classes[i].level == 3) { %>
+                <span class="badge badge-light" style="margin-bottom:10px;background-color:#1abc9c;color:white;">HSK
+                  <%- classes[i].level %> (intermediate)</span>
+                <% } else if (classes[i].level == 4) { %>
+                <span class="badge badge-light" style="margin-bottom:10px;background-color:#e67e22;color:white;">HSK
+                  <%- classes[i].level %> (intermediate)</span>
+                <% } else if (classes[i].level == 5) { %>
+                <span class="badge badge-light" style="margin-bottom:10px;background-color:#9b59b6;color:white;">HSK
+                  <%- classes[i].level %> (advanced)</span>
+                <% } else if (classes[i].level == 6) { %>
+                <span class="badge badge-light" style="margin-bottom:10px;background-color:#34495e;color:white;">HSK
+                  <%- classes[i].level %> (advanced)</span>
+                <% } %>
+                <% if (classes[i].userSignedUp > 0) { %>
+                <span class="badge badge-light">Already booked</span>
+                <% } else if (sCount >= 3) { %>
+                <span class="badge badge-light">Full class</span>
+                <% } else { %>
+                <span class="badge badge-primary">Joinable</span>
+                  <% } %>
+
+
+                <div style="margin: 10px 0px;">
+                  When: <span id="when<%- i %>"></span> (<span class="region"></span>)
+                  <script>
+                    var mom = moment('<%- classes[i].start %>', 'YYYY-MM-DDTHH:mm:ssZ');
+                    var day = mom.isoWeekday();
+                    document.getElementById('when<%- i %>').textContent = mom.clone().local().format('LLLL');
+
+                    document.getElementById('pracClassRow<%- classes[i].sohoAID %>').setAttribute("data-day", day);
+                  </script>
+                </div>
+                <div style="margin: 10px 0px;">
+                  <% if (classes[i].profileImage) { %>
+                  <img src="<%- classes[i].profileImage %>" class="circle"
+                    style="width:30px;height:30px;display:inline;margin:0px 5px;">
+                  <% } else { %>
+                  <img src="/img/guru.png" style="display:inline;margin:0px 5px;width:30px;border-radius:50%;">
+                  <% } %>
+                  <span class="subtext">
+                    <%- classes[i].tFirstName + ' ' + classes[i].tLastName %>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div style='display:none' id='filterTeacherID'><%- filterTeacherID %></div>
+    <div style='display:none' id='filterLevel'><%- filterLevel %></div>
+
+
+    <script>
+      var filterTeacherID = document.getElementById('filterTeacherID').textContent;
+      var filterLevel = document.getElementById('filterLevel').textContent;
+      if (filterTeacherID != '' && filterLevel != '') {
+        $('#filterByLevel').val(filterLevel);
+        $('#filterByTeacher').val(filterTeacherID);
+        filter();
+      }
+
+
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip({
+          boundary: 'window'
+        })
+      });
+
+      var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      var regionClass = document.getElementsByClassName('region');
+      for (let i = 0; i < regionClass.length; i++) {
+        const element = regionClass[i];
+        element.textContent = region;
+
+      }
+
+      function filter() {
+        // get values of filters
+        var levelArr = Array.from($("#filterByLevel").find(':selected')).map(function (item) {
+          return $(item).val();
+        });
+
+        var dayArr = Array.from($("#filterByDay").find(':selected')).map(function (item) {
+          return $(item).val();
+        });
+        var teacherArr = Array.from($("#filterByTeacher").find(':selected')).map(function (item) {
+          return $(item).val();
+        });
+
+        var pracClassRow = document.getElementsByClassName("pracClassRow");
+        for (var i = 0; i < pracClassRow
+          .length; i++) { //rows would be accessed using the "row" variable assigned in the for loop
+          var rowLevel = pracClassRow[i].getAttribute('data-level');
+          var rowDay = pracClassRow[i].getAttribute('data-day');
+          var rowTeacher = pracClassRow[i].getAttribute('data-teacher');
+
+        var levelCheck,dayCheck,teacherCheck = 0;
+
+          // level check
+          if (levelArr.indexOf(rowLevel) != -1 || levelArr.length == 0) { 
+            levelCheck = 1;
+          } else {
+            levelCheck = 0;
+          }
+
+          // day check
+          if (dayArr.indexOf(rowDay) != -1 || dayArr.length == 0) { 
+          dayCheck = 1;
+            } else {
+              dayCheck = 0;
+            }
+
+            if (teacherArr.indexOf(rowTeacher) != -1 || teacherArr.length == 0) { 
+          teacherCheck = 1;
+            } else {
+              teacherCheck = 0;
+            }
+
+
+            // show hide row
+          if (levelCheck == 1 && dayCheck == 1 && teacherCheck == 1) {
+            pracClassRow[i].style.display = 'block';
+          } else {
+            pracClassRow[i].style.display = 'none';
+          }
+
+
+        }
+
+
+
+      }
+
+
+      var repeatClassCheck = 0; // to determine whether or not to enable the book button
+
+      function updateRepeatClass(id) {
+        repeatClassCheck = 0;
+        var repeatNo = document.getElementById('repeatNo' + id).value;
+        var start = document.getElementById('start' + id).value;
+        var groupID = document.getElementById('groupID' + id).value;
+
+        if (repeatNo > 1) {
+          var content = `<div class="highlightBox" id="repeatClassHighlightBox" style="margin-top:10px;">
+  <span class="subtext">Bookings are stored in UTC time and may deviate from the printed times with timezone adjustments like daylight savings.</span>
+  <br><br>
+  Selected classes:<br><div id="pracClassInstances${id}"></div></div>
+  `;
+          getNextPracticalClassInstances(groupID, start, repeatNo, id);
+          content += `</div>`;
+          document.getElementById('repeatClass' + id).innerHTML = content;
+        } else if (repeatNo == 1) { // no repeat
+          document.getElementById('repeatClass' + id).innerHTML = ``;
+          // reset book button
+          document.getElementById('bookBtn' + id).classList.remove("disableFade");
+          document.getElementById('bookBtn' + id).removeAttribute("data-toggle");
+          document.getElementById('bookBtn' + id).removeAttribute("title");
+          document.getElementById('bookBtn' + id).removeAttribute("data-original-title");
+        }
+
+      }
+
+      function getNextPracticalClassInstances(groupID, start, repeatNo, id) {
+        $.ajax({
+          type: "POST",
+          url: "/getNextPracticalClassInstances",
+          timeout: 30000,
+          data: {
+            groupID: groupID,
+            start: start,
+            repeatNo: repeatNo,
+          },
+          success: function (data) {
+            //show content
+            console.log('successful post');
+            var content = ``;
+            var repeatClassCheck = 1; // to determine whether or not to enable the book button
+            for (let i = 0; i < data.length; i++) {
+              const e = data[i];
+              var mom = moment(e.start).format('LLL'); // create moment
+              if (e.sCount < 3) { // class not full
+                var check = `<svg xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" title="Available" style="color: green;display: inline-flex;margin-left: 5px;" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+</svg>`;
+              } else if (e.sCount >= 3) { // class full
+                var check = `<svg xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" title="Full" style="color: red;display: inline-flex;margin-left: 5px;" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>`;
+                repeatClassCheck = 0;
+              }
+
+              var contentTemp = mom + check + `<br>`;
+              content += contentTemp;
+            }
+            document.getElementById('pracClassInstances' + id).innerHTML = content;
+
+            // edit confirm booking button
+            if (repeatClassCheck == 0) {
+              document.getElementById('bookBtn' + id).classList.add("disableFade");
+              document.getElementById('bookBtn' + id).setAttribute("data-toggle", "tooltip");
+              document.getElementById('bookBtn' + id).setAttribute("title",
+                "Some of your selected class times are invalid, please adjust your booking");
+              document.getElementById('bookBtn' + id).setAttribute("data-original-title",
+                "Some of your selected class times are invalid, please adjust your booking");;
+            }
+
+            // tool tips
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip({
+                boundary: 'window',
+              });
+            });
+          },
+          error: function (jqXHR, textStatus, err) {
+            //show error message
+            console.log('unsuccessful post');
+          }
+        });
+      }
+    </script>

@@ -1,0 +1,262 @@
+<main>
+
+
+	<section class="features section">
+		<div class="container">
+			<div class="features-inner section-inner" style="margin-top:-50px">
+				<h2 class="section-title mt-0">Mandarin Chinese Speaking Test</h2>
+				<p class="subtext">
+					Ridiculously quick way to place yourself in one of our Practical class levels.
+				</p>
+
+					<span class="badge badge-light" style="background-color:#2ecc71;color:white"
+						id="speakingTextLevel0">0 (Absolute Beginner)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel1">1 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel2">2 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel3">3 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel4">4 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel5">5 (Advanced)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel6">6 (Advanced)</span>
+					<span class="badge badge-light" onclick="resetSpeakingTest();" style="cursor:pointer">Reset
+						test</span>
+
+				<button onclick="upgradeSpeakingTextLevel()" id="speakMoreBtn"
+					class="stuSpeakingLevelButton btn btn-outline-primary" style="margin: 5px 0px;line-height:1em;">
+					I have some foundations in Mandarin
+				</button>
+
+				<a id="speakLessBtn"
+					href="javascript:void(0);" class="stuSpeakingLevelButton btn btn-outline-primary"
+					style="margin: 5px 0px;line-height:1em;">
+					I don't know any Mandarin
+				</a>
+
+
+
+				<div id="speakingTestText"
+					style="background: #f6f9fc; padding:20px;margin-top:10px; border-radius: 10px;display: none;"
+					data-level="0">
+
+					<div class="embed-responsive embed-responsive-4by3">
+						<iframe id="speakingiframe" loading="lazy" src="https://www.youtube.com/watch?v="
+							srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/?autoplay=1><img src=https://img.youtube.com/vi//hqdefault.jpg alt='Culturestride'><span>▶</span></a>"
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen title="Speech Bubble Sample Lesson | Culturestride"></iframe>
+					</div>
+
+
+
+				</div>
+
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+</main>
+
+<script>
+
+function resetSpeakingTest() {
+		var youtubeSlug = '';
+		document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+		document.getElementById('speakingiframe').srcdoc =
+			"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+			youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+			"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+		document.getElementById('speakingTestText').style.display = 'none';
+
+
+
+		document.getElementById('speakMoreBtn').style.display = 'inline-block';
+		document.getElementById("speakMoreBtn").disabled = false;
+		document.getElementById("speakingTestText").setAttribute("data-level", 0);
+		document.getElementById("speakingTextLevel0").style.backgroundColor = '#2ecc71';
+		document.getElementById("speakingTextLevel0").style.color = 'white';
+
+		document.getElementById('speakingTextLevel0').classList.remove("disableFade");
+
+
+		// add disableFade and make them gray to everything else
+		document.getElementById('speakingTextLevel1').classList.add("disableFade");
+		document.getElementById('speakingTextLevel2').classList.add("disableFade");
+		document.getElementById('speakingTextLevel3').classList.add("disableFade");
+		document.getElementById('speakingTextLevel4').classList.add("disableFade");
+		document.getElementById('speakingTextLevel5').classList.add("disableFade");
+		document.getElementById('speakingTextLevel6').classList.add("disableFade");
+		document.getElementById("speakingTextLevel1").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel2").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel3").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel4").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel5").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel6").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel1").style.color = 'black';
+		document.getElementById("speakingTextLevel2").style.color = 'black';
+		document.getElementById("speakingTextLevel3").style.color = 'black';
+		document.getElementById("speakingTextLevel4").style.color = 'black';
+		document.getElementById("speakingTextLevel5").style.color = 'black';
+		document.getElementById("speakingTextLevel6").style.color = 'black';
+
+		// 
+		document.getElementById('speakMoreBtn').style.display = 'inline-block';
+
+
+
+		document.getElementById('speakMoreBtn').innerHTML = `I have some foundations in Mandarin`;
+		document.getElementById('speakLessBtn').innerHTML = `I don't know any Mandarin`;
+
+	}
+
+	
+	function upgradeSpeakingTextLevel() {
+		// get current level
+		var speakingLevel = document.getElementById("speakingTestText").getAttribute("data-level");
+		// replace text with speakingLevel + 1 text
+		if (speakingLevel == 0) {
+			var youtubeSlug = 'ZLJ1sCLLyZw';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+
+			document.getElementById("speakingTextLevel1").style.backgroundColor = 'rgb(73, 80, 246)';
+			document.getElementById('speakingTextLevel1').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel1").style.color = 'white';
+
+			document.getElementById('speakingTextLevel0').classList.add("disableFade");
+			document.getElementById("speakingTextLevel0").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel0").style.color = 'black';
+
+			flashSpeakButtons();
+
+			document.getElementById('speakingTestText').style.display = 'block';
+			document.getElementById('speakMoreBtn').innerHTML = `I speak at a level higher than in the video
+					<br>
+					<span class="minitext">Greater fluency and complexity</span>`;
+			document.getElementById('speakLessBtn').innerHTML = `I speak at the level in the video
+					<br>
+					<span class="minitext">Similar fluency and complexity</span>`;
+		} else if (speakingLevel == 1) {
+			var youtubeSlug = '5EnOCSYKQC0';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+
+			document.getElementById("speakingTextLevel2").style.backgroundColor = '#f1c40f';
+			document.getElementById('speakingTextLevel2').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel2").style.color = 'white';
+
+			document.getElementById('speakingTextLevel1').classList.add("disableFade");
+			document.getElementById("speakingTextLevel1").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel1").style.color = 'black';
+
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 2) {
+			var youtubeSlug = 'n__WhRWYEV0';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+			document.getElementById("speakingTextLevel3").style.backgroundColor = '#1abc9c';
+			document.getElementById('speakingTextLevel3').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel3").style.color = 'white';
+
+			document.getElementById('speakingTextLevel2').classList.add("disableFade");
+			document.getElementById("speakingTextLevel2").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel2").style.color = 'black';
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 3) {
+			var youtubeSlug = 'Bj80HbPLWEE';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+			document.getElementById("speakingTextLevel4").style.backgroundColor = '#e67e22';
+			document.getElementById('speakingTextLevel4').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel4").style.color = 'white';
+
+			document.getElementById('speakingTextLevel3').classList.add("disableFade");
+			document.getElementById("speakingTextLevel3").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel3").style.color = 'black';
+
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 4) {
+			var youtubeSlug = 'rwpmd1GTUqI';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+			document.getElementById("speakingTextLevel5").style.backgroundColor = '#9b59b6';
+			document.getElementById("speakingTextLevel5").style.color = 'white';
+			document.getElementById('speakingTextLevel5').classList.remove("disableFade");
+
+			document.getElementById('speakingTextLevel4').classList.add("disableFade");
+			document.getElementById("speakingTextLevel4").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel4").style.color = 'black';
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 5) {
+			var youtubeSlug = '';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+			document.getElementById('speakingTestText').style.display = 'none';
+
+			document.getElementById("speakingTextLevel6").style.backgroundColor = '#34495e';
+			document.getElementById("speakingTextLevel6").style.color = 'white';
+
+			document.getElementById('speakingTextLevel6').classList.remove("disableFade");
+
+			document.getElementById('speakingTextLevel5').classList.add("disableFade");
+			document.getElementById("speakingTextLevel5").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel5").style.color = 'black';
+
+			// hide the understand more button
+			document.getElementById('speakMoreBtn').style.display = 'none';
+
+			document.getElementById('speakLessBtn').textContent = 'Continue';
+		}
+		// increment and update to new level
+		speakingLevel++;
+		document.getElementById("speakingTestText").setAttribute("data-level", speakingLevel);
+
+
+	}
+
+	function flashSpeakButtons() {
+		// hide buttons - prevent accidental skips
+		var speakMoreBtn = document.getElementById('speakMoreBtn');
+		var speakLessBtn = document.getElementById('speakLessBtn');
+		speakMoreBtn.disabled = true;
+		speakLessBtn.disabled = true;
+
+		setTimeout(function () {
+			speakMoreBtn.disabled = false;
+			speakLessBtn.disabled = false;
+		}, 3000);
+	}
+
+
+</script>

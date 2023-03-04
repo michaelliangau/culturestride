@@ -1,0 +1,55 @@
+<%- contentFor('body') %>
+
+
+<section class="features section">
+    <div class="container">
+        <div class="features-inner section-inner" style="margin-top:-50px">
+            <div class="features-header">
+                <div class="container-sm">
+                    <div class="row">
+                        <div class="col s12" style="padding-left: 2%; padding-top: 15%">
+                            <form name="/sohoLogin" method="post" id="loginForm">
+                                <h1 style="text-align: center">Culturestride Teacher Portal</h1>
+                                <br>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="text" class="form-control" name="email" id="email" required>
+                                    <div class="invalid-feedback">
+                                        Please input your email.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" name="password" id="password" required>
+                                    <div class="invalid-feedback">
+                                        Please input your password.
+                                    </div>
+                                </div>
+                                <% if (error == 1) { %>
+                                <!-- show error message if error var is 1 (failed login) -->
+                                <p style="color:red">Incorrect username and/or password. Please try again.</p>
+                                <% } %>
+                                <br>
+                                <button type="submit" style="margin: 0 auto" class="button button-primary button-block button-shadow">
+                                    Login
+                                </button>
+                            </form>
+                            <br>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <a onclick="window.location='/sohoforgotpassword';" style="max-width:200px; margin: 0 auto" class="button button-primary button-block button-shadow">
+                                Forgot Password?
+                            </a>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

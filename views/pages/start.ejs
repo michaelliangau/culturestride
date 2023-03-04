@@ -1,0 +1,901 @@
+<!-- GOOGLE SIGN IN -->
+<meta name="google-signin-client_id" content="153331140020-44mnj5644u0lgvfbficdl4feepd0ddjp.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+<h3 style="text-align: center">Start learning Chinese
+</h3>
+<div class="subtext" style="margin: 0 auto; padding: 0 50px;text-align: center;">Try a Theory and Practical Class free
+	on us.
+	<br>No payment details required for sign up and pay only for what you use after.
+
+	<% if (group) { %>
+	<br>
+	<span class="badge badge-light badgeMultiline">Your chosen Practical class has been pre-selected but this form will
+		confirm if your current level is suitable. If it is not, you may be recommended to join another class.</span>
+	<% } %>
+
+</div>
+
+
+<% if (lang == 'cantonese') { %>
+<h4 style="text-align: center">Important Information for Cantonese</h4>
+<div class="subtext" style="max-width:50%;margin: 0 auto; padding: 0 50px">To sign up for Culturestride Free Cantonese,
+	<b>select "I'm unavailable any of these times" in the step 3</b> and email <a
+		href="mailto:michael@culturestride.com">michael@culturestride.com</a> letting us know you wish to learn
+	Cantonese.</span>
+</div>
+<% } %>
+
+<% if (error == 2) { %>
+<!-- show error message if error var is 1 (failed login) -->
+<p style="color:red;max-width:600px;margin: 0px auto 20px auto">Your email is invalid or another account already exists
+	associated with this
+	email. Please <a href="/login">login</a> or register with a valid email.
+</p>
+<% } %>
+<!-- FORM SIMPLE -->
+
+<form id="startForm" method="post" class="needs-validation" action="/start" validate>
+	<input type="hidden" name='stuHome' id="stuHome" value="">
+	<input type="hidden" name='stuClasses' id="stuClasses" value="">
+	<input type="hidden" name='stuLessonTime' id="stuLessonTime" value="noInput">
+	<input type="hidden" name='groupClass' id="groupClass" value="noInput">
+	<input type="hidden" name='profileImage' id="profileImage" value="">
+	<input type="hidden" name='timezone' id="timezone" value="">
+	<input type="hidden" name='selectedGroupClass' id="selectedGroupClass" value="noInput">
+	<input type="hidden" name='stuSpeakingLevel' id="stuSpeakingLevel" value="">
+
+	<div style="margin-bottom:150px" class="row">
+		<div class="col-sm-12" style="padding:20px 20%">
+
+
+			<div id="step1">
+				<h4>What classes are you interested in?</h4>
+				<p class="subtext">Theory classes are private 1-on-1 HSK course classes, Practical classes are group
+					conversational classes. See <a href="/#pricing">pricing</a> for more details.</p>
+				<button type="button"
+					onclick="setStuClasses('practical'); toggleNextStep('step4');changeButtonColorStuClasses(this)"
+					class="stuClassesButton btn btn-outline-primary" style="margin: 5px 0px">Practical classes only
+				</button>
+				<button type="button"
+					onclick="setStuClasses('theoryAndPractical'); toggleNextStep('step2');changeButtonColorStuClasses(this)"
+					class="stuClassesButton btn btn-outline-primary" style="margin: 5px 0px">Theory and Practical
+					classes
+				</button>
+
+				<button type="button"
+					onclick="setStuClasses('theory'); toggleNextStep('step2');changeButtonColorStuClasses(this)"
+					class="stuClassesButton btn btn-outline-primary" style="margin: 5px 0px">Theory classes only
+				</button>
+
+
+
+
+			</div>
+
+			<div id="step2" style="display: none;">
+				<hr>
+				<h3>Theory Class</h3>
+				<h4>Do you speak any Chinese dialects at home?</h4>
+				<p class="subtext"></p>
+				<button type="button"
+					onclick="setStuHome('no'); initCalendar();toggleNextStep('step3');changeButtonColorStuHome(this)"
+					class="stuHomeButton btn btn-outline-primary" style="margin: 5px 0px">No</button>
+				<button type="button"
+					onclick="setStuHome('mandarin'); initCalendar();toggleNextStep('step3');changeButtonColorStuHome(this)"
+					class="stuHomeButton btn btn-outline-primary" style="margin: 5px 0px">Mandarin</button>
+				<button type="button"
+					onclick="setStuHome('cantonese'); initCalendar();toggleNextStep('step3');toggleBlueGreenTimeSlotText();changeButtonColorStuHome(this)"
+					class="stuHomeButton btn btn-outline-primary" style="margin: 5px 0px">Cantonese</button>
+				<button type="button"
+					onclick="setStuHome('shanghainese'); initCalendar();toggleNextStep('step3');toggleBlueGreenTimeSlotText();changeButtonColorStuHome(this)"
+					class="stuHomeButton btn btn-outline-primary" style="margin: 5px 0px">Shanghainese</button>
+				<button type="button"
+					onclick="setStuHome('hakka'); initCalendar();toggleNextStep('step3');toggleBlueGreenTimeSlotText();changeButtonColorStuHome(this)"
+					class="stuHomeButton btn btn-outline-primary" style="margin: 5px 0px">Hakka</button>
+				<button type="button"
+					onclick="setStuHome('otherdialect'); initCalendar();toggleNextStep('step3');toggleBlueGreenTimeSlotText();changeButtonColorStuHome(this)"
+					class="stuHomeButton btn btn-outline-primary" style="margin: 5px 0px">Other Dialect</button>
+
+			</div>
+
+
+
+			<div id="step3" style="display:none">
+				<h4>Book your trial 45-min private 1-on-1 Theory class</h4>
+				<p class="subtext">Click <a onclick="toggleNextStep('step4');" href="#step4">skip</a> if you do not wish
+					to book a Theory class, you can change your mind later.</p>
+
+
+
+				<p class="subtext" id="timeSlotsText" style="display: none;">
+
+					<span style="color:#4950F6">Blue timeslots</span> prioritises assigning you a teacher who speaks
+					your dialect.
+					<br>
+					<span style="color:#8fdf82">Green timeslots</span> do not prioritise dialects.
+
+				</p>
+
+				<div id="calendarStart"></div>
+
+				<br>
+				<div id="calendarSelectedTime"></div>
+
+				<div id="calendarTimeSlots"></div>
+
+			</div>
+
+
+			<div id="step4" style="display: none;">
+				<hr>
+				<h3>Practical Class</h3>
+				<h4>What is your current speaking proficiency?</h4>
+
+
+				<p class="subtext">We want to maximise the chances your Practical class is the right level for you.
+
+					<br>
+					<span class="badge badge-light" style="background-color:#2ecc71;color:white"
+						id="speakingTextLevel0">0 (Absolute Beginner)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel1">1 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel2">2 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel3">3 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel4">4 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel5">5 (Advanced)</span>
+					<span class="badge badge-light disableFade" id="speakingTextLevel6">6 (Advanced)</span>
+					<span class="badge badge-light" onclick="resetSpeakingTest();" style="cursor:pointer">Reset
+						test</span>
+				</p>
+
+
+				<button onclick="upgradeSpeakingTextLevel()" id="speakMoreBtn"
+					class="stuSpeakingLevelButton btn btn-outline-primary" style="margin: 5px 0px;line-height:1em;">
+					I have some foundations in Mandarin
+				</button>
+
+				<a id="speakLessBtn"
+					onclick="toggleNextStep('bookPracticalStep');changeSpeakingButtonColorStuLevel(this);setStuSpeakingLevel();disableSpeakMoreBtn();initTable();"
+					href="#bookPracticalStep" class="stuSpeakingLevelButton btn btn-outline-primary"
+					style="margin: 5px 0px;line-height:1em;">
+					I don't know any Mandarin
+				</a>
+
+
+
+				<div id="speakingTestText"
+					style="background: #f6f9fc; padding:20px;margin-top:10px; border-radius: 10px;display: none;"
+					data-level="0">
+
+					<div class="embed-responsive embed-responsive-4by3">
+						<iframe id="speakingiframe" loading="lazy" src="https://www.youtube.com/watch?v="
+							srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/?autoplay=1><img src=https://img.youtube.com/vi//hqdefault.jpg alt='Culturestride'><span>▶</span></a>"
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen title="Speech Bubble Sample Lesson | Culturestride"></iframe>
+					</div>
+
+
+
+				</div>
+
+			</div>
+
+			<div id="bookPracticalStep" style="display: none;">
+				<h4>Select a Practical group conversation class you wish to join</h4>
+				<p class="subtext" id="bookPracticalStepSubtitle">Click <a
+						onclick="toggleNextStep('acknowledgeConfirmStep');setSelectedGroupClass('skipped')"
+						href="#acknowledgeConfirmStep">skip</a> if you do not wish to or cannot join a Practical class,
+					you can change your mind later.</p>
+
+				<br>
+
+				<div style="overflow-y:scroll; overflow-x:scroll;width:100%;table-layout: auto">
+
+					<table style=" max-height: 600px; display:block; overflow:scroll;">
+
+						<!-- Top row -->
+						<thead>
+							<tr>
+								<th> </th>
+								<th id="nextClassHeader">Next Class</th>
+								<th>Level</th>
+								<th>Occurs</th>
+								<th>Openings</th>
+								<th data-toggle="tooltip" title="Practical classes need min 2 students to start">Status
+									
+							<svg style="display:inline-flex" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+								<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+								<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+							  </svg>
+<th>
+						</thead>
+
+						<!-- Table body -->
+						<tbody id="practicalTable">
+
+
+
+						</tbody>
+					</table>
+
+
+				</div>
+
+			</div>
+
+			<div id="acknowledgeConfirmStep" style="display: none;">
+				<hr>
+				<h3>Create Account</h3>
+				<h4>I acknowledge I need to reconfirm my attendance after Culturestride approves my class</h4>
+				<p class="subtext" id="acknowledgeConfirmStepSubtitle">You'll receive an email immediately after
+					Culturestride approves your class.</p>
+				<a id="acknowledgeConfirmstepBtn" href="javascript:void(0);" onclick="toggleNextStep('step5');"
+					class="btn btn-outline-primary" style="margin: 5px 0px;line-height:1em;">
+					OK, I will reconfirm!
+				</a>
+
+
+			</div>
+
+			<div id="step5" style="display:none">
+				<h4 id="step5Title">Sign up using Google or email</h4>
+				<p class="subtext"></p>
+				<div>
+					<div id="my-signin2"></div>
+					<button type="button" onclick="showEmailSignUp();" class="btn btn-outline-primary"
+						style="margin: 20px 0px;">Sign up with email</button>
+				</div>
+
+				<div id="emailSignUp" style="display: none;">
+
+					<div class="form-group" style="max-width:600px;">
+						<label for="fullName">Full Name</label>
+						<input class="form-control" type="text" name="fullName" id="fullName" placeholder="Jerry Smith"
+							required>
+							<small id="emailHelp" class="minitext form-text text-muted">Please use your real full name.</small>
+
+						<div class="invalid-feedback">
+							Please input your full name.
+						</div>
+					</div>
+					<div class="form-group" style="max-width:600px;">
+						<label for="email">Email</label>
+						<input type="email" class="form-control" name="email" id="email" required>
+						<div class="invalid-feedback">
+							Please input a valid email address.
+						</div>
+					</div>
+					<div class="form-group" style="max-width:600px;">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" name="password" id="password" required>
+						<div class="invalid-feedback">
+							Please input a valid password.
+						</div>
+					</div>
+
+					<button type="submit" formaction="/start" class="button button-primary button-block button-shadow"
+						id="submitButton" style="margin: 30px 0px 0px 0px;">Create Account</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<div id="group" style="display: none;"><%- group %></div>
+
+<!-- FULL CALENDAR -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js"></script>
+<!-- MOMENT  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+
+<script>
+	$(document).ready(function () {
+		var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		document.getElementById('timezone').value = timezone;
+			
+		$(function () {
+                $('[data-toggle="tooltip"]').tooltip({
+                  boundary: 'window',
+                });
+              });
+
+	});
+
+	function initCalendar() {
+		// build timezone
+
+		var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		var hrOffset = -(new Date().getTimezoneOffset() / 60);
+		if (hrOffset > 0) {
+			var offset = 'UTC +' + hrOffset + ':00';
+		} else {
+			var offset = 'UTC ' + hrOffset + ':00';
+		}
+
+		// get dialect chosen
+		var dialect = document.getElementById("stuHome").value;
+
+		// FULL CALENDAR INITIATLISATION
+		var calendarEl = document.getElementById('calendarStart');
+
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			height: 800,
+			initialView: 'dayGridMonth',
+			allDaySlot: true,
+			firstDay: 1, // set first day to monday
+			editable: false,
+			selectable: false,
+			slotEventOverlap: false,
+			headerToolbar: {
+				start: 'title', // will normally be on the left. if RTL, will be on the right
+				center: '',
+				end: 'prev,next' // will normally be on the right. if RTL, will be on the left
+			},
+			events: '/getCalendarEventsForStart?region=' + region + '&dialect=' + dialect,
+
+			dateClick: function (info) {
+				if (info.jsEvent.target.classList.contains('fc-bg-event')) { // if there's a background event
+					// clear the html within the calendarTimeSlots div
+					calendarTimeSlotsDiv = document.getElementById('calendarTimeSlots');
+					calendarTimeSlotsDiv.innerHTML = "";
+					ajaxGetFreeTimes(info
+						.date, dialect
+					); // ajax call to get all times that are available 24 hours from the time clicked
+					// scroll into view
+					var elmnt = document.getElementById("calendarTimeSlots");
+					elmnt.scrollIntoView();
+					// update selected
+					selectedTime = document.getElementById('calendarSelectedTime');
+
+
+					var date = moment(info.date);
+					calendarTimeSlotsDiv.innerHTML = `<p>Selected: ` + date.format("dddd MMMM Do YYYY") +
+						` (Timezone: ` + region + `)</p>`;
+				}
+			}
+
+		});
+		calendar.render();
+
+	}
+
+	// AJAX
+	function ajaxGetFreeTimes(date, dialect) { // ajax for update session var so that custom mark view is saved
+		$.ajax({
+			type: "POST",
+			url: "/ajaxGetFreeTimes",
+			timeout: 30000,
+			data: {
+				date: date.toISOString(),
+			},
+			success: function (data) {
+				// show free times on this date
+				for (var i = 0; i < data.length; i++) {
+					var time = moment(data[i].start, 'YYYY-MM-DDThh:mm:ssZ').format('LT');
+					calendarTimeSlotsDiv = document.getElementById('calendarTimeSlots');
+
+					var langArr = [];
+					var langArr = data[i].lang.split(',');
+					var stuClasses = document.getElementById('stuClasses').value;
+					if (stuClasses == 'theoryAndPractical') {
+						var step = 'step4'
+					} else {
+						var step = 'acknowledgeConfirmStep';
+					}
+					if (data[i].lang.indexOf(dialect) > -1) { // this class does have chosen dialect
+						calendarTimeSlotsDiv.insertAdjacentHTML('beforeend',
+							`<button type="button" onclick="setStuLessonTime('${data[i].start}');toggleNextStep('${step}');changeButtonColorStuLessonTime(this)" style="margin: 3px" class="stuLessonTimeButton btn btn-outline-primary">${time}</button>`
+							);
+					} else { // this class doesn't have chosen dialect
+						calendarTimeSlotsDiv.insertAdjacentHTML('beforeend',
+							`<button type="button" onclick="setStuLessonTime('${data[i].start}');toggleNextStep('${step}');changeButtonColorStuLessonTime(this)" style="margin: 3px;color: #27ae60;border-color: #27ae60" class="stuLessonTimeButton btn btn-outline-primary">${time}</button>`
+							);
+					}
+				}
+
+				// populate selectable time slot boxes
+				console.log('successful post');
+			},
+			error: function (jqXHR, textStatus, err) {
+				//show error message
+				console.log('unsuccessful post');
+			}
+		});
+	}
+
+
+	// set student level hidden input variable
+	function setStuHome(stuHome) {
+		document.getElementById("stuHome").value = stuHome;
+	}
+
+	// set student level hidden input variable
+	function setStuClasses(stuClasses) {
+		document.getElementById("stuClasses").value = stuClasses;
+	}
+	// set hidden input variable
+	function setSelectedGroupClass(selectedGroupClass) {
+		document.getElementById("selectedGroupClass").value = selectedGroupClass;
+	}
+
+	function toggleBlueGreenTimeSlotText() {
+		document.getElementById('timeSlotsText').style.display = 'block';
+	}
+
+	// set student lesson time hidden input variable
+	function setStuLessonTime(time) {
+		document.getElementById("stuLessonTime").value = time;
+	}
+	// set student lesson time hidden input variable
+	function setStuSpeakingLevel() {
+		var level = document.getElementById("speakingTestText").getAttribute("data-level");
+
+		document.getElementById("stuSpeakingLevel").value = level;
+	}
+	// toggle visibility of next step
+	function toggleNextStep(stepId) {
+		document.getElementById(stepId).style.display = "block";
+	}
+
+	// disable read more button
+	function disableSpeakMoreBtn() {
+		document.getElementById("speakMoreBtn").disabled = true;
+	}
+
+	function changeButtonColorStuLevel(element) {
+		// clear other buttons of the selected class
+		var stuLevelButtons = document.getElementsByClassName('stuLevelButton');
+		for (var i = 0; i < stuLevelButtons.length; ++i) {
+			var item = stuLevelButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+	function changeSpeakingButtonColorStuLevel(element) {
+		// clear other buttons of the selected class
+		var stuLessButtons = document.getElementsByClassName('stuLessButton');
+		for (var i = 0; i < stuLessButtons.length; ++i) {
+			var item = stuLessButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+
+	function changeButtonColorStuHome(element) {
+		// clear other buttons of the selected class
+		var stuHomeButtons = document.getElementsByClassName('stuHomeButton');
+		for (var i = 0; i < stuHomeButtons.length; ++i) {
+			var item = stuHomeButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+	function changeButtonColorStuClasses(element) {
+		// clear other buttons of the selected class
+		var stuClassesButtons = document.getElementsByClassName('stuClassesButton');
+		for (var i = 0; i < stuClassesButtons.length; ++i) {
+			var item = stuClassesButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+
+	function changeButtonColorStuLessonTime(element) {
+		// clear other buttons of the selected class
+		var stuLessonTimelButtons = document.getElementsByClassName('stuLessonTimeButton');
+		for (var i = 0; i < stuLessonTimelButtons.length; ++i) {
+			var item = stuLessonTimelButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+	// GOOGLE SIGN IN
+	function onSignIn(googleUser) {
+		console.log('google Auth successful')
+		var profile = googleUser.getBasicProfile();
+		gapi.auth2.getAuthInstance().disconnect();
+
+		// add name, email and image to req.body properties
+		document.getElementById("fullName").value = profile.getName();
+		document.getElementById("email").value = profile.getEmail();
+		document.getElementById("profileImage").value = profile.getImageUrl();
+		document.getElementById("password").value = null;
+
+		// post form
+		document.forms["startForm"].submit();
+	}
+
+	function renderButton() {
+		gapi.signin2.render('my-signin2', {
+			'scope': 'profile email',
+			'width': 240,
+			'height': 50,
+			'longtitle': true,
+			'theme': 'dark',
+			'onsuccess': onSignIn,
+		});
+	}
+
+	// scroll to step 3 on click of im not available
+	function scrollToStep(stepId) {
+		// scroll into view
+		var elmnt = document.getElementById(stepId);
+		elmnt.scrollIntoView();
+	}
+
+	// show email sign up
+	function showEmailSignUp() {
+		document.getElementById('emailSignUp').style.display = "block";
+	}
+
+
+
+	function resetSpeakingTest() {
+		var youtubeSlug = '';
+		document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+		document.getElementById('speakingiframe').srcdoc =
+			"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+			youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+			"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+		document.getElementById('speakingTestText').style.display = 'none';
+
+
+
+		document.getElementById('speakMoreBtn').style.display = 'inline-block';
+		document.getElementById("speakMoreBtn").disabled = false;
+		document.getElementById("speakingTestText").setAttribute("data-level", 0);
+		document.getElementById("speakingTextLevel0").style.backgroundColor = '#2ecc71';
+		document.getElementById("speakingTextLevel0").style.color = 'white';
+
+		document.getElementById('speakingTextLevel0').classList.remove("disableFade");
+
+
+		// add disableFade and make them gray to everything else
+		document.getElementById('speakingTextLevel1').classList.add("disableFade");
+		document.getElementById('speakingTextLevel2').classList.add("disableFade");
+		document.getElementById('speakingTextLevel3').classList.add("disableFade");
+		document.getElementById('speakingTextLevel4').classList.add("disableFade");
+		document.getElementById('speakingTextLevel5').classList.add("disableFade");
+		document.getElementById('speakingTextLevel6').classList.add("disableFade");
+		document.getElementById("speakingTextLevel1").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel2").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel3").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel4").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel5").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel6").style.backgroundColor = '#EEF1FA';
+		document.getElementById("speakingTextLevel1").style.color = 'black';
+		document.getElementById("speakingTextLevel2").style.color = 'black';
+		document.getElementById("speakingTextLevel3").style.color = 'black';
+		document.getElementById("speakingTextLevel4").style.color = 'black';
+		document.getElementById("speakingTextLevel5").style.color = 'black';
+		document.getElementById("speakingTextLevel6").style.color = 'black';
+
+		// 
+		document.getElementById('speakMoreBtn').style.display = 'inline-block';
+
+
+
+		document.getElementById('speakMoreBtn').innerHTML = `I have some foundations in Mandarin`;
+		document.getElementById('speakLessBtn').innerHTML = `I don't know any Mandarin`;
+
+	}
+
+	function upgradeSpeakingTextLevel() {
+		// get current level
+		var speakingLevel = document.getElementById("speakingTestText").getAttribute("data-level");
+		// replace text with speakingLevel + 1 text
+		if (speakingLevel == 0) {
+			var youtubeSlug = 'ZLJ1sCLLyZw';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+
+			document.getElementById("speakingTextLevel1").style.backgroundColor = 'rgb(73, 80, 246)';
+			document.getElementById('speakingTextLevel1').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel1").style.color = 'white';
+
+			document.getElementById('speakingTextLevel0').classList.add("disableFade");
+			document.getElementById("speakingTextLevel0").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel0").style.color = 'black';
+
+			flashSpeakButtons();
+
+			document.getElementById('speakingTestText').style.display = 'block';
+			document.getElementById('speakMoreBtn').innerHTML = `I speak at a level higher than in the video
+					<br>
+					<span class="minitext">Greater fluency and complexity</span>`;
+			document.getElementById('speakLessBtn').innerHTML = `I speak at the level in the video
+					<br>
+					<span class="minitext">Similar fluency and complexity</span>`;
+		} else if (speakingLevel == 1) {
+			var youtubeSlug = '5EnOCSYKQC0';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+
+			document.getElementById("speakingTextLevel2").style.backgroundColor = '#f1c40f';
+			document.getElementById('speakingTextLevel2').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel2").style.color = 'white';
+
+			document.getElementById('speakingTextLevel1').classList.add("disableFade");
+			document.getElementById("speakingTextLevel1").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel1").style.color = 'black';
+
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 2) {
+			var youtubeSlug = 'n__WhRWYEV0';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+			document.getElementById("speakingTextLevel3").style.backgroundColor = '#1abc9c';
+			document.getElementById('speakingTextLevel3').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel3").style.color = 'white';
+
+			document.getElementById('speakingTextLevel2').classList.add("disableFade");
+			document.getElementById("speakingTextLevel2").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel2").style.color = 'black';
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 3) {
+			var youtubeSlug = 'Bj80HbPLWEE';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+			document.getElementById("speakingTextLevel4").style.backgroundColor = '#e67e22';
+			document.getElementById('speakingTextLevel4').classList.remove("disableFade");
+			document.getElementById("speakingTextLevel4").style.color = 'white';
+
+			document.getElementById('speakingTextLevel3').classList.add("disableFade");
+			document.getElementById("speakingTextLevel3").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel3").style.color = 'black';
+
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 4) {
+			var youtubeSlug = 'rwpmd1GTUqI';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+
+			document.getElementById("speakingTextLevel5").style.backgroundColor = '#9b59b6';
+			document.getElementById("speakingTextLevel5").style.color = 'white';
+			document.getElementById('speakingTextLevel5').classList.remove("disableFade");
+
+			document.getElementById('speakingTextLevel4').classList.add("disableFade");
+			document.getElementById("speakingTextLevel4").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel4").style.color = 'black';
+			flashSpeakButtons();
+
+		} else if (speakingLevel == 5) {
+			var youtubeSlug = '';
+			document.getElementById('speakingiframe').src = 'https://www.youtube.com/watch?v=' + youtubeSlug;
+			document.getElementById('speakingiframe').srcdoc =
+				"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/" +
+				youtubeSlug + "?autoplay=1><img src=https://img.youtube.com/vi/" + youtubeSlug +
+				"/hqdefault.jpg alt='Culturestride'><span>▶</span></a>";
+			document.getElementById('speakingTestText').style.display = 'none';
+
+			document.getElementById("speakingTextLevel6").style.backgroundColor = '#34495e';
+			document.getElementById("speakingTextLevel6").style.color = 'white';
+
+			document.getElementById('speakingTextLevel6').classList.remove("disableFade");
+
+			document.getElementById('speakingTextLevel5').classList.add("disableFade");
+			document.getElementById("speakingTextLevel5").style.backgroundColor = '#EEF1FA';
+			document.getElementById("speakingTextLevel5").style.color = 'black';
+
+			// hide the understand more button
+			document.getElementById('speakMoreBtn').style.display = 'none';
+
+			document.getElementById('speakLessBtn').textContent = 'Continue';
+		}
+		// increment and update to new level
+		speakingLevel++;
+		document.getElementById("speakingTestText").setAttribute("data-level", speakingLevel);
+
+
+	}
+
+	function flashSpeakButtons() {
+		// hide buttons - prevent accidental skips
+		var speakMoreBtn = document.getElementById('speakMoreBtn');
+		var speakLessBtn = document.getElementById('speakLessBtn');
+		speakMoreBtn.disabled = true;
+		speakLessBtn.disabled = true;
+
+		setTimeout(function () {
+			speakMoreBtn.disabled = false;
+			speakLessBtn.disabled = false;
+		}, 3000);
+	}
+
+	function initTable() {
+		var level = document.getElementById("stuSpeakingLevel").value;
+
+		ajaxInitTable(level);
+
+	}
+
+	function ajaxInitTable(level) {
+		$.ajax({
+			type: "POST",
+			url: "/ajaxInitTable",
+			timeout: 30000,
+			data: {
+				level: level,
+			},
+			success: function (data) {
+				//show content
+				console.log('successful post');
+				var practicalTable = document.getElementById('practicalTable');
+				practicalTable.innerHTML = '';
+				var group = document.getElementById('group').textContent;
+				var showPreselectClass = 0;
+				for (let i = 0; i < data.length; i++) {
+					var mom = moment(data[i].nextClass, 'YYYY-MM-DDTHH:mm:ssZ');
+					var formattedMom = mom.local().format('LLLL');
+
+
+					var remainingCount = 3 - parseInt(data[i].memberCount);
+
+					if (remainingCount <= 0) {
+						var memberCountHTML = `<span class="badge badge-light">FULL</span>`;
+					} else {
+						var memberCountHTML = `<span class="badge badge-light">${remainingCount} Spot Open</span>`;
+					}
+
+					var statusHTML = ``;
+					if (remainingCount == 3) {
+						statusHTML = `<span class="badge badge-light">Pending</span>`;
+					} else if (remainingCount == 1 || remainingCount == 2){
+						statusHTML = `<span class="badge badge-primary">Instant Start</span>`;
+					}
+
+					if (group == data[i].sohoGID) {
+						var radioOptionHTML = `<div class="custom-control custom-radio">
+								<input name="bookPracticalRadio" type="radio" class="custom-control-input" id="customCheck${i}" onclick="setSelectedGroupClass('${data[i].sohoGID}');toggleNextStep('acknowledgeConfirmStep')" checked>
+								<label class="custom-control-label" for="customCheck${i}"></label>
+							</div>`;
+
+							showPreselectClass = 1; // show that class has been preselected
+
+
+						setSelectedGroupClass(data[i].sohoGID);
+						toggleNextStep('acknowledgeConfirmStep');
+						document.getElementById('acknowledgeConfirmStep').scrollIntoView();
+
+					} else {
+						if (data[i].memberCount >= 3) {
+							var radioOptionHTML = ``;
+						} else {
+							var radioOptionHTML = `<div class="custom-control custom-radio">
+								<input name="bookPracticalRadio" type="radio" class="custom-control-input" id="customCheck${i}" onclick="setSelectedGroupClass('${data[i].sohoGID}');toggleNextStep('acknowledgeConfirmStep')">
+								<label class="custom-control-label" for="customCheck${i}"></label>
+							</div>`;
+						}
+
+					}
+
+
+					 if (data[i].level == 0) {
+						 var levelContent = `<span class="badge badge-light" style="background-color:#2ecc71;color:white">HSK ${data[i].level} (absolute beginner)</span>`;
+								} else if (data[i].level == 1) {
+									var levelContent = `<span class="badge badge-light" style="background-color:rgb(73, 80, 246);color:white">HSK ${data[i].level} (beginner)</span>`;
+								} else if (data[i].level == 2) {
+									var levelContent = `<span class="badge badge-light" style="background-color:#f1c40f;color:white">HSK ${data[i].level} (intermediate)</span>`;
+								} else if (data[i].level == 3) {
+									var levelContent = `<span class="badge badge-light" style="background-color:#1abc9c;color:white">HSK ${data[i].level} (intermediate)</span>`;
+								} else if (data[i].level == 4) {
+									var levelContent = `<span class="badge badge-light" style="background-color:#e67e22;color:white">HSK ${data[i].level} (advanced)</span>`;
+								} else if (data[i].level == 5) {
+									var levelContent = `<span class="badge badge-light" style="background-color:#9b59b6;color:white">HSK ${data[i].level} (advanced)</span>`;
+								} else if (data[i].level == 6) {
+									var levelContent = `<span class="badge badge-light" style="background-color:#34495e;color:white">HSK ${data[i].level} (advanced)</span>`;
+								}
+					
+					var content = `
+		<tr style="text-align:center">
+			<td>
+							${radioOptionHTML}
+						</td>
+						<td>
+							${formattedMom}
+						</td>
+						
+						<td>
+							${levelContent}
+							
+						</td>
+						<td>
+							Weekly
+						</td>
+						
+						<td>
+							${memberCountHTML}
+						</td>
+						<td>
+							${statusHTML}
+						</td>
+
+					</tr>
+`;
+
+					practicalTable.insertAdjacentHTML('beforeend', content);
+				}
+
+				
+					if (showPreselectClass == 1) {
+						var badgeHTML =
+							`<span class="badge badge-light">Your chosen class has been preselected</span>`;
+						document.getElementById('bookPracticalStepSubtitle').insertAdjacentHTML('afterend',
+							badgeHTML);
+					} else if (group && showPreselectClass == 0) { // class has been chosen but student tested differently
+						var badgeHTML =
+							`<span class="badge badge-light badgeMultiline">Your tested level is different to your chosen class level. We highly recommend you choose one of the below otherwise you won't be challenged or be out of your depth.</span>`;
+						document.getElementById('bookPracticalStepSubtitle').insertAdjacentHTML('afterend',
+							badgeHTML);
+					}
+
+
+				if (data.length == 0) {
+					var content = `
+		<tr>
+			<td colspan="5">
+							No active classes currently exist for your proficiency level, please click 'skip' and you will be notified when we have new classes at this level
+						</td>
+						
+
+					</tr>
+`;
+
+					practicalTable.insertAdjacentHTML('beforeend', content);
+				}
+
+				// show timezone
+				var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+				document.getElementById('nextClassHeader').textContent = 'Next Class (' + region + ')';
+
+
+			},
+
+			error: function (jqXHR, textStatus, err) {
+				//show error message
+				console.log('unsuccessful post');
+			}
+		});
+	}
+</script>
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8630501.js"></script>
+<!-- End of HubSpot Embed Code -->

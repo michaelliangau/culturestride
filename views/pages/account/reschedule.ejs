@@ -1,0 +1,111 @@
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+      <div style="padding:40px 40px;text-align:left">
+        <% if (status == 'success') { %>
+          <div id="status" style="text-align: center;color:green">
+          <p>Your request has been successfully submitted.</p>
+        </div>
+        <% } %>
+        
+        <h4>Reschedule Class ID: <%- query.sohoAID %></h4>
+
+        <p>
+          Current Lesson Time: <%- query.start %> = <%- new Date(query.start) %>
+          <br>
+          Lesson Duration: <%- query.duration %>
+          <br>
+          Proposed New Time: <b id="propNewTime"></b>
+        </p>
+        <form method="post" class="needs-validation" validate>
+          <input type="hidden" name='newClassTime'  id='newClassTime'  value="">
+          <input type="hidden" name='newClassCalendarId'  id='newClassCalendarId'  value="">
+          <input type="hidden" name='curClassTime'  id='curClassTime'  value="<%- query.start %>">
+          <input type="hidden" name='curCalendarId'  id='curCalendarId'  value="<%- query.sohoAID %>">
+          <input type="hidden" name='curClassDuration'  id='curClassDuration'  value="<%- query.duration %>">
+
+        <p>
+          Select a new time slot from the free/green time slots
+        </p>
+
+        <h4><%- teacher.firstName + ' ' + teacher.lastName %>'s Calendar (Free Times)</h4>
+
+<span class="badge badge-light badge-pill">Timzeone: <span id="timezone"></span></span>
+<div id="rescheduleCalendar" class="calendar"></div>
+
+
+
+          <div class="form-group">
+            <label for="comments">Comments/Reason</label>
+            <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+          </div>
+          <br>
+
+
+          
+        <button class="button button-primary button-block button-shadow" style="margin: 0px auto 20px auto"
+            type="submit">Submit Request</button>
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- FULL CALENDAR -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js"></script>
+<!-- MOMENT  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<script>
+  // build timezone
+  var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var hrOffset = -(new Date().getTimezoneOffset() / 60);
+  if (hrOffset > 0) {
+    var offset = 'UTC +' + hrOffset + ':00';
+  } else {
+    var offset = 'UTC ' + hrOffset + ':00';
+  }
+  document.getElementById('timezone').innerHTML = offset + ' ' + region;
+
+
+  // FULL CALENDAR INITIATLISATION
+  var calendarEl = document.getElementById('rescheduleCalendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    headerToolbar: {
+      left: 'prev,next',
+      right: 'dayGridMonth,timeGridWeek'
+    },
+    allDaySlot: false,
+    firstDay: 1, // set first day to monday
+    editable: false,
+    height: "auto",
+    selectable: false,
+    slotEventOverlap: false,
+    slotDuration: "01:00:00",
+    events: '/getCalendarEvents?region=' + region,
+
+    eventClick: function (info) {
+    var newTime = info.event.start.toISOString().split('.')[0] + "Z";
+    document.getElementById("newClassTime").value = newTime;
+    document.getElementById("newClassCalendarId").value = info.event.id;      
+    document.getElementById("propNewTime").textContent = new Date(newTime);   
+      // scroll to the updated value
+      location.href = "#propNewTime";
+    }
+
+  });
+  calendar.render();
+
+
+  
+
+</script>

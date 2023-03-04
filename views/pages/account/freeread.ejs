@@ -1,0 +1,54 @@
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="feature text-center is-revealing box-shadow"
+                style="max-width: none;width: 100%;position:inherit">
+                <div style="padding:40px 40px;text-align:left">
+                    
+                    <div class="dropdown" style="margin-left:20px;margin-bottom:20px">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            HSK Levels
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/a/freeread?hsk=1">HSK 1</a>
+                            <a class="dropdown-item" href="/a/freeread?hsk=2">HSK 2</a>
+                            <a class="dropdown-item" href="/a/freeread?hsk=3">HSK 3</a>
+                            <a class="dropdown-item" href="/a/freeread?hsk=4">HSK 4</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <h3 class="feature-title h3-mobile" style="margin-left:20px;margin-top:0px;margin-bottom:0px">HSK <%- textMeta.hskLevel %> Text #<%- textID %>
+                        </h3>
+                        <p class="textInCards" style="margin-bottom:0">
+                        <i style="font-size:0.6rem">Powered by HSKReading.com</i>
+                            </p>
+                    </div>
+                    <div class="row">
+                        <h4 style="margin-left:20px">Chinese Text</h4>
+                        <p class="textInCards" style="margin-bottom:0px">
+                                <%- text.chinese %>
+                        </p>
+                    </div>
+                    <div class="row">
+                            <a href="#" onclick="toggleTrans()"><h4 style="margin-left:20px">Show/Hide English Translation</h4></a>
+                            <p id="engTrans" class="textInCards" style="display:none">
+                                    <%- text.english %>
+                        </div>
+                    </a>
+                    <a href="/a/freeread"
+                        style="max-width:250px;margin:10px auto;"
+                        class="button button-primary button-block button-shadow">Next Text</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+    function toggleTrans() { 
+    $("#engTrans").toggle();
+ }
+    </script>

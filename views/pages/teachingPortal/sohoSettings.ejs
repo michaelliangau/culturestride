@@ -1,0 +1,50 @@
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                Toggle Simplified/Traditional Characters
+                <br>
+                
+    <select id="class" name="class" class="selectpicker form-control"
+    onchange="toggleCharType(this)">
+    <% if (settings.charType == 'simp') { %>
+        
+        <option value="simp">Simplified</option>
+        <option value="trad">Traditional</option>
+    
+    <% } else { %>
+        <option value="trad">Traditional</option>
+        <option value="simp">Simplified</option>
+        <% } %>
+
+
+
+  </select>
+            </div>
+        </div> 
+    </div>
+
+    <script>
+        function toggleCharType(e) {
+            var value = e.value;
+            ajaxToggleCharTypeTea(value);
+        }
+
+        function ajaxToggleCharTypeTea(charType) {
+            $.ajax({
+                type: "POST",
+                url: "/ajaxToggleCharTypeTea",
+                timeout: 30000,
+                data: {
+                    charType: charType,
+                },
+                success: function (data) {
+                    //show content
+                    console.log('successful post');
+                },
+                error: function (jqXHR, textStatus, err) {
+                    //show error message
+                    console.log('unsuccessful post');
+                }
+            });
+        }
+    </script>

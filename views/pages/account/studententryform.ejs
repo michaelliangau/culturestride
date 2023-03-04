@@ -1,0 +1,780 @@
+<h3 style="text-align: center">Student Entry Form</h3>
+<div class="subtext" style="text-align:center;margin: 0 auto; padding: 0 50px">This information is not public and will be used only by your teachers to better adjust your class to your level and needs.
+</span>
+</div>
+
+<!-- FORM SIMPLE -->
+
+<form id="entryForm" method="post" class="needs-validation" action="/a/onboarding/studententryform" validate>
+	<input type="hidden" name='stuID' id="stuID" value="<%- stuID %>">
+	<input type="hidden" name='stuGoal' id="stuGoal" value="">
+	<input type="hidden" name='stuReadingLevel' id="stuReadingLevel" value="">
+	<input type="hidden" name='stuListeningLevel' id="stuListeningLevel" value="">
+
+	<div style="margin-bottom:150px" class="row">
+		<div class="col-sm-12" style="padding:20px 20%">
+
+			<div id="step5">
+				<h4>What is your language learning context?</h4>
+				<p class="subtext" style="margin-bottom:0px;">You may mention:</p>
+				<ul class="subtext">
+					<li>How long have you studied Chinese in the past?</li>
+					<li>What language(s) do you speak at home?</li>
+					<li> Why are you learning Chinese?</li>
+					<li> What do you want your teacher to focus on with you?</li>
+				</ul>
+				<div class="form-group">
+					<textarea class="form-control" id="history" name="history"
+						oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' rows="4"
+						onfocus="toggleNextStep('step6');" required></textarea>
+				</div>
+			</div>
+
+			<div id="step6" style="display:none">
+				<h4>What is your short-term language goal?</h4>
+				<p class="subtext"></p>
+				<button type="button"
+					onclick="setStuGoal('conversationalHSK4'); toggleNextStep('step7');changeButtonColorStuGoal(this)"
+					class="stuGoalButton btn btn-outline-primary" style="margin: 5px 0px">Conversational
+					Proficiency</button>
+				<button type="button"
+					onclick="setStuGoal('businessHSK5'); toggleNextStep('step7');changeButtonColorStuGoal(this)"
+					class="stuGoalButton btn btn-outline-primary" style="margin: 5px 0px">Business Proficiency</button>
+				<button type="button"
+					onclick="setStuGoal('nativeHSK6'); toggleNextStep('step7');changeButtonColorStuGoal(this)"
+					class="stuGoalButton btn btn-outline-primary" style="margin: 5px 0px">Native Proficiency</button>
+			</div>
+
+			<div id="step7" style="display:none">
+				<h4>Do a Reading test</h4>
+				<p class="subtext">There are 6 texts, each progressively harder. Attempt this without any dictionary or
+					translation aids.
+					<br>
+					<span class="badge badge-light" style="background-color: #4950F6;color:white"
+						id="readingTextLevel1">1 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="readingTextLevel2">2 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="readingTextLevel3">3 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="readingTextLevel4">4 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="readingTextLevel5">5 (Advanced)</span>
+					<span class="badge badge-light disableFade" id="readingTextLevel6">6 (Advanced)</span>
+					<span class="badge badge-light" onclick="resetReadingTest();" style="cursor:pointer">Reset
+						test</span>
+				</p>
+
+
+				<button type="button" onclick="upgradeReadingTextLevel()" id="readMoreBtn"
+					class="stuReadLevelButton btn btn-outline-primary" style="margin: 5px 0px;line-height:1em;">
+					I am above this level
+					<br>
+					<span class="minitext">I understand more than 80%</span>
+				</button>
+				<button type="button" id="readLessBtn"
+					onclick="toggleNextStep('step8');changeReadButtonColorStuLevel(this);setStuReadingLevel();disableReadMoreBtn()"
+					class="stuReadLevelButton btn btn-outline-primary" style="margin: 5px 0px;line-height:1em;">
+					This is my level
+					<br>
+					<span class="minitext">I understand less than 80%</span>
+				</button>
+
+
+
+				<p id="readingTestText" style="background: #f6f9fc; padding:20px;margin-top:10px; border-radius: 10px;"
+					data-level="1">
+					小明：小红，你星期六想去玩儿吗？还是你想在学校学习？
+					<br>
+					小红：你想去哪里？
+				</p>
+
+			</div>
+
+
+			<div id="step8" style="display:none">
+				<h4>Do a Listening test</h4>
+				<p class="subtext">There are 6 recordings, each progressively harder.
+					<br>
+					<span class="badge badge-light" style="background-color: #4950F6;color:white"
+						id="listeningTextLevel1">1 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="listeningTextLevel2">2 (Beginner)</span>
+					<span class="badge badge-light disableFade" id="listeningTextLevel3">3 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="listeningTextLevel4">4 (Intermediate)</span>
+					<span class="badge badge-light disableFade" id="listeningTextLevel5">5 (Advanced)</span>
+					<span class="badge badge-light disableFade" id="listeningTextLevel6">6 (Advanced)</span>
+					<span class="badge badge-light" onclick="resetListenTest();" style="cursor:pointer">Reset
+						test</span>
+
+				</p>
+
+
+				<button type="button" onclick="upgradeListeningTextLevel()" id="listenMoreBtn"
+					class="stuListenLevelButton btn btn-outline-primary" style="margin: 5px 0px;line-height:1em;">
+					I am above this level
+					<br>
+					<span class="minitext">I understand more than 80%</span>
+				</button>
+
+
+				<button type="button" id="listenLessBtn"
+					onclick="toggleNextStep('step9');changeListenButtonColorStuLevel(this);setStuListeningLevel();disableListenMoreBtn()"
+					class="stuListenLevelButton btn btn-outline-primary" style="margin: 5px 0px;line-height:1em;">
+					This is my level
+					<br>
+					<span class="minitext">I understand less than 80%</span>
+				</button>
+
+				<figure id="listeningTestTextWrapper" style="margin-top:10px;">
+					<audio controls id="listeningTestText"
+						src="https://culturestride.s3.ap-southeast-2.amazonaws.com/studententryform/sef-hsk1.mp3"
+						type="audio/mp3" data-level="1">
+						Your browser does not support this
+						<code>audio</code> element.
+					</audio>
+				</figure>
+
+
+
+			</div>
+
+
+			<div id="step9" style="display:none">
+				<h4>Do a Speaking test</h4>
+				<p class="subtext">
+
+					Question: Record a 30 second introduction of your studies and work.
+					<br>
+					<span class="subtext">Click
+						<a href="javascript:void(0)" onclick="toggleNextStep('step10');">leave blank</a> if you cannot do
+						this and click <svg style="display:inline" xmlns="http://www.w3.org/2000/svg" width="16"
+							height="16" fill="currentColor" class="bi bi-mic" viewBox="0 0 16 16">
+							<path fill-rule="evenodd"
+								d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+							<path fill-rule="evenodd"
+								d="M10 8V3a2 2 0 1 0-4 0v5a2 2 0 1 0 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z" />
+						</svg> to re-record if necessary.
+					</span>
+				</p>
+
+				<div>
+					<button class="button button-secondary button-block button-shadow" id="record" type="button"
+						onclick="initSpeakingAudio();"
+						style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%; margin-bottom:15px;display:inline; float:left">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-mic" viewBox="0 0 16 16">
+							<path fill-rule="evenodd"
+								d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+							<path fill-rule="evenodd"
+								d="M10 8V3a2 2 0 1 0-4 0v5a2 2 0 1 0 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z" />
+						</svg>
+					</button>
+
+
+
+					<button type="button" id="send" onclick="toggleNextStep('step10');"
+						style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%; margin-bottom:15px;display:none; float:left"
+						class="button button-primary button-block button-shadow">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-check2" viewBox="0 0 16 16">
+							<path
+								d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+						</svg>
+					</button>
+
+
+					<button class="button button-secondary button-block button-shadow" id="stop" type="button"
+						style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%; margin-bottom:15px;display:none; float:left"
+						disabled>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-trash" viewBox="0 0 16 16">
+							<path
+								d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+							<path fill-rule="evenodd"
+								d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+						</svg>
+
+						<button type="button" id="recordingTimer"
+							style="margin-right:10px; height: 100%; padding: 15px;display:none;float:left"
+							class="button button-secondary button-block button-shadow">
+							<span id="recordingTimerNo" class="blink"><span id="minutes">00</span>:<span
+									id="seconds">00</span></span>
+						</button>
+
+					</button>
+				</div>
+
+
+
+				<div id="recording" style="display:none;">
+					<audio id="audio" controls></audio>
+				</div>
+
+			</div>
+
+
+			<div id="step10" style="display: none;">
+				<h4>Do a Writing test</h4>
+				<p class="subtext">Question: Please introduce your studies and work in typed Chinese.
+					<br>
+					<span class="subtext">Click
+						<a href="javascript:void(0)" onclick="displayFinishBtn()">leave blank</a> if you cannot do
+						this.
+					</span>
+					<!-- <span class="subtext" href="" target="_blank">You may need to set up your pinyin-Chinese keyboard
+						for <a href="https://support.apple.com/en-au/guide/chinese-input-method/cim6023ab944/mac"
+							target="_blank">Mac OS</a>, <a
+							href="https://answers.microsoft.com/en-us/windows/forum/windows_10-other_settings/chinese-pinyin-input/ec028f92-8782-4b8c-9988-d4842fbbc9a2"
+							target="_blank">Windows</a>, <a
+							href="https://www.writtenchinese.com/adding-a-chinese-keyboard-to-your-electronic-device/#OS%20X"
+							target="_blank">Android or iOS</a>.</span> -->
+				</p>
+				<div class="form-group">
+					<textarea class="form-control" id="writing" name="writing" rows="4"
+						oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+						onfocus="displayFinishBtn();" required></textarea>
+				</div>
+			</div>
+
+
+			<button id="finishButton" onclick="uploadSpeaking(<%- stuID %>)" type="button"
+				class="button button-primary button-block button-shadow"
+				style="margin: 20px auto; max-width:150px; width:100%; display:none">Finish</button>
+
+		</div>
+	</div>
+
+</form>
+
+<script>
+	function resetReadingTest() {
+		document.getElementById("readingTestText").innerHTML = `小明：小红，你星期六想去玩儿吗？还是你想在学校学习？
+					<br>
+					小红：你想去哪里？
+					<br>
+					小明：星期六我们去公园吧，夏天来了，我们可以去游泳。`;
+		document.getElementById('readMoreBtn').style.display = 'inline-block';
+		document.getElementById("readMoreBtn").disabled = false;
+		document.getElementById("readingTestText").setAttribute("data-level", 1);
+		document.getElementById("readingTextLevel1").style.backgroundColor = '#4950F6';
+		document.getElementById("readingTextLevel1").style.color = 'white';
+		document.getElementById('readLessBtn').innerHTML = `This is my level
+					<br>
+					<span class="minitext">I understand less than 80%</span>`;
+		document.getElementById('readingTextLevel1').classList.remove("disableFade");
+
+		// add disableFade and make them gray to everything else
+		document.getElementById('readingTextLevel2').classList.add("disableFade");
+		document.getElementById('readingTextLevel3').classList.add("disableFade");
+		document.getElementById('readingTextLevel4').classList.add("disableFade");
+		document.getElementById('readingTextLevel5').classList.add("disableFade");
+		document.getElementById('readingTextLevel6').classList.add("disableFade");
+		document.getElementById("readingTextLevel2").style.backgroundColor = '#EEF1FA';
+		document.getElementById("readingTextLevel3").style.backgroundColor = '#EEF1FA';
+		document.getElementById("readingTextLevel4").style.backgroundColor = '#EEF1FA';
+		document.getElementById("readingTextLevel5").style.backgroundColor = '#EEF1FA';
+		document.getElementById("readingTextLevel6").style.backgroundColor = '#EEF1FA';
+		document.getElementById("readingTextLevel2").style.color = 'black';
+		document.getElementById("readingTextLevel3").style.color = 'black';
+		document.getElementById("readingTextLevel4").style.color = 'black';
+		document.getElementById("readingTextLevel5").style.color = 'black';
+		document.getElementById("readingTextLevel6").style.color = 'black';
+	}
+
+
+	function resetListenTest() {
+		document.getElementById("listeningTestText").src =
+			`https://culturestride.s3.ap-southeast-2.amazonaws.com/studententryform/sef-hsk1.mp3`;
+			document.getElementById('listenMoreBtn').style.display = 'inline-block';
+		document.getElementById("listenMoreBtn").disabled = false;
+		document.getElementById("listeningTestText").setAttribute("data-level", 1);
+		document.getElementById("listeningTextLevel1").style.backgroundColor = '#4950F6';
+		document.getElementById("listeningTextLevel1").style.color = 'white';
+		document.getElementById('listenLessBtn').innerHTML = `This is my level
+					<br>
+					<span class="minitext">I understand less than 80%</span>`;
+		document.getElementById('listeningTextLevel1').classList.remove("disableFade");
+
+
+		// add disableFade and make them gray to everything else
+		document.getElementById('listeningTextLevel2').classList.add("disableFade");
+		document.getElementById('listeningTextLevel3').classList.add("disableFade");
+		document.getElementById('listeningTextLevel4').classList.add("disableFade");
+		document.getElementById('listeningTextLevel5').classList.add("disableFade");
+		document.getElementById('listeningTextLevel6').classList.add("disableFade");
+		document.getElementById("listeningTextLevel2").style.backgroundColor = '#EEF1FA';
+		document.getElementById("listeningTextLevel3").style.backgroundColor = '#EEF1FA';
+		document.getElementById("listeningTextLevel4").style.backgroundColor = '#EEF1FA';
+		document.getElementById("listeningTextLevel5").style.backgroundColor = '#EEF1FA';
+		document.getElementById("listeningTextLevel6").style.backgroundColor = '#EEF1FA';
+		document.getElementById("listeningTextLevel2").style.color = 'black';
+		document.getElementById("listeningTextLevel3").style.color = 'black';
+		document.getElementById("listeningTextLevel4").style.color = 'black';
+		document.getElementById("listeningTextLevel5").style.color = 'black';
+		document.getElementById("listeningTextLevel6").style.color = 'black';
+	}
+
+	function upgradeReadingTextLevel() {
+		// get current level
+		var readingLevel = document.getElementById("readingTestText").getAttribute("data-level");
+		// replace text with readingLevel + 1 text
+		if (readingLevel == 1) {
+			document.getElementById("readingTestText").innerHTML = `中国有很多好玩的地方。
+										<br>
+										如果你喜欢夏天，可以去海南岛，它在中国的最南边，有大海、沙滩和热情的人们。`;
+			document.getElementById("readingTextLevel2").style.backgroundColor = '#f1c40f';
+			document.getElementById('readingTextLevel2').classList.remove("disableFade");
+			document.getElementById("readingTextLevel2").style.color = 'white';
+
+			document.getElementById('readingTextLevel1').classList.add("disableFade");
+			document.getElementById("readingTextLevel1").style.backgroundColor = '#EEF1FA';
+			document.getElementById("readingTextLevel1").style.color = 'black';
+
+			flashReadButtons();
+		} else if (readingLevel == 2) {
+			document.getElementById("readingTestText").innerHTML = `男：你们去爬山了？怎么样？一定很累吧？<br>
+女：越高的地方越冷，山路也越难走，但是特别漂亮。虽然已经是春天了，可是山上跟山下一点儿也不一样，还都是白的。<br>
+男：我越听越想去看看，下次你们也带我一起去吧。`;
+			document.getElementById("readingTextLevel3").style.backgroundColor = '#1abc9c';
+			document.getElementById('readingTextLevel3').classList.remove("disableFade");
+			document.getElementById("readingTextLevel3").style.color = 'white';
+
+			document.getElementById('readingTextLevel2').classList.add("disableFade");
+			document.getElementById("readingTextLevel2").style.backgroundColor = '#EEF1FA';
+			document.getElementById("readingTextLevel2").style.color = 'black';
+			flashReadButtons();
+
+		} else if (readingLevel == 3) {
+			document.getElementById("readingTestText").innerHTML = `时间过的真快啊，转眼2018年就要过去了。
+										<br>
+
+										在这一年里，我实现了从学校毕业到参加工作的转变。在学校的时候可以见到很多亲切的老师和一起玩的同学。工作以后，遇见的是严厉的领导和忙碌的同事。`;
+			document.getElementById("readingTextLevel4").style.backgroundColor = '#e67e22';
+			document.getElementById('readingTextLevel4').classList.remove("disableFade");
+			document.getElementById("readingTextLevel4").style.color = 'white';
+
+			document.getElementById('readingTextLevel3').classList.add("disableFade");
+			document.getElementById("readingTextLevel3").style.backgroundColor = '#EEF1FA';
+			document.getElementById("readingTextLevel3").style.color = 'black';
+
+			flashReadButtons();
+
+		} else if (readingLevel == 4) {
+			document.getElementById("readingTestText").innerHTML = `在恋爱关系中，你是愿意AA制还是希望对方能够多付出一些呢？这是摆在每一对情侣面前的问题，尤其是女生。
+										<br>
+
+
+										在恋爱关系中，女生大多希望男方能够更爱自己，所以在金钱上也希望男方能够多表示一些，比如，送自己礼物，在外出吃饭时候能够主动结账等。`;
+			document.getElementById("readingTextLevel5").style.backgroundColor = '#9b59b6';
+			document.getElementById("readingTextLevel5").style.color = 'white';
+			document.getElementById('readingTextLevel5').classList.remove("disableFade");
+
+			document.getElementById('readingTextLevel4').classList.add("disableFade");
+			document.getElementById("readingTextLevel4").style.backgroundColor = '#EEF1FA';
+			document.getElementById("readingTextLevel4").style.color = 'black';
+			flashReadButtons();
+
+		} else if (readingLevel == 5) {
+			document.getElementById("readingTestText").innerHTML = ``;
+			document.getElementById("readingTextLevel6").style.backgroundColor = '#34495e';
+			document.getElementById("readingTextLevel6").style.color = 'white';
+
+			document.getElementById('readingTextLevel6').classList.remove("disableFade");
+
+			document.getElementById('readingTextLevel5').classList.add("disableFade");
+			document.getElementById("readingTextLevel5").style.backgroundColor = '#EEF1FA';
+			document.getElementById("readingTextLevel5").style.color = 'black';
+
+			// hide the understand more button
+			document.getElementById('readMoreBtn').style.display = 'none';
+
+			document.getElementById('readLessBtn').textContent = 'Continue to next test';
+		}
+		// increment and update to new level
+		readingLevel++;
+		document.getElementById("readingTestText").setAttribute("data-level", readingLevel);
+
+
+
+	}
+
+	function flashReadButtons() {
+		// hide buttons - prevent accidental skips
+		var readMoreBtn = document.getElementById('readMoreBtn');
+		var readLessBtn = document.getElementById('readLessBtn');
+		readMoreBtn.disabled = true;
+		readLessBtn.disabled = true;
+
+		setTimeout(function () {
+			readMoreBtn.disabled = false;
+			readLessBtn.disabled = false;
+		}, 3000);
+	}
+
+	// upgrade listening text level
+	function upgradeListeningTextLevel() {
+		// get current level
+		var level = document.getElementById("listeningTestText").getAttribute("data-level");
+		// replace text with level + 1 text
+		if (level == 1) {
+			document.getElementById("listeningTestText").src =
+				`https://culturestride.s3.ap-southeast-2.amazonaws.com/studententryform/sef-hsk2.mp3`;
+				document.getElementById("listeningTextLevel2").style.backgroundColor = '#f1c40f';
+			document.getElementById('listeningTextLevel2').classList.remove("disableFade");
+			document.getElementById("listeningTextLevel2").style.color = 'white';
+
+			document.getElementById('listeningTextLevel1').classList.add("disableFade");
+			document.getElementById("listeningTextLevel1").style.backgroundColor = '#EEF1FA';
+			document.getElementById("listeningTextLevel1").style.color = 'black';
+			flashListenButtons();
+
+
+		} else if (level == 2) {
+			document.getElementById("listeningTestText").src =
+				`https://culturestride.s3.ap-southeast-2.amazonaws.com/studententryform/sef-hsk3-revised.mp3`;
+			document.getElementById("listeningTextLevel3").style.backgroundColor = '#2ecc71';
+			document.getElementById('listeningTextLevel3').classList.remove("disableFade");
+			document.getElementById("listeningTextLevel3").style.color = 'white';
+
+			document.getElementById('listeningTextLevel2').classList.add("disableFade");
+			document.getElementById("listeningTextLevel2").style.backgroundColor = '#EEF1FA';
+			document.getElementById("listeningTextLevel2").style.color = 'black';
+			flashListenButtons();
+
+		} else if (level == 3) {
+			document.getElementById("listeningTestText").src =
+				`https://culturestride.s3.ap-southeast-2.amazonaws.com/studententryform/sef-hsk4.mp3`;
+			document.getElementById("listeningTextLevel4").style.backgroundColor = '#e67e22';
+			document.getElementById('listeningTextLevel4').classList.remove("disableFade");
+			document.getElementById("listeningTextLevel4").style.color = 'white';
+
+			document.getElementById('listeningTextLevel3').classList.add("disableFade");
+			document.getElementById("listeningTextLevel3").style.backgroundColor = '#EEF1FA';
+			document.getElementById("listeningTextLevel3").style.color = 'black';
+			flashListenButtons();
+
+
+		} else if (level == 4) {
+			document.getElementById("listeningTestText").src =
+				`https://culturestride.s3-ap-southeast-2.amazonaws.com/studententryform/sef-hsk5.mp3`;
+			document.getElementById("listeningTextLevel5").style.backgroundColor = '#9b59b6';
+			document.getElementById("listeningTextLevel5").style.color = 'white';
+			document.getElementById('listeningTextLevel5').classList.remove("disableFade");
+
+			document.getElementById('listeningTextLevel4').classList.add("disableFade");
+			document.getElementById("listeningTextLevel4").style.backgroundColor = '#EEF1FA';
+			document.getElementById("listeningTextLevel4").style.color = 'black';
+			flashListenButtons();
+		} else if (level == 5) {
+			
+			document.getElementById("listeningTestText").src =``;
+				document.getElementById("readingTestText").innerHTML = ``;
+			document.getElementById("listeningTextLevel6").style.backgroundColor = '#34495e';
+			document.getElementById("listeningTextLevel6").style.color = 'white';
+
+			document.getElementById('listeningTextLevel6').classList.remove("disableFade");
+
+			document.getElementById('listeningTextLevel5').classList.add("disableFade");
+			document.getElementById("listeningTextLevel5").style.backgroundColor = '#EEF1FA';
+			document.getElementById("listeningTextLevel5").style.color = 'black';
+
+			
+			// hide the understand more button
+			document.getElementById('listenMoreBtn').style.display = 'none';
+
+			document.getElementById('listenLessBtn').textContent = 'Continue to next test';
+		}
+		// increment and update to new level
+		level++;
+		document.getElementById("listeningTestText").setAttribute("data-level", level);
+
+		// auto play file
+		document.getElementById('listeningTestText').play();
+
+	}
+
+	function flashListenButtons() {
+		// hide buttons - prevent accidental skips
+		var listenMoreBtn = document.getElementById('listenMoreBtn');
+		var listenLessBtn = document.getElementById('listenLessBtn');
+		listenMoreBtn.disabled = true;
+		listenLessBtn.disabled = true;
+
+		setTimeout(function () {
+			listenMoreBtn.disabled = false;
+			listenLessBtn.disabled = false;
+		}, 3000);
+	}
+
+	// disable read more button
+	function disableReadMoreBtn() {
+		document.getElementById("readMoreBtn").disabled = true;
+	}
+
+	// disable listen more button
+	function disableListenMoreBtn() {
+		document.getElementById("listenMoreBtn").disabled = true;
+	}
+
+	// set student level hidden input variable
+	function setStuReadingLevel() {
+		var readingLevel = document.getElementById("readingTestText").getAttribute("data-level");
+		var readingLevelText = document.getElementById('readingTextLevel' + readingLevel).textContent;
+		document.getElementById("stuReadingLevel").value = readingLevelText;
+	}
+
+	// set student level hidden input variable
+	function setStuListeningLevel() {
+		var listeningLevel = document.getElementById("listeningTestText").getAttribute("data-level");
+		var listeningLevelText = document.getElementById('listeningTextLevel' + listeningLevel).textContent;
+		document.getElementById("stuListeningLevel").value = listeningLevelText;
+
+		// stop playing audio
+		document.getElementById('listeningTestText').pause();
+	}
+
+	// set student level hidden input variable
+	function setStuGoal(stuGoal) {
+		document.getElementById("stuGoal").value = stuGoal;
+	}
+	// set student lesson time hidden input variable
+	function setStuLessonTime(time) {
+		console.log('stuLessonTime: ' + time)
+		document.getElementById("stuLessonTime").value = time;
+	}
+	// toggle visibility of next step
+	function toggleNextStep(stepId) {
+		document.getElementById(stepId).style.display = "block";
+	}
+
+	function changeReadButtonColorStuLevel(element) {
+		// clear other buttons of the selected class
+		var stuLevelButtons = document.getElementsByClassName('stuReadLevelButton');
+		for (var i = 0; i < stuLevelButtons.length; ++i) {
+			var item = stuLevelButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+	function changeListenButtonColorStuLevel(element) {
+		// clear other buttons of the selected class
+		var stuLevelButtons = document.getElementsByClassName('stuListenLevelButton');
+		for (var i = 0; i < stuLevelButtons.length; ++i) {
+			var item = stuLevelButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+
+	function changeButtonColorStuGoal(element) {
+		// clear other buttons of the selected class
+		var stuGoalButtons = document.getElementsByClassName('stuGoalButton');
+		for (var i = 0; i < stuGoalButtons.length; ++i) {
+			var item = stuGoalButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+
+	function changeButtonColorStuLessonTime(element) {
+		// clear other buttons of the selected class
+		var stuLessonTimelButtons = document.getElementsByClassName('stuLessonTimeButton');
+		for (var i = 0; i < stuLessonTimelButtons.length; ++i) {
+			var item = stuLessonTimelButtons[i];
+			item.classList.remove("btn-outline-primary-selected");
+		}
+		// add class to button
+		element.classList.add("btn-outline-primary-selected");
+	}
+
+
+
+
+
+
+	// SPEAKING - MEDIA RECORDER API
+	// This example uses MediaRecorder to record a filtered audio stream and use the
+	// resulting blob as a source for an audio element.
+	//
+	// The relevant functions in use are:
+	//
+	// navigator.mediaDevices.getUserMedia -> to get audio stream from mic
+	// AudioContext (constructor) and the various types of nodes to manipulate sound
+	// MediaRecorder (constructor) -> create a MediaRecorder with a stream
+	// MediaRecorder.ondataavailable -> event to listen to when a record is ready
+	// MediaRecorder.start -> start recording
+	// MediaRecorder.stop -> stop recording (this will generate a blob of data)
+	// URL.createObjectURL -> to create a URL from a blob, which we can use as src
+
+	var recordButton, stopButton, recorder, trash;
+
+
+	function initSpeakingAudio() {
+
+		recordButton = document.getElementById('record');
+		sendButton = document.getElementById('send');
+		recordingAudioControl = document.getElementById('recording');
+
+		// get audio stream from user's mic
+		navigator.mediaDevices.getUserMedia({
+				audio: true
+			})
+			.then(function (stream) {
+				recordButton.addEventListener('click', startRecording);
+				sendButton.addEventListener('click', sendRecording);
+				// Create a Web Audio based pipeline to modify the input sound in real time
+				var audioContext = new AudioContext();
+				var now = audioContext.currentTime;
+				// connect inputnode to output node
+				var inputNode = audioContext.createMediaStreamSource(stream);
+				var outputNode = audioContext.createMediaStreamDestination();
+				inputNode.connect(outputNode);
+				// create a new MediaRecorder and pipe the filtered audio stream to it
+				var options = {
+					mimeType: "audio/webm; codecs=opus"
+				}; // for some reason firefox default records in audio/ogg which fucks some shit up so we define audio/webm (which is what chrome uses)
+				recorder = new MediaRecorder(outputNode.stream, options);
+				// listen to dataavailable, which gets triggered whenever we have an audio blob available
+				recorder.addEventListener('dataavailable', function (evt) {
+					updateAudio(evt.data);
+				});
+				// Work around for bug https://bugzilla.mozilla.org/show_bug.cgi?id=934512
+				window.dontGCThis = stream;
+				startRecording(); // call start recording function
+			});
+	};
+
+	function startRecording() {
+		// enable/disable buttons
+		recordButton.disabled = true;
+		sendButton.disabled = false;
+		// show hide buttons
+		recordButton.style.display = "none";
+		sendButton.style.display = "inline";
+
+		// make the MediaRecorder start recording
+		recorder.start();
+
+		// start timer
+		startTimer();
+	}
+
+	function sendRecording() {
+		// enable/disable buttons
+		recordButton.disabled = false;
+		sendButton.disabled = true;
+
+		// show hide buttons
+		recordButton.style.display = "inline";
+		sendButton.style.display = "none";
+		// make MediaRecorder stop recording
+		// eventually this will trigger the dataavailable event
+		recorder.stop();
+		trash = 0;
+		resetTimer(); // reset timer
+	}
+
+
+	var audioBlob;
+
+	function updateAudio(blob) {
+		if (trash == 0) {
+			var audio = document.getElementById('audio');
+			// use the blob from the MediaRecorder as source for the audio tag
+			var audioURL = URL.createObjectURL(blob);
+			audio.src = audioURL;
+			// audio.play();
+			// set global vars
+			audioBlob = blob;
+
+			document.getElementById('recording').style.display = "block";
+		} else {
+			document.getElementById('recording').style.display = "none";
+
+		}
+	}
+
+	function uploadSpeaking(stuID) {
+		if (audioBlob) {
+			var data = new FormData();
+			var request = new XMLHttpRequest();
+			// callback for successful execution
+			// request.onreadystatechange = function () {
+			// 	if (this.readyState == 4 && this.status == 200) {
+			// 		window.location.reload(true); // refresh page and refetch data
+			// 	}
+			// };
+			// append body data
+			data.append('stuID', stuID);
+			data.append('file', audioBlob, 'audio.mp3');
+			request.open('post', '/ajaxUploadSpeakingEntry');
+			request.send(data);
+		}
+		// then submit the form
+		document.getElementById("entryForm").submit();
+	}
+
+
+
+	// TIMER STUFF
+	var interval = null;
+	var totalSeconds = 0;
+
+	function startTimer() {
+		resetTimer();
+		// show timer
+		document.getElementById("recordingTimer").style.display = "flex";
+		// count up timer
+
+		interval = setInterval(setTime, 1000);
+
+
+	}
+
+	function pauseTimer() {
+		clearInterval(interval);
+		document.getElementById("recordingTimerNo").classList.remove("blink"); // remove blink
+	}
+
+	function resumeTimer() {
+		interval = setInterval(setTime, 1000);
+		document.getElementById("recordingTimerNo").classList.add("blink"); // remove blink
+
+	}
+
+	function resetTimer() {
+		clearInterval(interval);
+		// hide timer
+		document.getElementById("recordingTimer").style.display = "none";
+		var minutesLabel = document.getElementById("minutes");
+		var secondsLabel = document.getElementById("seconds");
+		totalSeconds = 0;
+		secondsLabel.innerHTML = '00';
+		minutesLabel.innerHTML = '00';
+	}
+
+	function setTime() {
+		var minutesLabel = document.getElementById("minutes");
+		var secondsLabel = document.getElementById("seconds");
+		++totalSeconds;
+		secondsLabel.innerHTML = pad(totalSeconds % 60);
+		minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+	}
+
+	function pad(val) {
+		var valString = val + "";
+		if (valString.length < 2) {
+			return "0" + valString;
+		} else {
+			return valString;
+		}
+	}
+
+
+
+	function displayFinishBtn() {
+		document.getElementById('finishButton').style.display = 'flex';
+	}
+</script>

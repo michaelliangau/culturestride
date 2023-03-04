@@ -1,0 +1,90 @@
+    <!-- bootstrap select -->
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" />
+    <!-- bootstrap select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+  <div class="container">
+    
+  <div class="row">
+
+    <div class="col-sm-12">
+      <h3 class="mobileText">Community Exercises</h3>
+    <div class="form-group" style="max-width: 500px;">
+      <select id="filterByLevel" name="filterByLevel" class="selectpicker form-control" onchange="filterByLevel()">
+        <option value="all">Filter by level</option>
+        <option value="1">HSK 1 (beginner)</option>
+        <option value="2">HSK 2 (beginner)</option>
+        <option value="3">HSK 3 (intermediate)</option>
+        <option value="4">HSK 4 (intermediate)</option>
+        <option value="5">HSK 5 (advanced)</option>
+        <option value="6">HSK 6 (advanced)</option>
+
+      </select>
+
+    </div>
+
+      <div class="card-columns">
+
+        <% for (var i = 0 ; i < exercise.length ; i ++ ) { %>
+        <div class="card exerciseRow" style="border:0;" data-level="<%- exercise[i].level %>">
+          <div class="cardWithShadow" style="margin:0px;max-width: none;width: 100%;position:inherit;overflow:hidden">
+            <a href="/a/exercise/<%- exercise[i].sohoHID %>">
+              <span class="link-spanner"></span>
+          </a>
+          <span class="badge badge-light">Exercise <%- exercise[i].sohoHID %></span>
+
+            <% if (exercise[i].level.startsWith(0)) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK
+              <%- exercise[i].level %> (absolute beginner)</span>
+            <% } else if (exercise[i].level.startsWith(1)) { %>
+            <span class="badge badge-light"
+              style="margin-bottom:10px;background-color:rgb(73, 80, 246);color:white;">HSK <%- exercise[i].level %>
+              (beginner)</span>
+            <% } else if (exercise[i].level.startsWith(2)) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:#f1c40f;color:white;">HSK
+              <%- exercise[i].level %> (beginner)</span>
+            <% } else if (exercise[i].level.startsWith(3)) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:#1abc9c;color:white;">HSK
+              <%- exercise[i].level %> (intermediate)</span>
+            <% } else if (exercise[i].level.startsWith(4)) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:#e67e22;color:white;">HSK
+              <%- exercise[i].level %> (intermediate)</span>
+            <% } else if (exercise[i].level.startsWith(5)) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:#9b59b6;color:white;">HSK
+              <%- exercise[i].level %> (advanced)</span>
+            <% } else if (exercise[i].level.startsWith(6)) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:#34495e;color:white;">HSK
+              <%- exercise[i].level %> (advanced)</span>
+            <% } %>
+            <%- exercise[i].question %>
+              <br>
+            <span class="badge badge-light"><%- exercise[i].sCount %> answers</span>
+
+
+          </div>
+        </div>
+        <% } %>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function filterByLevel() {
+        var level = document.getElementById('filterByLevel').value;
+        var exerciseRow = document.getElementsByClassName("exerciseRow");
+        for (var i = 0; i < exerciseRow.length; i++) { //rows would be accessed using the "row" variable assigned in the for loop
+          var rowLevel = exerciseRow[i].getAttribute('data-level');
+          if (level != 'all') { // show all
+            if (rowLevel.startsWith(level)) {
+              exerciseRow[i].style.display = 'inline-block';
+            } else {
+              exerciseRow[i].style.display = 'none';
+            }
+          } else {
+            exerciseRow[i].style.display = 'inline-block';
+          }
+
+        }
+      }
+</script>

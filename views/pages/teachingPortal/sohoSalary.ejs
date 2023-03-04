@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+
+
+<h4>Salary</h4>
+<form name="/sohosalary" method="post" id="">
+
+    <div class="form-group">
+        <label for="startDate" id="startDateLabel">Start Date</label>
+        <br>
+        <input name="startDate" id="startDate" type="text" autocomplete="off" required>
+    </div>
+
+    <div class="form-group">
+        <label for="endDate" id="endDateLabel">End Date</label>
+        <br>
+        <input name="endDate" id="endDate" type="text" autocomplete="off" required>
+    </div>
+
+    <button class="button button-primary button-block button-shadow" style="margin: 0px auto 20px auto"
+        type="submit">Refresh</button>
+</form>
+
+
+<hr>
+<div style="width:100%;text-align: center;">
+    Rate: <%- rate %> / hr
+    <br>
+    Theory Due: <%- theoryPay %>
+    <br>
+    Practical Due: <%- pracPay %>
+</div>
+<hr>
+
+
+<table class="striped highlight">
+
+    <thead >
+        <tr>
+            <th>ID</th>
+            <th>Who</th>
+            <th>When</th>
+            <th>Type</th>
+            <th>Hours</th>
+            <th> </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% for (var i = 0 ; i < lesson.length ; i ++) { %>
+                <tr style="text-align: center;">
+
+                <td>
+                    <%- lesson[i].sohoLID %>
+                </td>
+                <td>
+                    <% if (lesson[i].lessonType == 'practical') { %>
+                        <% var memberJSON = JSON.parse(lesson[i].memberJSON) 
+                        
+                        %>
+                        <% for (var j = 0 ; j < memberJSON.length ; j ++) { %>
+                            <%- memberJSON[j].firstName  + ' ' + memberJSON[j].lastName %>,
+                        <% } %>
+                    <% } else { %>
+                    <%- lesson[i].firstName + ' ' + lesson[i].lastName %>
+                    <% } %>
+                </td>
+            <td>
+                <%- lesson[i].start %>
+            </td>
+            <td>
+                <%- lesson[i].lessonType %>
+            </td>
+            <td>
+                <%- lesson[i].hours %>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        var optional_config = {
+            altInput: true,
+            altFormat: "Y-m-d H:i:00",
+                dateFormat: 'Z',
+            onChange: function (dateObj, dateStr) {
+                dateObj = dateObj[0];
+                const utc = moment(dateObj).utc();
+                test.selectedDateObj = utc.toDate();
+                test.input.value = utc.format();
+                timezone.textContent = utc.utcOffset();
+            }
+        }
+        $("#startDate").flatpickr(optional_config);
+        $("#endDate").flatpickr(optional_config);
+
+
+
+        // calculate totals of each teacher
+        var totalValuesArr = [];
+
+        $('.teacherTotal').each(function () {
+            var id = $(this).attr("id");
+            var value = $(this).html();
+
+            if (typeof totalValuesArr[id] !== 'undefined' && totalValuesArr.length > 0) {
+                totalValuesArr[id] += parseFloat(value);
+
+            } else {
+                totalValuesArr[id] = parseFloat(value);
+            }
+
+            for (var i = 0; i < totalValuesArr.length; i++) {
+                $('#total' + i).html(totalValuesArr[i] + ' RMB');
+            }
+        });
+
+    });
+
+</script>

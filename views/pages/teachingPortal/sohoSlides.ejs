@@ -1,0 +1,88 @@
+<div class="row" style="margin:-30px">
+
+  <div class="col-sm-3" style="height:100vh;background: #f6f9fc;overflow: hidden;overflow-y: scroll;">
+
+
+    <ul style="display: inline-block;padding-left:5px;width:100%">
+  <% for (var i = 0 ; i < files.length ; i ++ ) { %>
+      <li class="nav-menu-item">
+        <div class="nav-wrapper">
+          <a class="nav-menu-link" onclick="ajaxRenderPDF('<%- files[i].link %>')">
+            <span>
+              <span class="badge badge-pill badge-light"><%- files[i].title %></span>
+              <% if (files[i].preview == '1') { %>
+                <span class="badge badge-pill badge-secondary">Preview</span>
+              <% } %>
+            </span>
+          </a>
+        </div>
+      </li>
+      <% } %>
+
+    </ul>
+
+  </div>
+
+  <div class="col-sm-9" style="height: 100vh;overflow: hidden;overflow-y: scroll;">
+    <div id="holder" style="width:100%;overflow:hidden;"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.385/pdf.min.js"></script>
+
+<script>
+  function renderPDF(url) {
+    var holder = document.getElementById('holder');
+
+    function renderPage(page) {
+      var viewport = page.getViewport(1);
+      var scale = holder.clientWidth / viewport.width;
+      var viewportNew = page.getViewport(scale);
+      var wrapper = document.createElement("div");
+      var canvas = document.createElement('canvas');
+      canvas.className = "box-shadow";
+
+      var ctx = canvas.getContext('2d');
+      var renderContext = {
+        canvasContext: ctx,
+        viewport: viewportNew
+      };
+      canvas.height = viewportNew.height;
+      canvas.width = viewportNew.width;
+      wrapper.appendChild(canvas)
+      document.getElementById('holder').appendChild(wrapper);
+      page.render(renderContext);
+    }
+
+    function renderPages(pdfDoc) {
+      for (var num = 1; num <= pdfDoc.numPages; num++)
+        pdfDoc.getPage(num).then(renderPage);
+    }
+
+    PDFJS.disableWorker = true;
+    PDFJS.getDocument(url).then(renderPages);
+  }
+
+  function ajaxRenderPDF(url) { // ajax for rendering pdf
+    // clear canvas
+    document.getElementById('holder').innerHTML = '';
+    // ajax post
+    $.ajax({
+      type: "POST",
+      url: "/ajaxRenderPDF",
+      timeout: 30000,
+      data: {
+        url: url,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        renderPDF(data)
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+</script>

@@ -1,0 +1,116 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+<div class="container">
+
+<div class="row">
+
+  <div class="col-sm-8">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+<h3 style="margin-top:0px">Exercise <%- exercise[0].sohoHID %></h3>
+
+      <% if (exercise[0].level.startsWith(0)) { %>
+        <span class="badge badge-light" style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK
+          <%- exercise[0].level %> (absolute beginner)</span>
+        <% } else if (exercise[0].level.startsWith(1)) { %>
+        <span class="badge badge-light"
+          style="margin-bottom:10px;background-color:rgb(73, 80, 246);color:white;">HSK <%- exercise[0].level %>
+          (beginner)</span>
+        <% } else if (exercise[0].level.startsWith(2)) { %>
+        <span class="badge badge-light" style="margin-bottom:10px;background-color:#f1c40f;color:white;">HSK
+          <%- exercise[0].level %> (beginner)</span>
+        <% } else if (exercise[0].level.startsWith(3)) { %>
+        <span class="badge badge-light" style="margin-bottom:10px;background-color:#1abc9c;color:white;">HSK
+          <%- exercise[0].level %> (intermediate)</span>
+        <% } else if (exercise[0].level.startsWith(4)) { %>
+        <span class="badge badge-light" style="margin-bottom:10px;background-color:#e67e22;color:white;">HSK
+          <%- exercise[0].level %> (intermediate)</span>
+        <% } else if (exercise[0].level.startsWith(5)) { %>
+        <span class="badge badge-light" style="margin-bottom:10px;background-color:#9b59b6;color:white;">HSK
+          <%- exercise[0].level %> (advanced)</span>
+        <% } else if (exercise[0].level.startsWith(6)) { %>
+        <span class="badge badge-light" style="margin-bottom:10px;background-color:#34495e;color:white;">HSK
+          <%- exercise[0].level %> (advanced)</span>
+        <% } %>
+      <span class="badge badge-light"><%- exercise[0].questionType %></span>
+        
+<div>
+          <%- exercise[0].question %>
+        </div>
+
+
+
+
+
+    </div>
+  </div>
+
+  
+<div class="col-sm-4">
+  <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+
+    <div class="highlightBox" style="text-align: center;">
+      <b>Get exercises like this direct in your Mandarin learning battle station</b>
+      <br>
+      <p class="subtext" style="margin-bottom:0px;text-align: left;">
+      </p>
+      <a href="/start" class="button button-secondary button-block button-shadow mobileHide" style="margin: 20px auto 0px auto;"
+      type="button">Sign Up</a>
+    </div>
+
+
+    <a href="javascript:void(0);" onclick="toggleAnswers()" class="button button-primary button-block button-shadow mobileHide" style="margin: 20px auto 0px auto;"
+    type="button">Toggle Student Answers</a>
+
+
+    
+
+
+  </div>
+</div>
+
+
+
+<div class="col-sm-12" id="answers" style="display: none;">
+  <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+<h3 style="margin-top:0px">Answers</h3>
+    <% for (var i = 0 ; i < exercise.length ; i ++) { %>
+      <% if (exercise[i].answer != null) { %>
+
+      <div class="cardWithShadowInner">
+        <p class="subtext">
+        <%- exercise[i].answer %>
+      </p>
+
+      <div style="width:100%;text-align: right;">
+      <span class="minitext"><%- exercise[i].firstName + ' ' + exercise[i].lastName %> - <span id="when<%- i %>"></span></span>
+      <script>
+    var ts = moment('<%- exercise[i].lastUpdated %>', 'YYYY-MM-DD HH:mm:ss').format('LLL');
+        document.getElementById('when<%-i %>').textContent = ts;
+      </script>
+    </div>
+        
+      </div>
+    <% } %>
+    <% } %>
+
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+</div>
+
+
+
+<script>
+function toggleAnswers() {
+  var x = document.getElementById("answers");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>

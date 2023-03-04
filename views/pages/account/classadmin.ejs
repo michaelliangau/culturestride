@@ -1,0 +1,550 @@
+<div class="row">
+    <div class="col-sm-4" style="text-align: center;">
+        <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+
+        <a href="/a/book/theory" class="button button-primary button-shadow"
+            style="margin: 10px auto;max-width:400px;width:100%;">Book Theory Class</a>
+        <a href="/a/book/practical" class="button-primary button-shadow button button-subtext"
+            style="margin: 10px auto;max-width:400px;width:100%;">Book Practical Class
+            <% if (pracCreditAvailable > 0) { %>
+            <br>
+            <span class="minitext">Available Credit: <%- pracCreditAvailable %></span>
+            <% } %>
+</a>
+        <br>
+
+        <a href="/a/payments" class="button button-secondary button-shadow"
+            style="margin: 10px auto;max-width:400px;width:100%;">Manage Payments</a>
+
+
+    </div>
+</div>
+
+<div class="col-sm-8" style="text-align: center;">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+        <div class="highlightBox">
+            <b>Notice</b>
+            <br>
+            No new notices
+            <br>
+      <div style="width:100%;text-align: right;">
+            <span class="minitext"></span>
+        </div>
+    </div>
+</div>
+</div>
+
+    <div class="col-sm-12">
+
+        <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+
+            <% if (showTheoryWarning == 1) { %>
+            <div class="highlightBox" style="background: #FFEBEE;text-align: center;">
+                <b>Your latest Theory class is approaching, consider booking more classes</b>
+            </div>
+            <% } %>
+            <% if (showPracWarning == 1) { %>
+            <div class="highlightBox" style="background: #FFEBEE;text-align: center;">
+                <b>Your latest Practical class is approaching, consider booking more classes</b>
+            </div>
+            <% } %>
+
+            <h4 class="feature-title h4-mobile" style="margin-top:0px">Upcoming Classes
+            </h4>
+
+            <div style="overflow-y:scroll; overflow-x:scroll;width:100%;table-layout: auto;height:fit-content;max-height:50vh;">
+                <!-- Current slot allocations table -->
+                <table style="display:block; overflow:scroll;">
+
+
+                    <!-- Top row -->
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Teacher</th>
+                            <th id="whenHeaderUpcoming">When</th>
+                            <th>Hours</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table body -->
+                    <tbody>
+
+                        <% for (var i = 0 ; i < upcomingLessons.length ; i ++ ) { %>
+                        <% if (upcomingLessons[i].confirmed == 0) { %>
+                        <% var rowStyle = 'disableFade'; %>
+                        <% } else { %>
+                        <% var rowStyle = ''; %>
+                        <% } %>
+                        <tr>
+
+                            <td class="<%- rowStyle %>">
+                                <% if (upcomingLessons[i].confirmed == 0) { %>
+                                <svg data-toggle="tooltip" title="Waiting for teacher to confirm" style="margin:0 auto;"
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                </svg>
+                                <% } else { %>
+                                <svg data-toggle="tooltip" title="Class is confirmed" style="margin:0 auto;"
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-check-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                </svg>
+                                <% } %>
+
+                            </td>
+
+                            <td class="<%- rowStyle %>">
+                                <%- upcomingLessons[i].sohoLID %>
+                            </td>
+                            <td class="<%- rowStyle %>">
+                                <% if (upcomingLessons[i].lessonType == 'practical') { %>
+                                <%- upcomingLessons[i].title %>
+                                <% } else { %>
+                                Theory
+                                <% } %>
+                            </td>
+                            <td class="<%- rowStyle %>">
+                                <% if (upcomingLessons[i].profileImage) { %>
+                                <img src="<%- upcomingLessons[i].profileImage %>" class="circle"
+                                    style="width:30px;height:30px;display:inline;">
+                                <% } else { %>
+                                <img class="circle" src="/img/guru.png"
+                                    style="margin:10px auto;width:30px;height:30px;display:inline;">
+                                <% } %>
+
+                                <%- upcomingLessons[i].tFirstName + ' ' + upcomingLessons[i].tLastName %>
+                            </td>
+
+                            <td class="<%- rowStyle %>" id="when<%- i %>">
+                                <script>
+                                    var startMom = moment('<%- upcomingLessons[i].start %>', 'YYYY-MM-DDTHH:mm:ssZ');
+                                    var formattedStart = startMom.local().format('LLLL');
+                                    document.getElementById('when<%- i %>').textContent = formattedStart;
+                                </script>
+                            </td>
+                            <td class="<%- rowStyle %>">
+                                <% var startMom = moment( upcomingLessons[i].start , 'YYYY-MM-DDTHH:mm:ssZ');
+                                            var endMom = moment( upcomingLessons[i].end , 'YYYY-MM-DDTHH:mm:ssZ')
+                                            var diff = endMom.diff(startMom, 'hours', true); %>
+
+                                <% if (upcomingLessons[i].lessonType == 'practical' && upcomingLessons[i].sCount == 1) { %>
+                                    <span data-toggle="tooltip"
+                                    title="Class has <%- upcomingLessons[i].sCount %> student">0.5</span>
+                                    <% } else if (upcomingLessons[i].lessonType == 'practical' && upcomingLessons[i].sCount == 2) { %>
+                                        <span data-toggle="tooltip"
+                                        title="Class has <%- upcomingLessons[i].sCount %> student">0.75</span>
+                                <% } else if (upcomingLessons[i].lessonType == 'practical') { %>
+                                <span data-toggle="tooltip"
+                                    title="Class has <%- upcomingLessons[i].sCount %> students"><%- diff %></span>
+                                <% } else { %>
+                                <%- diff %>
+                                <% } %>
+                            </td>
+
+                            <td>
+
+                                <% if (upcomingLessons[i].videoConfPMI != null) { %>
+                                <a style="display:inline-flex;width: fit-content;"
+                                    class="button button-secondary button-block button-shadow button-icon"
+                                    href="<%- upcomingLessons[i].videoConfPMI %>" target="_blank">Join
+                                    <svg style="margin-left:5px" xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-camera-video-fill"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+                                    </svg>
+                                </a>
+                                <% } else { %>
+                                <a style="display:inline-flex;width: fit-content;"
+                                    class="button button-secondary button-block button-shadow button-icon"
+                                    href="/join/<%- upcomingLessons[i].sohoUID %>" target="_blank">Join
+                                    <svg style="margin-left:5px" xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-camera-video-fill"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+                                    </svg>
+                                </a>
+                                <% } %>
+
+
+                                <% 
+                                        var mom = moment(upcomingLessons[i].start, 'YYYY-MM-DDTHH:mm:ssZ');
+                                        var now = moment();
+                                        var diffNow = mom.diff(now, 'hours');
+                                         %>
+
+                                <% if (diffNow >= 24) { %>
+                                <% if (upcomingLessons[i].lessonType != 'practical') { %>
+
+
+                                <form method="post" style="display:inline-block">
+                                    <input type='hidden' name='classID' id='classID' value='<%- upcomingLessons[i].sohoLID %>'>
+                                    <input type='hidden' name='calendarID' id='calendarID' value='<%- upcomingLessons[i].sohoAID %>'>
+                                    <span data-toggle="modal" data-target="#cancelClassModal<%- i %>">
+                                        <button type="button" style="padding: 16px 20px;display:inline-block"
+                                            data-toggle="tooltip" title="Cancel class"
+                                            class="button button-secondary button-block button-shadow">
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block"
+                                                width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                                                viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                                            </svg>
+                                        </button>
+                                    </span>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="cancelClassModal<%- i %>" tabindex="-1" role="dialog"
+                                        aria-labelledby="cancelClassModalLabel<%- i %>" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="cancelClassModalLabel<%- i %>">
+                                                        Confirm Cancel Class?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    You will not incur charges if you cancel earlier than 24 hours in
+                                                    advance.
+
+
+                                                </div>
+                                                <br>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                        class="button button-primary button-block button-shadow"
+                                                        data-dismiss="modal">Close</button>
+
+
+                                                    <button type="submit"
+                                                        formaction="/cancel"
+                                                        class="button button-block button-shadow">Confirm</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <% } else { %>
+
+                                <form method="post" style="display:inline-block">
+                                    <input type='hidden' name='classID' id='classID' value='<%- upcomingLessons[i].sohoLID %>'>
+                                    <input type='hidden' name='calendarID' id='calendarID' value='<%- upcomingLessons[i].sohoAID %>'>
+                                    <span data-toggle="modal" data-target="#cancelClassModal<%- i %>">
+                                        <button type="button" style="padding: 16px 20px;display:inline-block"
+                                            data-toggle="tooltip" title="Cancel class"
+                                            class="button button-secondary button-block button-shadow">
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block"
+                                                width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                                                viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                                            </svg>
+                                        </button>
+                                    </span>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="cancelClassModal<%- i %>" tabindex="-1" role="dialog"
+                                        aria-labelledby="cancelClassModalLabel<%- i %>" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="cancelClassModalLabel<%- i %>">
+                                                        Confirm Cancel Class?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    You will not incur charges if you cancel earlier than 24 hours in
+                                                    advance.
+
+                                                </div>
+                                                <br>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                        class="button button-primary button-block button-shadow"
+                                                        data-dismiss="modal">Close</button>
+
+
+                                                    <button type="submit"
+                                                        formaction="/cancel/practical"
+                                                        class="button button-block button-shadow">Confirm</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <% } %>
+
+
+                                <% } else { %>
+                                <button type="button" style="padding: 16px 20px;display:inline-block;"
+                                    data-toggle="tooltip"
+                                    title="Class cannot be cancelled within 24 hours of start time"
+                                    class="button button-secondary button-block button-shadow disableFade">
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block" width="16"
+                                        height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                                        <path fill-rule="evenodd"
+                                            d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                                    </svg>
+                                </button>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if (uniqueTeachers.length > 0) { %>
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+            <h4 class="feature-title h4-mobile" style="margin-top:0px">Rebook Classes
+            </h4>
+            <div class="row">
+                <% for (var i = 0 ; i < uniqueTeachers.length ; i ++) { %>
+                <div class="col-sm-2">
+                    <div class="cardWithShadow"
+                        style="padding:20px;max-width: none;width: 100%;position:inherit">
+                        <% if (uniqueTeachers[i].lessonType == 'practical' || uniqueTeachers[i].lessonType == 'typeb' ) { %>
+                            <a href="/a/book/practical?teacher=<%- uniqueTeachers[i].sohoUID %>&level=<%- uniqueTeachers[i].level %>">
+                                <span class="link-spanner"></span>
+                            </a>
+                        <% } else { %>
+                            <a href="/a/book/theory/<%- uniqueTeachers[i].sohoUID %>">
+                                <span class="link-spanner"></span>
+                            </a>
+                        <% } %>
+
+                        <% if (uniqueTeachers[i].profileImage) { %>
+                        <img src="<%- uniqueTeachers[i].profileImage %>" style="width:100%; border-radius:20px;">
+                        <% } else { %>
+                        <img src="/img/guru.png" style="width:100%; border-radius:20px;">
+                        <% } %>
+
+                        <br>
+                        <p class="subtext" style="text-align: center;">
+                        <%- uniqueTeachers[i].firstName + ' ' + uniqueTeachers[i].lastName %>
+                        <% if (uniqueTeachers[i].noReviews > 0) { %>
+                            <br>
+                            <span class="star">&#9733;</span> <span class="subtext"><%- uniqueTeachers[i].avgStars %>
+                              (<%- uniqueTeachers[i].noReviews %>)</span>
+                            <% } %>
+                            <br>
+                            <% if (uniqueTeachers[i].lessonType == 'practical' || uniqueTeachers[i].lessonType == 'typeb' ) { %>
+                                <span class="badge badge-light badge-pill">Practical Level <%- uniqueTeachers[i].level %></span>
+                            <% } else { %>
+                                <span class="badge badge-light badge-pill">Theory</span>
+
+                            <% } %>
+                    </p>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+
+        </div>
+    </div>
+</div>
+<% } %>
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+
+            <h4 class="feature-title h4-mobile" style="margin-top:0px">Past Classes</h4>
+            <p class="subtext">Help your teachers find more students by reviewing their class.</p>
+            <div class="row" style="overflow-y:scroll; width:100%;height:fit-content;max-height:50vh;">
+            <% for (var i = 0; i < studentLessonLog.length ; i ++ ) { %>
+                <div class="col-sm-4">
+
+            <div class="cardWithShadowInner">
+
+                <div style="padding:10px;text-align:left">
+                    <% if (studentLessonLog[i].lessonType == 'practical') { %>
+                        <span class="badge badge-light" style="margin-bottom:10px;">Practical</span>
+                        <% } else { %>
+                            <span class="badge badge-light" style="margin-bottom:10px;">Theory</span>
+                        <% } %>
+                   
+
+                   
+    
+                    <div style="margin: 10px 0px;">
+                      When: <span id="whenHistory<%- i %>"></span> (<span class="region"></span>)
+                      <script>
+                        var startMom = moment('<%- studentLessonLog[i].start %>', 'YYYY-MM-DDTHH:mm:ssZ');
+                                    var formattedStart = startMom.local().format('LLLL');
+                                    document.getElementById('whenHistory<%- i %>').textContent = formattedStart;
+                      </script>
+                    </div>
+
+
+
+
+            
+
+                  
+                
+                <% if (studentLessonLog[i].reviewExists == 0) { %>
+                    <div>
+                        <form method="post">
+                            <input type='hidden' name='teacherID' id='teacherID'
+                                value='<%- studentLessonLog[i].sohoUID %>'>
+                            <input type='hidden' name='classID' id='classID'
+                                value='<%- studentLessonLog[i].sohoLID %>'>
+                            <input type='hidden' name='classType' id='classType'
+                                value='<%- studentLessonLog[i].lessonType %>'>
+                                <div class="rate">
+                                    <input type="radio"
+                                        onclick="showReviewSubmitBtn(<%- i %>)"
+                                        id="<%- i %>star5" name="stars" value="5" />
+                                    <label for="<%- i %>star5" title="text">5 stars</label>
+                                    <input type="radio"
+                                        onclick="showReviewSubmitBtn(<%- i %>)"
+                                        id="<%- i %>star4" name="stars" value="4" />
+                                    <label for="<%- i %>star4" title="text">4 stars</label>
+                                    <input type="radio"
+                                        onclick="showReviewSubmitBtn(<%- i %>)"
+                                        id="<%- i %>star3" name="stars" value="3" />
+                                    <label for="<%- i %>star3" title="text">3 stars</label>
+                                    <input type="radio"
+                                        onclick="showReviewSubmitBtn(<%- i %>)"
+                                        id="<%- i %>star2" name="stars" value="2" />
+                                    <label for="<%- i %>star2" title="text">2 stars</label>
+                                    <input type="radio"
+                                        onclick="showReviewSubmitBtn(<%- i %>)"
+                                        id="<%- i %>star1" name="stars" value="1" />
+                                    <label for="<%- i %>star1" title="text">1 star</label>
+                                </div>
+                                <div class="form-group" style="margin:auto 0;">
+                                    <textarea class="form-control subtext" id="comments" name="comments" rows="2"
+                                        placeholder="Review <%- studentLessonLog[i].tFirstName %>"
+                                        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                                </div>
+                                <button class='button button-secondary button-block button-shadow'
+                                    style="display: none;margin:10px 0px 10px auto;" id="submit<%- i %>" formaction="/submitreview"
+                                    type="submit">Submit</button>
+
+                        </form>
+                    </div>
+                    <% } %>
+
+                    
+                    <div style="width:100%;text-align: right;margin-top:10px;">
+                        <% if (studentLessonLog[i].profileImage) { %>
+                            <img src="<%- studentLessonLog[i].profileImage %>" class="circle"
+                              style="width:20px;height:20px;display:inline;margin:0px 5px;">
+                            <% } else { %>
+                            <img src="/img/guru.png" style="display:inline;margin:0px 5px;width:20px;border-radius:50%;">
+                            <% } %>
+                            <% var startMom = moment( studentLessonLog[i].start , 'YYYY-MM-DDTHH:mm:ssZ');
+                            var endMom = moment( studentLessonLog[i].end , 'YYYY-MM-DDTHH:mm:ssZ')
+                            var diff = endMom.diff(startMom, 'hours', true); %>
+                            <span class="minitext">
+                              <%- studentLessonLog[i].tFirstName + ' ' + studentLessonLog[i].tLastName  + ' - ' + diff + ' hrs ' %> - 
+                            </span>
+                      <span class="minitext">ID: <%- studentLessonLog[i].sohoLID %></span>
+                    </div>
+            </div>
+            </div>
+        </div>
+            <% } %>
+        </div>
+
+
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit">
+            <div class="row">
+
+                <h4 class="feature-title h4-mobile" style="margin-top:0px">Policies</h4>
+            </div>
+
+            <div class="row">
+                <a href="/studentcode" target="_blank">Student Code of Conduct</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="firstName" style="display:none"><%- sFirstName %></div>
+<div id="slug" style="display:none"><%- sSlug %></div>
+<div id="sTeachingRoomID" style="display:none"><%- sTeachingRoomID %></div>
+<div id="sProfileImage" style="display:none"><%- sProfileImage %></div>
+
+
+
+<script>
+    // set when to have browser timezone
+    
+    var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      var regionClass = document.getElementsByClassName('region');
+      for (let i = 0; i < regionClass.length; i++) {
+        const element = regionClass[i];
+        element.textContent = region;
+
+      }
+
+    document.getElementById('whenHeaderUpcoming').textContent = 'When (' + region + ')';
+    document.getElementById('whenHeaderHistory').textContent = 'When (' + region + ')';
+
+    $(document).ready(function () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({
+                boundary: 'window',
+            });
+        });
+
+    });
+
+    function showReviewSubmitBtn(i) {
+        document.getElementById('submit' + i).style.display = 'block';
+    }
+</script>

@@ -1,0 +1,658 @@
+<h4>Timzeone: <span id="timezone"></span></h4>
+
+
+<div>
+  <a class="button button-secondary button-block button-shadow" href="/sohogroupclass/create"
+    style="margin: 10px 0px;display:inline-flex;">
+   Open New Practical Class Slot
+</a>
+<a class="button button-secondary button-block button-shadow" href="/sohocalendar/freetimes"
+style="margin: 10px 0px;display:inline-flex;">
+Update Free Times
+</a>
+
+</div>
+
+
+
+  <div class="modal fade" id="eventModal" tabindex="-1"
+  role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="eventModalLabel">
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body" style="text-align: left;">
+              <div id="eventGCEventId" style="display: none;"></div>
+              <div id="eventId" style="display: none;"></div>
+              <div id="eventGroupSlug" style="display: none;"></div>
+              <div id="eventDescription"></div>
+          </div>
+          <div class="modal-footer" id="modalFooter">
+  
+
+
+
+
+      </div>
+  </div>
+</div>
+</div>
+
+
+
+                  
+<div id="calendar"></div>
+<!-- TOAST -->
+<div class="toast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <!-- <small class="text-muted">now</small> -->
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Free event is being created, please wait for a green event to show at your selected time.
+  </div>
+</div>
+
+<!-- MODAL For Update Recurring or single -->
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Reschedule class</h5>
+        <button type="button" class="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: left;">
+        <input type="radio" id="rescheduleOne" name="reschedule" value="rescheduleOne" checked>
+        <label for="rescheduleOne">This class</label><br>
+        <input type="radio" id="rescheduleAll" name="reschedule" value="rescheduleAll">
+        <label for="rescheduleAll">This and following classes</label>
+
+      </div>
+      <div class="modal-footer">
+
+              <button type="button" onclick="reschedulePracticalClass()" class="button button-secondary button-block button-shadow">
+             OK
+            </button>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- FULL CALENDAR -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js"></script>
+<!-- MOMENT  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<script>
+
+// build timezone
+  //var click = 'edit';
+  /*var click = '';
+      if (document.getElementById('remove').checked = true) {
+        click = 'remove';
+      } else if (document.getElementById('edit').checked = true) {
+        click = 'edit';
+      } */
+  var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var hrOffset = -(new Date().getTimezoneOffset() / 60);
+  if (hrOffset > 0) {
+    var offset = 'UTC +' + hrOffset + ':00';
+  } else {
+    var offset = 'UTC ' + hrOffset + ':00';
+  }
+  document.getElementById('timezone').innerHTML = offset + ' ' + region;
+
+
+  // FULL CALENDAR INITIATLISATION
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    headerToolbar: {
+      left: 'prev,next',
+      right: 'dayGridMonth,timeGridWeek'
+    },
+    allDaySlot: false,
+    firstDay: 1, // set first day to monday
+    editable: true,
+    height: "auto",
+    selectable: true,
+    slotEventOverlap: true,
+    slotDuration: "00:30:00",
+    eventTimeFormat: { // like '14:30:00'
+      hour: 'numeric',
+      minute: '2-digit',
+      meridiem: 'short'
+    },
+    displayEventEnd: false,
+    events: '/sohoGetCalendarEvents?region=' + region,
+    
+
+    eventClick: function (info) {
+      var gcEventID = info.event.extendedProps.gcEventID;
+      var id = info.event.id || info.event.groupId;
+      var studentJSON = info.event.extendedProps.studentJSON;
+      var pracId = info.event.extendedProps.pracId;
+      if (pracId) { // this event is a practical class
+var modalFooter = `
+<span data-toggle="modal"
+              data-target="#deleteEventModal">
+                  <button data-toggle="tooltip" title="Cancel class" type="button"  class="button button-secondary button-block button-shadow">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>
+                </button>
+              </span>
+
+                <div class="modal fade" id="deleteEventModal" tabindex="-1"
+                role="dialog" aria-labelledby="deleteEventModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteEventModalLabel">Cancel class
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="text-align: left;">
+                          <input type="radio" id="removeOne" name="remove" value="removeOne" checked>
+                          <label for="removeOne">This class</label><br>
+                          <input type="radio" id="removeAll" name="remove" value="removeAll">
+                          <label for="removeAll">This and following classes</label>
+
+                        </div>
+                        <div class="modal-footer">
+
+                                <button type="button" onclick="deletePracticalClass()" class="button button-secondary button-block button-shadow">
+                               OK
+                              </button>
+                    </div>
+                </div>
+            </div>
+          </div>
+          `;
+      } else { // theory
+var modalFooter = `
+<span data-toggle="modal"
+              data-target="#deleteEventModal">
+<button data-toggle="tooltip" title="Cancel class"  type="button"  class="button button-secondary button-block button-shadow">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>
+                </button>
+              </span>
+
+<div class="modal fade" id="deleteEventModal" tabindex="-1"
+role="dialog" aria-labelledby="deleteEventModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteEventModalLabel">Cancel class
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="text-align: left;">
+          This action cannot be undone. This will cancel the class for you and the student. You will not receive payment for this class if you cancel it.
+
+        </div>
+        <div class="modal-footer">
+
+                <button type="button" onclick="deleteTheoryClass();" class="button button-secondary button-block button-shadow">
+               OK
+              </button>
+    </div>
+</div>
+</div>
+</div>
+
+              `;
+      }
+
+      document.getElementById('modalFooter').innerHTML = modalFooter;
+
+      // reinit tooltip
+      $('[data-toggle="tooltip"]').tooltip({
+			boundary: 'window'
+		})
+
+      document.getElementById('eventGCEventId').textContent = info.event.extendedProps.gcEventID;
+      document.getElementById('eventId').textContent = id;
+      document.getElementById('eventGroupSlug').textContent = info.event.extendedProps.groupSlug;
+
+document.getElementById('eventModalLabel').textContent = info.event.title;
+
+var studentsHTML = ``;
+ if (studentJSON[0].sohoSID != null) {
+for (let i = 0; i < studentJSON.length; i++) {
+  var studentFullName = studentJSON[i].sFirstName + ' ' + studentJSON[i].sLastName;
+    studentsHTML += studentFullName + ', '
+}
+var description = `Students: ` + studentsHTML;
+
+}
+document.getElementById('eventDescription').textContent = description;
+
+$('#eventModal').modal('show');
+
+    },
+
+    select: function (startEvent, endEvent, jsEvent, view) {
+      // check if the duration is greater than 1 hr - if yes split it into multiple events then post, if no then just post
+      var start = new Date(startEvent.start.toISOString());
+      var end = new Date(startEvent.end.toISOString());
+
+      var diff = end - start;
+
+      var eventStart = start;
+
+      var popup = 0;
+      while (diff >= 3600000) { // if the event spans over 1 hr then break it down into one hour time slots
+        // create new end
+        var eventEnd = new Date(eventStart);
+        eventEnd.setHours(eventEnd.getHours() + 1);
+
+        if (document.getElementById('addFreeOne').checked) {
+          // pop a notification to show that the calendar is being populated
+          $('.toast').toast('show'); // toast notification
+          // post create event
+          ajaxCalendarAddEventFree(eventStart.toISOString(), eventEnd.toISOString());
+        } else if (document.getElementById('addFreeRecurring').checked) {
+          // pop a notification to show that the calendar is being populated
+          $('.toast').toast('show'); // toast notification
+          // add recurring free time weeks - 30 weeks in advance
+          ajaxCalendarAddEventFreeRecurring(eventStart.toISOString(), eventEnd.toISOString());
+        } else if (popup == 0) { // so the popup doesn't come up once for every single 1 hr increment
+          var confimit = confirm("Please select a free time option");
+          var popup = 1;
+        }
+
+
+        // set new start and end
+        eventStart = eventEnd;
+
+        // reduce diff by 3600000
+        diff -= 3600000;
+      }
+
+      calendar.refetchEvents();
+    },
+    selectOverlap: function (event) {
+      return false; // block selection overlapping
+    },
+    eventDrop: function (info) {
+      var id = info.event.id || info.event.groupId; // change depending on whether its a recurring or single event
+      // console.log("file: sohoCalendar.ejs ~ line 190 ~ info", JSON.stringify(info));
+      var gcEventID = info.event.extendedProps.gcEventID;
+      var groupSlug = info.event.extendedProps.groupSlug;
+
+      $.ajax({
+        type: "GET",
+        url: "/getEventCount",
+        timeout: 30000,
+        data: {
+          groupSlug: groupSlug
+        },
+        success: function (data) {
+          //show content
+          console.log('successful get');
+          if (data.count == 1) {
+            var eventType = 'singleEvent';
+          } else {
+            var eventType = 'recurringEvent';
+          }
+
+          if (eventType == 'singleEvent') {
+            ajaxCalendarUpdateEvent(id, info.event.start.toISOString(), info.event.end.toISOString(), region,
+              gcEventID);
+          } else {
+            var duration;
+            var oldEventStart = new Date(info.el.fcSeg.start);
+            var oldEventEnd = new Date(info.el.fcSeg.end);
+            duration = (oldEventEnd - oldEventStart) / 3600000;
+            // pop up confirm if update single or all events
+            $('#updateModal').modal('toggle');
+
+            // save the data into local storage
+            localStorage.setItem('eventId', id);
+            localStorage.setItem('start', info.event.start.toISOString());
+            localStorage.setItem('end', info.event.end.toISOString());
+            localStorage.setItem('duration', duration);
+            localStorage.setItem('region', region);
+            localStorage.setItem('gcEventID', gcEventID);
+            localStorage.setItem('groupSlug', groupSlug);
+            localStorage.setItem('oldEventStart', info.oldEvent.start.toISOString());
+          }
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    },
+    eventOverlap: function(event) {
+      return true;
+    }
+
+  });
+
+  calendar.render();
+
+  // AJAX
+  function ajaxCalendarAddEventFree(start, end) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarAddEventFree",
+      timeout: 30000,
+      data: {
+        start: start,
+        end: end,
+        recurring: 0,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        calendar.refetchEvents();
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxCalendarAddEventFreeRecurring(start,
+    end) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarAddEventFree",
+      timeout: 30000,
+      data: {
+        start: start,
+        end: end,
+        recurring: 1,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        calendar.refetchEvents();
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+  function reschedulePracticalClass() {
+      if (document.getElementById('rescheduleOne').checked) {
+        ajaxCalendarUpdateEventRecurringSingle();
+      } else if (document.getElementById('rescheduleAll').checked) {
+        ajaxCalendarUpdateEventRecurringAll(); // call ajax to remove from db
+      }
+
+  }
+
+  function deletePracticalClass() {
+    var gcEventId = document.getElementById('eventGCEventId').textContent;
+    var eventId = document.getElementById('eventId').textContent;
+    var eventGroupSlug = document.getElementById('eventGroupSlug').textContent;
+    var fcEvent = calendar.getEventById(eventId);
+    fcEvent.remove();
+    var eventType = 'practical';
+
+      if (document.getElementById('removeOne').checked) {
+            ajaxCalendarRemoveEvent(eventId, gcEventId, eventType);
+      } else if (document.getElementById('removeAll').checked) {
+        deleteFuturePracticalClass(eventGroupSlug, gcEventId, eventId); // call ajax to remove from db
+      }
+
+  }
+  function deleteTheoryClass() {
+    var gcEventId = document.getElementById('eventGCEventId').textContent;
+    var eventId = document.getElementById('eventId').textContent;
+    var fcEvent = calendar.getEventById(eventId);
+    fcEvent.remove();
+    var eventType = 'theory';
+    ajaxCalendarRemoveEvent(eventId, gcEventId, eventType);
+  }
+
+  function ajaxCalendarRemoveEvent(eventId, gcEventId, eventType) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarRemoveEvent",
+      timeout: 30000,
+      data: {
+        eventId: eventId,
+        gcEventID: gcEventId,
+        eventType: eventType,
+      },
+      success: function (data) {
+        console.log('successful post');
+        // close modal
+      $('#eventModal').modal('hide');
+      $('#deleteEventModal').modal('hide');
+
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxCalendarUpdateEvent(eventId, start, end,
+    region, gcEventID) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarUpdateEvent",
+      timeout: 30000,
+      data: {
+        eventId: eventId,
+        start: start,
+        end: end,
+        region: region,
+        gcEventID: gcEventID,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        calendar.refetchEvents();
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxCalendarUpdateEventRecurringSingle() { // ajax for update session var so that custom mark view is saved
+    var eventId = localStorage.getItem('eventId');
+    var start = localStorage.getItem('start');
+    var duration = localStorage.getItem('duration');
+    var region = localStorage.getItem('region');
+    var gcEventID = localStorage.getItem('gcEventID');
+    var oldEventStart = localStorage.getItem('oldEventStart');
+
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarUpdateEventRecurringSingle",
+      timeout: 30000,
+      data: {
+        eventId: eventId,
+        start: start,
+        duration: duration,
+        region: region,
+        gcEventID: gcEventID,
+        oldEventStart: oldEventStart,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        calendar.refetchEvents();
+        $('#updateModal').modal('hide');
+
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxCalendarUpdateEventRecurringAll() { // ajax for update session var so that custom mark view is saved
+    var eventId = localStorage.getItem('eventId');
+    var start = localStorage.getItem('start');
+    var end = localStorage.getItem('end');
+    var duration = localStorage.getItem('duration');
+    var region = localStorage.getItem('region');
+    var gcEventID = localStorage.getItem('gcEventID');
+    var groupSlug = localStorage.getItem('groupSlug');
+
+    $('#updateModal').modal('hide');
+
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarUpdateEventRecurringAll",
+      timeout: 30000,
+      data: {
+        eventId: eventId,
+        start: start,
+        end: end,
+        duration: duration,
+        region: region,
+        gcEventId: gcEventID,
+        groupSlug: groupSlug,
+
+      },
+      success: function (data, textStatus) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    })
+  }
+
+  function deleteFuturePracticalClass(groupSlug, gcEventId, eventId) { // practical
+    $.ajax({
+      type: "POST",
+      url: "/removeRecurringEvent",
+      timeout: 30000,
+      data: {
+        groupSlug: groupSlug,
+        eventId: eventId,
+        gcEventId: gcEventId,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        $('#eventModal').modal('hide');
+      $('#deleteEventModal').modal('hide');
+
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function toggleOnOff(cb) {
+    // ajax update on/off field in database
+    var acceptClassVar;
+    if (cb.checked == true) {
+      acceptClassVar = 'unlimited';
+      var content = `<div id='studentLimitForm'>
+                      <form method="post">
+                        <label for='studentLimit'>Student limit (optional)</label>
+                        <div style='display: inline-block; margin-bottom: 10px;'>
+                          <input type="number" id='studentLimit' name='studentLimit' min="1" >
+                          <input type="submit" class='' value="submit" formaction='/sohocalendar/limit'>      
+                        </div>    
+                      </form>
+                    </div>`
+      document.getElementById('studentLimitForm').innerHTML= content;
+        
+    } else {
+      acceptClassVar = '0';
+      document.getElementById('studentLimitForm').innerHTML = '';
+    }
+    ajaxToggleOnOffAcceptClass(acceptClassVar);
+    ajaxGetCurrentStudentLimit();
+  }
+
+  function ajaxToggleOnOffAcceptClass(acceptClass) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxToggleOnOffAcceptClass",
+      timeout: 30000,
+      data: {
+        acceptClass: acceptClass,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxGetCurrentStudentLimit() { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxGetCurrentStudentLimit",
+      timeout: 30000,
+      data: {
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        var currentLimit = data[0].acceptClass;
+        document.getElementById('currentStudentLimit').innerHTML = currentLimit;
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  $( document ).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+			boundary: 'window'
+		});
+
+    
+setInterval(function(){
+    calendar.refetchEvents();
+  }, 5000);
+
+});
+</script>

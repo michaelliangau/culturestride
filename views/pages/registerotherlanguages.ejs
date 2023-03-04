@@ -1,0 +1,50 @@
+<main>
+
+	<div class="features-wrap" style="margin-top:40px">
+		<div class="features-header text-center">
+			<div class="container-sm" style="padding: 0px 16px">
+				<h2 class="section-title mt-0" style="margin-bottom:0px">Register for other languages</h2>
+				<br>
+				<p style="padding: 0px 15px">
+					Please let us know what language you'd like to learn and we'll be in touch!
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="my-embedded-typeform" class="typeform-widget"
+		data-url="https://culturestride.typeform.com/to/VNXeTO" style="width: 100%; height: 800px;"
+		data-transparency="95" data-hide-headers=true data-hide-footer=true></div>
+	<script>
+		(function () {
+			var qs, js, q, s, d = document,
+				gi = d.getElementById,
+				ce = d.createElement,
+				gt = d.getElementsByTagName,
+				id = "typef_orm",
+				b = "https://embed.typeform.com/";
+			if (!gi.call(d, id)) {
+				js = ce.call(d, "script");
+				js.id = id;
+				js.src = b + "embed.js";
+				q = gt.call(d, "script")[0];
+				q.parentNode.insertBefore(js, q)
+			}
+		})()
+	</script>
+
+</main>
+
+<script src="https://embed.typeform.com/embed.js"></script>
+<script>
+		window.addEventListener("DOMContentLoaded", function () {
+			var el = document.getElementById("my-embedded-typeform");
+			window.typeformEmbed.makeWidget(el, "https://culturestride.typeform.com/to/VNXeTO", {
+				onSubmit: function () {
+					console.log('submitted form');
+					window.location.href = "/thankyou";
+	
+				}
+			});
+		});
+	</script>

@@ -1,0 +1,131 @@
+<script src="https://js.stripe.com/v3/"></script>
+
+
+
+<div class="row">
+
+    <div class="col-xl-12">
+        <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:40px 40px;text-align:left">
+                <div class="row">
+                    <h4 class="feature-title h4-mobile" style="margin-top:0px">Payment</h4>
+                </div>
+                <div class="row">
+                    
+                    <b style="width:100%;margin-top:5px">How do you calculate class price?</b>
+                    <p class="subtext">
+                           Each Theory class is charged at $39 (AUD) or $29 (USD) and comes with a Practical class.
+                           <br>
+                           Practical classes are charged at $9 (AUD) or $7 (USD) if they are taken outside of a Theory class bundle.
+                    </p>
+
+                    <b style="width:100%;margin-top:5px">What are the different classes?</b>
+                    <p class="subtext">
+                        Theory classes are private 1-on-1 classes structured around the HSK curriculum.
+                        <br>
+                        Practical classes are small group classes focused on learning through usage of your language.
+                    </p>
+
+                    <b style="width:100%;margin-top:5px">When do you charge my card?</b>
+                    <p class="subtext">
+                        At the end of every month based the classes you used in that month.<br>
+
+                    </p>
+
+                    <b style="width:100%;margin-top:5px">Can you see my card details?</b>
+                    <p class="subtext">
+                        Your payment details are never disclosed to Culturestride and are entirely processed by the same secure third party provider that handles payments for Airtasker, Amazon and Zoom.
+                </p>
+
+                <b style="width:100%;margin-top:5px">I want to update my payment details</b>
+                <p class="subtext">
+                    Update it <a href="/a/payments/addcard?plan=2">here</a>.
+                </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-xl-12">
+        <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+            <div style="padding:40px 40px;text-align:left">
+                <div class="row">
+                    <h4 class="feature-title h4-mobile" style="margin-top:0px">Stored Payment Details</h4>
+                </div>
+                <div class="row">
+                    <p style="margin-bottom:0px;" class="subtext">
+                        Type: <span id="brand"></span>
+                        <br>
+                        Last 4 Digits: <span id="last4"></span>
+                        <br>
+                        Expiry Date: <span id="expiryDate"></span>
+                    </p>
+                    <!-- <a class="button button-secondary button-block button-shadow"
+                        style="margin-top:10px;margin-bottom:0px;" href="/a/payments/addcard">
+                        Add Payment Method
+                    </a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<div id="sci" style="display:none"><%- stripeCustomerId %></div>
+
+
+
+<script>
+    try {
+        var sci = document.getElementById("sci").innerHTML;
+        if (sci !== '') {
+            retrieveCustomerPaymentMethod(sci);
+        }
+    } catch (e) {
+        console.log(e);
+    }
+
+    function retrieveCustomerPaymentMethod(stripeCustomerId) {
+        return fetch('/retrieve-customer-payment-method', {
+                method: 'post',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    stripeCustomerId: stripeCustomerId
+                }),
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                // use the data
+                document.getElementById("brand").innerHTML = response.brand;
+                document.getElementById("last4").innerHTML = response.last4;
+                document.getElementById("expiryDate").innerHTML = response.expiryMonth + '/' + response.expiryYear;
+
+                return response;
+            });
+    }
+
+    var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	if (region.indexOf("Australia") < 0) {
+		// convert to USD
+		document.getElementById('currencyCode').textContent = 'USD';
+		document.getElementById('addPracPrice').textContent = '7';
+		document.getElementById('pracPrice').textContent = '7';
+		document.getElementById('theoryPracPrice').textContent = '29';
+		document.getElementById('theoryPrice').textContent = '29';
+	}
+
+</script>

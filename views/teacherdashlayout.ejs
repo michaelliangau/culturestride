@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-N5GV7T8');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-74664112-8"></script>
+
+    <script type="text/javascript">
+        if (document.location.hostname.search("culturestride.com") !== -1) {
+
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-74664112-8', {
+                'optimize_id': 'GTM-5558SXD'
+            });
+        }
+    </script>
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%- metadescription %>">
+
+    <!-- FB META -->
+    <meta property="og:site_name" content="Culturestride" />
+    <meta property="og:image" content="http://culturestride.com/img/fbmeta.png" />
+
+
+    <title><%- title %></title>
+    <link rel="shortcut icon" type="image/png" href="https://culturestride.com/img/cslogotrans.png" />
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="/css/style.css?murder21">
+
+    <!-- JQUERY -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- Tiny Text Editor -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js"></script>
+
+        <!-- MOMENT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-10-year-range.min.js"></script>
+
+    <!-- bootstrap select -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" />
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5GV7T8" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="body-wrap boxed-container" style="max-width: 100%;">
+
+        <!-- SIDE BAR DESKTOP-->
+        <div class="container-fluid">
+            <div class="row" style="height: 100%;flex-wrap:nowrap">
+
+                <div class="col-xl-2 mobileSideBar dashSideNav" id="mobileSideBar">
+                    <div class="sticky">
+                        <div class="row">
+                            <div class="col-xl-12" style="padding-top: 10%;">
+                                <img class='sideBarLogo' src="<%- sohoProfileImage %>">
+
+                                <p class='desktopTextTopSideBar'>
+                                    <%- sohoFirstName + ' ' + sohoLastName %></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <ul style="display: inline-block;padding-left:5px;width:100%">
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/sohostudents">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAEGklEQVRoge2YbWxTVRjH/8+97bqupd0LW7Pec7bRbuAyiMrAJRLwZYlm6mZ8gQTYh4mI0UwlYETQCHFxkYw5EYeODIIZqNkH/KD0JYSQLJAgEr+QmGgCQbNJKkbJ2GBh0uOHpXd9p7e9ZZrc38d/n/M8/3/vufeeFjAwMMgbfkVp9itKcz5nSPlq7HO7W0H0HYh8PkV5Pl9z8hLAz1g7SdIxAIUACojo6wBjG/MxS/cAAcY6AXwBwBQlywI44OP8Tb3n6RrAryhdAtgX6Wutb4C1viHyMZEQPX5F6dJzJunRRAAU5PwjIcTmiGZfuhyejwdAEuHS1k5c//7M7FAhPjs7Nta5CwhHtDPnQiK+74oHXHf0l/MVOAWYAopyKNq8Y+XD8PYfhGy3QyqywfvJAIoffUxdI4heaWLsyPnGRnOu83MK4KuttUwxNgyijohW0tIKT+9+SJZCtY7MBajZvRelbc9FL197NRT6Zpgxay4esg5wqrzcTlNTxwE8E9Hmr16H6q4ekMmUUE+yjOqd3ahofyFafnIeEDzh8Tiz9ZFVgKDLVTFlsYwAUF9Sro5N4Nt3gaQ0LYmgbNkO9+sxD6OV07dunRZ/Xc3GivYAJ9zuqrDZPALg/jSm0uLq2AT+9k41LAGLJ995EeHQmFY72gIE3e57/pGk0wAWATPbouq9D+K3RUbMX7M+ZruFQ2OY3LEB4d8uauqTcYBgVVVjWJJGAHBg9sYsezr7U0JJSys8e/rVG178/Scm392I279cyLhHRu+B45yvkoT4FoADAKQiGzy9n2Je04qk9ZWvHU2qX9m3Pqk+8eMPuLT5ZdyemJgRrEUoemsPHnqpLff3QFBRnpKECETMy04naj8/nNJ8NtiXLkfdwBBMpWUzws0buNH9BvyMPXuntWkDBBhbFyY6BsAKAObyCiwc/BK2xffqYDsWa30DFg4ehbnSPSNMTwPAsI/zDenWpQzg5/xVAQwBMAOAZYEXiw4Po9Bbp5vpeCw1nvgZMgkx6Od8S6o1SQP4GNsGIfoRdSiL+XbyiHqVl9wXkQhC9AYY+zBZfUKAAOd9BKjF9mVNqDswBFNJaX4cJ0F2OuHdfwj2ZU2qJoBtAc774msT3/lCqA9ix6pHsGD33phzTSaketpoQbbZUdt/EJd3bMW1k8GIPJpQFy8cGR8/1+5w2EufaHuwprsPUkFBzmayhWQZxc2PY/qPEG7+/FNPy+jo+wk1yRYKgEKhyTBIl58LuSMEXC6bREDCb4akNzEB4j9jHgCIkMw8kMd/Je4WiTdxllxbW62pvvirX3WZ+7+/AkaAucYIMNcYAbTgcHPde97VAJVLGnXvaWwhLVy5cF73nimPEhcvX9fUqCyDmvHfZ4/zWvunwthCc40RwMDAYG75F4l2Brrhk0ugAAAAAElFTkSuQmCC" /></span>
+                                                <span class="desktopTextSideBar">Home</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/sohoclassnotes">
+                                                <span style="width: 50px"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAE5ElEQVRoge2YW2wUVRjHfzM72+223bZ7aRtqWy4NBUy0hZhQo8YYtCTe3iRK5MFYSXwhkZgghgc0hkBMMPENhUAgqAnxSRMS0MQLQkOCpYY7FKEtLbR1t3vrdHd25vhQCu7Ozu62Oy0+7O9p9nz/+S5z5nznzEKJEiVKPEokK0P/Dp9YyETy0fpZMGuuSq6bFJcL/5KluL21AKgTYYK3b6Gp6jykODcsC1BcLpo6OpCVh5JKv49ETR3t5xoYSuSs3Tb6Hd/mtMtWBv+SpWnJz+BTdPYumyg+M5uwfIwzr0021vsT0Nw8LwmlMTiYV2I5A7n4P61uywLUibDlTT+p1rOz0FgWELx9CyOVMo8bTraHFs9rUrPBsgBNVRnq7eXYWAURw0HEcPB93E/n8BNc19wLmWNOcvbCVDLJhsuBhVmwc8SygFDKzanoUp6a1Kgc/htFNwBIOBUiHhf3/FXcC1SCZLmZLwhZC+ja+N6bOwdTJIQDL0aazZ3QcCc0GsZj/DNawYW2BpJOR95A5ZLBHt9tdgRbiIr8+kIxrYF1b3U/KRCHEwUE8Ycm6ewdwBeetNRIAtqcKj2Nf7GlephqWS8u4wxMBciS+ABwFurAldRZc2GEZQNB08mwOp6g6/xNDiuXaC+LT4/J5s5WDFm6kPT8bJ1IQtA6EKTj4jBObfoJN42EebpvECNu8OVpD5GEhCpktLntnZZkWwOL5uosEJpk7fkhIh4XDeOxB6tnLC7zySkvP69o4YZWPlf3WclWQFERZhZ5JmeiVVyccoN96xfIsw/kY7CxFskwaLoXBWF9QrobqOJiWwOGbH/LLaoATZHpbwlwt87D4zdGqVAznrwkcbPZS3+zd972C1u+SkI1bnpWN9N6K0jLSBhJCHRZ5sKKekb9VWla8f42Sz97env4qOfXWcUuqgBdltOury0LcLfeQ21EZcxbieouuBsDoGY5PObDNK8vbewu+LjfHOqhLnZl1kHnyBCG2LznD/34fweLasqysHdTykOTkOV9phyK8egwzO1yPpEQpmOxqYBPX5jA5zYyh7Mii4UtIBumNSCOvybCUzKfn67m7B1X7psN6ZkT3319et6yKwBzFxLi9ZpyY19Xq7ro7B0XDe4EWzuussob4VKwhr19yxlVpzdrwyFFAcTRVYuR9QNAJ4IzKKl3pQ03B9Lc2qTJxPQKSS//+AMi1a4J6TeArR1XWR2YoNxhsKYuxNb26w+r1+XotBf9ALAOqETiRXRlvzmSTZp8BUwXcXxs96mabQAra6NptlXeyIPrKcmI3b9cmyYSdGZxa5cmDesulCIMcDlUnTac9tuVjN0P1JMmkjJ+26nJwLIASTLCAF/0tfHnmBc15eDcmJe9fctnJKlfDh2amg7s6AZOAjGQTuBIdZuTs0mTmaeVoWvTpkqhu2JWdiB08pv9vnwB5hvLs9CJI0fi69/enPJ4/Yq7yoPsUNBTGmo8RjQURBh6DGDztt01WpnysUC8ATSCuIMkHdNk166jO7dE7NRkw3IG3tm+q04TjChO818OqWSS8ZGBa4seW/ysUJy/AyuyuLhS5pCe0xJJyQ7NVzs/HM+Wp+UMCMV5ULH4flLKyvDVN9YLxXnQIijAyqQuDqE4sUUDr86qAOCVHDbK3BW1+TQF2O3UlChRosQj4F8O+e4FhuKOqAAAAABJRU5ErkJggg==" /></span>
+                                                <span class="desktopTextSideBar">Class Notes</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/sohoclassnotes/syllabus">
+                                                <span style="width: 50px"><img style="width:30px"
+                                                        src="data:image/png;base64,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" /></span>
+                                                <span class="desktopTextSideBar">Syllabus</span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/sohohomework">
+                                                <span style="width: 50px"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFfklEQVRoge2YWWxUVRjHf+fcuTPttKUDtbQFK5ssGogCbYEWiLJUNDExbg2CJCJG0RhQicHExLokhoAsMSb6IgomKqAPRAVccGErBVqFILLIkkBZWrHDTIeZ3pl7fJihUNo7y51BH+zvZSbnnvP//t+c7yx3oIce/t+I/yKoGotOHkOIMADBQBQDgIHALUAWup4X6lPquextywsGArpsD/5ZtMcY0Z2W418xXEUeGhNQVKGYhGAcEdzRh7FOOfmYg0YRaLtMW+sl2o4cA1PhkBg5gqlW2jcsAQWSiVQieRzFbFTM8LVzLgSMKCdcPBj/6dP8vasOFQ5ffQzk6jxbsI8zVnFuSAmpcRThpI5oWXRFc0BFNZGbR+Dd9SOtBxq77ZbrZEtRAzPixcpoAqqKMjTcwBQUr3XpIAWMmYYqn473h41c3L3dUivLQVO/XykVYMaLmbESUpOpQbEWkxrgmS4/TfFAeHgBwWMHObfsVcz2dmtTknZXNhWJzENm10A1oCMYBRR1tAoJ1bNQY6bSvPod/IcOWJuRGJrkUrbO7IJd1nXfaUy6rtVkajDZhUkpAhCUXbuzMPsVDEcWTW8uIOLzdoxzarS6JBukZL+QHI0E2N53P/5U46e1BtREeiM4BjwH1ALDgSagH6XDUHPfIPDbbi6seRcVCXer4dTwOiTHNMn2wn0sEtB9RwtkOgkgmAf0AaqA4lhrPwaPRM1fiq/+Z86vXmFpHqA9Qn7AYKyCvqmah3QTgJrYZzXE9vlhY1FPL8G38ztaPn0/KZFcFxuK9vGYHQO2SyhWPhc7NfYfgnp+FW2NO7nwwduglMXoq/TSWVvYyBy7PuzPgLzukMrrg/nkWxjNZ2levTyheSGgl5Nl6ZiHdHYhk/yO+ZMakSdeR2S5Ob9kESoUjDtU04jkaTxV0MBq2/FjpLON+q58Cd/1KI5Bt9H80XKMc/G3b5eDv9ySKX0a2J9G7A7sJ+DgFBFQhf3RZswmdOIIvl82WXaXAuV2sLFvIw8mc8Imi+01IH6iBThlPvIiwqHT8vFKMLuv+2wnh/N17ixq5IFMmod0T+Jx1fu1oXcM8NdtJXTySKdHQkCWxkmXxssF+1ifVpw4pJfA/fNLALxbvgBAE5hOjfMOyTang8Week6kbzE+thNQ9d+XIylThrEz+8zhl/QcThTt5nwmzSWD/RmQYiEohK4vLWigLoOeUiKlk3hlfWgHUBlRsPl4GAHcM9iB1klF7VhYkTUxkybjkeouVAnQHFBETCjMEdeZBxBVGXGWJCmV0MajnS+LZ32Kjb6UL5AZJd3b6H9OwjVQq5TM32PMkZhzFWJSMAzfngiT7YDpg7qfQIHaZiI/9Jbra2qFyOjB1TVWHFY0Ko8IG1+i1N1X2pr8ir1nI5TkCcqLtUTyW5WuP/TCaNGaEbfdYFlCtUpJYRgbrjUP4G+PXhd6OZPZwNQUaRjra5W6YaVqKdx7rzELVJe/9AJG9NOd5PJXqGmePe223raSwdKGUuY8EJz97A9a65o62l3AUMAPHEog7pnQn5Ka4SjUPOCTTBi+njhTK0YD+A602Bb3H2iOKiHG2BZJQLzajAAo0/4moiKx67VI/d+GZImXwHEAZ0G2bXG9IKuT1o3AMgGlOAjgHpJvW9x9qyeqZfK7bZEEWCYgBF8D5N5eaFs8d2R0rBR8ZVskAZYJBKVzMxB0D+uNszD1MnLelE3O4HyA4GXp3GLfYnwsE1hcJrwI1gkR3Q5TxVPZP/omD58vLhPexCPsEfeEVEKsAvCML8HhcSUtqvd24RlfAoBAvJeOwUQkvA+srA99A9xrU3/TwgrXfTbHJkXCO0pQOmciWA+EUtANKVgXlM6Z9q310EMPyfAPMLapbbR6ctoAAAAASUVORK5CYII=" /></span>
+                                                <span class="desktopTextSideBar">Homework
+                                                    <% if (sohoUnreadHWCount > 0 ) { %>
+                                                    <span id="unreadHWDot"
+                                                        class="unreadHWDot badge badge-danger"><%- sohoUnreadHWCount %></span>
+                                                    <% } else { %>
+                                                    <span id="unreadHWDot" class="unreadHWDot badge badge-danger"
+                                                        style="display:none"><%- sohoUnreadHWCount %></span>
+                                                    <% } %>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/sohomessages">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAB0klEQVRoge2XMU4CQRSG/9lFE6MTKoWSeAU5ANobLqEFWGljoUiiaKioiCYQ72CittqjZxAaIwqNKzSoMxZoTMgszOAuM8T5yrfzyP9t3jyygMVimWqIakNs4ybNiLsN8CSA+RAy/dAFcMcZSu3z1KXfISWBxc3bIkB2/xxNFYKTViW1J34kSf/NOxfBpVKDg6+3q6tXg3VH9gf6Y6MPArIjqksLAHwlqDBjkhQVFQSwEFCQcaGiYmRYR6LspYlDtgGSBHg4sQCAMXx2u3h/ecaH96rU6iuwfNopcvDvjRNieABwHLiUwqUUvWYTvadH+VZRMVH20r/hJ8tsPI5INCp9XijQHxt9zCzFpM/6XWKtG8eZk/+D9xPQunGIK78cVdaokVgB3VgB3VgB3ViBCeKJilMjQIB7UX1qBBhhJVF9SgRIoV1ZuxY9GfpFppkOAWqMsJJfeMBggVY1JfwGHsTUERJuHBFGCnCfjSPCSAEH4o0jPmsehYds1PfSDmLKJe5woOaAlVTCA6oCHPv1LXqs1BMyKiOUMy08IC+Qq2dpIdQkYzJ6hAgO6hkzwwMjBDiQb2To0aTCjIPvCHEg38jSw0mGCYzE2VtedwaLxfJP+AI43Wt0ohCJrAAAAABJRU5ErkJggg==" /></span>
+                                                <span class="desktopTextSideBar">Messages
+                                                    <% if (sohoUnreadMsgCount > 0 ) { %>
+                                                    <span id="unreadMsgDot"
+                                                        class="unreadMsgDot badge badge-danger"><%- sohoUnreadMsgCount %></span>
+                                                    <% } else { %>
+                                                    <span id="unreadMsgDot" class="unreadMsgDot badge badge-danger"
+                                                        style="display:none"><%- sohoUnreadMsgCount %></span>
+                                                    <% } %>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/sohocalendar">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAB0UlEQVRoge2Zv0tCURTHv8fnEqSCRA29WnIogn5QJEGQ5BC0Ff0N/Q35T+ScQ+3R0NZgBUFDRRA1RTm1CT1BC1vynQajTM9T78u4Cvcz+c7R7z1f7vHcx3uAwfAnyM+Pjs4u1gDaBQBm3lpPLh3r0gn4WfhrURuATVQtQJeOTwOwaz6P+NToiE7QK1FOxG22OM3AKoBQbe6k7rtvyQX2s3gbOq/ElP2wsB3JXj1JGuIOlBNx27X4joFN1BXvCqVKsVa0qRNi4g3L5cvyyuKwpCMaYIvTAKJS7vml1FasFYo6UReVHSkhG6i2jUi+VG6MFRtjrVDWIbkmrz9xyCMOgEAF5+fKcUDkZxor60SkoPIUGgr3IbiXqS7oOAjuZzAY6VOV6ZiOaLnZVHG52qv50vt3IaMDYQQUN8GPTv/pdUNW2YBOJAN+D7KuoecNiC10+5DryhaaHY+ZFuo6et6A591oM85v7n9dL89PdTSuQs/vgDGgG3MO6MZMId0YA7oxU0g3ZgrpxhjQjZlCuvEyoP64+f8pSkH56TQ1vHvoAigrRUUDAZdSABwppwcuuBVOSRnRwMzE2CNRZRrAAfS2UwmgQ7dC8bnJWE5jHQaDweDBJweyzXVzo+G5AAAAAElFTkSuQmCC" /></span>
+                                                <span class="desktopTextSideBar">Calendar
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    
+                                    
+
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link dropdown-btn" href="#">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAS0lEQVRoge3WoRGAMAADwJZJu0QlCtkluiksAIfhGsG/jUlcSgEAcupT0PZxrizyZh79tuu2usjXDACAJF8ozQAASPKF0gwAAP7sAvoWDBbvdnE+AAAAAElFTkSuQmCC" /></span>
+                                                <span class="desktopTextSideBar"
+                                                    style="margin-right:auto">More</span>
+                                                <span style="font-size:0.8rem">&#9660;</span></a>
+
+                                            <div class="dropdown-container">
+                                                <a class="nav-submenu-link" href="/sohoprofile">Profile & Reviews</a>
+                                                <a class="nav-submenu-link" href="/soho/tbaudio">Textbook Audio</a>
+                                                <a class="nav-submenu-link" href="/sohoslides">Slides</a>
+                                                <a class="nav-submenu-link" href="/sohobackground">Student backgrounds</a>
+                                                <a class="nav-submenu-link" href="/sohosalary">Class Records</a>
+                                                <a class="nav-submenu-link" href="/sohosettings">Settings</a>
+                                                <form class="nav-menu-link" style="margin:0; padding:0;" id="sohologout"
+                                                method="post" action="/sohologout">
+                                                <a class="nav-submenu-link"  onclick="document.getElementById('sohologout').submit();">Logout</a>
+                                            </form>
+                                            </div>
+
+                                        </div>
+                                    </li>
+
+                                    <% if (sohoPermission == 0) { %>
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link dropdown-btn" href="#">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,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" /></span>
+                                                <span class="desktopTextSideBar" style="margin-right:auto">Admin
+                                                    Only</span>
+                                                <span style="font-size:0.8rem">&#9660;</span></a>
+
+                                            <div class="dropdown-container">
+                                                <a class="nav-submenu-link" href="/sohocreateuser">Create
+                                                    User/Teacher</a>
+                                                <a class="nav-submenu-link" href="/sohopending">All Upcoming Classes</a>
+                                                <a class="nav-submenu-link" href="/sohoteachercalendar">Teacher Calendars</a>
+                                                <a class="nav-submenu-link" href="/sohosyllabus">Syllabus</a>
+                                                <a class="nav-submenu-link" href="/sohosalaryall">Class Records All</a>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <% } %>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="mobileSideBar dashSideNav verticalLine" onclick="collapseSidebar()"></div>
+
+                <div class="col" style="padding:0;">
+
+                    <!--MOBILE MENU-->
+
+                    <nav class="navbar navbar-light mobileTopNav">
+                        <a class="navbar-brand" href="#">Menu</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/sohostudents">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAEGklEQVRoge2YbWxTVRjH/8+97bqupd0LW7Pec7bRbuAyiMrAJRLwZYlm6mZ8gQTYh4mI0UwlYETQCHFxkYw5EYeODIIZqNkH/KD0JYSQLJAgEr+QmGgCQbNJKkbJ2GBh0uOHpXd9p7e9ZZrc38d/n/M8/3/vufeeFjAwMMgbfkVp9itKcz5nSPlq7HO7W0H0HYh8PkV5Pl9z8hLAz1g7SdIxAIUACojo6wBjG/MxS/cAAcY6AXwBwBQlywI44OP8Tb3n6RrAryhdAtgX6Wutb4C1viHyMZEQPX5F6dJzJunRRAAU5PwjIcTmiGZfuhyejwdAEuHS1k5c//7M7FAhPjs7Nta5CwhHtDPnQiK+74oHXHf0l/MVOAWYAopyKNq8Y+XD8PYfhGy3QyqywfvJAIoffUxdI4heaWLsyPnGRnOu83MK4KuttUwxNgyijohW0tIKT+9+SJZCtY7MBajZvRelbc9FL197NRT6Zpgxay4esg5wqrzcTlNTxwE8E9Hmr16H6q4ekMmUUE+yjOqd3ahofyFafnIeEDzh8Tiz9ZFVgKDLVTFlsYwAUF9Sro5N4Nt3gaQ0LYmgbNkO9+sxD6OV07dunRZ/Xc3GivYAJ9zuqrDZPALg/jSm0uLq2AT+9k41LAGLJ995EeHQmFY72gIE3e57/pGk0wAWATPbouq9D+K3RUbMX7M+ZruFQ2OY3LEB4d8uauqTcYBgVVVjWJJGAHBg9sYsezr7U0JJSys8e/rVG178/Scm392I279cyLhHRu+B45yvkoT4FoADAKQiGzy9n2Je04qk9ZWvHU2qX9m3Pqk+8eMPuLT5ZdyemJgRrEUoemsPHnqpLff3QFBRnpKECETMy04naj8/nNJ8NtiXLkfdwBBMpWUzws0buNH9BvyMPXuntWkDBBhbFyY6BsAKAObyCiwc/BK2xffqYDsWa30DFg4ehbnSPSNMTwPAsI/zDenWpQzg5/xVAQwBMAOAZYEXiw4Po9Bbp5vpeCw1nvgZMgkx6Od8S6o1SQP4GNsGIfoRdSiL+XbyiHqVl9wXkQhC9AYY+zBZfUKAAOd9BKjF9mVNqDswBFNJaX4cJ0F2OuHdfwj2ZU2qJoBtAc774msT3/lCqA9ix6pHsGD33phzTSaketpoQbbZUdt/EJd3bMW1k8GIPJpQFy8cGR8/1+5w2EufaHuwprsPUkFBzmayhWQZxc2PY/qPEG7+/FNPy+jo+wk1yRYKgEKhyTBIl58LuSMEXC6bREDCb4akNzEB4j9jHgCIkMw8kMd/Je4WiTdxllxbW62pvvirX3WZ+7+/AkaAucYIMNcYAbTgcHPde97VAJVLGnXvaWwhLVy5cF73nimPEhcvX9fUqCyDmvHfZ4/zWvunwthCc40RwMDAYG75F4l2Brrhk0ugAAAAAElFTkSuQmCC" /></span>
+                                                <span style="margin-right:auto">Home</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/sohoclassnotes">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAE5ElEQVRoge2YW2wUVRjHfzM72+223bZ7aRtqWy4NBUy0hZhQo8YYtCTe3iRK5MFYSXwhkZgghgc0hkBMMPENhUAgqAnxSRMS0MQLQkOCpYY7FKEtLbR1t3vrdHd25vhQCu7Ozu62Oy0+7O9p9nz/+S5z5nznzEKJEiVKPEokK0P/Dp9YyETy0fpZMGuuSq6bFJcL/5KluL21AKgTYYK3b6Gp6jykODcsC1BcLpo6OpCVh5JKv49ETR3t5xoYSuSs3Tb6Hd/mtMtWBv+SpWnJz+BTdPYumyg+M5uwfIwzr0021vsT0Nw8LwmlMTiYV2I5A7n4P61uywLUibDlTT+p1rOz0FgWELx9CyOVMo8bTraHFs9rUrPBsgBNVRnq7eXYWAURw0HEcPB93E/n8BNc19wLmWNOcvbCVDLJhsuBhVmwc8SygFDKzanoUp6a1Kgc/htFNwBIOBUiHhf3/FXcC1SCZLmZLwhZC+ja+N6bOwdTJIQDL0aazZ3QcCc0GsZj/DNawYW2BpJOR95A5ZLBHt9tdgRbiIr8+kIxrYF1b3U/KRCHEwUE8Ycm6ewdwBeetNRIAtqcKj2Nf7GlephqWS8u4wxMBciS+ABwFurAldRZc2GEZQNB08mwOp6g6/xNDiuXaC+LT4/J5s5WDFm6kPT8bJ1IQtA6EKTj4jBObfoJN42EebpvECNu8OVpD5GEhCpktLntnZZkWwOL5uosEJpk7fkhIh4XDeOxB6tnLC7zySkvP69o4YZWPlf3WclWQFERZhZ5JmeiVVyccoN96xfIsw/kY7CxFskwaLoXBWF9QrobqOJiWwOGbH/LLaoATZHpbwlwt87D4zdGqVAznrwkcbPZS3+zd972C1u+SkI1bnpWN9N6K0jLSBhJCHRZ5sKKekb9VWla8f42Sz97env4qOfXWcUuqgBdltOury0LcLfeQ21EZcxbieouuBsDoGY5PObDNK8vbewu+LjfHOqhLnZl1kHnyBCG2LznD/34fweLasqysHdTykOTkOV9phyK8egwzO1yPpEQpmOxqYBPX5jA5zYyh7Mii4UtIBumNSCOvybCUzKfn67m7B1X7psN6ZkT3319et6yKwBzFxLi9ZpyY19Xq7ro7B0XDe4EWzuussob4VKwhr19yxlVpzdrwyFFAcTRVYuR9QNAJ4IzKKl3pQ03B9Lc2qTJxPQKSS//+AMi1a4J6TeArR1XWR2YoNxhsKYuxNb26w+r1+XotBf9ALAOqETiRXRlvzmSTZp8BUwXcXxs96mabQAra6NptlXeyIPrKcmI3b9cmyYSdGZxa5cmDesulCIMcDlUnTac9tuVjN0P1JMmkjJ+26nJwLIASTLCAF/0tfHnmBc15eDcmJe9fctnJKlfDh2amg7s6AZOAjGQTuBIdZuTs0mTmaeVoWvTpkqhu2JWdiB08pv9vnwB5hvLs9CJI0fi69/enPJ4/Yq7yoPsUNBTGmo8RjQURBh6DGDztt01WpnysUC8ATSCuIMkHdNk166jO7dE7NRkw3IG3tm+q04TjChO818OqWSS8ZGBa4seW/ysUJy/AyuyuLhS5pCe0xJJyQ7NVzs/HM+Wp+UMCMV5ULH4flLKyvDVN9YLxXnQIijAyqQuDqE4sUUDr86qAOCVHDbK3BW1+TQF2O3UlChRosQj4F8O+e4FhuKOqAAAAABJRU5ErkJggg==" /></span>
+                                            <span style="margin-right:auto">Class Notes</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/sohoclassnotes/syllabus">
+                                            <span style="width: 50px"><img style="width:30px"
+                                                    src="data:image/png;base64,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" /></span>
+                                            <span >Syllabus</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/sohohomework">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFfklEQVRoge2YWWxUVRjHf+fcuTPttKUDtbQFK5ssGogCbYEWiLJUNDExbg2CJCJG0RhQicHExLokhoAsMSb6IgomKqAPRAVccGErBVqFILLIkkBZWrHDTIeZ3pl7fJihUNo7y51BH+zvZSbnnvP//t+c7yx3oIce/t+I/yKoGotOHkOIMADBQBQDgIHALUAWup4X6lPquextywsGArpsD/5ZtMcY0Z2W418xXEUeGhNQVKGYhGAcEdzRh7FOOfmYg0YRaLtMW+sl2o4cA1PhkBg5gqlW2jcsAQWSiVQieRzFbFTM8LVzLgSMKCdcPBj/6dP8vasOFQ5ffQzk6jxbsI8zVnFuSAmpcRThpI5oWXRFc0BFNZGbR+Dd9SOtBxq77ZbrZEtRAzPixcpoAqqKMjTcwBQUr3XpIAWMmYYqn473h41c3L3dUivLQVO/XykVYMaLmbESUpOpQbEWkxrgmS4/TfFAeHgBwWMHObfsVcz2dmtTknZXNhWJzENm10A1oCMYBRR1tAoJ1bNQY6bSvPod/IcOWJuRGJrkUrbO7IJd1nXfaUy6rtVkajDZhUkpAhCUXbuzMPsVDEcWTW8uIOLzdoxzarS6JBukZL+QHI0E2N53P/5U46e1BtREeiM4BjwH1ALDgSagH6XDUHPfIPDbbi6seRcVCXer4dTwOiTHNMn2wn0sEtB9RwtkOgkgmAf0AaqA4lhrPwaPRM1fiq/+Z86vXmFpHqA9Qn7AYKyCvqmah3QTgJrYZzXE9vlhY1FPL8G38ztaPn0/KZFcFxuK9vGYHQO2SyhWPhc7NfYfgnp+FW2NO7nwwduglMXoq/TSWVvYyBy7PuzPgLzukMrrg/nkWxjNZ2levTyheSGgl5Nl6ZiHdHYhk/yO+ZMakSdeR2S5Ob9kESoUjDtU04jkaTxV0MBq2/FjpLON+q58Cd/1KI5Bt9H80XKMc/G3b5eDv9ySKX0a2J9G7A7sJ+DgFBFQhf3RZswmdOIIvl82WXaXAuV2sLFvIw8mc8Imi+01IH6iBThlPvIiwqHT8vFKMLuv+2wnh/N17ixq5IFMmod0T+Jx1fu1oXcM8NdtJXTySKdHQkCWxkmXxssF+1ifVpw4pJfA/fNLALxbvgBAE5hOjfMOyTang8Week6kbzE+thNQ9d+XIylThrEz+8zhl/QcThTt5nwmzSWD/RmQYiEohK4vLWigLoOeUiKlk3hlfWgHUBlRsPl4GAHcM9iB1klF7VhYkTUxkybjkeouVAnQHFBETCjMEdeZBxBVGXGWJCmV0MajnS+LZ32Kjb6UL5AZJd3b6H9OwjVQq5TM32PMkZhzFWJSMAzfngiT7YDpg7qfQIHaZiI/9Jbra2qFyOjB1TVWHFY0Ko8IG1+i1N1X2pr8ir1nI5TkCcqLtUTyW5WuP/TCaNGaEbfdYFlCtUpJYRgbrjUP4G+PXhd6OZPZwNQUaRjra5W6YaVqKdx7rzELVJe/9AJG9NOd5PJXqGmePe223raSwdKGUuY8EJz97A9a65o62l3AUMAPHEog7pnQn5Ka4SjUPOCTTBi+njhTK0YD+A602Bb3H2iOKiHG2BZJQLzajAAo0/4moiKx67VI/d+GZImXwHEAZ0G2bXG9IKuT1o3AMgGlOAjgHpJvW9x9qyeqZfK7bZEEWCYgBF8D5N5eaFs8d2R0rBR8ZVskAZYJBKVzMxB0D+uNszD1MnLelE3O4HyA4GXp3GLfYnwsE1hcJrwI1gkR3Q5TxVPZP/omD58vLhPexCPsEfeEVEKsAvCML8HhcSUtqvd24RlfAoBAvJeOwUQkvA+srA99A9xrU3/TwgrXfTbHJkXCO0pQOmciWA+EUtANKVgXlM6Z9q310EMPyfAPMLapbbR6ctoAAAAASUVORK5CYII=" /></span>
+                                            <span style="margin-right:auto">Homework
+                                                <% if (sohoUnreadHWCount > 0 ) { %>
+                                                    <span id="unreadHWDot"
+                                                        class="unreadHWDot badge badge-danger"><%- sohoUnreadHWCount %></span>
+                                                    <% } else { %>
+                                                    <span id="unreadHWDot" class="unreadHWDot badge badge-danger"
+                                                        style="display:none"><%- sohoUnreadHWCount %></span>
+                                                    <% } %>
+                                                </span>
+                                        </a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/sohomessages">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAB0klEQVRoge2XMU4CQRSG/9lFE6MTKoWSeAU5ANobLqEFWGljoUiiaKioiCYQ72CittqjZxAaIwqNKzSoMxZoTMgszOAuM8T5yrfzyP9t3jyygMVimWqIakNs4ybNiLsN8CSA+RAy/dAFcMcZSu3z1KXfISWBxc3bIkB2/xxNFYKTViW1J34kSf/NOxfBpVKDg6+3q6tXg3VH9gf6Y6MPArIjqksLAHwlqDBjkhQVFQSwEFCQcaGiYmRYR6LspYlDtgGSBHg4sQCAMXx2u3h/ecaH96rU6iuwfNopcvDvjRNieABwHLiUwqUUvWYTvadH+VZRMVH20r/hJ8tsPI5INCp9XijQHxt9zCzFpM/6XWKtG8eZk/+D9xPQunGIK78cVdaokVgB3VgB3VgB3ViBCeKJilMjQIB7UX1qBBhhJVF9SgRIoV1ZuxY9GfpFppkOAWqMsJJfeMBggVY1JfwGHsTUERJuHBFGCnCfjSPCSAEH4o0jPmsehYds1PfSDmLKJe5woOaAlVTCA6oCHPv1LXqs1BMyKiOUMy08IC+Qq2dpIdQkYzJ6hAgO6hkzwwMjBDiQb2To0aTCjIPvCHEg38jSw0mGCYzE2VtedwaLxfJP+AI43Wt0ohCJrAAAAABJRU5ErkJggg==" /></span>
+                                            <span style="margin-right:auto">Messages
+                                                <% if (sohoUnreadMsgCount > 0 ) { %>
+                                                <span id="unreadMsgDot"
+                                                    class="unreadMsgDot badge badge-danger"><%- sohoUnreadMsgCount %></span>
+                                                <% } else { %>
+                                                <span id="unreadMsgDot" class="unreadMsgDot badge badge-danger"
+                                                    style="display:none"><%- sohoUnreadMsgCount %></span>
+                                                <% } %>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </li>
+                                
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/sohocalendar">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAB0UlEQVRoge2Zv0tCURTHv8fnEqSCRA29WnIogn5QJEGQ5BC0Ff0N/Q35T+ScQ+3R0NZgBUFDRRA1RTm1CT1BC1vynQajTM9T78u4Cvcz+c7R7z1f7vHcx3uAwfAnyM+Pjs4u1gDaBQBm3lpPLh3r0gn4WfhrURuATVQtQJeOTwOwaz6P+NToiE7QK1FOxG22OM3AKoBQbe6k7rtvyQX2s3gbOq/ElP2wsB3JXj1JGuIOlBNx27X4joFN1BXvCqVKsVa0qRNi4g3L5cvyyuKwpCMaYIvTAKJS7vml1FasFYo6UReVHSkhG6i2jUi+VG6MFRtjrVDWIbkmrz9xyCMOgEAF5+fKcUDkZxor60SkoPIUGgr3IbiXqS7oOAjuZzAY6VOV6ZiOaLnZVHG52qv50vt3IaMDYQQUN8GPTv/pdUNW2YBOJAN+D7KuoecNiC10+5DryhaaHY+ZFuo6et6A591oM85v7n9dL89PdTSuQs/vgDGgG3MO6MZMId0YA7oxU0g3ZgrpxhjQjZlCuvEyoP64+f8pSkH56TQ1vHvoAigrRUUDAZdSABwppwcuuBVOSRnRwMzE2CNRZRrAAfS2UwmgQ7dC8bnJWE5jHQaDweDBJweyzXVzo+G5AAAAAElFTkSuQmCC" /></span>
+                                            <span>Calendar
+                                            </span>
+                                        </a>
+                                    </div>
+                                </li>
+
+
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link dropdown-btn" href="#">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAS0lEQVRoge3WoRGAMAADwJZJu0QlCtkluiksAIfhGsG/jUlcSgEAcupT0PZxrizyZh79tuu2usjXDACAJF8ozQAASPKF0gwAAP7sAvoWDBbvdnE+AAAAAElFTkSuQmCC" /></span>
+                                            <span style="margin-right:auto">More</span>
+                                            <span style="font-size:0.8rem">&#9660;</span></a>
+
+                                        <div class="dropdown-container">
+                                                                                        <a class="nav-submenu-link" href="/sohoprofile">Profile & Reviews</a>
+                                            <a class="nav-submenu-link" href="/soho/tbaudio">Textbook Audio</a>
+                                            <a class="nav-submenu-link" href="/sohoslides">Slides</a>
+                                            <a class="nav-submenu-link" href="/sohobackground">Student backgrounds</a>
+                                                                                        <a class="nav-submenu-link" href="/sohosalary">Class Records</a>
+                                            <a class="nav-submenu-link" href="/sohosettings">Settings</a>
+                                                <form class="nav-menu-link" style="margin:0; padding:0;" id="sohologout"
+                                                method="post" action="/sohologout">
+                                                <a class="nav-submenu-link"  onclick="document.getElementById('sohologout').submit();">Logout</a>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </li>
+
+
+                                <% if (sohoPermission == 0) { %>
+
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link dropdown-btn" href="#">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,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" /></span>
+                                            <span style="margin-right:auto">Admin Only</span>
+                                            <span style="font-size:0.8rem">&#9660;</span></a>
+
+                                        <div class="dropdown-container">
+                                            <a class="nav-submenu-link" href="/sohocreateuser">Create User/Teacher</a>
+                                            <a class="nav-submenu-link" href="/sohopending">All Upcoming Classes</a>
+                                            <a class="nav-submenu-link" href="/sohoteachercalendar">Teacher
+                                                Calendars</a>
+                                                <a class="nav-submenu-link" href="/sohosyllabus">Syllabus</a>
+                                                <a class="nav-submenu-link" href="/sohogroupclass">Group Class</a>
+                                                <a class="nav-submenu-link" href="/sohosalaryall">Class Records All</a>
+
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                                <% } %>
+
+
+
+                     
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <main class="loggedInContainer">
+
+                        <!-- Main content here as defined in .ejs views -->
+                        <%- defineContent('body') %>
+
+                        <!-- BOTTOM OF BODY - FOR HIDDEN DIVS -->
+                        <div id="tSlug" style="display:none"><%- sohoSlug %></div>
+
+                    </main>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Bootstrap Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!--  bootstrap Latest compiled JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    
+    <!-- SOCKET -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+
+    <!-- bootstrap select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+
+    <script>
+        const tSlug = document.getElementById("tSlug").innerHTML;
+
+        // SOCKET FOR NOTIF
+        const socket = io({
+            transports: ['websocket', 'polling']
+        });
+        var slug = tSlug;
+        socket.on('connect', function () {
+            socket.emit('join notif channel', slug);
+        });
+        socket.on("notif unread message", function (data) {
+            console.log("file: teacherdashlayout.ejs ~ line 422 ~ data", data)
+            // enable and update red dot in messages side bar
+            var dots = document.getElementsByClassName("unreadMsgDot");
+            var msgCount = document.getElementById("unreadMsgDot").innerHTML;
+            msgCount++;
+
+            for (var i = 0; i < dots.length; i++) {
+                dots[i].style.display = "inline-block";
+                dots[i].innerHTML = msgCount;
+            }
+            ajaxUpdateUnreadMsgCount(msgCount);
+
+            // enable and update red dots in messages middle bar if user is on sohomessages
+            try {
+                document.getElementById("unreadMsgDot" + data).style.display = 'inline-block';
+                var count = document.getElementById("unreadMsgDot" + data).innerHTML;
+                count++;
+                document.getElementById("unreadMsgDot" + data).innerHTML = count;
+            } catch (e) {
+
+            }
+        });
+
+        function ajaxUpdateUnreadMsgCount(msgCount) { // ajax for update session var so that custom mark view is saved
+            $.ajax({
+                type: "POST",
+                url: "/ajaxUpdateUnreadMsgCount",
+                timeout: 30000,
+                data: {
+                    msgCount: msgCount,
+                    who: 'tea',
+                },
+                success: function (data) {
+                    //show content
+                    console.log('successful post');
+                },
+                error: function (jqXHR, textStatus, err) {
+                    //show error message
+                    console.log('unsuccessful post');
+                }
+            });
+        }
+
+        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+        // COLLAPSE SIDEBAR
+        function collapseSidebar(toggle) {
+            if (toggle == 'on') {
+                $('#mobileSideBar').css("maxWidth", "90px"); // shrink sidebar              
+                $('.desktopTextSideBar').css('display','none');
+                $('.desktopTextTopSideBar').css('display','none');
+            } else {
+                $('#mobileSideBar').css("maxWidth", "16.67%"); // return sidebar to normal width  
+                $('.desktopTextSideBar').css('display','');
+                $('.desktopTextTopSideBar').css('display','');
+            }
+        }
+
+        function showSideBar() {
+            $('#mobileSideBar').css("maxWidth", "16.67%"); // return sidebar to normal width  
+            $('.desktopTextSideBar').show();
+            $('.desktopTextTopSideBar').show();
+        }
+
+
+    </script>
+</body>
+
+</html>

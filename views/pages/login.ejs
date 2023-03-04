@@ -1,0 +1,108 @@
+<!-- GOOGLE SIGN IN -->
+<meta name="google-signin-client_id" content="153331140020-44mnj5644u0lgvfbficdl4feepd0ddjp.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+<div class="features-wrap" style="margin-top:40px">
+	<div class="features-header text-center">
+		<div class="container-sm" style="padding: 0px 16px">
+			<h2 class="section-title mt-0" style="margin-bottom:0px">Login</h2>
+			<br>
+			<p style="padding: 0px 15px">
+				Enter your Culturestride account.
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12" style="padding:0px 20%">
+		<div style="width: 250px;margin: 0 auto;" id="my-signin2"></div>
+
+		<div class="row" style="max-width: 400px;margin: 0 auto;">
+			<div class="col">
+				<hr>
+			</div>
+		</div>
+		<form method="post" class="needs-validation" novalidate>
+
+			<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+				<label for="email">Email</label>
+				<input type="text" class="form-control" name="email" id="email" required>
+				<div class="invalid-feedback">
+					Please input a valid email address.
+				</div>
+			</div>
+			<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+				<label for="password">Password <a href="/forgotpassword">(Forgot?)</a></label>
+				<input type="password" class="form-control" name="password" id="password" required>
+				<div class="invalid-feedback">
+					Please input a password.
+				</div>
+			</div>
+			<% if (error == 1) { %>
+			<!-- show error message if error var is 1 (failed login) -->
+			<p style="color:red;max-width:400px;margin: 0px auto 20px auto">Incorrect username and/or password. Please
+				try again.</p>
+			<% } else if (error == 2) { %>
+			<!-- show error message if error var is 2 (no account or duplicate accounts exist) -->
+			<p style="color:red;max-width:400px;margin: 0px auto 20px auto">No account exists associated with this email, please register <a href="/start">here</a>.</p>
+			<% } else if (error == 3) { %>
+			<!-- show error message if error var is 3 (no class exist) -->
+			<p style="color:red;max-width:400px;margin: 0px auto 20px auto">No class exists associated with this email, please email michael@culturestride.com</p>
+			<% } %>
+			<button type="submit" class="button button-primary button-block button-shadow"
+				style="margin: 0px auto; max-width:400px; width:100%;">Login</button>
+
+		</form>
+		<a href="/start" class="button button-secondary button-block button-shadow"
+			style="margin: 20px auto;max-width:400px;width:100%;">Sign Up</a>
+	</div>
+</div>
+
+
+<script>
+	// GOOGLE SIGN IN
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		gapi.auth2.getAuthInstance().disconnect();
+
+		// post form
+		post('/googleLogin/', {email: profile.getEmail()});
+
+	}
+
+	function renderButton() {
+		console.log('alskdjflkajfsd')
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+		'onsuccess': onSignIn,
+      });
+    }
+
+	function post(path, params, method = 'post') {
+
+		// The rest of this code assumes you are not using a library.
+		// It can be made less wordy if you use one.
+		const form = document.createElement('form');
+		form.method = method;
+		form.action = path;
+
+		for (const key in params) {
+			if (params.hasOwnProperty(key)) {
+				const hiddenField = document.createElement('input');
+				hiddenField.type = 'hidden';
+				hiddenField.name = key;
+				hiddenField.value = params[key];
+
+				form.appendChild(hiddenField);
+			}
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+	}
+</script>

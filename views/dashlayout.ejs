@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-N5GV7T8');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-74664112-8"></script>
+
+    <script type="text/javascript">
+        if (document.location.hostname.search("culturestride.com") !== -1) {
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'UA-74664112-8', {
+                'optimize_id': 'GTM-5558SXD'
+            });
+        }
+    </script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%- metadescription %>">
+
+    <!-- FB META -->
+    <meta property="og:site_name" content="Culturestride" />
+    <meta property="og:image" content="http://culturestride.com/img/fbmeta.png" />
+
+    <title><%- title %></title>
+    <link rel="shortcut icon" type="image/png" href="https://culturestride.com/img/cslogotrans.png" />
+    
+    <!-- Bootstrap -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+    <!-- FONT AWESOME CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.13.0/css/all.min.css" rel="stylesheet"> -->
+
+    <link href="https://fonts.googleapis.com/css?family=Heebo:400,500,700|Fira+Sans:600" rel="stylesheet">
+
+    <!-- JQUERY -->
+    <!-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="/css/style.css?murder21">
+
+    <!-- Needed for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+    <!-- Tiny Text Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js"></script>
+
+    <!-- MOMENT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5GV7T8" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="body-wrap boxed-container" style="max-width: 100%;">
+
+        <!-- SIDE BAR DESKTOP-->
+        <div class="container-fluid">
+            <div class="row" style="height: 100%;">
+                <div class="col mobileSideBar dashSideNav" id="mobileSideBar">
+                        <div class="row">
+
+                            <% var formattedStudyTimer = new Date(sStudyTimer * 1000).toISOString().substr(11, 8) %>
+                            <% if(sStudyTimer == null) { 
+                                        sStudyTimer = 0;
+                                    } %>
+                            <span class="badge badge-light badge-pill minitext" style="margin: 10px 0px;display:none;">Study: <span
+                                    id="studyTimer"
+                                    data-value="<%- sStudyTimer %>"><%- formattedStudyTimer %></span></span>
+
+                            <div class="col-xl-12" style="padding-top: 10%; padding-bottom: 5%">
+
+                                <% if (sProfileImage == "/img/guru.png") { %>
+                                <img class='sideBarLogo' src="<%- sProfileImage %>" data-toggle="modal"
+                                    data-target="#profileImage">
+                                <% } else { %>
+                                <img class='sideBarLogo' src="<%- sProfileImage %>" data-toggle="modal"
+                                    data-target="#profileImage">
+                                <% } %>
+                                <p class='desktopTextTopSideBar'>
+                                    <%- sFirstName + ' ' + sLastName %></p>
+                            
+
+
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <ul style="display: inline-block;padding-left:0px;width:100%">
+
+
+
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/a/classadmin">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAE5ElEQVRoge2YW2wUVRjHfzM72+223bZ7aRtqWy4NBUy0hZhQo8YYtCTe3iRK5MFYSXwhkZgghgc0hkBMMPENhUAgqAnxSRMS0MQLQkOCpYY7FKEtLbR1t3vrdHd25vhQCu7Ozu62Oy0+7O9p9nz/+S5z5nznzEKJEiVKPEokK0P/Dp9YyETy0fpZMGuuSq6bFJcL/5KluL21AKgTYYK3b6Gp6jykODcsC1BcLpo6OpCVh5JKv49ETR3t5xoYSuSs3Tb6Hd/mtMtWBv+SpWnJz+BTdPYumyg+M5uwfIwzr0021vsT0Nw8LwmlMTiYV2I5A7n4P61uywLUibDlTT+p1rOz0FgWELx9CyOVMo8bTraHFs9rUrPBsgBNVRnq7eXYWAURw0HEcPB93E/n8BNc19wLmWNOcvbCVDLJhsuBhVmwc8SygFDKzanoUp6a1Kgc/htFNwBIOBUiHhf3/FXcC1SCZLmZLwhZC+ja+N6bOwdTJIQDL0aazZ3QcCc0GsZj/DNawYW2BpJOR95A5ZLBHt9tdgRbiIr8+kIxrYF1b3U/KRCHEwUE8Ycm6ewdwBeetNRIAtqcKj2Nf7GlephqWS8u4wxMBciS+ABwFurAldRZc2GEZQNB08mwOp6g6/xNDiuXaC+LT4/J5s5WDFm6kPT8bJ1IQtA6EKTj4jBObfoJN42EebpvECNu8OVpD5GEhCpktLntnZZkWwOL5uosEJpk7fkhIh4XDeOxB6tnLC7zySkvP69o4YZWPlf3WclWQFERZhZ5JmeiVVyccoN96xfIsw/kY7CxFskwaLoXBWF9QrobqOJiWwOGbH/LLaoATZHpbwlwt87D4zdGqVAznrwkcbPZS3+zd972C1u+SkI1bnpWN9N6K0jLSBhJCHRZ5sKKekb9VWla8f42Sz97env4qOfXWcUuqgBdltOury0LcLfeQ21EZcxbieouuBsDoGY5PObDNK8vbewu+LjfHOqhLnZl1kHnyBCG2LznD/34fweLasqysHdTykOTkOV9phyK8egwzO1yPpEQpmOxqYBPX5jA5zYyh7Mii4UtIBumNSCOvybCUzKfn67m7B1X7psN6ZkT3319et6yKwBzFxLi9ZpyY19Xq7ro7B0XDe4EWzuussob4VKwhr19yxlVpzdrwyFFAcTRVYuR9QNAJ4IzKKl3pQ03B9Lc2qTJxPQKSS//+AMi1a4J6TeArR1XWR2YoNxhsKYuxNb26w+r1+XotBf9ALAOqETiRXRlvzmSTZp8BUwXcXxs96mabQAra6NptlXeyIPrKcmI3b9cmyYSdGZxa5cmDesulCIMcDlUnTac9tuVjN0P1JMmkjJ+26nJwLIASTLCAF/0tfHnmBc15eDcmJe9fctnJKlfDh2amg7s6AZOAjGQTuBIdZuTs0mTmaeVoWvTpkqhu2JWdiB08pv9vnwB5hvLs9CJI0fi69/enPJ4/Yq7yoPsUNBTGmo8RjQURBh6DGDztt01WpnysUC8ATSCuIMkHdNk166jO7dE7NRkw3IG3tm+q04TjChO818OqWSS8ZGBa4seW/ysUJy/AyuyuLhS5pCe0xJJyQ7NVzs/HM+Wp+UMCMV5ULH4flLKyvDVN9YLxXnQIijAyqQuDqE4sUUDr86qAOCVHDbK3BW1+TQF2O3UlChRosQj4F8O+e4FhuKOqAAAAABJRU5ErkJggg==" /></span>
+                                                <span class="desktopTextSideBar">My Classes</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                   
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/a/classroom">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABJElEQVRoge3ZMUvDUBTF8XOfjSVQ6eAsTo5u4gdwbrvp0llc/SjOZjWLbn4LhSIUOnUqCN2E2lo0xj5XU21fr5hehPPbCo/k/HlbChARWZLQgYv7N7+OIYucH1aXbnTrGlIWBlhjgDUGWGOANQZYY4A1BlhjgDUGWGOANQZYY4A1BlirfP1xlL58+w5628//9IWtvUr4kMK/v4H5gEnZL8xnquPPoQPFAI+ebo7eOFN9rQ/uKQaIXCn3qD2ONVcQ3lMI2I7iSwAP2lEag5HH6HWFWxB0YhcloWOFgJsTyTYcGigxYuaBu+HH8ghBx0vePDuQ99Dzfvz75vjabz5l01MvaAPYB1D77eBFnAC7dcHOlkO9KhBgAkEXkDR2UbLKeCIie5/1XTvR7p9x8AAAAABJRU5ErkJggg==" /></span>
+                                                <span class="desktopTextSideBar">Class Notes</span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/a/homework">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFfklEQVRoge2YWWxUVRjHf+fcuTPttKUDtbQFK5ssGogCbYEWiLJUNDExbg2CJCJG0RhQicHExLokhoAsMSb6IgomKqAPRAVccGErBVqFILLIkkBZWrHDTIeZ3pl7fJihUNo7y51BH+zvZSbnnvP//t+c7yx3oIce/t+I/yKoGotOHkOIMADBQBQDgIHALUAWup4X6lPquextywsGArpsD/5ZtMcY0Z2W418xXEUeGhNQVKGYhGAcEdzRh7FOOfmYg0YRaLtMW+sl2o4cA1PhkBg5gqlW2jcsAQWSiVQieRzFbFTM8LVzLgSMKCdcPBj/6dP8vasOFQ5ffQzk6jxbsI8zVnFuSAmpcRThpI5oWXRFc0BFNZGbR+Dd9SOtBxq77ZbrZEtRAzPixcpoAqqKMjTcwBQUr3XpIAWMmYYqn473h41c3L3dUivLQVO/XykVYMaLmbESUpOpQbEWkxrgmS4/TfFAeHgBwWMHObfsVcz2dmtTknZXNhWJzENm10A1oCMYBRR1tAoJ1bNQY6bSvPod/IcOWJuRGJrkUrbO7IJd1nXfaUy6rtVkajDZhUkpAhCUXbuzMPsVDEcWTW8uIOLzdoxzarS6JBukZL+QHI0E2N53P/5U46e1BtREeiM4BjwH1ALDgSagH6XDUHPfIPDbbi6seRcVCXer4dTwOiTHNMn2wn0sEtB9RwtkOgkgmAf0AaqA4lhrPwaPRM1fiq/+Z86vXmFpHqA9Qn7AYKyCvqmah3QTgJrYZzXE9vlhY1FPL8G38ztaPn0/KZFcFxuK9vGYHQO2SyhWPhc7NfYfgnp+FW2NO7nwwduglMXoq/TSWVvYyBy7PuzPgLzukMrrg/nkWxjNZ2levTyheSGgl5Nl6ZiHdHYhk/yO+ZMakSdeR2S5Ob9kESoUjDtU04jkaTxV0MBq2/FjpLON+q58Cd/1KI5Bt9H80XKMc/G3b5eDv9ySKX0a2J9G7A7sJ+DgFBFQhf3RZswmdOIIvl82WXaXAuV2sLFvIw8mc8Imi+01IH6iBThlPvIiwqHT8vFKMLuv+2wnh/N17ixq5IFMmod0T+Jx1fu1oXcM8NdtJXTySKdHQkCWxkmXxssF+1ifVpw4pJfA/fNLALxbvgBAE5hOjfMOyTang8Week6kbzE+thNQ9d+XIylThrEz+8zhl/QcThTt5nwmzSWD/RmQYiEohK4vLWigLoOeUiKlk3hlfWgHUBlRsPl4GAHcM9iB1klF7VhYkTUxkybjkeouVAnQHFBETCjMEdeZBxBVGXGWJCmV0MajnS+LZ32Kjb6UL5AZJd3b6H9OwjVQq5TM32PMkZhzFWJSMAzfngiT7YDpg7qfQIHaZiI/9Jbra2qFyOjB1TVWHFY0Ko8IG1+i1N1X2pr8ir1nI5TkCcqLtUTyW5WuP/TCaNGaEbfdYFlCtUpJYRgbrjUP4G+PXhd6OZPZwNQUaRjra5W6YaVqKdx7rzELVJe/9AJG9NOd5PJXqGmePe223raSwdKGUuY8EJz97A9a65o62l3AUMAPHEog7pnQn5Ka4SjUPOCTTBi+njhTK0YD+A602Bb3H2iOKiHG2BZJQLzajAAo0/4moiKx67VI/d+GZImXwHEAZ0G2bXG9IKuT1o3AMgGlOAjgHpJvW9x9qyeqZfK7bZEEWCYgBF8D5N5eaFs8d2R0rBR8ZVskAZYJBKVzMxB0D+uNszD1MnLelE3O4HyA4GXp3GLfYnwsE1hcJrwI1gkR3Q5TxVPZP/omD58vLhPexCPsEfeEVEKsAvCML8HhcSUtqvd24RlfAoBAvJeOwUQkvA+srA99A9xrU3/TwgrXfTbHJkXCO0pQOmciWA+EUtANKVgXlM6Z9q310EMPyfAPMLapbbR6ctoAAAAASUVORK5CYII=" /></span>
+                                                <span class="desktopTextSideBar">Exercises
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link" href="/a/messages">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAB0klEQVRoge2XMU4CQRSG/9lFE6MTKoWSeAU5ANobLqEFWGljoUiiaKioiCYQ72CittqjZxAaIwqNKzSoMxZoTMgszOAuM8T5yrfzyP9t3jyygMVimWqIakNs4ybNiLsN8CSA+RAy/dAFcMcZSu3z1KXfISWBxc3bIkB2/xxNFYKTViW1J34kSf/NOxfBpVKDg6+3q6tXg3VH9gf6Y6MPArIjqksLAHwlqDBjkhQVFQSwEFCQcaGiYmRYR6LspYlDtgGSBHg4sQCAMXx2u3h/ecaH96rU6iuwfNopcvDvjRNieABwHLiUwqUUvWYTvadH+VZRMVH20r/hJ8tsPI5INCp9XijQHxt9zCzFpM/6XWKtG8eZk/+D9xPQunGIK78cVdaokVgB3VgB3VgB3ViBCeKJilMjQIB7UX1qBBhhJVF9SgRIoV1ZuxY9GfpFppkOAWqMsJJfeMBggVY1JfwGHsTUERJuHBFGCnCfjSPCSAEH4o0jPmsehYds1PfSDmLKJe5woOaAlVTCA6oCHPv1LXqs1BMyKiOUMy08IC+Qq2dpIdQkYzJ6hAgO6hkzwwMjBDiQb2To0aTCjIPvCHEg38jSw0mGCYzE2VtedwaLxfJP+AI43Wt0ohCJrAAAAABJRU5ErkJggg==" /></span>
+                                                <span class="desktopTextSideBar">Messages
+                                                    <% if (sUnreadMsgCount > 0 ) { %>
+                                                    <span id="unreadMsgDot"
+                                                        class="unreadMsgDot badge badge-danger"><%- sUnreadMsgCount %></span>
+                                                    <% } else { %>
+                                                    <span id="unreadMsgDot" class="unreadMsgDot badge badge-danger"
+                                                        style="display:none"><%- sUnreadMsgCount %></span>
+                                                    <% } %>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+
+
+                                    <li class="nav-menu-item">
+                                        <div class="nav-wrapper">
+                                            <a class="nav-menu-link dropdown-btn" href="#">
+                                                <span style="width: 50px;"><img style="width:30px"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAS0lEQVRoge3WoRGAMAADwJZJu0QlCtkluiksAIfhGsG/jUlcSgEAcupT0PZxrizyZh79tuu2usjXDACAJF8ozQAASPKF0gwAAP7sAvoWDBbvdnE+AAAAAElFTkSuQmCC" /></span>
+                                                <span class="desktopTextSideBar"
+                                                    style="margin-right:auto">More</span>
+                                                <i class="fas fa-caret-down"></i>
+                                            </a>
+
+                                            <div class="dropdown-container">
+                                                <a class="nav-submenu-link" href="/a/slides">Syllabus Slides</a>
+                                                <a class="nav-submenu-link" href="/a/tbaudio">Textbook Audio</a>
+                                                <a class="nav-submenu-link" href="/a/settings">Settings</a>
+                                                <form class="nav-menu-link" style="margin:0; padding:0;" id="logout"
+                                                method="post" action="/a/logout">
+                                                <a class="nav-submenu-link"  onclick="document.getElementById('logout').submit();">Logout</a>
+                                            </form>
+
+
+                                            </div>
+
+                                        </div>
+                                    </li>
+
+                                    
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="mobileSideBar dashSideNav"></div>
+
+
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+                <!-- MOBILE TOP NAV -->
+
+
+
+
+                <div class="col" style="padding:0;">
+                    <nav class="navbar navbar-light mobileTopNav">
+                        <a class="navbar-brand" style="width: 13vw;max-width: 60px;" href="/a/classroom">
+                            <img src="/img/cslogotrans.png" />
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                             
+                             
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/a/classadmin">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAE5ElEQVRoge2YW2wUVRjHfzM72+223bZ7aRtqWy4NBUy0hZhQo8YYtCTe3iRK5MFYSXwhkZgghgc0hkBMMPENhUAgqAnxSRMS0MQLQkOCpYY7FKEtLbR1t3vrdHd25vhQCu7Ozu62Oy0+7O9p9nz/+S5z5nznzEKJEiVKPEokK0P/Dp9YyETy0fpZMGuuSq6bFJcL/5KluL21AKgTYYK3b6Gp6jykODcsC1BcLpo6OpCVh5JKv49ETR3t5xoYSuSs3Tb6Hd/mtMtWBv+SpWnJz+BTdPYumyg+M5uwfIwzr0021vsT0Nw8LwmlMTiYV2I5A7n4P61uywLUibDlTT+p1rOz0FgWELx9CyOVMo8bTraHFs9rUrPBsgBNVRnq7eXYWAURw0HEcPB93E/n8BNc19wLmWNOcvbCVDLJhsuBhVmwc8SygFDKzanoUp6a1Kgc/htFNwBIOBUiHhf3/FXcC1SCZLmZLwhZC+ja+N6bOwdTJIQDL0aazZ3QcCc0GsZj/DNawYW2BpJOR95A5ZLBHt9tdgRbiIr8+kIxrYF1b3U/KRCHEwUE8Ycm6ewdwBeetNRIAtqcKj2Nf7GlephqWS8u4wxMBciS+ABwFurAldRZc2GEZQNB08mwOp6g6/xNDiuXaC+LT4/J5s5WDFm6kPT8bJ1IQtA6EKTj4jBObfoJN42EebpvECNu8OVpD5GEhCpktLntnZZkWwOL5uosEJpk7fkhIh4XDeOxB6tnLC7zySkvP69o4YZWPlf3WclWQFERZhZ5JmeiVVyccoN96xfIsw/kY7CxFskwaLoXBWF9QrobqOJiWwOGbH/LLaoATZHpbwlwt87D4zdGqVAznrwkcbPZS3+zd972C1u+SkI1bnpWN9N6K0jLSBhJCHRZ5sKKekb9VWla8f42Sz97env4qOfXWcUuqgBdltOury0LcLfeQ21EZcxbieouuBsDoGY5PObDNK8vbewu+LjfHOqhLnZl1kHnyBCG2LznD/34fweLasqysHdTykOTkOV9phyK8egwzO1yPpEQpmOxqYBPX5jA5zYyh7Mii4UtIBumNSCOvybCUzKfn67m7B1X7psN6ZkT3319et6yKwBzFxLi9ZpyY19Xq7ro7B0XDe4EWzuussob4VKwhr19yxlVpzdrwyFFAcTRVYuR9QNAJ4IzKKl3pQ03B9Lc2qTJxPQKSS//+AMi1a4J6TeArR1XWR2YoNxhsKYuxNb26w+r1+XotBf9ALAOqETiRXRlvzmSTZp8BUwXcXxs96mabQAra6NptlXeyIPrKcmI3b9cmyYSdGZxa5cmDesulCIMcDlUnTac9tuVjN0P1JMmkjJ+26nJwLIASTLCAF/0tfHnmBc15eDcmJe9fctnJKlfDh2amg7s6AZOAjGQTuBIdZuTs0mTmaeVoWvTpkqhu2JWdiB08pv9vnwB5hvLs9CJI0fi69/enPJ4/Yq7yoPsUNBTGmo8RjQURBh6DGDztt01WpnysUC8ATSCuIMkHdNk166jO7dE7NRkw3IG3tm+q04TjChO818OqWSS8ZGBa4seW/ysUJy/AyuyuLhS5pCe0xJJyQ7NVzs/HM+Wp+UMCMV5ULH4flLKyvDVN9YLxXnQIijAyqQuDqE4sUUDr86qAOCVHDbK3BW1+TQF2O3UlChRosQj4F8O+e4FhuKOqAAAAABJRU5ErkJggg==" /></span>
+                                            <span>My Classes</span>
+                                        </a>
+                                    </div>
+                                </li>
+                               
+
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/a/classroom">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABJElEQVRoge3ZMUvDUBTF8XOfjSVQ6eAsTo5u4gdwbrvp0llc/SjOZjWLbn4LhSIUOnUqCN2E2lo0xj5XU21fr5hehPPbCo/k/HlbChARWZLQgYv7N7+OIYucH1aXbnTrGlIWBlhjgDUGWGOANQZYY4A1BlhjgDUGWGOANQZYY4A1BlirfP1xlL58+w5628//9IWtvUr4kMK/v4H5gEnZL8xnquPPoQPFAI+ebo7eOFN9rQ/uKQaIXCn3qD2ONVcQ3lMI2I7iSwAP2lEag5HH6HWFWxB0YhcloWOFgJsTyTYcGigxYuaBu+HH8ghBx0vePDuQ99Dzfvz75vjabz5l01MvaAPYB1D77eBFnAC7dcHOlkO9KhBgAkEXkDR2UbLKeCIie5/1XTvR7p9x8AAAAABJRU5ErkJggg==" /></span>
+                                            <span>Class Notes</span>
+                                        </a>
+                                    </div>
+                                </li>
+
+
+                                
+                                        
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/a/homework">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFfklEQVRoge2YWWxUVRjHf+fcuTPttKUDtbQFK5ssGogCbYEWiLJUNDExbg2CJCJG0RhQicHExLokhoAsMSb6IgomKqAPRAVccGErBVqFILLIkkBZWrHDTIeZ3pl7fJihUNo7y51BH+zvZSbnnvP//t+c7yx3oIce/t+I/yKoGotOHkOIMADBQBQDgIHALUAWup4X6lPquextywsGArpsD/5ZtMcY0Z2W418xXEUeGhNQVKGYhGAcEdzRh7FOOfmYg0YRaLtMW+sl2o4cA1PhkBg5gqlW2jcsAQWSiVQieRzFbFTM8LVzLgSMKCdcPBj/6dP8vasOFQ5ffQzk6jxbsI8zVnFuSAmpcRThpI5oWXRFc0BFNZGbR+Dd9SOtBxq77ZbrZEtRAzPixcpoAqqKMjTcwBQUr3XpIAWMmYYqn473h41c3L3dUivLQVO/XykVYMaLmbESUpOpQbEWkxrgmS4/TfFAeHgBwWMHObfsVcz2dmtTknZXNhWJzENm10A1oCMYBRR1tAoJ1bNQY6bSvPod/IcOWJuRGJrkUrbO7IJd1nXfaUy6rtVkajDZhUkpAhCUXbuzMPsVDEcWTW8uIOLzdoxzarS6JBukZL+QHI0E2N53P/5U46e1BtREeiM4BjwH1ALDgSagH6XDUHPfIPDbbi6seRcVCXer4dTwOiTHNMn2wn0sEtB9RwtkOgkgmAf0AaqA4lhrPwaPRM1fiq/+Z86vXmFpHqA9Qn7AYKyCvqmah3QTgJrYZzXE9vlhY1FPL8G38ztaPn0/KZFcFxuK9vGYHQO2SyhWPhc7NfYfgnp+FW2NO7nwwduglMXoq/TSWVvYyBy7PuzPgLzukMrrg/nkWxjNZ2levTyheSGgl5Nl6ZiHdHYhk/yO+ZMakSdeR2S5Ob9kESoUjDtU04jkaTxV0MBq2/FjpLON+q58Cd/1KI5Bt9H80XKMc/G3b5eDv9ySKX0a2J9G7A7sJ+DgFBFQhf3RZswmdOIIvl82WXaXAuV2sLFvIw8mc8Imi+01IH6iBThlPvIiwqHT8vFKMLuv+2wnh/N17ixq5IFMmod0T+Jx1fu1oXcM8NdtJXTySKdHQkCWxkmXxssF+1ifVpw4pJfA/fNLALxbvgBAE5hOjfMOyTang8Week6kbzE+thNQ9d+XIylThrEz+8zhl/QcThTt5nwmzSWD/RmQYiEohK4vLWigLoOeUiKlk3hlfWgHUBlRsPl4GAHcM9iB1klF7VhYkTUxkybjkeouVAnQHFBETCjMEdeZBxBVGXGWJCmV0MajnS+LZ32Kjb6UL5AZJd3b6H9OwjVQq5TM32PMkZhzFWJSMAzfngiT7YDpg7qfQIHaZiI/9Jbra2qFyOjB1TVWHFY0Ko8IG1+i1N1X2pr8ir1nI5TkCcqLtUTyW5WuP/TCaNGaEbfdYFlCtUpJYRgbrjUP4G+PXhd6OZPZwNQUaRjra5W6YaVqKdx7rzELVJe/9AJG9NOd5PJXqGmePe223raSwdKGUuY8EJz97A9a65o62l3AUMAPHEog7pnQn5Ka4SjUPOCTTBi+njhTK0YD+A602Bb3H2iOKiHG2BZJQLzajAAo0/4moiKx67VI/d+GZImXwHEAZ0G2bXG9IKuT1o3AMgGlOAjgHpJvW9x9qyeqZfK7bZEEWCYgBF8D5N5eaFs8d2R0rBR8ZVskAZYJBKVzMxB0D+uNszD1MnLelE3O4HyA4GXp3GLfYnwsE1hcJrwI1gkR3Q5TxVPZP/omD58vLhPexCPsEfeEVEKsAvCML8HhcSUtqvd24RlfAoBAvJeOwUQkvA+srA99A9xrU3/TwgrXfTbHJkXCO0pQOmciWA+EUtANKVgXlM6Z9q310EMPyfAPMLapbbR6ctoAAAAASUVORK5CYII=" /></span>
+                                            <span style="margin-right:auto">Exercises
+                                            </span>
+                                        </a>
+                                    </div>
+                                </li>
+
+
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link" href="/a/messages">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAB0klEQVRoge2XMU4CQRSG/9lFE6MTKoWSeAU5ANobLqEFWGljoUiiaKioiCYQ72CittqjZxAaIwqNKzSoMxZoTMgszOAuM8T5yrfzyP9t3jyygMVimWqIakNs4ybNiLsN8CSA+RAy/dAFcMcZSu3z1KXfISWBxc3bIkB2/xxNFYKTViW1J34kSf/NOxfBpVKDg6+3q6tXg3VH9gf6Y6MPArIjqksLAHwlqDBjkhQVFQSwEFCQcaGiYmRYR6LspYlDtgGSBHg4sQCAMXx2u3h/ecaH96rU6iuwfNopcvDvjRNieABwHLiUwqUUvWYTvadH+VZRMVH20r/hJ8tsPI5INCp9XijQHxt9zCzFpM/6XWKtG8eZk/+D9xPQunGIK78cVdaokVgB3VgB3VgB3ViBCeKJilMjQIB7UX1qBBhhJVF9SgRIoV1ZuxY9GfpFppkOAWqMsJJfeMBggVY1JfwGHsTUERJuHBFGCnCfjSPCSAEH4o0jPmsehYds1PfSDmLKJe5woOaAlVTCA6oCHPv1LXqs1BMyKiOUMy08IC+Qq2dpIdQkYzJ6hAgO6hkzwwMjBDiQb2To0aTCjIPvCHEg38jSw0mGCYzE2VtedwaLxfJP+AI43Wt0ohCJrAAAAABJRU5ErkJggg==" /></span>
+                                            <span>Messages
+                                                <% if (sUnreadMsgCount > 0 ) { %>
+                                                <span id="unreadMsgDot"
+                                                    class="unreadMsgDot badge badge-danger"><%- sUnreadMsgCount %></span>
+                                                <% } else { %>
+                                                <span id="unreadMsgDot" class="unreadMsgDot badge badge-danger"
+                                                    style="display:none"><%- sUnreadMsgCount %></span>
+                                                <% } %>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </li>
+
+
+
+                                <li class="nav-menu-item">
+                                    <div class="nav-wrapper">
+                                        <a class="nav-menu-link dropdown-btn" href="#">
+                                            <span style="width: 50px;"><img style="width:30px"
+                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAS0lEQVRoge3WoRGAMAADwJZJu0QlCtkluiksAIfhGsG/jUlcSgEAcupT0PZxrizyZh79tuu2usjXDACAJF8ozQAASPKF0gwAAP7sAvoWDBbvdnE+AAAAAElFTkSuQmCC" /></span>
+                                            <span style="margin-right:auto">More</span>
+                                            <i class="fas fa-caret-down"></i>
+                                        </a>
+
+
+                                        <div class="dropdown-container">
+                                            <a class="nav-submenu-link" href="/a/slides">Syllabus Slides</a>
+                                            <a class="nav-submenu-link" href="/a/tbaudio">Textbook Audio</a>
+                                            <a class="nav-submenu-link" href="/a/settings">Settings</a>
+                                            <form style="padding:0;" class="nav-menu-link" id="logout" method="post"
+                                            action="/a/logout">
+                                            <a class="nav-submenu-link" onclick="document.getElementById('logout').submit();" >Logout</a>
+                                        </form>
+
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <main class="loggedInContainer">
+                        <!-- GOOGLE SIGN IN -->
+                        <meta name="google-signin-client_id"
+                            content="153331140020-44mnj5644u0lgvfbficdl4feepd0ddjp.apps.googleusercontent.com">
+                        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+                        <!-- Upload Profile Image -->
+                        <form id="uploadProfileImageGoogle" method="post" action="/uploadProfileImageGoogle">
+                            <input type='hidden' name='googleProfileImage' id='googleProfileImage' value=''>
+
+                            <div class="modal fade" id="profileImage" tabindex="-1" role="dialog"
+                                aria-labelledby="profileImageLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="profileImageLabel">
+                                                Sync your Google profile image to Culturestride</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div style="text-align: center">
+                                                <div style="width: 120px;margin: 0 auto;" class="g-signin2"
+                                                    data-onsuccess="onSignIn"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Main content here as defined in .ejs views -->
+                        <%- defineContent('body') %>
+
+                        <div id="sSlug" style="display:none"><%- sSlug %></div>
+                        <div id="sFirstName" style="display:none"><%- sFirstName %></div>
+                        <div id="sTeachingRoomID" style="display:none"><%- sTeachingRoomID %></div>
+                        <div id="sProfileImage" style="display:none"><%- sProfileImage %></div>
+                        <div id="sNextMeetingTime" style="display:none"><%- sNextMeetingTime %></div>
+
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configure font awesome to not replace fa with svg -->
+    <script type="text/javascript">
+        window.FontAwesomeConfig = {
+            autoReplaceSvg: false
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+    <script src="/js/main.min.js"></script>
+
+    <!-- Bootstrap Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!--  bootstrap Latest compiled JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+
+    <script>
+        var sSlug = document.getElementById("sSlug").innerHTML;
+        // SOCKET FOR NOTIF
+        const socket = io({
+            transports: ['websocket', 'polling']
+        });
+        var slug = sSlug;
+        socket.on('connect', function () {
+            socket.emit('join notif channel', slug);
+        });
+        socket.on("notif unread message", function (data) {
+            var msgCount = document.getElementById("unreadMsgDot").innerHTML;
+            // enable red dot in messages side bar
+            var dots = document.getElementsByClassName("unreadMsgDot");
+            msgCount++;
+            for (var i = 0; i < dots.length; i++) { // we use this to update mobile and desktop
+                dots[i].style.display = "inline-block";
+                dots[i].innerHTML = msgCount;
+            }
+            // enable and update red dots in messages middle bar (channels) if user is on sohomessages
+            try {
+                document.getElementById("unreadMsgDot" + data).style.display = 'inline-block';
+                var count = document.getElementById("unreadMsgDot" + data).innerHTML;
+                count++;
+                document.getElementById("unreadMsgDot" + data).innerHTML = count;
+            } catch (e) {}
+            ajaxUpdateUnreadMsgCount(msgCount);
+        });
+
+        function ajaxUpdateUnreadMsgCount(msgCount) { // ajax for update session var so that custom mark view is saved
+            $.ajax({
+                type: "POST",
+                url: "/ajaxUpdateUnreadMsgCount",
+                timeout: 30000,
+                data: {
+                    msgCount: msgCount,
+                    who: 'stu',
+                },
+                success: function (data) {
+                    //show content
+                    console.log('successful post');
+                },
+                error: function (jqXHR, textStatus, err) {
+                    //show error message
+                    console.log('unsuccessful post');
+                }
+            });
+        }
+        /* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
+        function mobileSideBar() {
+            var x = document.getElementById("mobileSideBar");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+        function showSideBar() {
+            $('#mobileSideBar').css("maxWidth", "16.67%"); // return sidebar to normal width  
+            $('.desktopTextSideBar').show();
+            $('.desktopTextTopSideBar').show();
+        }
+
+        // GOOGLE SIGN IN
+        function onSignIn(googleUser) {
+            console.log('google Auth successful')
+            var profile = googleUser.getBasicProfile();
+            gapi.auth2.getAuthInstance().disconnect();
+
+            // add data to req.body properties
+            document.getElementById('googleProfileImage').value = profile.getImageUrl();
+
+            // post form
+            document.forms["uploadProfileImageGoogle"].submit();
+        }
+
+        // REFER SMOKESCREEN TEST
+        function ajaxReferBtnClicked() { // ajax for update session var so that custom mark view is saved
+            $.ajax({
+                type: "POST",
+                url: "/ajaxReferBtnClicked",
+                timeout: 30000,
+                success: function (data) {
+                    //show content
+                    console.log('successful post');
+                },
+                error: function (jqXHR, textStatus, err) {
+                    //show error message
+                    console.log('unsuccessful post');
+                }
+            });
+        }
+
+
+        // join next meeting time
+        var nextMeetingTime = document.getElementById('sNextMeetingTime').textContent;
+        var nextMeetingTimeMom = moment(nextMeetingTime, 'YYYY-MM-DDTHH:mm:ssZ').local().format('ddd, MMM DD LT');
+        try {
+        document.getElementById('joinNextMeetingTime').textContent = nextMeetingTimeMom;
+        } catch (e) {
+        }
+    </script>
+</body>
+
+</html>

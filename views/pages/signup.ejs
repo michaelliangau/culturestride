@@ -1,0 +1,112 @@
+<!-- GOOGLE SIGN IN -->
+<meta name="google-signin-client_id" content="153331140020-44mnj5644u0lgvfbficdl4feepd0ddjp.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+<div class="features-wrap" style="margin-top:40px">
+	<div class="features-header text-center">
+		<div class="container-sm" style="padding: 0px 16px">
+			<h2 class="section-title mt-0" style="margin-bottom:0px">Sign Up</h2>
+			<br>
+			<p style="padding: 0px 15px">
+				Get 1 Theory and 1 Practical class free.
+				<br>
+				<a class="subtext" href="/login">Already have an account?</a>
+
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12" style="padding:0px 20%">
+		<div style="width: 250px;margin: 0 auto;" id="my-signin2"></div>
+
+		<div class="row" style="max-width: 400px;margin: 0 auto;">
+			<div class="col">
+				<hr>
+			</div>
+		</div>
+		<form id="startForm" method="post" class="needs-validation" action="/signup" validate>
+	<input type="hidden" name='timezone' id="timezone" value="">
+	<input type="hidden" name='profileImage' id="profileImage" value="">
+
+			<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+				<label for="fullName">Full Name</label>
+				<input class="form-control" type="text" name="fullName" id="fullName" placeholder="Jerry Smith"
+					required>
+					<small id="emailHelp" class="minitext form-text text-muted">Please use your real full name.</small>
+
+				<div class="invalid-feedback">
+					Please input your full name.
+				</div>
+			</div>
+			<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+				<label for="email">Email</label>
+				<input type="text" class="form-control" name="email" id="email" required>
+				<div class="invalid-feedback">
+					Please input a valid email address.
+				</div>
+			</div>
+			<div class="form-group" style="max-width:400px;margin: 0px auto 20px auto">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" name="password" id="password" required>
+				<div class="invalid-feedback">
+					Please input a password.
+				</div>
+			</div>
+			<% if (error == 2) { %>
+				<p style="color:red;max-width:400px;margin: 0px auto 20px auto">An account with the same email address already exists.</p>
+			<% } else if (error == 3) { %>
+			<!-- show error message if error var is 3 (no class exist) -->
+			<p style="color:red;max-width:400px;margin: 0px auto 20px auto">No class exists associated with this email, please email michael@culturestride.com</p>
+			<% } %>
+			<button type="submit" class="button button-primary button-block button-shadow"
+				style="margin: 0px auto; max-width:400px; width:100%;">Next</button>
+
+		</form>
+
+	</div>
+</div>
+
+
+<script>
+		$(document).ready(function () {
+		var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		document.getElementById('timezone').value = timezone;
+			
+		$(function () {
+                $('[data-toggle="tooltip"]').tooltip({
+                  boundary: 'window',
+                });
+              });
+
+	});
+
+	// GOOGLE SIGN IN
+	function onSignIn(googleUser) {
+		console.log('google Auth successful')
+		var profile = googleUser.getBasicProfile();
+		gapi.auth2.getAuthInstance().disconnect();
+
+		// add name, email and image to req.body properties
+		document.getElementById("fullName").value = profile.getName();
+		document.getElementById("email").value = profile.getEmail();
+		document.getElementById("profileImage").value = profile.getImageUrl();
+		document.getElementById("password").value = null;
+
+		// post form
+		document.forms["startForm"].submit();
+	}
+
+
+	function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+		'onsuccess': onSignIn,
+      });
+    }
+</script>

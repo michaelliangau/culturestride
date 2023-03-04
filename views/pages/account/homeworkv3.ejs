@@ -1,0 +1,1368 @@
+<!-- TOAST -->
+<div id="hwToggleToast" class="toast mobileHide" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Homework settings updated, you will see changes after you complete this batch of homework.
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="audioToast" class="toast mobileHide" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Attempting to play audio for <span id="audioToastChar"></span>
+    </div>
+</div>
+
+
+<!-- Homework save TOAST -->
+<div id="homeworkSaveToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive"
+  aria-atomic="true" style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Homework successfully saved</span>
+  </div>
+</div>
+
+
+<!-- Homework skip TOAST -->
+<div id="homeworkSkipToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive"
+  aria-atomic="true" style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Homework successfully skipped</span>
+  </div>
+</div>
+
+
+<!-- Homework skip TOAST -->
+<div id="homeworkCompleteToast" class="toast mobileHide" data-delay="3000" role="alert" aria-live="assertive"
+  aria-atomic="true" style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Homework successfully archived to completed homework</span>
+  </div>
+</div>
+
+
+
+<div class="row" style="margin:-30px">
+  <div class="col-sm-12" id="rightBar" style="height: 100vh;overflow: hidden;overflow-y: scroll;">
+
+
+
+    <div class="col-sm-12 desktopHide" style="background: #f6f9fc;overflow: hidden;overflow-y: scroll; height: 100vh;"
+    id="midBar">
+
+
+    <ul style="display: inline-block;padding-left:5px;width:100%">
+
+      <% for (var i = 0 ; i < homeworkAssigned.length ; i ++) { %>
+      <li class="nav-menu-item">
+        <div class="nav-wrapper">
+          <% if (homeworkAssigned[i].state == 'complete') { %>
+          <a class="nav-menu-link disableFade" href="<%- '#box' + homeworkAssigned[i].sohoHAID %>"
+            id="<%- 'question' + i %>" data-value="<%- homeworkAssigned[i].sohoHAID %>">
+            <% } else { %>
+            <a class="nav-menu-link" href="<%- '#box' + homeworkAssigned[i].sohoHAID %>" id="<%- 'question' + i %>"
+              data-value="<%- homeworkAssigned[i].sohoHAID %>">
+              <% } %>
+
+              <span>
+                <% if (homeworkAssigned[i].state == 'stuAction') { %>
+                <span id="idPillMid<%- homeworkAssigned[i].sohoHAID %>"
+                  class="badge badge-pill badge-danger"><%- 'ID: ' + homeworkAssigned[i].sohoHAID %></span>
+                <% } else { %>
+                <span id="idPillMid<%- homeworkAssigned[i].sohoHAID %>"
+                  class="badge badge-pill badge-light"><%- 'ID: ' + homeworkAssigned[i].sohoHAID %></span>
+                <% } %>
+
+                <span class="badge badge-pill badge-light"><%- 'HSK ' +  homeworkAssigned[i].level %></span>
+
+                <% if (homeworkAssigned[i].assignedBy != null) { %>
+                <span class="badge badge-light badge-pill">
+                  <svg xmlns="http://www.w3.org/2000/svg" style="display:inline; color:gold;" width="16" height="16"
+                    fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                  </svg>
+                </span>
+                <% } %>
+
+                <% if (homeworkAssigned[i].likeCount > 0) { %>
+                <span class="badge badge-light badge-pill">
+                  <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-flex;color:gold;" width="16" height="16"
+                    fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                  </svg>
+                  <span class="badge badge-light badge-pill"><%- homeworkAssigned[i].likeCount %></span>
+                </span>
+                <% } %>
+
+              </span>
+            </a>
+        </div>
+      </li>
+      <% } %>
+
+    </ul>
+
+  </div>
+
+    <div id="backButton" style="padding: 10px"></div>
+
+    <div class="box-shadow mobileHide"
+      style="width: 100%;position:inherit; padding:10px 40px;">
+    <select id="level" name="level" class="custom-select" style="margin:10px 0px; width:fit-content;">
+      <option value="0">HSK 0 (absolute beginner)</option>
+      <option value="1">HSK 1 (beginner)</option>
+      <option value="2">HSK 2 (beginner)</option>
+      <option value="3">HSK 3 (intermediate)</option>
+      <option value="4">HSK 4 (intermediate)</option>
+      <option value="5">HSK 5 (advanced)</option>
+    </select>
+    <a class="button button-secondary button-block button-shadow button-icon"
+    style="display:inline-flex; margin-bottom: 10px;" data-toggle="tooltip"
+    title="Assign a random exercise at this level" href="javascript:void(0);" onclick="assignHomework()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+      <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+    </svg>
+  </a>
+  <a class="button button-secondary button-block button-shadow button-icon"
+  style="display:inline-flex; margin-bottom: 10px;" data-toggle="tooltip"
+  title="Browse community exercises" href="/a/exercise">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+  </svg>
+</a>
+      <a class="button button-secondary button-block button-shadow button-icon"
+        style="display:inline-flex; margin-bottom: 10px;" data-toggle="tooltip"
+        title="View completed homework" href="/a/homework/completed">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-folder-check" viewBox="0 0 16 16">
+        <path
+          d="M.5 3l.04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z" />
+        <path
+          d="M15.854 10.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708l1.146 1.147 2.646-2.647a.5.5 0 0 1 .708 0z" />
+      </svg>
+      </a>
+
+  </div>
+  <% if (homeworkAssigned.length == 0) { %>
+    <div id="box0" class="box-shadow mobileHide scrollHighlight"
+      style="width: 100%;position:inherit;height:70vh; opacity: 1;">
+      <div id="hwBox0" class="homework-box" style="position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+      You have no incomplete homework tasks. Well done
+      <img style="display:inline-flex;width:30px;" src="data:image/png;base64,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"/>
+          </div>
+        </div>
+  <% } %>
+
+
+    <% for (var i = 0 ; i < homeworkAssigned.length ; i ++) { %>
+
+      <% if (i == 0) { %>
+    <div id="<%- 'box' + homeworkAssigned[i].sohoHAID %>" class="box-shadow mobileHide scrollHighlight"
+      style="width: 100%;position:inherit;height:fit-content; min-height:70vh; opacity: 1;">
+    <% } else { %>
+      <div id="<%- 'box' + homeworkAssigned[i].sohoHAID %>" class="box-shadow mobileHide scrollHighlight"
+        style="width: 100%;position:inherit;height:fit-content; min-height:70vh; opacity: 0.1;">
+    <% } %>
+
+      <div id="<%- 'hwBox' + homeworkAssigned[i].sohoHAID %>" class="homework-box" style="display:flex;flex-direction:column;height:100%">
+        <div id="pills<%- homeworkAssigned[i].sohoHAID %>">
+
+        <% if (homeworkAssigned[i].state == 'stuAction') { %>
+        <span id="idPillRight<%- homeworkAssigned[i].sohoHAID %>"
+          class="badge badge-pill badge-danger"><%- 'ID: ' + homeworkAssigned[i].sohoHAID %></span>
+        <% } else { %>
+        <span id="idPillRight<%- homeworkAssigned[i].sohoHAID %>"
+          class="badge badge-pill badge-light"><%- 'ID: ' + homeworkAssigned[i].sohoHAID %></span>
+        <% } %>
+
+        <span
+          class="badge badge-pill badge-light"><%- 'HSK ' + homeworkAssigned[i].level + ' ' + homeworkAssigned[i].questionType %></span>
+        <span
+          class="badge badge-pill badge-light mobileHide"><%- 'Difficulty: ' + homeworkAssigned[i].difficulty %></span>
+
+
+        <% if (homeworkAssigned[i].assignedBy != null) { %>
+        <span class="badge badge-light badge-pill mobileHide">
+          <svg xmlns="http://www.w3.org/2000/svg" style="display:inline; color:gold;" width="16" height="16"
+            fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+            <path
+              d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+          </svg> Assigned by teacher
+        </span>
+        <% } %>
+
+        <% if (homeworkAssigned[i].likeCount > 0) { %>
+        <span class="badge badge-light badge-pill mobileHide" data-toggle="tooltip"
+          title="Liked by <%- homeworkAssigned[i].likeNames %>">
+          <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-flex;color:gold;" width="16" height="16"
+            fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+            <path
+              d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+          </svg>
+          <span class="badge badge-light badge-pill"><%- homeworkAssigned[i].likeCount %></span>
+        </span>
+        <% } %>
+          <span id="autosaveText<%- homeworkAssigned[i].sohoHAID %>"  class="badge badge-light badge-pill"></span>
+
+        </div>
+        <div style="font-size:0.9rem" class="pinyinAudio">
+          <%- homeworkAssigned[i].question %>
+        </div>
+
+
+        <% if (homeworkAssigned[i].questionType != 'Speaking') { %>
+
+        <!-- TEXT INPUT -->
+        <form method="post">
+
+          <input type='hidden' name='homeworkID' id='homeworkID' value='<%- homeworkAssigned[i].sohoHAID %>'>
+
+
+          
+       
+          
+            <button type="button"  id="completeButton<%- i %>"
+              style="display:none;">
+            </button>
+
+          <button type="button" onclick="skip(<%- homeworkAssigned[i].sohoHAID %>)" id="skipButton<%- i %>"
+            style="margin:10px 0px 10px 5px;display:inline; float: right;"
+            class="button button-secondary button-block button-shadow" data-toggle="tooltip"
+            title="Skip homework">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16">
+              <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.752l-6.267 3.636c-.52.302-1.233-.043-1.233-.696v-2.94l-6.267 3.636C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696L7.5 7.248v-2.94c0-.653.713-.998 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5zM1 4.633v6.734L6.804 8 1 4.633zm7.5 0v6.734L14.304 8 8.5 4.633z"/>
+            </svg>
+          </button>
+
+
+          <button type="button" onclick="save(<%- homeworkAssigned[i].sohoHAID %>, <%- i %>)" id="saveButton<%- i %>"
+            style="margin:10px 0px 10px 5px; float: right; display: none"
+            class="button button-secondary button-block button-shadow" data-toggle="tooltip" title="Submit homework">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+              <path
+                d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707V11.5z" />
+              <path
+                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+            </svg>
+          </button>
+          
+          <input type='hidden' name='sClass' id='sClass' value='<%- sClass %>'>
+
+       
+          <br>
+
+          <div id="htmlTextEditor<%- i %>"
+            onclick="tinyMCEinit(<%- i %>,<%- homeworkAssigned[i].sohoHAID %>,<%- homeworkAssigned[i].sohoHID %>,<%- sClass %>)"
+            class="border-secondary tinyPlaceholderTextBox" style="max-height:40vh;height:40vh;word-break: break-word;">
+            <div id="tooltip<%- i %>" class="subtext badge badge-pill badge-light mobileHide" style="float: right;">
+            </div>
+            <%- homeworkAssigned[i].answer %>
+          </div>
+
+          <textarea data-id="<%- i %>" data-homeworkAssignmentID="<%- homeworkAssigned[i].sohoHAID %>"
+            id="<%- 'tinyTextEditor' + i %>" name="tinyTextEditor" style="display:none; width:100%">
+          <%- homeworkAssigned[i].answer %>
+      </textarea>
+        </form>
+
+        <!-- END TEXT INPUT -->
+
+        <% } else { %>
+
+        <!-- RECORD AUDIO INPUT -->
+        <div style="text-align: right;margin:10px 0px;">
+          <button class="button button-secondary button-block button-shadow"
+            id="record<%- homeworkAssigned[i].sohoHAID %>"
+            onclick="initSpeakingAudio(<%- homeworkAssigned[i].sohoHAID %>, <%- i %>)"
+            style="margin:10px 5px 10px 0px; padding: 15px; border-radius: 50%;display:inline; float:left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+              <path fill-rule="evenodd"
+                d="M10 8V3a2 2 0 1 0-4 0v5a2 2 0 1 0 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z" />
+            </svg>
+          </button>
+
+          
+          <button class="button button-secondary button-block button-shadow blink"
+            id="pause<%- homeworkAssigned[i].sohoHAID %>"
+            style="margin:10px 5px 10px 0px; padding: 15px; border-radius: 50%; display:none; float:left;" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
+              <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+          </button>
+ 
+          <button class="button button-secondary button-block button-shadow"
+            id="resume<%- homeworkAssigned[i].sohoHAID %>"
+            style="margin:10px 5px 10px 0px; padding: 15px; border-radius: 50%; display:none; float:left;" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+              <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+            </svg>
+          </button>
+
+          <button class="button button-secondary button-block button-shadow"
+            id="stop<%- homeworkAssigned[i].sohoHAID %>"
+            style="margin:10px 5px 10px 0px; padding: 15px; border-radius: 50%; display:none; float:left;"
+            disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop" viewBox="0 0 16 16">
+              <path d="M3.5 5A1.5 1.5 0 0 1 5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5zM5 4.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V5a.5.5 0 0 0-.5-.5H5z"/>
+            </svg>
+          </button>
+
+          <!-- MARK AS COMPLETE BUTTON - AUDIO -->
+          <form method="post" style="display:inline">
+            <input type='hidden' name='homeworkID' id='homeworkID' value='<%- homeworkAssigned[i].sohoHAID %>'>
+
+           
+              
+              <button type="button" onclick="skip(<%- homeworkAssigned[i].sohoHAID %>)" id="skipButton<%- i %>"
+                style="margin:10px 0px 10px 5px;display:inline; float: right;"
+                class="button button-secondary button-block button-shadow" data-toggle="tooltip"
+                title="Skip homework">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16">
+                  <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.752l-6.267 3.636c-.52.302-1.233-.043-1.233-.696v-2.94l-6.267 3.636C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696L7.5 7.248v-2.94c0-.653.713-.998 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5zM1 4.633v6.734L6.804 8 1 4.633zm7.5 0v6.734L14.304 8 8.5 4.633z"/>
+                </svg>
+              </button>
+    
+
+
+
+          <!-- SAVE BUTTON - AUDIO -->
+          <button type="button" onclick="uploadSpeaking(<%- homeworkAssigned[i].sohoHAID %>)" id="audioSaveButton<%- i %>"
+            style="margin:10px 0px 10px 5px;display:none; float:right;" class="button button-secondary button-block button-shadow"
+            data-toggle="tooltip" data-placement="top" title="Submit homework">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+              <path
+                d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707V11.5z" />
+              <path
+                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+            </svg>
+          </button>
+
+          <input type='hidden' name='sClass' id='sClass' value='<%- sClass %>'>
+
+        
+
+    </form>
+
+        </div>
+
+        <div id="recording<%- homeworkAssigned[i].sohoHAID %>" style="display:none">
+          <span class="subtext">Recording</span>
+          <audio id="audio<%- homeworkAssigned[i].sohoHAID %>" controls></audio>
+        </div>
+
+        <% if (homeworkAssigned[i].answer) { %>
+
+        <div class="homeworkSpeakingAnswer">
+          <span>Submitted Answer</span>
+          <% if (homeworkAssigned[i].answer.charAt(0) == 'h') { %>
+          <div class="qAudio">
+            <figure><audio controls="" id="audioPreview" src="<%- homeworkAssigned[i].answer %>" type="audio/mp3"
+                preload="none">Your browser does not support this <code>audio</code> element.</audio></figure>
+          </div>
+
+          <% } else { %>
+          <%- homeworkAssigned[i].answer %>
+          <% } %>
+        </div>
+        <% } %>
+
+        <!-- END RECORD AUDIO INPUT -->
+
+        <% } %>
+
+        <br>
+
+        <div id="<%- 'annotated' + i %>">
+          <!-- ANNOTATED TEXT -->
+          <h5 id="<%- 'annotatedTitle' + i %>" style="margin:10px 0px 5px 0px;display:none">Annotated Text</h5>
+
+          <p id="<%- 'annotatedText' + i %>" class="subtext pinyinAudioShowPY" style="display:none"></p>
+
+          <!-- OTHER STUDENT ANSWERS -->
+          <h5 id="<%- 'answerTitle' + i %>" style="margin-top:12px;display:none">Student Answers</h5>
+          <div id="<%- 'answerText' + i %>" class="subtext" style="display:none;max-height:50vh;overflow:scroll"></div>
+
+        </div>
+
+
+        <!-- COMMENTS -->
+        <div id="commentsBox<%- homeworkAssigned[i].sohoHAID %>" style="margin: auto 0 0 0;">
+        <% if (homeworkAssigned[i].content) { %>
+
+        <% if (homeworkAssigned[i].sFirstName) { %>
+        <a class="subtext" href="javascript:void(0);"
+          onclick="viewAllComments(<%- homeworkAssigned[i].sohoHAID %>);">View all comments</a>
+        <div id="comments<%- homeworkAssigned[i].sohoHAID %>" class="subtext">
+          <b><%- homeworkAssigned[i].sFirstName + ' ' + homeworkAssigned[i].sLastName %></b>
+          <br>
+          <%- homeworkAssigned[i].content %>
+          <br>
+        </div>
+        <% } else { %>
+        <a class="subtext" href="javascript:void(0);"
+          onclick="viewAllComments(<%- homeworkAssigned[i].sohoHAID %>);">View all comments</a>
+        <div id="comments<%- homeworkAssigned[i].sohoHAID %>" class="subtext">
+          <b><%- homeworkAssigned[i].tFirstName + ' ' + homeworkAssigned[i].tLastName %></b>
+          <br>
+          <%- homeworkAssigned[i].content %>
+          <br>
+        </div>
+        <% } %>
+
+        <% } else { %>
+        <div id="comments<%- homeworkAssigned[i].sohoHAID %>" class="subtext"></div>
+        <% } %>
+        <div style="display: inline-flex;width: 100%;">
+          <textarea id="commentBox<%- homeworkAssigned[i].sohoHAID %>" type="text" class="commentBox form-control"
+            placeholder="Write a comment..." rows="1" style="font-size:0.8rem;"
+            data-value="<%- homeworkAssigned[i].sohoHAID %>"></textarea>
+
+          <div class="input-group-append" style="margin: auto 0 0 0;">
+
+            <button class="button button-secondary button-shadow message_form__button" type="button"
+              onclick="comment(<%- homeworkAssigned[i].sohoHAID %>)" style="border-radius: 0px 10px 10px 0px;"
+              id="commentBtn<%- homeworkAssigned[i].sohoHAID %>"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                height="16" fill="currentColor" class="bi bi-symmetry-horizontal" viewBox="0 0 16 16">
+                <path
+                  d="M13.5 7a.5.5 0 0 0 .24-.939l-11-6A.5.5 0 0 0 2 .5v6a.5.5 0 0 0 .5.5h11zm.485 2.376a.5.5 0 0 1-.246.563l-11 6A.5.5 0 0 1 2 15.5v-6a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .485.376zM11.539 10H3v4.658L11.54 10z" />
+              </svg></button>
+          </div>
+
+        </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+    <% } %>
+
+  </div>
+</div>
+
+<div id="sClassID" style="display:none"><%- sClass %></div>
+
+<script src="//mandarinspot.com/static/mandarinspot.min.js" charset="UTF-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/TimeMe.js/2.0.0/timeme.min.js"></script>
+
+<script>
+  // enable annotation across the entire right side
+  mandarinspot.annotate("#rightBar");
+  
+  // timeme
+ TimeMe.initialize({
+	    currentPageName: "classroom", // current page
+	    idleTimeoutInSeconds: 300, // seconds
+    });
+
+  // tinymce
+  var newTimeInFocus = 0;
+  var timeInFocusInterval;
+
+  function initTinyTimer() {
+    newTimeInFocus++;
+  }
+
+
+
+  function tinyMCEinit(id, homeworkAssignmentID, homeworkID, classID) {
+    // change archive as done button to submit 
+    document.getElementById('skipButton' + id).style.display = "none";
+    document.getElementById('saveButton' + id).style.display = "flex";
+    document.getElementById('completeButton' + id).style.display = "none";
+
+    // display tiny text editor
+    document.getElementById('tinyTextEditor' + id).style.display = "flex";
+    document.getElementById('htmlTextEditor' + id).style.display = "none";
+    // init pinyin audio api
+    $('#annotated' + id).on('click', 'rb', function () {
+      var char = this.innerHTML;
+      ajaxGetPinyinAudio(char, id);
+    });
+
+
+    tinymce.init({
+      setup: function (ed) {
+        ed.on('keyup', function (e) {
+          document.getElementById('autosaveText' + homeworkAssignmentID).textContent = 'Changes saving...'; // change text 
+
+          if (event.key == 1 || event.key == 2 || event.key == 3 || event.key ==
+            4) { // the update function only runs if 1-4 is inputted
+            // console.log('Editor contents was modified. Contents: ' + ed.getContent());
+            var bm = ed.selection.getBookmark(2,
+              false
+            ); // define caret location (tinymce bookmarks) - idk what 2, false does but it works
+            // run replace function on content
+            var content = ed.getContent({
+              format: 'html'
+            });
+
+            var newContent = pinyinTonify(content);
+
+            // set content
+            ed.setContent(newContent, {
+              format: 'html'
+            });
+            ed.selection.moveToBookmark(bm); // move caret to bookmark
+          }
+
+        });
+        ed.on('focus', function (e) {
+          timeInFocusInterval = setInterval(function(){
+            initTinyTimer();
+          }, 1000);
+        });
+        ed.on('blur', function (e) {
+         clearInterval(timeInFocusInterval)
+        });
+
+        // Add the custom annotate pinyin button
+        ed.ui.registry.addButton('annotatePinyinBtn', {
+          icon: 'translate',
+          tooltip: 'See your Chinese characters annotated with pinyin',
+          onAction: function (_) {
+            var content = ed.getContent({
+              format: 'html'
+            });
+            document.getElementById('annotatedText' + id).innerHTML = content;
+            document.getElementById('annotatedTitle' + id).style.display = 'block';
+            document.getElementById('annotatedText' + id).style.display = 'block';
+            mandarinspot.annotate('#annotatedText' + id);
+            mandarinspot.showInline("visible");
+
+          },
+        });
+
+        // Add the custom hint button - other student answers
+        ed.ui.registry.addButton('hintBtn', {
+          icon: 'accessibility-check',
+          tooltip: 'See other student answers to this question',
+          onAction: function (_) {
+            // ajax get answers for this question
+            ajaxGetAnswersForHomework(homeworkID, id, classID);
+          },
+        });
+
+      },
+      selector: '#tinyTextEditor' + id,
+      min_height: 300,
+      height: '40vh',
+      content_style: "body {font-size: 12pt; letter-spacing:0.07em;}",
+      fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt 20pt",
+      menubar: false,
+      forced_root_block: false,
+      content_css: '/css/tinystyle.css',
+      toolbar: [{
+          name: 'custom',
+          items: ['annotatePinyinBtn', 'hintBtn']
+        }
+      ],
+      mobile: {
+        height: '70vh',
+      },
+    }).then(function () {
+    var original = tinymce.get("tinyTextEditor" + id).getContent({format: 'raw'});
+    var i = setInterval(function(){
+    ajaxAutosave(i, original, homeworkAssignmentID, id)
+    }, 5000)
+    });
+
+
+  }
+  function ajaxAutosave(i, original, homeworkAssignmentID, id) {
+    var ed = tinymce.get("tinyTextEditor" + id).getContent({format: 'raw'});
+      
+      if (original != ed) { // only save if the contents have changed
+        ajaxAutosaveHomework(ed, homeworkAssignmentID);
+        original = ed;
+        clearInterval(i); // reset the interval with new original
+        var i = setInterval(function(){
+        ajaxAutosave(i, original, homeworkAssignmentID, id)
+        }, 5000)
+      }
+    }
+      // ajax save
+      function ajaxAutosaveHomework(text, homeworkID) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxAutosaveHomework",
+        timeout: 30000,
+        data: {
+          text: text,
+          homeworkID: homeworkID,
+        },
+        success: function (data) {
+          document.getElementById('autosaveText' + homeworkID).textContent = 'Changes saved';
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+    // turn text into pinyin - if you edit this function, edit this in all files across the app...
+    function pinyinTonify(word) {
+      for (var i = 0; i < tonesArr.length; i++) {
+        var regEx = new RegExp("(" + tonesArr[i].str + ")(?!([^<]+)?>)",
+          "gi"); // only replace outside of html tags
+        word = word.replace(regEx, tonesArr[i].toneStr);
+      }
+      return (word);
+    }
+
+    // PREPARE FOR PINYIN TONIFY
+    var tonesArr = [];
+    // create pairs
+    createPairs('a1', 'ā');
+    createPairs('a2', 'á');
+    createPairs('a3', 'ǎ');
+    createPairs('a4', 'à');
+    createPairs('e1', 'ē');
+    createPairs('e2', 'é');
+    createPairs('e3', 'ě');
+    createPairs('e4', 'è');
+    createPairs('i1', 'ī');
+    createPairs('i2', 'í');
+    createPairs('i3', 'ǐ');
+    createPairs('i4', 'ì');
+    createPairs('o1', 'ō');
+    createPairs('o2', 'ó');
+    createPairs('o3', 'ǒ');
+    createPairs('o4', 'ò');
+    createPairs('u1', 'ū');
+    createPairs('u2', 'ú');
+    createPairs('u3', 'ǔ');
+    createPairs('u4', 'ù');
+    createPairs('ü1', 'ǖ');
+    createPairs('ü2', 'ǘ');
+    createPairs('ü3', 'ǚ');
+    createPairs('ü4', 'ǜ');
+    createPairs('an1', 'ān');
+    createPairs('an2', 'án');
+    createPairs('an3', 'ǎn');
+    createPairs('an4', 'àn');
+    createPairs('ang1', 'āng');
+    createPairs('ang2', 'áng');
+    createPairs('ang3', 'ǎng');
+    createPairs('ang4', 'àng');
+    createPairs('en1', 'ēn');
+    createPairs('en2', 'én');
+    createPairs('en3', 'ěn');
+    createPairs('en4', 'èn');
+    createPairs('eng1', 'ēng');
+    createPairs('eng2', 'éng');
+    createPairs('eng3', 'ěng');
+    createPairs('eng4', 'èng');
+    createPairs('in1', 'īn');
+    createPairs('in2', 'ín');
+    createPairs('in3', 'ǐn');
+    createPairs('in4', 'ìn');
+    createPairs('ong1', 'ōng');
+    createPairs('ong2', 'óng');
+    createPairs('ong3', 'ǒng');
+    createPairs('ong4', 'òng');
+    createPairs('ing1', 'īng');
+    createPairs('ing2', 'íng');
+    createPairs('ing3', 'ǐng');
+    createPairs('ing4', 'ìng');
+    createPairs('un1', 'ūn');
+    createPairs('un2', 'ún');
+    createPairs('un3', 'ǔn');
+    createPairs('un4', 'ùn');
+    createPairs('er2', 'ér');
+    createPairs('er3', 'ěr');
+    createPairs('er4', 'èr');
+    createPairs('aō', 'āo');
+    createPairs('aó', 'áo');
+    createPairs('aǒ', 'ǎo');
+    createPairs('aò', 'ào');
+    createPairs('oū', 'ōu');
+    createPairs('oú', 'óu');
+    createPairs('oǔ', 'ǒu');
+    createPairs('où', 'òu');
+    createPairs('aī', 'āi');
+    createPairs('aí', 'ái');
+    createPairs('aǐ', 'ǎi');
+    createPairs('aì', 'ài');
+    createPairs('eī', 'ēi');
+    createPairs('eí', 'éi');
+    createPairs('eǐ', 'ěi');
+    createPairs('eī', 'èi');
+
+
+    function createPairs(str, toneStr) {
+      var pairs = {
+        str: str,
+        toneStr: toneStr,
+      }
+      tonesArr.push(pairs);
+    }
+
+    // get answers to hw
+    function ajaxGetAnswersForHomework(homeworkId, id, classID) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxGetAnswersForHomework",
+        timeout: 30000,
+        data: {
+          homeworkId: homeworkId,
+          classID,
+          classID,
+        },
+        success: function (data) {
+          //show content
+          console.log('successful post');
+          console.log('data: ' + JSON.stringify(data));
+          // show and update some html element
+          if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+              var content = `
+            <b>` + data[i].firstName + ' ' + data[i].lastName + `</b>
+            <span class="badge badge-pill badge-light">` + data[i].assignDate.substring(0, 10) + `</span>
+            <span class="badge badge-pill badge-light">ID: ` + data[i].sohoHAID + `</span>
+            <p>` + data[i].answer + `</p>
+            `;
+              document.getElementById('answerText' + id).insertAdjacentHTML("beforeend", content);
+            }
+            mandarinspot.annotate('#answerText' + id);
+            mandarinspot.showInline("visible");
+          } else {
+            var content = `
+            <b>No completed homework tasks available - You're the first!</b>
+            `;
+            document.getElementById('answerText' + id).insertAdjacentHTML("beforeend", content);
+          }
+          document.getElementById('answerTitle' + id).style.display = 'block';
+          document.getElementById('answerText' + id).style.display = 'block';
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+
+    // Adjust frequency of homework
+    function updateHomeworkToggle() {
+      var selectedToggle = document.getElementById("freq").value;
+      ajaxUpdateHomeworkToggle(selectedToggle);
+    }
+
+    function ajaxUpdateHomeworkToggle(selectedToggle) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxUpdateHomeworkToggle",
+        timeout: 30000,
+        data: {
+          toggle: selectedToggle,
+        },
+        success: function (data) {
+          //show content
+          console.log('successful post');
+          $('#hwToggleToast').toast('show'); // toast notification
+          
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+
+    // SPEAKING - MEDIA RECORDER API
+    // This example uses MediaRecorder to record a filtered audio stream and use the
+    // resulting blob as a source for an audio element.
+    //
+    // The relevant functions in use are:
+    //
+    // navigator.mediaDevices.getUserMedia -> to get audio stream from mic
+    // AudioContext (constructor) and the various types of nodes to manipulate sound
+    // MediaRecorder (constructor) -> create a MediaRecorder with a stream
+    // MediaRecorder.ondataavailable -> event to listen to when a record is ready
+    // MediaRecorder.start -> start recording
+    // MediaRecorder.stop -> stop recording (this will generate a blob of data)
+    // URL.createObjectURL -> to create a URL from a blob, which we can use as src
+
+    var recordButton, stopButton, recorder, pauseButton, resmeButton;
+
+    // window.onload = function () {
+
+    function initSpeakingAudio(homeworkAssignmentID, id) {
+      document.getElementById('skipButton' + id).style.display = "none";
+
+
+      recordButton = document.getElementById('record' + homeworkAssignmentID);
+      stopButton = document.getElementById('stop' + homeworkAssignmentID);
+      pauseButton = document.getElementById('pause' + homeworkAssignmentID);
+      resumeButton = document.getElementById('resume' + homeworkAssignmentID);
+      recordingAudioControl = document.getElementById('recording' + homeworkAssignmentID);
+
+      // get audio stream from user's mic
+      navigator.mediaDevices.getUserMedia({
+          audio: true
+        })
+        .then(function (stream) {
+          recordButton.addEventListener('click', startRecording);
+          stopButton.addEventListener('click', stopRecording);
+          pauseButton.addEventListener('click', pauseRecording);
+          resumeButton.addEventListener('click', resumeRecording);
+          // Create a Web Audio based pipeline to modify the input sound in real time
+          var audioContext = new AudioContext();
+          var now = audioContext.currentTime;
+          // connect inputnode to output node
+          var inputNode = audioContext.createMediaStreamSource(stream);
+          var outputNode = audioContext.createMediaStreamDestination();
+          inputNode.connect(outputNode);
+          // create a new MediaRecorder and pipe the filtered audio stream to it
+          var options = {
+            mimeType: "audio/webm; codecs=opus"
+          }; // for some reason firefox default records in audio/ogg which fucks some shit up so we define audio/webm (which is what chrome uses)
+          recorder = new MediaRecorder(outputNode.stream, options);
+          // listen to dataavailable, which gets triggered whenever we have an audio blob available
+          recorder.addEventListener('dataavailable', function (evt) {
+            updateAudio(evt.data, homeworkAssignmentID);
+      document.getElementById('audioSaveButton' + id).style.display = "inline";
+          });
+          // Work around for bug https://bugzilla.mozilla.org/show_bug.cgi?id=934512
+          window.dontGCThis = stream;
+          startRecording(); // call start recording function
+        });
+    };
+
+    function startRecording() {
+
+      // enable/disable buttons
+      recordButton.disabled = true;
+      pauseButton.disabled = false;
+      stopButton.disabled = false;
+
+      // show hide buttons
+      recordButton.style.display = "none";
+      pauseButton.style.display = "inline";
+      stopButton.style.display = "inline";
+
+      // make the MediaRecorder start recording
+      recorder.start();
+    }
+
+    function stopRecording() {
+      // enable/disable buttons
+      recordButton.disabled = false;
+      stopButton.disabled = true;
+      pauseButton.disabled = true;
+      resumeButton.disabled = true;
+
+      // show hide buttons
+      recordButton.style.display = "inline";
+      stopButton.style.display = "none";
+      pauseButton.style.display = "none";
+      resumeButton.style.display = "none";
+      // make MediaRecorder stop recording
+      // eventually this will trigger the dataavailable event
+      recorder.stop();
+    }
+
+    function pauseRecording() {
+      // enable/disable buttons
+      pauseButton.disabled = true;
+      resumeButton.disabled = false;
+      stopButton.disabled = true;
+
+      // show hide buttons
+      pauseButton.style.display = "none";
+      resumeButton.style.display = "inline";
+      stopButton.style.display = "none";
+
+      // make MediaRecorder stop recording
+      // eventually this will trigger the dataavailable event
+      recorder.pause();
+    }
+
+    
+    function resumeRecording() {
+      // enable/disable buttons
+      resumeButton.disabled = true;
+      pauseButton.disabled = false;
+      stopButton.disabled = false;
+
+      // show hide buttons
+      resumeButton.style.display = "none";
+      stopButton.style.display = "inline";
+      pauseButton.style.display = "inline";
+      // make MediaRecorder stop recording
+      // eventually this will trigger the dataavailable event
+      recorder.resume();
+    }
+
+    var audioBlob;
+
+    function updateAudio(blob, homeworkAssignmentID) {
+      recordingAudioControl.style.display = "block";
+      var audio = document.getElementById('audio' + homeworkAssignmentID);
+      // use the blob from the MediaRecorder as source for the audio tag
+      var audioURL = URL.createObjectURL(blob);
+      audio.src = audioURL;
+      // audio.play();
+      // set global vars
+      audioBlob = blob;
+    }
+
+    function uploadSpeaking(homeworkAssignmentID) {
+      var data = new FormData();
+      var request = new XMLHttpRequest();
+      // callback for successful execution
+      request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          window.location.reload(true); // refresh page and refetch data
+        }
+      };
+      // append body data
+      data.append('homeworkAssignmentID', homeworkAssignmentID);
+      data.append('file', audioBlob, 'audio.mp3');
+      request.open('post', '/ajaxUploadSpeaking');
+      request.send(data);
+
+    }
+
+    // Random integer function
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    // timeme
+    var updateStudyTimerInterval;
+  var timeSpentOnPage;
+  var oldTimeInFocus = 0;
+  var totalTimeToday;
+  var timeUploadedAlready = parseFloat(document.getElementById('studyTimer').getAttribute("data-value"));
+  var startingTimerValue = parseFloat(document.getElementById('studyTimer').getAttribute("data-value"));
+  
+  
+    $(document).ready(
+      function () {
+        // tips
+        var tooltips = ["You can type tone marks using numbers (e.g. ni1 = nī)",
+          `Click <img src="https://www.tiny.cloud/docs/images/icons/translate.svg" style="filter: brightness(0); display: inline-block; width: 20px"/> to enable audio and pinyin for Chinese characters`,
+          `Click <img src="https://www.tiny.cloud/docs/images/icons/accessibility-check.svg" style="filter: brightness(0); display: inline-block; width: 18px; padding-bottom: 3px"/> to see other student answers`
+        ];
+        for (var i = 0; i < <%- homeworkAssigned.length %> ; i++) {
+          var tooltip_id = document.getElementById('tooltip' + i);
+          var index = getRandomInt(tooltips.length);
+          if (tooltip_id != null) {
+            tooltip_id.innerHTML = "Tip: " + tooltips[index];
+          }
+        }
+
+        // tooltips
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip({
+            boundary: 'window'
+          })
+        }); 
+
+        
+      // study session update
+  updateStudyTimerInterval = setInterval(function(){
+      updateStudyTimer();
+  }, 1000);
+
+        // study session update
+      var ajaxUpdateTimerInterval = setInterval(function(){
+      ajaxUpdateTimer();
+  }, 30000); // update the display every second
+
+
+        
+        // view port scroll
+        if(window.innerWidth >= 641) {
+        $('#rightBar').on('scroll',function() {
+          var shown = 0;
+          $('.scrollHighlight').each(function(){
+          if (isScrolledIntoView(this) && shown == 0){
+            this.style.opacity = 1;
+            shown = 1;
+          } else {
+            if (this.style.opacity != 0.1) {
+              this.style.opacity = 0.1;
+            }
+          }
+
+        });
+        });
+   }
+
+      });
+
+
+      function isScrolledIntoView(el) {
+    var rect = el.getBoundingClientRect();
+    var elemTop = rect.top;
+
+    var isVisible = (elemTop >= -300);
+    return isVisible;
+  }
+
+  
+  function updateStudyTimer(){ // visual update
+    var newTimeSpentOnPage = Math.round(TimeMe.getTimeOnCurrentPageInSeconds()); // round to nearest second
+    var oldTimeSpentOnPage = timeSpentOnPage;
+    
+    if (newTimeSpentOnPage == oldTimeSpentOnPage && newTimeInFocus > oldTimeInFocus) {// if timespent on page hasn't incremented but newTimeInFocus has then user is in tinymce editor
+        oldTimeInFocus = newTimeInFocus;
+    } else {
+      timeSpentOnPage = newTimeSpentOnPage;
+  }
+  totalTimeToday = startingTimerValue + newTimeSpentOnPage + newTimeInFocus;
+    var formattedTime = new Date(totalTimeToday * 1000).toISOString().substr(11, 8);
+    document.getElementById('studyTimer').textContent = formattedTime;
+
+}
+
+
+function ajaxUpdateTimer() { // system update of time
+  var timeToAdd = totalTimeToday - timeUploadedAlready; 
+  var classID = document.getElementById('sClassID').textContent;
+  timeUploadedAlready = totalTimeToday;
+  $.ajax({
+   type: "POST",
+    url: "/timer",
+    timeout: 30000,
+    data: {
+      time: timeToAdd,
+      classID: classID,
+    },
+    success: function (data) {
+      //show content
+      console.log('successful post');
+    },
+    error: function (jqXHR, textStatus, err) {
+      //show error message
+      console.log('unsuccessful post');
+    }
+  });
+}
+
+    function mobileView() {
+      // media query for mobile view
+      const mobileView = window.matchMedia("(max-width: 641px)");
+      if (mobileView.matches) { // only if in mobile view
+        let questions = [];
+        for (let i = 0; i < <%- homeworkAssigned.length %> ; i++) {
+          let question = document.getElementById('question' + i);
+          questions.push(question);
+        }
+
+        // document.getElementById('rightBar').style.display = 'none';
+
+        // create click event listener for every hw question
+        questions.forEach(function (question, index) {
+          question.addEventListener('click', function () {
+            let sohoHAID = question.getAttribute('data-value');
+            let box = document.getElementById('box' + sohoHAID);
+            box.style.display = 'block';
+            //box.style.height = "70%";
+            box.style.height = "fit-content";
+            document.getElementById('midBar').style.display = 'none';
+            document.getElementById('rightBar').style.display = 'block';
+            document.getElementById('backButton').innerHTML = `<a href="/a/homework" > back to homework`;
+            document.getElementById('hwBox' + sohoHAID).className = 'homework-box-mobile';
+            document.getElementById('box' + sohoHAID).style.opacity = 1;
+            document.getElementById('htmlTextEditor' + index).style.maxHeight = '';
+            document.getElementById('htmlTextEditor' + index).style.height = '60vh';
+          })
+
+        });
+      }
+    }
+
+    mobileView();
+
+    // AJAX skip hw
+    function skip(homeworkID) {
+      ajaxSkipHomework(homeworkID);
+    }
+
+    // ajax completehomework
+    function ajaxSkipHomework(homeworkID) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxSkipHomework",
+        timeout: 30000,
+        data: {
+          homeworkID: homeworkID,
+        },
+        success: function (data) {
+          console.log('successful post');
+
+          $('#homeworkSkipToast').toast('show'); // toast notification
+
+
+
+          // dismiss the homework and highlight the next homework
+          document.getElementById('box' + homeworkID).style.display = 'none';
+          document.getElementById('box' + homeworkID).classList.remove('scrollHighlight');
+          $('#rightBar').scroll();
+
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+
+
+    
+    // AJAX complete hw
+    function complete(homeworkID) {
+      ajaxCompleteHomework(homeworkID);
+    }
+
+    // ajax completehomework
+    function ajaxCompleteHomework(homeworkID) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxCompleteHomework",
+        timeout: 30000,
+        data: {
+          homeworkID: homeworkID,
+        },
+        success: function (data) {
+          console.log('successful post');
+          $('#homeworkCompleteToast').toast('show'); // toast notification
+
+
+
+          // dismiss the homework and highlight the next homework
+          document.getElementById('box' + homeworkID).style.display = 'none';
+          document.getElementById('box' + homeworkID).classList.remove('scrollHighlight');
+          $('#rightBar').scroll();
+
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+
+
+    function comment(homeworkID) {
+      var comment = document.getElementById('commentBox' + homeworkID).value;
+      ajaxCommentHomework(comment, homeworkID)
+    }
+
+    // ajax comment
+    function ajaxCommentHomework(comment, homeworkID) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxCommentHomework",
+        timeout: 30000,
+        data: {
+          comment: comment,
+          homeworkID: homeworkID,
+          who: 'stu',
+        },
+        success: function (data) {
+          console.log('successful post');
+          document.getElementById("commentBox" + homeworkID).value = '';
+          var content = `<b>You</b>
+        <br>
+        ${nl2br(comment)}
+        <br>`;
+
+          document.getElementById("comments" + homeworkID).insertAdjacentHTML("beforeend", content);
+
+
+
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+
+    
+  function nl2br(str, is_xhtml) { // new line to br
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+  }
+
+
+    function viewAllComments(homeworkID) {
+      ajaxViewAllComments(homeworkID)
+    }
+
+    // ajax comment
+    function ajaxViewAllComments(homeworkID) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxViewAllComments",
+        timeout: 30000,
+        data: {
+          homeworkID: homeworkID,
+        },
+        success: function (data) {
+          console.log('successful post');
+          document.getElementById("comments" + homeworkID).innerHTML = '';
+
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].sFirstName) { // it's a student comment
+              var content = `<b>${data[i].sFirstName + ' ' + data[i].sLastName}</b>
+        <br>
+        ${data[i].content}
+        <br>`;
+            } else {
+              var content = `<b>${data[i].tFirstName + ' ' + data[i].tLastName}</b>
+        <br>
+        ${data[i].content}
+        <br>`;
+            }
+
+
+            document.getElementById("comments" + homeworkID).insertAdjacentHTML("beforeend", content);
+
+          }
+
+
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+
+    $(".commentBox").keypress(function (e) {
+      this.style.height = "";
+      this.style.height = this.scrollHeight + "px";
+      var id = e.target.getAttribute('data-value');
+      if (e.which == 13 && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById("commentBtn" + id).click(); // trigger click event to trigger eventlistener
+        // reset height
+        document.getElementById('commentBox' + id).setAttribute('style',
+          'height:46px;overflow-y:scroll;font-size:0.8rem;max-height: 8em');
+      }
+    });
+
+
+
+    // SAVE HW
+    function save(homeworkID, i) {
+      var text = tinymce.activeEditor.getContent({format: 'raw'});
+      ajaxSaveHomework(text, homeworkID, i)
+    }
+
+    // ajax save
+    function ajaxSaveHomework(text, homeworkID, i) {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxSaveHomework",
+        timeout: 30000,
+        data: {
+          text: text,
+          homeworkID: homeworkID,
+        },
+        success: function (data) {
+          console.log('successful post');
+          // close the tinymce editor - with updated text
+          tinymce.activeEditor.remove();
+         
+          // show toast
+          $('#homeworkSaveToast').toast('show'); // toast notification
+          // switch archive and submit button
+          document.getElementById('saveButton' + i).style.display = "none";
+
+
+                    // dismiss the homework and highlight the next homework
+                    document.getElementById('box' + homeworkID).style.display = 'none';
+          document.getElementById('box' + homeworkID).classList.remove('scrollHighlight');
+          $('#rightBar').scroll();
+
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+
+    function assignHomework() {
+      var level = document.getElementById('level').value;
+      console.log("file: homeworkv3.ejs ~ line 1356 ~ assignHomework ~ level", level)
+      ajaxAssignHomework(level);
+      function ajaxAssignHomework() {
+      $.ajax({
+        type: "POST",
+        url: "/ajaxAssignHomework",
+        timeout: 30000,
+        data: {
+          level: level ,
+        },
+        success: function (data) {
+          //show content
+          console.log('successful post');
+          window.location.reload(true);
+        },
+        error: function (jqXHR, textStatus, err) {
+          //show error message
+          console.log('unsuccessful post');
+        }
+      });
+    }
+    }
+
+
+</script>

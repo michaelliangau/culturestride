@@ -1,0 +1,270 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+<div class="container">
+<div class="row">
+
+  <div class="col-sm-8">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+      <div style="padding:20px">
+        <div style="text-align: left;">
+        <h3 >Practical Class</h3>
+
+
+        <% if (teacher.level == 0) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK <%- teacher.level %> (absolute beginner)</span>
+          <% } else if (teacher.level == 1) { %>
+            <span class="badge badge-light" style="margin-bottom:10px;background-color:rgb(73, 80, 246);color:white;">HSK <%- teacher.level %> (beginner)</span>
+        <% } else if (teacher.level == 2) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#f1c40f;color:white;">HSK <%- teacher.level %> (beginner)</span>
+        <% } else if (teacher.level == 3) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#1abc9c;color:white;">HSK <%- teacher.level %> (intermediate)</span>
+        <% } else if (teacher.level == 4) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#e67e22;color:white;">HSK <%- teacher.level %> (intermediate)</span>
+        <% } else if (teacher.level == 5) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#9b59b6;color:white;">HSK <%- teacher.level %> (advanced)</span>
+          <% } else if (teacher.level == 6) { %>
+          <span class="badge badge-light" style="margin-bottom:10px;background-color:#34495e;color:white;">HSK <%- teacher.level %> (advanced)</span>
+        <% } %>
+        <% if (teacher.sCount >= 3) { %>
+          <span class="badge badge-light">Full class</span>
+          <% } else { %>
+            <span  class="badge badge-light">Joinable</span>
+          <% } %>
+							<div style="margin: 10px 0px;">
+        
+        When: <span id="when"></span> (<span id="region"></span>)
+        <script>
+          var mom = moment('<%- teacher.start %>', 'YYYY-MM-DDTHH:mm:ssZ').local().format('LLLL'); 
+          document.getElementById('when').textContent = mom;
+          </script>
+              </div>
+							<div style="margin: 10px 0px;">
+
+        Confirmed attendees:
+        <div class="row">
+            <div class="col-sm">
+              <% if (teacher.profileImage) { %>
+                <img class="circle" src="<%- teacher.profileImage %>" style="margin:10px auto;">
+                <% } else { %>
+                <img class="circle" src="/img/guru.png" style="margin:10px auto;">
+                <% } %>
+
+              <p class="subtext" style="text-align: center;">
+          <%- teacher.firstName + ' ' + teacher.lastName %>
+              </p>
+            </div>
+            <% var memberJSON = JSON.parse(teacher.memberJSON); 
+            for (let i = 0; i < memberJSON.length; i++) { 
+              if (memberJSON[i].sFirstName != null) { %>
+              
+              <div class="col-sm">
+                <% if (memberJSON[i].sProfileImage) { %>
+                  <img class="circle" src="<%- memberJSON[i].sProfileImage %>" style="margin:10px auto;">
+                  <% } else { %>
+                    <img class="circle" src="/img/guru.png" style="margin:10px auto;">
+                    <% } %>
+
+                      <p class="subtext" style="text-align: center;">
+                  <%- memberJSON[i].sFirstName + ' ' + memberJSON[i].sLastName %>
+                      </p>
+                    </div>
+            <% } %>
+            <% } %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="col-sm-4">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+  
+
+      <div class="highlightBox">
+        <b><a href="/#pricing">Pricing (<span id="currencyCode">AUD</span>)</a></b>
+        <br>
+        <p class="subtext" style="margin-bottom:0px;">
+          Theory class: $<span
+      id="theoryPrice">39</span>
+          <br>
+          <br>
+          Theory + Practical class: $<span
+      id="theoryPracPrice">39</span>
+          <br>
+          <br>
+          Practical Class: $<span
+      id="pracPrice">9</span>
+        </p>
+      </div>
+
+    <hr>
+
+  
+        <% if (teacher.sCount >= 3) { %>
+          <a class='button button-secondary button-block button-shadow' style="margin: 20px 0px 0px 0px" href='/start'>SIGN UP</a>
+        <% } else { %>
+          <a class='button button-primary button-block button-shadow' style="margin: 20px 0px 0px 0px" href='/start'>Book free class</a>
+        <% } %>
+
+
+
+  
+  
+    </div>
+  </div>
+
+  
+<% if (teacher.video3) { %>
+
+  <div class="col-sm-12">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+  <h3 style="margin-top:0px">What to expect in class</h3>
+  <div class="row">
+  
+    <div class="embed-responsive embed-responsive-4by3" style="max-height:400px" id="video">
+      <iframe loading="lazy" src="https://www.youtube.com/embed/<%- teacher.video3 %>"
+        srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/<%- teacher.video3 %>?autoplay=1><img src=https://img.youtube.com/vi/<%- teacher.video3 %>/hqdefault.jpg alt='Culturestride Teacher'><span>▶</span></a>"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen title="Culturestride"></iframe>
+    </div>
+  
+  
+  </div>
+  
+  </div>
+  </div>
+  
+  <% } %>
+
+
+  <div class="col-sm-12" id="availability">
+    <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+        <% if (teacher.video1) { %>
+        <div class="embed-responsive embed-responsive-4by3" style="max-height:400px" id="video">
+          <iframe loading="lazy" src="https://www.youtube.com/embed/<%- teacher.video1 %>"
+            srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/<%- teacher.video1 %>?autoplay=1><img src=https://img.youtube.com/vi/<%- teacher.video1 %>/hqdefault.jpg alt='Culturestride Teacher'><span>▶</span></a>"
+            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen title="Culturestride"></iframe>
+        </div>
+        <hr>
+
+        <% } else { %>
+        <div id="video">
+        </div>
+        <% } %>
+
+        <div style="text-align: center;">
+        <% if (teacher.profileImage) { %>
+        <img class="circle" src="<%- teacher.profileImage %>" style="margin:10px auto;">
+        <% } else { %>
+          <img class="circle" src="/img/guru.png" style="margin:10px auto;">
+          <% } %>
+
+
+        <p>
+          <%- teacher.firstName + ' ' + teacher.lastName %>
+          <br> 
+          <% if (reviewStats.noReviews > 0) { %>
+            <span class="star">&#9733;</span> <span class="subtext"><%- reviewStats.avgStars %> (<%- reviewStats.noReviews %>)</span>
+            <br>
+          <% } %>
+          <span class="subtext"><%- teacher.location %></span>
+        </p>
+
+      </div>
+
+        <span>Languages</span>
+        <br>
+        <p class="subtext">
+          <%- teacher.lang %>
+        </p>
+        <span>About me</span>
+        <br>
+        <p class="subtext">
+          <%- teacher.desc1 %>
+        </p>
+        <span>My teaching</span>
+        <br>
+        <p class="subtext">
+          <%- teacher.desc2 %>
+        </p>
+  
+  </div>
+
+</div>
+
+
+<% if (review.length > 0) { %>
+
+<div class="col-sm-12">
+  <div class="cardWithShadow" style="max-width: none;width: 100%;position:inherit;">
+<h3 style="margin-top:0px">Student reviews</h3>
+<div class="row">
+
+<% for (let i = 0; i < review.length; i++) { %>
+<div class="col-sm-6">
+  <div class="cardWithShadow" style="padding:20px;margin-bottom:20px;">
+    <%- review[i].firstName + ' ' + review[i].lastName %> <span class="star">&#9733;</span> <span class="subtext"><%- review[i].stars %></span>
+    <br>
+    <p class="subtext">
+    <%- review[i].comments %>
+  </p>
+  </div>
+</div>
+<% } %>
+</div>
+
+</div>
+</div>
+<% } %>
+
+
+</div>
+
+
+
+
+
+<script>
+						var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+						document.getElementById('region').textContent = region;
+
+            function requestToJoin(calendarID, start, teacherID) {
+        ajaxJoinPracticalClass(calendarID, start, teacherID);
+
+      }
+
+      function ajaxJoinPracticalClass(calendarID, start, teacherID) {
+        $.ajax({
+          type: "POST",
+          url: "/ajaxJoinPracticalClass",
+          timeout: 30000,
+          data: {
+            calendarID: calendarID,
+            start: start,
+            teacherID: teacherID,
+          },
+          success: function (data) {
+            //show content
+            console.log('successful post');
+            window.location.href = "/a/classadmin";
+          },
+          error: function (jqXHR, textStatus, err) {
+            //show error message
+            console.log('unsuccessful post');
+          }
+        });
+      }
+
+      var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	if (region.indexOf("Australia") < 0) {
+		// convert to USD
+		document.getElementById('currencyCode').textContent = 'USD';
+    document.getElementById('pracPrice').textContent = '7';
+		document.getElementById('theoryPracPrice').textContent = '29';
+		document.getElementById('theoryPrice').textContent = '29';
+
+	}
+</script>

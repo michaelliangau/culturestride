@@ -1,0 +1,108 @@
+<!-- EXISTING STUDENTS -->
+<div>
+        <h3 style="display:inline-block">Inactive Students</h3>
+</div>
+<div style="text-align: center">
+    <!-- Current slot allocations table -->
+    <table class="striped highlight" style="overflow-x:scroll; width:100%; display:block;">
+
+        <!-- Top row -->
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Language</th>
+                <th>Contact</th>
+                <th>Teacher</th>
+                <th>Homework Status</th>
+                <th> </th>
+            </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody>
+            <% for (var i = 0 ; i < sohoStudents.length ; i ++ ) { %>
+            <% if (sohoPermission == 0) { %>
+            <tr>
+                <td style="max-width: 200px;overflow: auto;">
+                    <%- sohoStudents[i].sFirstName + ' ' + sohoStudents[i].sLastName %>
+                </td>
+                <td>
+                    <%- sohoStudents[i].lang %>
+                </td>
+                <td style="max-width: 300px;overflow: auto;">
+                    <%- sohoStudents[i].email %>
+                </td>
+                <td>
+                    <%- sohoStudents[i].tFirstName + ' ' + sohoStudents[i].tLastName %>
+                </td>
+                <td>
+                    <% for (var j = 0 ; j < hw.length ; j ++) { %>
+                    <% if (hw[j].sohoCID == sohoStudents[i].sohoCID) {%>
+                    <% if (hw[j].answered < (hw[j].total-1)) { %>
+                    <a href="/sohohomework?class=<%- sohoStudents[i].sohoCID %>"
+                        style="color:red"><%- hw[j].answered + ' / ' + hw[j].total %></a>
+                    <% } else { %>
+                    <a
+                        href="/sohohomework?class=<%- sohoStudents[i].sohoCID %>"><%- hw[j].answered + ' / ' + hw[j].total %></a>
+                    <% } %>
+                    <% } %>
+                    <% } %>
+                </td>
+
+                <td>
+                    <a style="padding: 16px 20px;display: inline-block;" class="button button-secondary button-block button-shadow"
+                        href="<%- '/soholessonhistory/' + sohoStudents[i].sohoCID %>">Class Log</a>
+                    <form method="post" style="display:inline-block">
+                        <input type="hidden" name='sohoCID' id='sohoCID' value='<%- sohoStudents[i].sohoCID %>'>
+                        <button type="submit" style="padding: 16px 20px;display:inline-block" formaction="/sohoMakeClassActive"
+                            class="button button-secondary button-block button-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                              </svg></button>
+                    </form>
+                    
+                </td>
+            </tr> <% } else { %>
+            <% if (sohoUID == sohoStudents[i].sohoUID) { %>
+                <tr>
+                    <td style="max-width: 200px;overflow: auto;">
+                        <%- sohoStudents[i].sFirstName + ' ' + sohoStudents[i].sLastName %>
+                    </td>
+                    <td>
+                        <%- sohoStudents[i].lang %>
+                    </td>
+                    <td style="max-width: 300px;overflow: auto;">
+                        <%- sohoStudents[i].email %>
+                    </td>
+                    <td>
+                        <%- sohoStudents[i].tFirstName + ' ' + sohoStudents[i].tLastName %>
+                    </td>
+                    <td>
+                        <% for (var j = 0 ; j < hw.length ; j ++) { %>
+                        <% if (hw[j].sohoCID == sohoStudents[i].sohoCID) {%>
+                        <% if (hw[j].answered < (hw[j].total-1)) { %>
+                        <a href="/sohohomework?class=<%- sohoStudents[i].sohoCID %>"
+                            style="color:red"><%- hw[j].answered + ' / ' + hw[j].total %></a>
+                        <% } else { %>
+                        <a
+                            href="/sohohomework?class=<%- sohoStudents[i].sohoCID %>"><%- hw[j].answered + ' / ' + hw[j].total %></a>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </td>
+                    <td>
+                        <a style="padding: 16px 20px;display: inline-block;" class="button button-secondary button-block button-shadow"
+                            href="<%- '/soholessonhistory/' + sohoStudents[i].sohoCID %>">
+                            Class Log
+                        </a>
+                        <form method="post" style="display:inline-block">
+                            <input type="hidden" name='sohoCID' id='sohoCID' value='<%- sohoStudents[i].sohoCID %>'>
+                            <button type="submit" style="padding: 16px 20px;display:inline-block" formaction="/sohoMakeClassActive"
+                                class="button button-secondary button-block button-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                                  </svg></button>
+                        </form>
+                </td>
+            </tr> <% } } }%>
+        </tbody>
+    </table>
+</div>

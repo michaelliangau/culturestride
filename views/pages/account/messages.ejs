@@ -1,0 +1,828 @@
+<!-- MOMENT  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<!-- TOAST -->
+<div id="audioToast" class="toast mobileHide" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Attempting to play audio for <span id="audioToastChar"></span>
+  </div>
+</div>
+
+
+<div class="row" style="margin:-30px">
+
+  <div class="col-sm-3" class="midBar" style="background: #f6f9fc;overflow: hidden;overflow-y: scroll;height: 100vh;"
+    id="midBar">
+    <h4 style="display:inline-flex;margin-right:15px;">Messages</h4>
+
+    <ul style="display: inline-block;padding-left:5px;width:100%">
+      <% for (var i = 0 ; i < channelRooms.length ; i ++) { %>
+      <li class="nav-menu-item roomName" id="messagesMenuItem<%- channelRooms[i].sohoRID %>">
+        <div class="nav-wrapper">
+          <a class="nav-menu-link"
+            onclick="connectSocket(`<%- channelRooms[i].sohoRID %>`, `<%- sSlug %>`, '<%- channelRooms[i].roomType %>', '<%- sProfileImage %>');">
+            <div class="row" style="width:100%">
+              <div class="col-sm-3" style="margin:auto;">
+                <% if (channelRooms[i].roomType == 'support') { %>
+
+                <img class="msgProfile" src="/img/cslogowhitesmall.png" style='width: 100%;max-width:50px;' />
+                <% } else { %>
+                <img class="msgProfile" src="<%- channelRooms[i].profileImage %>" style='width: 100%;max-width:50px;' />
+
+                <% } %>
+
+              </div>
+              <% if (channelRooms[i].lastMessageState == 'sent' && channelRooms[i].lastMessageSender != 'self') { 
+                var messageStyle = 'font-weight:bold;';
+               } else { 
+                var messageStyle = ''; 
+                } %>
+              <div class="col-sm-9" id="messagesMenuItemText<%- channelRooms[i].sohoRID %>" style="overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 3; <%- messageStyle %>">
+
+
+                <% if (channelRooms[i].roomType == 'support') { %>
+                <span id="midBar<%- channelRooms[i].sohoRID %>" data-id="<%- channelRooms[i].sohoRID %>">Support</span>
+                <% } else { %>
+                  <% if (channelRooms[i].title) { %>
+                    <%- channelRooms[i].title %>
+                    <br>
+                    <span class="subtext" id="midBar<%- channelRooms[i].sohoRID %>"
+                      data-id="<%- channelRooms[i].sohoRID %>"><%- channelRooms[i].members %></span>
+                  <% } else { %>
+                  <span id="midBar<%- channelRooms[i].sohoRID %>"
+                    data-id="<%- channelRooms[i].sohoRID %>"><%- channelRooms[i].members %></span>
+                    <% } %>
+
+                <% } %>
+
+                <br>
+                <span class="subtext" >
+                  <% if (channelRooms[i].lastMessageSender == 'self') { %>
+                  You: <%- channelRooms[i].lastMessageContent %>
+                  <% } else { %>
+                      <%- channelRooms[i].lastMessageContent %>
+                  <% } %>
+                </span>
+                <br>
+
+                <% var unreadMsgCounter = -1; 
+                for (var j = 0 ; j < unreadMsg.length; j ++) { 
+                   if (unreadMsg[j].sohoRID == channelRooms[i].sohoRID) { 
+                     unreadMsgCounter = j;
+                    break;
+                  }
+                 } %>
+
+                <% if (unreadMsgCounter == -1) { %>
+                <span id="unreadMsgDot<%- channelRooms[i].sohoRID %>" class="badge badge-danger"
+                  style="display:none">0</span>
+                <% } else { %>
+                <span id="unreadMsgDot<%- channelRooms[i].sohoRID %>"
+                  class="badge badge-danger"><%- unreadMsg[unreadMsgCounter].unreadMessagesCount %></span>
+                <% } %>
+
+
+              </div>
+
+            </div>
+
+          </a>
+        </div>
+      </li>
+      <% } %>
+
+
+    </ul>
+
+
+
+  </div>
+
+  <div class="col-sm-9 mobileHide" style="height:100vh;padding:0 25px;display: flex;
+  flex-direction: column;" id="rightBar">
+    <div id="backButton" style="padding: 10px;display:none;"></div>
+    <div style="display:none" class="inbox__people">
+    </div>
+
+    <div id="message__header" style="border-bottom: #565678 1px solid">
+
+      <span class="badge badge-light badge-pill" style="margin:15px 0px 5px 0px" id="message__members"></span>
+
+    </div>
+
+    <div style="display: flex; width:100%;height:100vh;flex-direction:column;overflow:scroll;" id="messagesBox">
+      <div class="inbox__messages" style="overflow:scroll;padding-bottom:0;flex:1">
+        <div id="messages__history" >
+          <!-- Populate previous messages -->
+  
+        </div>
+        <div class="fallback"></div>
+      </div>
+  
+      <div id="insertAfter" style="width:100%"></div>
+    </div>
+
+
+
+    <form id="messagesForm" class="message_form"></form>
+
+
+
+  </div>
+
+</div>
+
+
+
+<div id="firstName" style="display:none"><%- sFirstName %></div>
+<div id="stuName" style="display:none"><%- sFirstName + ' ' + sLastName %></div>
+<div id="slug" style="display:none"><%- sSlug %></div>
+<div id="sProfileImage" style="display:none"><%- sProfileImage %></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+
+<script>
+  // load teacher and student names
+  var stuName = document.getElementById("stuName").innerHTML;
+  // first load - first conversation
+  var firstSlug = document.getElementById("slug").innerHTML;
+  var sProfileImage = document.getElementById("sProfileImage").innerHTML;
+  var firstRoomId = $('.roomName').first().attr('data-id'); // get roomId from first class with the roomName class
+  //connectSocket(firstRoomId, firstSlug, 'teaching',sProfileImage);
+  var connectedSocketId; // var used later in storing which socket we're connected to
+
+  const mobileView = window.matchMedia("(max-width: 641px)");
+  if (!mobileView.matches) { // only if in mobile view
+    connectSocket(firstRoomId, firstSlug, 'teaching', sProfileImage);
+  }
+
+  function mobileViewFunction() {
+    const mobileView = window.matchMedia("(max-width: 641px)");
+    // media query for mobile view
+    if (mobileView.matches) { // only if in mobile view
+      document.getElementById('messagesBox').style.height = '85vh';
+      document.getElementById('midBar').style.display = 'none';
+      document.getElementById('backButton').innerHTML = `<a href="/a/messages" > back to messages`;
+      document.getElementById('backButton').style.display = `block`;
+    }
+  }
+
+
+  // connect socket function - for messages
+  function connectSocket(room, slug, roomType, profileImage) {
+
+    var socket = io({
+      transports: ['websocket', 'polling']
+    });
+    // make clear graying in all other rooms
+    var allRooms = document.getElementsByClassName("roomName");
+    for (var i = 0; i < allRooms.length; i++) {
+      allRooms[i].style.background = '';
+    }
+    // make the selected room name backround gray
+    document.getElementById('messagesMenuItem' + room).style.background = 'rgb(235, 236, 240)';
+    document.getElementById('messagesMenuItemText' + room).style.fontWeight = '400';
+
+    // This code removes and then recreates the message input box in order to remove event listeners (for some reason the event listener to send message to the room of the first socket is retained after changing rooms)
+    document.querySelector(".message_form").remove();
+    $('#insertAfter').after(
+      `
+      <div id="recording" style="display:none">
+      <span class="subtext">Recording</span>
+      <audio id="audio" controls></audio>
+    </div>
+
+    <form id="messagesForm" class="message_form"
+    style="width:100%;background:white">
+      <div class="input-group">
+
+
+        <!-- AUDIO -->
+        <button class="button button-secondary button-block button-shadow" id="record" type="button"
+          onclick="initSpeakingAudio(${room}, '${roomType}', '${profileImage}')"
+          style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%;display:inline; float:left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+            <path fill-rule="evenodd"
+              d="M10 8V3a2 2 0 1 0-4 0v5a2 2 0 1 0 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z" />
+          </svg>
+        </button>
+
+        
+        <button type="button" id="recordingTimer"
+          style="margin-right:10px; height: 100%; padding: 15px;display:none;float:left"
+          class="button button-secondary button-block button-shadow">
+          <span id="recordingTimerNo" class="blink"><span id="minutes">00</span>:<span id="seconds">00</span></span>
+        </button>
+
+        <button type="button" id="send"
+          style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%;display:none; float:left"
+          class="button button-secondary button-block button-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
+            viewBox="0 0 16 16">
+            <path
+              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+          </svg>
+        </button>
+
+        <button type="button" id="pause"
+          style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%;display:none; float:left"
+          class="button button-secondary button-block button-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
+              <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+        </button>
+
+        <button type="button" id="resume"
+          style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%;display:none; float:left"
+          class="button button-secondary button-block button-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+              <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+            </svg>
+        </button>
+
+        <button class="button button-secondary button-block button-shadow" id="stop" type="button"
+          style="margin-right:10px; height: 100%; padding: 15px; border-radius: 50%;display:none; float:left" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+</svg>
+        </button>
+
+
+        <!-- TEXT -->
+        <textarea id="messagesInputBox" type="text" class="message_form__input form-control"
+          placeholder="Type a message" rows="1" style="font-size:0.8rem;"></textarea>
+        <div class="input-group-append" style="margin: auto 0 0 0;">
+          <button class="button button-primary button-shadow referCopyBtn message_form__button" type="submit"
+            id="messageBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-symmetry-horizontal" viewBox="0 0 16 16">
+              <path
+                d="M13.5 7a.5.5 0 0 0 .24-.939l-11-6A.5.5 0 0 0 2 .5v6a.5.5 0 0 0 .5.5h11zm.485 2.376a.5.5 0 0 1-.246.563l-11 6A.5.5 0 0 1 2 15.5v-6a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .485.376zM11.539 10H3v4.658L11.54 10z" />
+            </svg></button>
+        </div>
+      </div>
+    </form>
+      `
+    );
+    // TEXTBOX MULTILINE
+    const tx = document.getElementsByTagName('textarea');
+    for (let i = 0; i < tx.length; i++) {
+      tx[i].setAttribute('style',
+        'overflow-y:scroll;font-size:0.8rem;max-height: 8em');
+      tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    }
+    $("#messagesInputBox").keypress(function (e) {
+      if (e.which == 13 && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById("messageBtn").click(); // trigger click event to trigger eventlistener
+        // reset height
+        for (let i = 0; i < tx.length; i++) {
+          tx[i].setAttribute('style', 'height:46px;overflow-y:scroll;font-size:0.8rem;max-height: 8em');
+        }
+      }
+    });
+    const inboxPeople = document.querySelector(".inbox__people");
+    const inputField = document.querySelector(".message_form__input");
+    const messageForm = document.querySelector(".message_form");
+    const messageBox = document.querySelector(".messages__history");
+    const fallback = document.querySelector(".fallback");
+    let userName = ""; // this remains blank because it's populated on newUserConnected
+    const newUserConnected = (user) => {
+      userName = user || `User${Math.floor(Math.random() * 1000000)}`;
+      socket.emit("new user", slug);
+      addToUsersBox(userName);
+    };
+    const addToUsersBox = (userName) => {
+      if (!!document.querySelector(`.${userName}-userlist`)) {
+        return;
+      }
+      const userBox = `
+    <div class="chat_ib ${userName}-userlist">
+      <h5>${userName}</h5>
+    </div>
+  `;
+      inboxPeople.innerHTML += userBox;
+    };
+
+    // reinit tooltips
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip({
+        boundary: 'window'
+      })
+    });
+
+    // get nickname
+    var nickname = document.getElementById("firstName").textContent;
+    newUserConnected(nickname);
+    messageForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!inputField.value) {
+        return;
+      }
+      socket.emit("chat message", {
+        room: room,
+        sender: slug,
+        content: inputField.value,
+        nick: userName,
+        messageType: 'text',
+        roomType: roomType,
+        profileImage: profileImage,
+      });
+      console.log("file: messages.ejs ~ line 307 ~ messageForm.addEventListener ~ profileImage", profileImage)
+      inputField.value = "";
+    });
+
+    var messageHistoryElement = document.getElementById("messages__history");
+
+    socket.on('connect', function () {
+      // Connected, let's sign-up for to receive messages for this room
+      socket.emit('room', room, slug);
+      //  scroll to bottom of div
+      messageHistoryElement.scrollTop = messageHistoryElement.scrollHeight;
+      socket.emit("disconnect other active sockets", connectedSocketId);
+      connectedSocketId = socket.id; // set current active socket
+    });
+
+    socket.on("chat message", function (data) {
+      addMessage(data, slug);
+      //  scroll to bottom of div
+      messageHistoryElement.scrollTop = messageHistoryElement.scrollHeight;
+      // enable pinyin audio for right bar
+      $('.pinyinAudio').on('click', 'rb', function () {
+        var char = this.innerHTML;
+        document.getElementById('audioToastChar').textContent = char;
+        ajaxGetPinyinAudioPlayOnly(char);
+        $('#audioToast').toast('show'); // toast notification
+      });
+    });
+
+    // // Unread notifications
+    var msgCount = document.getElementById("unreadMsgDot").innerHTML;
+    var roomUnread = document.getElementById("unreadMsgDot" + room).innerHTML;
+    var newTotalUnread = msgCount - roomUnread;
+    // update side bar dots
+    var dots = document.getElementsByClassName("unreadMsgDot");
+    for (var i = 0; i < dots.length; i++) {
+      if (newTotalUnread <= 0) {
+        dots[i].style.display = "none";
+      } else {
+        dots[i].style.display = "inline-block";
+      }
+      dots[i].innerHTML = newTotalUnread;
+    }
+
+    ajaxUpdateUnreadMsgCount(newTotalUnread); // update session var for unread session count
+    // AJAX get message history
+    ajaxGetMessageHistory(room, slug);
+
+    mobileViewFunction();
+  }
+
+
+  function ajaxGetMessageHistory(room, slug) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxGetMessageHistory",
+      timeout: 30000,
+      data: {
+        room: room
+      },
+      success: function (data) {
+        // edit on screen stuff
+        document.getElementById('messages__history').innerHTML = ""; // clear whatever is in messages__history
+        for (var i = 0; i < data.length; i++) {
+
+          addMessage(data[i], slug);
+
+          document.getElementById("messages__history").scrollTop = document.getElementById("messages__history")
+            .scrollHeight; // scroll to bottom
+        }
+
+
+        // TOOL TIPS
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip({
+            boundary: 'window'
+          })
+        });
+
+        // enable pinyin audio for right bar
+        $('.pinyinAudio').on('click', 'rb', function () {
+          var char = this.innerHTML;
+          document.getElementById('audioToastChar').textContent = char;
+          ajaxGetPinyinAudioPlayOnly(char);
+          $('#audioToast').toast('show'); // toast notification
+        });
+
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+  // AUDIO API function
+  function ajaxGetPinyinAudioPlayOnly(char) {
+    var url = "https://chinesepod.com/dictionary/english-chinese/" + char;
+    $.ajax({
+      url: url,
+      success: function (data) {
+        console.log('successful post');
+        var encodedURI = data.match(/https?.*\.mp3/); // this is correct but it has weird unicode stuff in url
+        var decodedURI = decodeURIComponent(encodedURI) // this is correct but it has weird unicode stuff in url
+        new Audio(decodedURI).play();
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function addMessage(data, slug) {
+    // creating time
+    var time = moment(data.ts, 'YYYY-MM-DDTHH:mm:ssZ').local().format('DD/MM/YYYY,HH:mm:ss');
+    // check if message is audio or text
+    if (data.messageType == 'text') {
+      if (data.sender == slug) { // message is outgoing = sender is themselves
+        const div = document.createElement('div');
+        div.className = 'outgoing__message';
+        div.innerHTML = `
+                <div class="sent__message"
+                title="${time}"
+                data-toggle="tooltip" data-placement="left">
+                <p class="messagesText pinyinAudio">${data.content}</p>
+                </div>
+                `;
+        document.getElementById('messages__history').appendChild(div);
+      } else { // message is incoming - sender is someone else
+        var senderName = data.stuFirstName || data.teaFirstName || data.nick;
+        var profileImage = data.stuProfileImage || data.teaProfileImage || data.profileImage || '/img/guru.png';
+        const div = document.createElement('div');
+        div.className = 'incoming__message';
+        div.innerHTML = `
+                <img src="${profileImage}" class="msgProfile" />
+                    <div class="received__message"
+                title="${time}"
+                  data-toggle="tooltip" data-placement="right" style="display:inline-flex">
+                  <p class="messagesText pinyinAudio">
+                  <b class="subtext" style="margin:0">${senderName}</b>
+                    <br>
+                    ${data.content}</p>
+                </div>
+               `;
+        document.getElementById('messages__history').appendChild(div);
+      }
+
+    } else if (data.messageType == 'audio') {
+
+      if (data.sender == slug) { // message is outgoing = sender is themselves
+        const div = document.createElement('div');
+        div.className = 'outgoing__message';
+        div.innerHTML = `
+                <div class="sent__message" style="background:transparent;padding-right:0px;"
+                title="${time}"
+                data-toggle="tooltip" data-placement="left">
+                <div class="messagesText">
+                <audio style="min-width:220px;" src="${data.content}" controls></audio>
+                </div>
+                </div>
+                `;
+        document.getElementById('messages__history').appendChild(div);
+      } else { // message is incoming - sender is someone else
+        var senderName = data.stuFirstName || data.teaFirstName || data.nick;
+        var profileImage = data.stuProfileImage || data.teaProfileImage || data.profileImage || '/img/guru.png';
+        const div = document.createElement('div');
+        div.className = 'incoming__message';
+        div.innerHTML = `
+        <img src="${profileImage}" class="msgProfile" />
+                    <div class="received__message"
+                title="${time}"
+                  data-toggle="tooltip" data-placement="right" style="display:inline-flex">
+                  <div class="messagesText">
+                  <b class="subtext" style="margin:0">${senderName}</b>
+                  <br>
+                <audio style="min-width:220px;" src="${data.content}" controls></audio>
+                </div>
+                </div>
+               `;
+        document.getElementById('messages__history').appendChild(div);
+      }
+
+    }
+
+    // reinit tooltips
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip({
+        boundary: 'window'
+      })
+    });
+  }
+
+
+  // SPEAKING - MEDIA RECORDER API
+  // This example uses MediaRecorder to record a filtered audio stream and use the
+  // resulting blob as a source for an audio element.
+  //
+  // The relevant functions in use are:
+  //
+  // navigator.mediaDevices.getUserMedia -> to get audio stream from mic
+  // AudioContext (constructor) and the various types of nodes to manipulate sound
+  // MediaRecorder (constructor) -> create a MediaRecorder with a stream
+  // MediaRecorder.ondataavailable -> event to listen to when a record is ready
+  // MediaRecorder.start -> start recording
+  // MediaRecorder.stop -> stop recording (this will generate a blob of data)
+  // URL.createObjectURL -> to create a URL from a blob, which we can use as src
+
+  var recordButton, stopButton, recorder, send;
+
+
+  function initSpeakingAudio(room, roomType, profileImage) {
+
+    recordButton = document.getElementById('record');
+    stopButton = document.getElementById('stop');
+    sendButton = document.getElementById('send');
+    pauseButton = document.getElementById('pause');
+    resumeButton = document.getElementById('resume');
+    recordingAudioControl = document.getElementById('recording');
+
+    // get audio stream from user's mic
+    navigator.mediaDevices.getUserMedia({
+        audio: true
+      })
+      .then(function (stream) {
+        recordButton.addEventListener('click', startRecording);
+        stopButton.addEventListener('click', deleteRecording);
+        pauseButton.addEventListener('click', pauseRecording);
+        resumeButton.addEventListener('click', resumeRecording);
+        sendButton.addEventListener('click', sendRecording);
+        // Create a Web Audio based pipeline to modify the input sound in real time
+        var audioContext = new AudioContext();
+        var now = audioContext.currentTime;
+        // connect inputnode to output node
+        var inputNode = audioContext.createMediaStreamSource(stream);
+        var outputNode = audioContext.createMediaStreamDestination();
+        inputNode.connect(outputNode);
+        // create a new MediaRecorder and pipe the filtered audio stream to it
+        var options = {
+          mimeType: "audio/webm; codecs=opus"
+        }; // for some reason firefox default records in audio/ogg which fucks some shit up so we define audio/webm (which is what chrome uses)
+        recorder = new MediaRecorder(outputNode.stream, options);
+        // listen to dataavailable, which gets triggered whenever we have an audio blob available
+        recorder.addEventListener('dataavailable', function (evt) {
+          updateAudio(evt.data, room, roomType, profileImage);
+        });
+        // Work around for bug https://bugzilla.mozilla.org/show_bug.cgi?id=934512
+        window.dontGCThis = stream;
+        startRecording(); // call start recording function
+      });
+  };
+
+  function startRecording() {
+    // enable/disable buttons
+    recordButton.disabled = true;
+    pauseButton.disabled = false;
+    // show hide buttons
+    recordButton.style.display = "none";
+    pauseButton.style.display = "inline";
+
+    // make the MediaRecorder start recording
+    recorder.start();
+
+    // start timer
+    startTimer();
+  }
+
+  function sendRecording() {
+    // enable/disable buttons
+    recordButton.disabled = false;
+    stopButton.disabled = true;
+    sendButton.disabled = true;
+    pauseButton.disabled = true;
+    resumeButton.disabled = true;
+
+    // show hide buttons
+    recordButton.style.display = "inline";
+    stopButton.style.display = "none";
+    sendButton.style.display = "none";
+    pauseButton.style.display = "none";
+    resumeButton.style.display = "none";
+    // make MediaRecorder stop recording
+    // eventually this will trigger the dataavailable event
+    recorder.stop();
+    send = 1; // upload it
+    resetTimer(); // reset timer
+  }
+
+  function pauseRecording() {
+    // enable/disable buttons
+    pauseButton.disabled = true;
+    resumeButton.disabled = false;
+    stopButton.disabled = false;
+    sendButton.disabled = false;
+
+    // show hide buttons
+    pauseButton.style.display = "none";
+    resumeButton.style.display = "inline";
+    stopButton.style.display = "inline";
+    sendButton.style.display = "inline";
+
+    // make MediaRecorder stop recording
+    // eventually this will trigger the dataavailable event
+    recorder.pause();
+
+    pauseTimer();
+  }
+
+
+  function resumeRecording() {
+    // enable/disable buttons
+    resumeButton.disabled = true;
+    pauseButton.disabled = false;
+    stopButton.disabled = true;
+    sendButton.disabled = true;
+
+    // show hide buttons
+    resumeButton.style.display = "none";
+    stopButton.style.display = "none";
+    sendButton.style.display = "none";
+    pauseButton.style.display = "inline";
+    // make MediaRecorder stop recording
+    // eventually this will trigger the dataavailable event
+    recorder.resume();
+
+    resumeTimer();
+  }
+
+
+  function deleteRecording() {
+    // enable/disable buttons
+    recordButton.disabled = false;
+    stopButton.disabled = true;
+    sendButton.disabled = true;
+    resumeButton.disabled = true;
+    pauseButton.disabled = true;
+    // show hide buttons
+    recordButton.style.display = "inline";
+    stopButton.style.display = "none";
+    sendButton.style.display = "none";
+    pauseButton.style.display = "none";
+    resumeButton.style.display = "none";
+
+    // make MediaRecorder stop recording
+    // eventually this will trigger the dataavailable event
+    recorder.stop();
+    send = 0; // do not upload
+    resetTimer(); // reset timer
+  }
+
+
+  var audioBlob;
+
+  function updateAudio(blob, room, roomType, profileImage) {
+    var audio = document.getElementById('audio');
+    // use the blob from the MediaRecorder as source for the audio tag
+    var audioURL = URL.createObjectURL(blob);
+    audio.src = audioURL;
+    // audio.play();
+    // set global vars
+    audioBlob = blob;
+
+    if (send == 1) {
+      uploadAudioMessage(room, roomType, profileImage);
+    }
+  }
+
+  function uploadAudioMessage(room, roomType, profileImage) {
+    var data = new FormData();
+    var request = new XMLHttpRequest();
+    var sSlug = document.getElementById("sSlug").textContent;
+    var sFirstName = document.getElementById("firstName").textContent;
+    // callback for successful execution
+    request.onreadystatechange = function (data) {
+      var fileURL = this.response;
+      if (this.readyState == 4 && this.status == 200) {
+        // emit the message to other conversations
+        var socket = io({
+          transports: ['websocket', 'polling']
+        });
+
+        socket.emit("chat message", {
+          room: room,
+          sender: sSlug,
+          content: fileURL,
+          nick: sFirstName,
+          messageType: 'audio',
+          roomType: roomType,
+          profileImage: profileImage,
+        });
+
+      }
+    };
+    // append body data
+    data.append('file', audioBlob, 'audio.mp3');
+    request.open('post', '/ajaxUploadAudioMessage');
+    request.send(data);
+  }
+
+  // TIMER STUFF
+  var interval = null;
+  var totalSeconds = 0;
+
+  function startTimer() {
+    resetTimer();
+    // show timer
+    document.getElementById("recordingTimer").style.display = "flex";
+    // count up timer
+
+    interval = setInterval(setTime, 1000);
+
+
+  }
+
+  function pauseTimer() {
+    clearInterval(interval);
+    document.getElementById("recordingTimerNo").classList.remove("blink"); // remove blink
+  }
+
+  function resumeTimer() {
+    interval = setInterval(setTime, 1000);
+    document.getElementById("recordingTimerNo").classList.add("blink"); // remove blink
+
+  }
+
+  function resetTimer() {
+    clearInterval(interval);
+    // hide timer
+    document.getElementById("recordingTimer").style.display = "none";
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    totalSeconds = 0;
+    secondsLabel.innerHTML = '00';
+    minutesLabel.innerHTML = '00';
+  }
+
+  function setTime() {
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    ++totalSeconds;
+    secondsLabel.innerHTML = pad(totalSeconds % 60);
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  }
+
+  function pad(val) {
+    var valString = val + "";
+    if (valString.length < 2) {
+      return "0" + valString;
+    } else {
+      return valString;
+    }
+  }
+
+
+
+
+
+
+  function ajaxUpdateUnreadMsgCount(msgCount) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxUpdateUnreadMsgCount",
+      timeout: 30000,
+      data: {
+        msgCount: msgCount,
+        who: 'stu',
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+</script>

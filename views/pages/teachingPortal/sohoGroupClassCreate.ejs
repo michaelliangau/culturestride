@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-xl-12">
+    <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+      <div style="padding:40px 40px;text-align:left">
+        <h4>Create a new Practical class for students to join</h4>
+
+        <form method="post" class="needs-validation" validate>
+
+          <div class="form-group">
+            <label style="margin-bottom:0px" for="level">What level is this class at?</label>
+            <br>
+            <i class="subtext"></i>
+            
+            <select id="level" name="level" class="custom-select" required>
+              <option value="0">HSK 0</option>
+              <option value="1">HSK 1</option>
+              <option value="2">HSK 2</option>
+              <option value="3">HSK 3</option>
+              <option value="4">HSK 4</option>
+              <option value="5">HSK 5</option>
+              <option value="6">HSK 6</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="classTime" id="classTimeLabel"><b>Start time of class
+                    (<span id="region"></span> time)</b></label>
+            <br>
+            <input name="classTime" id="classTime" type="text" autocomplete="off" required>
+        </div>
+
+        <% if (sohoPermission == 0) { %>
+          <div class="form-group">
+            <label style="margin-bottom:0px" for="teacher">Select Teacher</label>
+            <select id="teacher" name="teacher" class="custom-select" required>
+              <option value="">Please select...</option>
+  
+              <% for (var i = 0 ; i < teacher.length ; i ++) { %>
+                <option value="<%- teacher[i].sohoUID %>"><%- teacher[i].firstName + ' ' + teacher[i].lastName %></option>
+              <% } %>
+            </select>
+          </div>
+        <% } %>
+
+
+
+        <button class="button button-primary button-block button-shadow" style="margin: 0px auto 20px auto"
+            type="submit">Create Class</button>
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="fullCalendar" style="display: none;" class="row">
+  <div class="col-xl-12">
+    <div class="feature text-center is-revealing box-shadow" style="max-width: none;width: 100%;position:inherit">
+      <div style="padding:40px 40px;text-align:left">
+
+<h4><span id="teacherCalendar"></span>'s Calendar (Free Times)</h4>
+
+<span class="badge badge-light badge-pill" style="margin-bottom:10px;">Timzeone: <span id="timezone"></span></span>
+
+<div id="calendar"></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+
+<script>
+  						var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+						document.getElementById('region').textContent = region;
+
+
+  $(document).ready(function () {
+        var optional_config = {
+            allowInput: true,
+            enableTime: true,
+            altInput: true,
+            altFormat: "Y-m-d H:i:00",
+            dateFormat: 'Z',
+            time_24hr: true,
+            // minDate: formatDate,
+            onChange: function (dateObj, dateStr) {
+                dateObj = dateObj[0];
+                const utc = moment(dateObj).utc();
+                console.log(utc.format());
+                //test.selectedDateObj = utc.toDate();
+                //test.input.value = utc.format();
+                //timezone.textContent = utc.utcOffset();
+            }
+        }
+        $("#classTime").flatpickr(optional_config);
+    });
+
+    // prevent double submit of form
+    $('form').submit(function () {
+        $('button[type=submit]', this).attr('disabled', 'disabled');
+    });
+</script>

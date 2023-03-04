@@ -1,0 +1,283 @@
+<select id="selectedTeacher" name="selectedTeacher" class="custom-select" onchange="initCal()">
+  <option value="">Please select...</option>
+<% for (var i = 0 ; i < teacher.length ; i ++ ) { %>
+  <option value ="<%- teacher[i].sohoUID %>"><%- teacher[i].firstName + ' ' + teacher[i].lastName %></option>
+  <% } %>
+
+</select>
+
+<h4>Timzeone: <span id="timezone"></span></h4>
+<!-- <div style="text-align: center">
+  <a class="button button-primary" href="/sohoschedule">Add Class</a>
+</div> -->
+
+
+
+
+<input type="radio" id="removeOne" name="remove" value="removeOne">
+<label for="removeOne">Remove Single Event</label><br>
+<input type="radio" id="removeAll" name="remove" value="removeAll">
+<label for="removeAll">Remove All Recurring Events</label><br>
+<br>
+<input type="radio" id="addFreeOne" name="free" value="addFreeOne">
+<label for="addFreeOne">Add Single Free Time</label><br>
+<input type="radio" id="addFreeRecurring" name="free" value="addFreeRecurring">
+<label for="addFreeRecurring">Add Recurring Free Time</label><br>
+
+<div id="calendar"></div>
+
+<!-- TOAST -->
+<div class="toast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true"
+  style="position: fixed;bottom: 0;left: 0;z-index:20;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <span class="badge badge-pill badge-primary">now</span>
+
+    <!-- <small class="text-muted">now</small> -->
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Free event is being created, please wait for a green event to show at your selected time.
+  </div>
+</div>
+
+
+<!-- FULL CALENDAR -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js"></script>
+<!-- MOMENT  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<script>
+  // build timezone
+  var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var hrOffset = -(new Date().getTimezoneOffset() / 60);
+  if (hrOffset > 0) {
+    var offset = 'UTC +' + hrOffset + ':00';
+  } else {
+    var offset = 'UTC ' + hrOffset + ':00';
+  }
+  document.getElementById('timezone').innerHTML = offset + ' ' + region;
+
+  // FULL CALENDAR INITIATLISATION
+  function initCal() {
+  var selectedTeacher = document.getElementById("selectedTeacher").value;
+
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    headerToolbar: {
+      left: 'prev,next',
+      right: 'dayGridMonth,timeGridWeek'
+    },
+    allDaySlot: false,
+    firstDay: 1, // set first day to monday
+    editable: true,
+    height: "auto",
+    selectable: true,
+    slotEventOverlap: false,
+    slotDuration: "01:00:00",
+    eventTimeFormat: { // like '14:30:00'
+      hour: 'numeric',
+      minute: '2-digit',
+      meridiem: 'short'
+    },
+    displayEventEnd: false,
+    events: '/sohoGetTeacherCalendarEvents?region=' + region + '&teacherID=' + selectedTeacher,
+
+
+
+    eventClick: function (info) {
+      if (document.getElementById('removeOne').checked) {
+        var confimit = confirm("Do you really want to delete this event? This action cannot be undone.");
+        //console.log(dateTimeString);
+        if (confimit) {
+          //  get id of element
+          var id = info.event.id || info.event
+            .groupId; // change depending on whether its a recurring or single event
+          info.event.remove(); // remove events 
+          ajaxCalendarRemoveEvent(id); // call ajax to remove from db
+        }
+
+
+      } else if (document.getElementById('removeAll').checked) {
+        var confimit = confirm(
+          "Do you really want to delete ALL instances of event? This action cannot be undone.");
+        //console.log(dateTimeString);
+        if (confimit) {
+          //  get id of element
+          var groupSlug = info.event.extendedProps
+          .groupSlug; // change depending on whether its a recurring or single event
+          info.event.remove(); // remove events 
+          removeRecurringEvent(groupSlug); // call ajax to remove from db
+        }
+      } else {
+        var confimit = confirm("Please select a remove option");
+      }
+    },
+
+    select: function (startEvent, endEvent, jsEvent, view) {
+      // check if the duration is greater than 1 hr - if yes split it into multiple events then post, if no then just post
+      var start = new Date(startEvent.start.toISOString());
+      var end = new Date(startEvent.end.toISOString());
+
+      var diff = end - start;
+
+      var eventStart = start;
+
+      var popup = 0;
+      while (diff >= 3600000) { // if the event spans over 1 hr then break it down into one hour time slots
+        // create new end
+        var eventEnd = new Date(eventStart);
+        eventEnd.setHours(eventEnd.getHours() + 1);
+
+        if (document.getElementById('addFreeOne').checked) {
+          // pop a notification to show that the calendar is being populated
+          $('.toast').toast('show'); // toast notification
+          // post create event
+          ajaxCalendarAddEventFree(eventStart.toISOString(), eventEnd.toISOString(), selectedTeacher);
+        } else if (document.getElementById('addFreeRecurring').checked) {
+          // pop a notification to show that the calendar is being populated
+          $('.toast').toast('show'); // toast notification
+          // add recurring free time weeks - 30 weeks in advance
+          ajaxCalendarAddEventFreeRecurring(eventStart.toISOString(), eventEnd.toISOString(),selectedTeacher);
+        } else if (popup == 0) { // so the popup doesn't come up once for every single 1 hr increment
+          var confimit = confirm("Please select a free time option");
+          var popup = 1;
+        }
+
+
+        // set new start and end
+        eventStart = eventEnd;
+
+        // reduce diff by 3600000
+        diff -= 3600000;
+      }
+
+      calendar.refetchEvents();
+    },
+    selectOverlap: function (event) {
+      return false; // block selection overlapping
+    },
+    eventDrop: function (info) {
+      var id = info.event.id || info.event.groupId; // change depending on whether its a recurring or single event
+      ajaxCalendarUpdateEvent(id, info.event.start.toISOString(), info.event.end.toISOString(), region);
+
+    }
+
+  });
+  calendar.render();
+
+}
+
+  // AJAX
+  function ajaxCalendarAddEventFree(start, end, selectedTeacher) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarAddEventFree",
+      timeout: 30000,
+      data: {
+        start: start,
+        end: end,
+        recurring: 0,
+        selectedTeacher: selectedTeacher,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxCalendarAddEventFreeRecurring(start, end, selectedTeacher) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarAddEventFree",
+      timeout: 30000,
+      data: {
+        start: start,
+        end: end,
+        recurring: 1,
+        selectedTeacher: selectedTeacher,
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxCalendarRemoveEvent(eventId) { // ajax for update session var so that custom mark view is saved
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarRemoveEvent",
+      timeout: 30000,
+      data: {
+        eventId: eventId
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function ajaxCalendarUpdateEvent(eventId, start, end,
+    region) { // ajax for update session var so that custom mark view is saved
+    console.log('region: ' + region)
+    $.ajax({
+      type: "POST",
+      url: "/ajaxCalendarUpdateEvent",
+      timeout: 30000,
+      data: {
+        eventId: eventId,
+        start: start,
+        end: end,
+        region: region
+      },
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+  function removeRecurringEvent(groupSlug) { // ajax for update session var so that custom mark view is saved
+    console.log('region: ' + region)
+    $.ajax({
+      type: "POST",
+      url: "/removeRecurringEvent",
+      timeout: 30000,
+      data: {
+        groupSlug: groupSlug,
+      },
+
+      success: function (data) {
+        //show content
+        console.log('successful post');
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+</script>

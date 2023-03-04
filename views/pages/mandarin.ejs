@@ -1,0 +1,907 @@
+<!-- MOMENT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<section class="hero" style="padding-bottom:60px">
+	<div class="container">
+		<div class="hero-inner">
+			<div class="hero-copy">
+				<h1 class="hero-title mt-0" id="heroTitle">
+					Communicative Mandarin Learning
+				</h1>
+				<p class="hero-paragraph" style="margin-bottom:0px">Students across the world use Culturestride to
+					connect with family, make friends and build careers in Asia.
+
+					<br><br>
+					We're working hard to build a more connected and empathetic world and can't wait for you to join us.
+					<br><br>
+					Join students from
+				</p>
+				<div class="row" style="padding:7px 0px 0px 14px">
+					<span class="mobileLanguagesHome" style="display:inline-flex;overflow-x:scroll">
+						<img class="mb-16" style="border-radius:50%;width:50px;height:50px;border: white 2px solid;"
+							src="data:image/png;base64,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fz2cYwXe+76ADRtGWDynhnjFWeHfH2pjaW/AKSsGQTwut4xNtPDQkwFnf2CCUlBFfdBIe+UdwJ0Fm1lUA1yYYjOLF4UgxPgczQVnY0LN8TaBfA6eMoEM4imRBjFWEwJXw6vBSzNGQO1hVAPUFgh9HUk8WVwg0NpU5yADI3hv8EYJfIhxGd76xizhnXycvIwaj7EpYW4aSY4YROqoOLJCxLXXddI33EKKsOXmiO/cpUzmIVXruON7hm9unUvNWzCGv7g84ekXK3htJ0nha9cu5MiIIQ8Nf/6lClff2ESWOzInoIrBEeYGowlqFPLmd/ZxAGMnUASvRVQMPshBLcaBUSXIEz5wdp0nthcIXcimzyrzmpspBhCl82iZkxIUJsnSIs5bek7t4h+/fQSxEUEeMFw9ghRLGPX80R+W+cxFrZhQsIG8DqgYvBYaZXkwPq2qTJOPH3s4OlmTo5M1hZqxvPRcDwsXj9HedphUS4z0t9LZdYhUPC88t4o5zQMs6R0j1RL9g0pRhPZOxblJnt8+n2WnDDK3mDIx2Y0pT1LkyPFUb5jGvV2fa8alWyaNwYnVAOMsuc0RPNZFeKtkQUrgBclD1KbkCKEKqhYkBElRybE5qES4ICWaeVtl5uDeVxBbRbxBMagaxEyVcxjANwIWoBqACiIe1ICZStz8VBtPDRj/lirrF7EZ15waVMEVQA3OejTIUA3xEqAmb8yHBBwhKjlq0kZxYjO8CEqEUsRbRa0DX5oxNMzixKdyrWOTZd7wIHr0KsAbno5dFBCVqbHL60tmNVn+X6wz8MLuVvHaAAACEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4KPHg6eG1wbWV0YSB4bWxuczp4PSdhZG9iZTpuczptZXRhLycgeDp4bXB0az0nSW1hZ2U6OkV4aWZUb29sIDEwLjgwJz4KPHJkZjpSREYgeG1sbnM6cmRmPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjJz4KCiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0nJwogIHhtbG5zOnBkZj0naHR0cDovL25zLmFkb2JlLmNvbS9wZGYvMS4zLyc+CiAgPHBkZjpBdXRob3I+TWljaGFlbCBMaWFuZzwvcGRmOkF1dGhvcj4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6eG1wPSdodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvJz4KICA8eG1wOkNyZWF0b3JUb29sPkNhbnZhPC94bXA6Q3JlYXRvclRvb2w+CiA8L3JkZjpEZXNjcmlwdGlvbj4KPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KPD94cGFja2V0IGVuZD0ncic/PqA9b10AAAAASUVORK5CYII="
+							alt="UNSW" data-toggle="tooltip" data-placement="top" title="University of New South Wales">
+						<img class="mb-16" style="border-radius:50%;width:50px;height:50px;border: white 2px solid;"
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAHNUlEQVRoQ+2Zf2xV5RnHP+85l/4YrbaMrqFQi0XRsDEmgRC3VjAxJsYxe2sYGLaFOWfmMnu6rpZMYXQEp0DneqvEmZCZENwwDg6bOudcnF11MJmLizoysJVfFRfGXCu25f4473LOuefec+4997b3thbScP7pved93+d9Pu/zfZ73vW8FU+QRU4SDSyBOJOUB5hpR3kuLrAQCM6FwNqJsJfLsbhjqBzXiJ4KwUkexEBj5KiTniMjXWGMY/CoxoQHKslOWwx8+HOK/D+xAKAVZ/ZEyTMmam6nc/ZjVz3hZQMoQtT43teQO8ipfNSRPK1+SHFWrUdXL05ye80Yz76/+OdXPfY/j13Yk2uW0KOrs6cT6hhGK4hlnxIa5yujFeNV2aVJB+go+lwZRe2ozsUAENawSjcWQw1FOLniImrdaOPbZbXx64438p+OPKOcL08dG3r4YQMykENSeaKdvzo+gTKVi60pKb13MifrtXNFzH0wLQCQKJcU2xLlh+q5oTwDVXnAQKak9+WP6qjfBTEHtPzYT7j9L+M33KLllcdZ86Z2zAaEErD4XHiTuqhkN85GqYOjl4yAHmL5iYRJEwrtz2qjceQelt1xnvT+7/UUGHj1wcYFQJGFEIJUI8449aDnnlo565aeo6W6D0mL6ytdT9ftvULSgNtHnoomImKly5d83Qlkhwz2HOX3rLjtC0mDeyc1QXkTvjBZEpIBZv11L8ReuvshyxJ0FUoLIuapfAGn1cJMBL5n7iFN+ZSxKoLaMmqN/AZHcHwxDEjXMaiYJKAqK4gU8880mBnY9j6LYVWxSpWVOGOtBmiCj7b2isctTsZbMKufQjq9nrWLxDfG8Wk9R1o4pjXlpIBeQWIuGCICyLcRYQWKC6wvqODg5INcPglqada7Sr+xkoO3bVp/2P9/FC/03jCkiuR5PTPt5R0R85ruI+TuygiSkNVJIdel5ZlXM4K+PfW1UaU0aiHyJy40i/qc+Eko41br0EB2Hltrl9n4NlphJbj9Pdx9h9fL51ufX913Nst33Wp9jbS2o2x5J9DM6/o18/yc5HxjzjoiT8Pcf7mbrC29CpIDY+nsSuZAK4g7Bgb1z+eJTLSwtG+TgnRt57YOF3PDLu2ywFi0viPGCnFDqZLUln6hCrO1eRCEoD4VoXfQOVK5FCknH3cstAbc+0W052//ub9jTO5cqo5CTrd9hU/c6trxxHXJfk3XyzUdW4wJxolLcvpVwaTH6ymcJPvdle/GlAjJmfSz4eIQ1Ny1i14F/2W3mPiNs2clWDdFhyzPWrKEuzy9nxw0iD1IpF/ztg/qNR9i76Ta3giyPKr+1M/nOECyuKuN3D97u6ffPE2e5cVH1uKIxbhAnKkpdMrHdXpqyM3VvPmZhyLSPjEdSznx5lV/Pkjo7vQ+MB+SnXSypKkvbRyYCYkIi4kBZu/3SfiisSnC6jyjXXjZEyfTZHpCJgphQEEdm5l9Haqlnrds/X8Ov22/L+3d5qhI8Ms7WmE+b/BNlRoAPE2Ptwy+4Lk0EHFbqWZCP/UxjJiRH/IxHeqhToCel7bRaT1J7E0jyiYFMoI9jMnUJZEzLNImdplhEGkLH2a/VWAu4aucMoh93o2sLCYb+gK7dTLBzEL35ssQCB0Nn0LWKxPtg5xn05gqrPRiS6Jog2HUnetMvWNEeoLx8Pbpm3w857X6f4RS6Vu2ax7blPM7Yhs5z7G8uYUV7ERXvRHjmmZh/RIKhKPARUIKuTbMmhxi6Zl8JpoK4JZQAiQPZ/R8ANqFrBXFbvejaVV5wV3+3vcbQU+zT1lqvGjo3sL95iwssbJ1C9aZAJpC3RolIfNXdznbdh960PWXFR9C1IgvEjMiqHSVEox8lVjnY9TZ6k30T7o6UG8SM6Cvt5sK6oh3agq5tsCLySvuI2TTFcmQSq8snNZU3kexZzDAG7IQN2XkC59A1+8rETDQhzH+RCetdso/bxyPo2jVxOTg2SElcr21/O/aYYGgQMOdP+pHimw3S0PkDhOjwTJSsFLYRv+qRWk2c742hJ5DcnRwjzSpmpNlPzYts3+2C04euzXMlu5lv1gLbIMHQEFDsC+IkmcJ89mpHCYZOo2uzPBLxS1R74ngUpLB+3+biuJ8GM5VuT7J7JvaxkiyrYwPxVKIEiPkvXVu2fpXK7WjDz+ay//vHPJ40ProaaeyBgkr0e87Ez9VWF2/VcmBgD7p2R8qqm2WuMIP8vBtXmuTiII7z8Dq6tsw3Qu5J3XJ220xEOtk50z5iymIIXZvusmsmXbrO/VY2G4i7fzap+UXEHhtGcJp98ZNIfC5/kFWPzyYaNo8L7vbcQPxyxAFc92QRA4PDyRyKN2TaFN1RygqSfpZqBbbnDdLY+SRSrPNULecyK5tERisGo0bEBEF4r9ZT9ZnMn9T9wO8u6GF07YeJhcxUSFKrkF+lSi37GXLo0hHFb/Eu5LspE5H/A5nwh2BsJgfHAAAAAElFTkSuQmCC"
+							alt="Stanford University" data-toggle="tooltip" data-placement="top"
+							title="University of Sydney">
+						<img class="mb-16" style="border-radius:50%;width:50px;height:50px;border: white 2px solid;"
+							src="data:image/png;base64,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"
+							alt="Stanford University" data-toggle="tooltip" data-placement="top"
+							title="University of Technology Sydney">
+						<img class="mb-16" style="border-radius:50%;width:50px;height:50px;border: white 2px solid;"
+							src="data:image/png;base64,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jghh518dZCfpbY/d7yX/D6h6t6VmjSwgAAACEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4KPHg6eG1wbWV0YSB4bWxuczp4PSdhZG9iZTpuczptZXRhLycgeDp4bXB0az0nSW1hZ2U6OkV4aWZUb29sIDEwLjgwJz4KPHJkZjpSREYgeG1sbnM6cmRmPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjJz4KCiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0nJwogIHhtbG5zOnBkZj0naHR0cDovL25zLmFkb2JlLmNvbS9wZGYvMS4zLyc+CiAgPHBkZjpBdXRob3I+TWljaGFlbCBMaWFuZzwvcGRmOkF1dGhvcj4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6eG1wPSdodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvJz4KICA8eG1wOkNyZWF0b3JUb29sPkNhbnZhPC94bXA6Q3JlYXRvclRvb2w+CiA8L3JkZjpEZXNjcmlwdGlvbj4KPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KPD94cGFja2V0IGVuZD0ncic/PqA9b10AAAAASUVORK5CYII="
+							alt="Stanford University" data-toggle="tooltip" data-placement="top"
+							title="Stanford University">
+
+					</span>
+				</div>
+
+				<div class="hero-form field field-grouped" style="margin:20px 0px">
+					<div class="control">
+						<a class="button button-primary button-block button-shadow"
+							style="display:inline-block; margin: 10px" href="/start">Try Theory and Practical Class
+							Free</a>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="hero-illustration">
+				<div class="hero-shape hero-shape-1">
+					<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+						<circle class="anime-element fadeup-animation" cx="20" cy="20" r="20" fill="#FFD8CD"
+							fill-rule="evenodd" />
+					</svg>
+				</div>
+				<div class="hero-shape hero-shape-2">
+					<svg width="88" height="88" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+						<circle class="anime-element fadeup-animation" cx="44" cy="44" r="44" fill="#FFD2DA"
+							fill-rule="evenodd" />
+					</svg>
+				</div>
+				<div class="hero-main-shape">
+					<svg width="940" height="647" viewBox="0 0 940 647" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow:visible">
+						<defs>
+							<linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="hero-illustration-a">
+								<stop stop-color="#261FB6" offset="0%" />
+								<stop stop-color="#4950F6" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="89.764%" y1="16.809%" x2="11.987%" y2="82.178%"
+								id="hero-illustration-b">
+								<stop stop-color="#FC8464" offset="0%" />
+								<stop stop-color="#FB5C32" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="100%" y1="23.096%" x2="4.439%" y2="96.586%" id="hero-illustration-c">
+								<stop stop-color="#1ADAB7" offset="0%" />
+								<stop stop-color="#55EBD0" offset="100%" />
+							</linearGradient>
+							<filter x="-13%" y="-150%" width="126.1%" height="400%" filterUnits="objectBoundingBox"
+								id="hero-illustration-d">
+								<feGaussianBlur stdDeviation="32" in="SourceGraphic" />
+							</filter>
+							<linearGradient x1="0%" y1="100%" x2="46.694%" y2="42.915%" id="hero-illustration-f">
+								<stop stop-color="#EEF1FA" offset="0%" />
+								<stop stop-color="#FFF" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="100%" y1="-12.816%" x2="0%" y2="-12.816%" id="hero-illustration-g">
+								<stop stop-color="#D2DAF0" stop-opacity="0" offset="0%" />
+								<stop stop-color="#D2DAF0" offset="50.045%" />
+								<stop stop-color="#D2DAF0" stop-opacity="0" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="116.514%" y1="-21.201%" x2="0%" y2="100%" id="hero-illustration-h">
+								<stop stop-color="#55EBD0" offset="0%" />
+								<stop stop-color="#4950F6" offset="100%" />
+							</linearGradient>
+							<path id="hero-illustration-j" d="M0 0h308v288H0z" />
+							<filter x="-15.6%" y="-12.5%" width="139%" height="141.7%" filterUnits="objectBoundingBox"
+								id="hero-illustration-i">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-k" cx="16" cy="16" r="16" />
+							<linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="hero-illustration-m">
+								<stop stop-color="#C6FDF3" offset="0%" />
+								<stop stop-color="#C6FDF3" stop-opacity="0" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="2.875%" y1="89.028%" x2="99.412%" y2="6.885%" id="hero-illustration-n">
+								<stop stop-color="#83F0DD" offset="0%" />
+								<stop stop-color="#1ADAB7" offset="50.924%" />
+								<stop stop-color="#55EBD0" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="50%" y1="1.569%" x2="50%" y2="97.315%" id="hero-illustration-o">
+								<stop stop-color="#FF97AA" offset="0%" />
+								<stop stop-color="#FF6381" offset="100%" />
+							</linearGradient>
+							<linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="hero-illustration-p">
+								<stop stop-color="#FCAC96" offset="0%" />
+								<stop stop-color="#FC8464" offset="100%" />
+							</linearGradient>
+							<circle id="hero-illustration-r" cx="28" cy="28" r="28" />
+							<filter x="-85.7%" y="-64.3%" width="314.3%" height="314.3%" filterUnits="objectBoundingBox"
+								id="hero-illustration-q">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-t" cx="36" cy="36" r="36" />
+							<filter x="-66.7%" y="-50%" width="266.7%" height="266.7%" filterUnits="objectBoundingBox"
+								id="hero-illustration-s">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-v" cx="28" cy="28" r="28" />
+							<filter x="-85.7%" y="-64.3%" width="314.3%" height="314.3%" filterUnits="objectBoundingBox"
+								id="hero-illustration-u">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+							<circle id="hero-illustration-x" cx="24" cy="24" r="24" />
+							<filter x="-100%" y="-75%" width="350%" height="350%" filterUnits="objectBoundingBox"
+								id="hero-illustration-w">
+								<feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1" />
+								<feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+								<feColorMatrix
+									values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0"
+									in="shadowBlurOuter1" />
+							</filter>
+						</defs>
+						<g fill="none" fill-rule="evenodd">
+							<path class="anime-element stroke-animation"
+								d="M600,300 C600,465.685425 465.685425,600 300,600 C134.314575,600 1.3749042e-14,465.685425 3.60373576e-15,300 C-6.54157051e-15,134.314575 134.314575,-1.29473326e-14 300,-2.30926389e-14 C465.685425,-3.32379452e-14 600,134.314575 600,300 Z"
+								stroke="#4950F6" />
+							<g transform="translate(435 450)">
+								<circle class="anime-element fadeup-animation" fill="url(#hero-illustration-b)" cx="106"
+									cy="32" r="32" />
+								<circle class="anime-element fadeup-animation" fill="url(#hero-illustration-c)" cx="12"
+									cy="117" r="12" />
+							</g>
+							<g class="anime-element fadeleft-animation">
+								<g transform="translate(0 50)">
+									<!-- <path fill-opacity=".24" fill="#11103E" filter="url(#hero-illustration-d)"
+											d="M32 410h736v64H32z" /> -->
+									<use fill="url(#hero-illustration-f)" xlink:href="#hero-illustration-e" />
+									<image x="-2" width="450" xlink:href="../img/shanghai.png" />
+
+								</g>
+							</g>
+							<!-- <g class="anime-element fadeleft-animation">
+											<g transform="translate(220 250)">
+												<image x="-2" width="400" xlink:href="dist/images/test.jpg" />
+											</g>
+										</g> -->
+							<g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(164 483)">
+										<use fill="#000" filter="url(#hero-illustration-q)"
+											xlink:href="#hero-illustration-r" />
+										<use fill="#FFF" xlink:href="#hero-illustration-r" />
+									</g>
+									<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="19" fill="#11103E"
+										transform="translate(162 481)">
+										<tspan x="17" y="36">🥣</tspan>
+									</text> -->
+									<g transform="translate(177 493)">
+										<image style="width:30px"
+											xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAACkUlEQVRoge2YP2gTcRTHP+/SCG0d/INgqaCLmIIOUkRasSAVBEVwKkWEOuXaKFLcCqJRFHRRp6TnYhEKoiDqIorgII2DuIhDyNZBRNRBsFZte8+hmNIQe7+73K8lcJ8t5Pd+3/fu/TsOEhISmhqxdfFUV9cxUfUAFd/P9lQqz2zoODYuBRDVcaAT2OaLeLZ0rAWwWlgLwBHfTbct/Em3zv92Uura0mmxdfH+c5VdCOsAEHbiYqUHrDSxjnMUeMLSA5pDOS4jPI9bK/YS0iKDwCOWZzeN8FiLDMStF1sGtMBGHK4D2YCjDxFy4vI1Dt2GA9AinQhnABfYZGj2DcUDCjLCx0b0QwWgN2mlnS1ABp99CEeAHqIPg3mghPICh7dAmRm+yHlmTS8IJ9zOLZTFkRhP8bUAfQh9aFXDA4ZNLwiXAUXwGARGgd1AWxj7FfgJfABu43JfpBpOIA09x1ImYyy0Er3lcmQ/mv5VIrZN/KBcXvZ7IJMJ9X9Umj4DkWpPFeEOYyjXYvJijCw3wjTvkqkBmsdhM1tJs53FuX8K2BtWLMCTd/hMorwhxTSf+Cx5/CAzsx7ooFCd/7ZQuhG6EUCBDrN9YJYBe/O/ltD7IFIPxDX/a4myD5p+CiV7YK0JXXPqMYQyYcEXgCEZ5l4Yg3Bvox4nUCaxN4Vm8DkpOZ6aGpiN0SI7EC4Cp01tGsBHmGCOK3KW6aDDdZ3Ru2xglj2kOIByGDjE6veLD7xCeMkCU6R4Ly7faw/Vn0K/GMXhUvg3k1hxgH6UfhzA5zKQrz3033LQAgdxuAD0AutteRnAD6CEz1XJ8breAaN6trV5gzDZzE2/B2L/Nlq7cWuJawP/o+kzkASw1iQBJCQkJDTEXxvarlJroW1CAAAAAElFTkSuQmCC" />
+									</g>
+								</g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(400 480)">
+										<use fill="#000" filter="url(#hero-illustration-s)"
+											xlink:href="#hero-illustration-t" />
+										<use fill="#FFF" xlink:href="#hero-illustration-t" />
+										<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="19"
+											fill="#11103E" transform="translate(6 6)">
+											<tspan x="17" y="36">🏓</tspan>
+										</text> -->
+										<g transform="translate(24 25)">
+											<image style="width:30px"
+												xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFLklEQVRoge2YW2wUZRTHf2d2t9SlpYiUq0paKF0pYotA5R4uQgqEy4P4YkIM8RINBjVgSTRijAFTiYIYJSZqjC9ieBAEFQRCwFhb6BailgZqCaTeI1Db3W5nZ44PbZdt2VtnW3jp7+mb+c78z//szJzvm4UBBhhggNuJ9PaCt08uzw+rvUhFFgjkA6OA3M7pv4E/gAZRjqu6jm6af6CxD/3eREoF7Dn9oKc5MOpRRF8EinuZwS/ojuzMv/Y+Ne2M6cRkYvkkVJxcsQbsncA9aea6jPLcpnmHvkxTpxtxC9hVWTYkZMo7wON9m1A+ssS18aU5+//rG70YbD+yOMedmXFYYUZfJImR1R9WWbRl7sGr6UoZPU/sqiwb4srM+LbfzAMoJW61D755amV2ulI3FRAyZTdQmq5wUkRmGhrembZM9EHFibKFGPJdz/MAvze1UFXVBMCM0rGMHpOVUDjVeDV06ebZXx925J6oO7BVtxoY8n4s8wBVVU0EgybBoEl1p7FEpBovtuxU7f161EWkAO+pqiXARKdCaeDb8f2yxU4vjhQgsDpR4IzSsXi9HrxeD9NLxyQVjhWvqpimRSBg0trSTnNziOvX22htad/utAB31PihRIGjx2SxcnVhysLR8ZalBAMmZruFxoi1bE1duAfRBeQ5FYmHbSvBoEnYtAEwxMPY7CJyvT6GZeaRaeTgcWUhiHfNec8loElVKsXg6LUM49iCvLy2ZDkiL0/FyWUm3QtKi3DYJhBoR20Y5Mqi4K6F5GXPJ8NIsfULf4qy22j3vDdlyri4C170OtCSpucIpmkRaOkwPzp7Mg+Pe5XCnBWpmwdQRiq8bg0y62rrGlbEC4su4JJzyzewwjbBVhMFinKXM2vUBga5cpwLKiNVdH9NfUN5rOnoAn50nqUzl2rHYwNMyi3DN3QVDj45YiGiuq22/sILPSdutFFhX7pZQm1hbBtyB+fjG5qwKztCVSr8dRdnRZ+LFHDvb4OPAeediyuhkIUhBlNHrEP65pfviaHCB6oa8R0ZrF37haXKy06Vzc5WOSqriCz36JgxJ6pqqPjwU05U++PqJIsRuN9/4deFXcfddqOb5x3aB+zttXs6Og/AuCHxN7LVZ3+m3QxTdfantGJE9bGu8U3baW84sB60JjXbN7DCHWtsdsbdcWOmF09mkMdD6QOT04pBKekaxnxQt51cfqdb7YOIzEzqvJPma20osGr8TtzGHale5pTrJb4JQyHGHQDYMvfg1Vave7EIn6Qs2S/vbFwyugYxCwDYOu1AIIz1VqqKhnRUELTT/sxNjhD5wIhbAIBLXY+kqmm4OgpoDl1x7CtlVCojeZOERhdgA3sMW6eK8gTCZwh+4AoQcLtd7SJiNQXO/NsPlrshyueRcbyg7aeWFrnU1dXLzmEYT2+a/dUPycT3qroK6htqgQRtJC3OFReOLxERGxLcgc7HJwC81jps8PRUzAOsFbFEjPWA1Sd2uxPCsNd1mYdE+38lwzJc95XPOXC5t1mKC/Or/HUXyxEqHBqN6UiRjVMnTqyNPtmvzc9fd2ELIm/0QZ6wIE8W+8Z/3HOi37t3bd2FpSryEZD8n4A4CHxT7JtQFmeu//E3Ng4lZD2LsAFlpAOJliyXDi8oKAj1nLil6+fxxsbMnHZrgQGLVJlJx10Z0Tn9D9AkUI3KCcX2IVIOdHyH2saSkkn5R3pq3toNQC85XV8/3K2uVxSeAd1d4it4/nZ7csTZXy5Orqm/+O7t9jHAAAMMcDP/A+c21Cb4EAj5AAAAAElFTkSuQmCC" />
+										</g>
+									</g>
+								</g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(200 40)">
+										<use fill="#000" filter="url(#hero-illustration-u)"
+											xlink:href="#hero-illustration-v" />
+										<use fill="#FFF" xlink:href="#hero-illustration-v" />
+									</g>
+									<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="19" fill="#11103E"
+										transform="translate(200 40)">
+										<tspan x="17" y="36">🤗</tspan>
+									</text> -->
+									<g transform="translate(214 54)">
+										<image style="width:30px"
+											xlink:href="data:image/png;base64,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" />
+									</g>
+								</g>
+								<g class="anime-element fadeleft-animation">
+									<g transform="translate(530 200)">
+										<use fill="#000" filter="url(#hero-illustration-w)"
+											xlink:href="#hero-illustration-x" />
+										<use fill="#FFF" xlink:href="#hero-illustration-x" />
+									</g>
+									<!-- <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="16" fill="#11103E"
+										transform="translate(530 200)">
+										<tspan x="13" y="31">👋</tspan>
+									</text> -->
+									<g transform="translate(542 213)">
+										<image style="width:25px"
+											xlink:href="data:image/png;base64,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" />
+									</g>
+								</g>
+							</g>
+						</g>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section style="padding:40px 0px 80px 0px;background: #f6f9fc;z-index:0">
+	<div class="container">
+
+
+
+
+
+
+
+		<!-- PLAN -->
+
+		<div class="row">
+			<div class="col-sm-12">
+				<h3 class="mobileText">A social <span style="color:#4950F6">communicative</span> approach to learning
+					Mandarin online</h3>
+			</div>
+			<div class="col-sm-12">
+
+				<div class="row" id="lineHSK1">
+					<div class="col-auto text-center flex-column d-none d-sm-flex">
+						<div class="row h-50">
+							<div class="col">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+						<h5 class="m-2">
+							<span style="background-color:#dee2e6 !important"
+								class="badge badge-pill bg-success">&nbsp;</span>
+						</h5>
+						<div class="row h-50">
+							<div class="col border-right">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+					</div>
+					<div class="col py-2">
+						<div class="feature cardHoverExpand cardWithShadow" style="background:white" id="theory">
+							<div class="row">
+								<div class="col-sm-5">
+									<h4 class="card-title">
+										Theory class
+
+										<span class="badge badge-pill badge-light">Private 1-on-1</span>
+									</h4>
+									<p class="card-text">
+										Learn Mandarin vocabulary and grammar.
+									</p>
+									<ul>
+										<li>
+											Textbook and HSK course material
+										</li>
+										<li>
+											Personalised to you - focus on the skills or topics you want
+										</li>
+										<li>
+											Build reading, writing, speaking and listening skills
+										</li>
+									</ul>
+
+								</div>
+								<div class="col-sm-7">
+
+									<% if (theory.length > 0) { %>
+				<div class="row">
+					<% for (var i = 0 ; i < theory.length ; i ++) { %>
+						<% var mobileHide = '';
+						if (i > 0) { 
+							mobileHide = 'mobileHide' 
+						} else {
+							mobileHide = '';
+						}
+							%>
+					<div class="col-sm-4 <%- mobileHide %>">
+						<div class="cardWithShadow"
+							style="padding:20px;max-width: none;width: 100%;position:inherit">
+								<a href="/teacher/<%- theory[i].sohoUID %>">
+									<span class="link-spanner"></span>
+								</a>
+	
+							<% if (theory[i].profileImage) { %>
+							<img src="<%- theory[i].profileImage %>" class="circle" style="margin:0 auto;">
+							<% } else { %>
+							<img src="/img/guru.png" class="circle" style="margin:0 auto;">
+							<% } %>
+	
+							<br>
+							<p class="subtext" style="text-align: center;">
+							<%- theory[i].firstName + ' ' + theory[i].lastName %>
+							<% if (theory[i].noReviews > 0) { %>
+								<br>
+								<span class="star">&#9733;</span> <span class="subtext"><%- theory[i].avgStars %>
+								  (<%- theory[i].noReviews %>)</span>
+								<% } %>
+								<br>
+						</p>
+						</div>
+					</div>
+					<% } %>
+				</div>
+				<% } else { %>
+									<img style="width:100%" src="../img/private.jpg" />
+				<% } %>
+
+								</div>
+								<div class="col-sm-12">
+									<a class='button button-primary button-block button-shadow' style="margin:0 auto;"
+										href='/theory'>FIND THEORY TEACHER</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" id="lineHSK2">
+					<div class="col-auto text-center flex-column d-none d-sm-flex">
+						<div class="row h-50">
+							<div class="col border-right">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+						<h5 class="m-2">
+							<span style="background-color:#dee2e6 !important"
+								class="badge badge-pill bg-success">&nbsp;</span>
+						</h5>
+						<div class="row h-50">
+							<div class="col border-right">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+					</div>
+					<div class="col py-2">
+						<div class="feature cardHoverExpand cardWithShadow" style="background:white;" id="practical">
+							<div class="row">
+								<div class="col-sm-5">
+									<h4 class="card-title">
+										Practical class
+										<span class="badge badge-pill badge-light">Group conversation</span>
+									</h4>
+									<p class="card-text">
+										Play with Mandarin in topic-driven conversations.
+									</p>
+									<ul>
+										<li>
+											Teachers facilitate conversations between 2-3 students
+										</li>
+										<li>
+											Retain your Mandarin better by using it in unpredictable conversation
+											settings
+										</li>
+										<li>
+											Build reading, speaking and listening skills
+										</li>
+									</ul>
+								</div>
+								<div class="col-sm-7">
+
+									<% if (prac.length > 0) { %>
+									
+					<% for (var i = 0 ; i < prac.length ; i ++) { %>
+
+						<div class="cardWithShadow pracClassRow" style="padding:20px;margin:0px;max-width: none;width: 100%;position:inherit" data-level="<%- prac[i].level %>">
+							<div style="padding:10px;text-align:left">
+								<a href="/practical/<%- prac[i].sohoAID %>">
+									<span class="link-spanner"></span>
+								</a>
+								<% if (prac[i].level == 0) { %>
+									<span class="badge badge-light" style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK <%- prac[i].level %> (absolute beginner)</span>
+									<% } else if (prac[i].level == 1) { %>
+										<span class="badge badge-light" style="margin-bottom:10px;background-color:rgb(73, 80, 246);color:white;">HSK <%- prac[i].level %> (beginner)</span>
+								<% } else if (prac[i].level == 2) { %>
+									<span class="badge badge-light" style="margin-bottom:10px;background-color:#f1c40f;color:white;">HSK <%- prac[i].level %> (beginner)</span>
+								<% } else if (prac[i].level == 3) { %>
+									<span class="badge badge-light" style="margin-bottom:10px;background-color:#1abc9c;color:white;">HSK <%- prac[i].level %> (intermediate)</span>
+								<% } else if (prac[i].level == 4) { %>
+									<span class="badge badge-light" style="margin-bottom:10px;background-color:#e67e22;color:white;">HSK <%- prac[i].level %> (intermediate)</span>
+								<% } else if (prac[i].level == 5) { %>
+									<span class="badge badge-light" style="margin-bottom:10px;background-color:#9b59b6;color:white;">HSK <%- prac[i].level %> (advanced)</span>
+									<% } else if (prac[i].level == 6) { %>
+									<span class="badge badge-light" style="margin-bottom:10px;background-color:#34495e;color:white;">HSK <%- prac[i].level %> (advanced)</span>
+								<% } %>
+								<div style="margin: 10px 0px;">
+									When: <span id="when<%- i %>"></span>
+								<script>
+									var mom = moment('<%- prac[i].start %>', 'YYYY-MM-DDTHH:mm:ssZ').local().format('LLLL'); 
+									document.getElementById('when<%- i %>').textContent = mom;
+								  </script>
+								  </div>
+								<div style="margin: 10px 0px;">
+								<% if (prac[i].profileImage) { %>
+									<img src="<%- prac[i].profileImage %>" class="circle" style="width:30px;height:30px;display:inline;margin:0px 5px;">
+								<% } else { %>
+									<img src="/img/guru.png" style="display:inline;margin:0px 5px;width:30px;border-radius:50%;">
+								<% } %>
+								<span class="subtext">
+								<%- prac[i].tFirstName + ' ' + prac[i].tLastName %>
+								</span>
+							</div>
+	
+							</div>
+							</div>
+						<% } %>
+						<% } else { %>
+							<img style="width:100%" src="../img/group.jpg" />
+							<% } %>
+
+								</div>
+								<div class="col-sm-12">
+									<a class='button button-primary button-block button-shadow' style="margin:30px auto 0px auto;"
+										href='/practical'>FIND PRACTICAL CLASS</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="lineHSK2">
+					<div class="col-auto text-center flex-column d-none d-sm-flex">
+						<div class="row h-50">
+							<div class="col border-right">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+						<h5 class="m-2">
+							<span style="background-color:#dee2e6 !important"
+								class="badge badge-pill bg-success">&nbsp;</span>
+						</h5>
+						<div class="row h-50">
+							<div class="col">&nbsp;</div>
+							<div class="col">&nbsp;</div>
+						</div>
+					</div>
+					<div class="col py-2">
+						<div class="feature cardHoverExpand cardWithShadow" style="background:white;" id="practical">
+							<div class="row">
+								<div class="col-sm-5">
+									<h4 class="card-title">
+										Community exercises
+										<span class="badge badge-pill badge-light">Free resource</span>
+									</h4>
+									<p class="card-text">
+										500+ exercises built by the community to support your learning.
+									</p>
+									<ul>
+										<li>
+											Built for all levels - absolute beginner to advanced learners
+										</li>
+										<li>
+											Accessible direct in your Culturestride account
+										</li>
+										<li>
+											Covers reading, writing, speaking and listening skills
+										</li>
+									</ul>
+								</div>
+								<div class="col-sm-7">
+									<div class="card exerciseRow" style="border:0;">
+										<div class="cardWithShadow"
+											style="margin:0px;max-width: none;width: 100%;position:inherit;overflow:hidden">
+
+											<span class="badge badge-light"
+												style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK 0
+												(absolute beginner)</span>
+											<br>
+											Please read the following words:&nbsp;<br /><br />xiǎo cǎo&nbsp; 小 草
+											<br />mi&agrave;n bāo&nbsp; 面 包 <br />y&oacute;u c&agrave;i&nbsp; 油
+											菜<br />wū ɡuī&nbsp; 乌 龟 <br />l&aacute;o d&ograve;nɡ&nbsp; 劳 动
+
+											<br>
+											<span class="badge badge-light">35 answers</span>
+
+
+										</div>
+									</div>
+									<!-- <img style="width:100%" src="../img/group.jpg" /> -->
+								</div>
+								<div class="col-sm-12">
+									<a class='button button-primary button-block button-shadow' style="margin:30px auto 0px auto;"
+										href='/exercise'>Browse Commmunity Exercises</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+
+
+	</div>
+</section>
+
+<section class="" style="background: #0a2540;padding:40px 0px 80px 0px;z-index:0">
+	<div class="container">
+
+
+
+
+		<div class="row mobileText">
+			<div class="col-sm-12">
+				<h3 class="mobileText" style="color:white">Theory and Practical classes lead by native teachers</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 mobileText">
+				<div class="cardWithShadow" style="border-radius:10px;margin:10px 0px;background:#06182c">
+					<b style="color:white">Learn real Mandarin</b>
+					<p style="color:#adbdcc">Imitate native tones and expressions to help you speak like a local</p>
+				</div>
+				<div class="cardWithShadow" style="border-radius:10px;margin:10px 0px;background:#06182c">
+					<b style="color:white">Get the aid of dialects</b>
+					<p style="color:#adbdcc">Speed up your Mandarin learning with Cantonese/Shanghainese and English
+						speaking teachers.
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-6 mobileText">
+				<img style="border-radius:10px;margin:10px 0px" src="../img/practical.jpg" />
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+</section>
+
+
+<section class="section" style="padding:40px 0px 80px 0px;z-index:0">
+	<div class="container">
+
+
+
+		<div class="row" id="pricing">
+			<div class="col-sm-12">
+
+				<div class="row mobileText">
+					<div class="col-sm-12">
+						<h3 class="mobileText langPageH3" style="max-width:100%">Pay only for what you use
+							<span class="badge badge-light badge-pill">Prices are in<span style="margin-left:5px"
+									id="currencyCode">AUD</span></span>
+						</h3>
+					</div>
+				</div>
+
+				<div class="row" style="margin-bottom:50px">
+
+					<div class="col-sm-4">
+						<div class="cardWithShadow" style="height:100%;text-align: center;">
+							<span class="badge badge-primary">Practical class</span>
+
+							<div style="padding:20px" class="text-center">
+								<h3 style="margin-top:0px;font-size:2.5em;line-height: 1em;font-weight: 100;">$<span
+										id="pracPrice">9</span></h3>
+								<h6>Per class</h6>
+
+							</div>
+
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="cardWithShadow" style="height:100%;text-align: center;">
+							<span class="badge badge-primary">Theory + Practical class</span>
+
+							<div style="padding:20px" class="text-center">
+								<h3 style="margin-top:0px;font-size:2.5em;line-height: 1em;font-weight: 100;">$<span
+										id="theoryPracPrice">39</span></h3>
+
+								<h6>1hr Theory with 1 Practical class bundle</h6>
+
+							</div>
+
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="cardWithShadow" style="height:100%;text-align: center;">
+							<span class="badge badge-primary">Theory class</span>
+
+							<div style="padding:20px" class="text-center">
+								<h3 style="margin-top:0px;font-size:2.5em;line-height: 1em;font-weight: 100;">$<span
+										id="theoryPrice">39</span></h3>
+								<h6>Per hour</h6>
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="row" style="margin-bottom:50px">
+					<a class="button button-primary button-block button-shadow" href="/start" style="margin:0 auto">Try
+						Theory and Practical Class Free</a>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<!-- STUDENT Stories -->
+
+		<div class="container-fluid">
+			<div class="row flex-nowrap noscrollbar" style="overflow-x: scroll;overflow-y:hidden"
+				id="testimonialScroll">
+
+				<div class="col-12 col-sm-4" style="margin-bottom:30px;">
+					<div class="cardWithShadow" style="padding:0px; margin-bottom:30px">
+						<div class="card profile-card-4" style="border:0">
+
+							<div class="card-img-block">
+								<img class="img-fluid blur" style="width:100%" src="../img/jesspan.png" alt="Jess Pan">
+							</div>
+							<div class="card-body">
+								<img src="../img/jesspan.png" alt="profile-image" class="profile" />
+								<h5 style="margin-bottom:0px" class="card-title text-center">Jess Pan</h5>
+								<p style="font-size:0.8rem;text-align: center">
+									<span class="badge badge-pill badge-light">Joined May. 2020</span>
+									<br>
+									<span class="badge badge-pill badge-secondary">Learning to connect with
+										family</span> </p>
+								<p style="font-size:0.8rem" class="text-center">
+									I decided to begin learning Mandarin with Culturestride and after two months, I am
+									already able to have simple conversations and aim to become fluent in speaking and
+									reading.
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4" style="margin-bottom:30px;">
+					<div class="cardWithShadow" style="padding:0px; margin-bottom:30px">
+						<div class="card profile-card-4" style="border:0">
+
+							<div class="card-img-block">
+								<img class="img-fluid blur" style="width:100%" src="../img/catherinehu.png"
+									alt="Catherine Hu">
+							</div>
+							<div class="card-body">
+								<img src="../img/catherinehu.png" alt="profile-image" class="profile" />
+								<h5 style="margin-bottom:0px" class="card-title text-center">Catherine Hu</h5>
+								<p style="font-size:0.8rem;text-align: center">
+									<span class="badge badge-pill badge-light">Joined Feb. 2020</span>
+									<br>
+									<span class="badge badge-pill badge-secondary">Learning for work</span> </p>
+								<p style="font-size:0.8rem" class="text-center">
+									Culturestride's private lessons have allowed me to progress my Chinese at a
+									personalised pace, as my speaking and writing abilities are very different. Because
+									of that reason, I've always found group lesson formats frustrating.
+								</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-sm-4" style="margin-bottom:30px;">
+					<div class="cardWithShadow" style="padding:0px; margin-bottom:30px">
+						<div class="card profile-card-4" style="border:0">
+
+							<div class="card-img-block">
+								<img class="img-fluid blur" style="width:100%" src="../img/lukehoad.png"
+									alt="Luke Hoad">
+							</div>
+							<div class="card-body">
+								<img src="../img/lukehoad.png" alt="profile-image" class="profile" />
+								<h5 style="margin-bottom:0px" class="card-title text-center">Luke Hoad</h5>
+								<p style="font-size:0.8rem;text-align: center">
+									<span class="badge badge-pill badge-light">Joined Dec. 2019</span>
+									<br>
+									<span class="badge badge-pill badge-secondary">Learning to connect with partner's
+										family</span> </p>
+								<p style="font-size:0.8rem" class="text-center">
+									Culturestride splits lessons up well so I get a good balance between speaking,
+									reading, writing and revision. With in-depth PowerPoints and homework, I've been
+									able to progress faster and retain my knowledge along the way.
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4" style="margin-bottom:30px;">
+					<div class="cardWithShadow" style="padding:0px; margin-bottom:30px">
+						<div class="card profile-card-4" style="border:0">
+
+							<div class="card-img-block">
+								<img class="img-fluid blur" style="width:100%" src="../img/andrewsnow.png"
+									alt="Andrew">
+							</div>
+							<div class="card-body">
+								<img src="../img/andrewsnow.png" alt="profile-image" class="profile" />
+								<h5 style="margin-bottom:0px" class="card-title text-center">Andrew</h5>
+								<p style="font-size:0.8rem;text-align: center">
+									<span class="badge badge-pill badge-light">Joined Dec. 2019</span>
+									<br>
+									<span class="badge badge-pill badge-secondary">Learning for work</span> </p>
+								<p style="font-size:0.8rem" class="text-center">
+									The lessons are super practical and relatable, which helps a lot with learning. It's
+									not like copying and writing the same character 10 times, but instead how to use
+									language in a real-life situation.
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="col-12 col-sm-4" style="margin-bottom:30px;">
+					<div class="cardWithShadow" style="padding:0px; margin-bottom:30px">
+						<div class="card profile-card-4" style="border:0">
+
+							<div class="card-img-block">
+								<img class="img-fluid blur" style="width:100%" src="../img/sarahwu.png" alt="Sarah Wu">
+							</div>
+							<div class="card-body">
+								<img src="../img/sarahwu.png" alt="profile-image" class="profile" />
+								<h5 style="margin-bottom:0px" class="card-title text-center">Sarah Wu</h5>
+								<p style="font-size:0.8rem;text-align: center">
+									<span class="badge badge-pill badge-light">Joined Feb. 2020</span>
+									<br>
+									<span class="badge badge-pill badge-secondary">Learning to connect with
+										family</span> </p>
+								<p style="font-size:0.8rem" class="text-center">
+									Culturestride and my teacher Lis has been amazing - they've adapted the pace (and
+									the pricing model) to suit my needs since I already have some knowledge around the
+									basics and a Cantonese background.
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4" style="margin-bottom:30px;">
+					<div class="cardWithShadow" style="padding:0px; margin-bottom:30px">
+						<div class="card profile-card-4" style="border:0">
+
+							<div class="card-img-block">
+								<img class="img-fluid blur" style="width:100%" src="../img/cathysu.png" alt="Cathy Su">
+							</div>
+							<div class="card-body">
+								<img src="../img/cathysu.png" alt="profile-image" class="profile" />
+								<h5 style="margin-bottom:0px" class="card-title text-center">Cathy Su</h5>
+								<p style="font-size:0.8rem;text-align: center">
+									<span class="badge badge-pill badge-light">Joined Dec. 2019</span>
+									<br>
+									<span class="badge badge-pill badge-secondary">Learning to connect with
+										family</span> </p>
+								<p style="font-size:0.8rem" class="text-center">
+									Being an ABC, I’ve always been urged by my Chinese friends or relatives to improve
+									my Chinese. The decision to learn / re-learn Chinese from Culturestride was the best
+									decision I ever made!
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4" style="margin-bottom:30px;">
+					<div class="cardWithShadow" style="padding:0px; margin-bottom:30px">
+						<div class="card profile-card-4" style="border:0">
+
+							<div class="card-img-block">
+								<img class="img-fluid blur" style="width:100%" src="../img/kristianbojidarov.png"
+									alt="Kristian Bojidarov">
+							</div>
+							<div class="card-body">
+								<img src="../img/kristianbojidarov.png" alt="profile-image" class="profile" />
+								<h5 style="margin-bottom:0px" class="card-title text-center">Kristian Bojidarov</h5>
+								<p style="font-size:0.8rem;text-align: center">
+									<span class="badge badge-pill badge-light">Joined Apr. 2020</span>
+									<br>
+									<span class="badge badge-pill badge-secondary">Learning for work</span>
+								</p>
+								<p style="font-size:0.8rem" class="text-center">
+									In a few months since joining Culturestride, I have gone from an HSK 2 level to now
+									almost completing HSK 3 in Mandarin. The one-on-one online learning environment has
+									allowed me to learn content at my desired pace
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+
+
+
+
+	</div>
+	</div>
+
+
+
+
+
+
+
+
+	</div>
+
+</section>
+
+
+
+
+
+
+
+
+
+<script>
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip({
+			boundary: 'window'
+		})
+	});
+
+	// TOGGLE SHOW HSK cards
+	function toggleHSKCards() {
+		if ($('#lineHSK3').css('display') == 'none') {
+			// show line
+			$('#lineHSK3').css('display', 'flex');
+			$('#lineHSK4').css('display', 'flex');
+			$('#lineHSK5').css('display', 'flex');
+			// shift positioning and show card
+			$('#cardHSK3').css('opacity', '1');
+			$('#cardHSK3').css('transform', '');
+			$('#cardHSK4').css('opacity', '1');
+			$('#cardHSK4').css('transform', '');
+			$('#cardHSK5').css('opacity', '1');
+			$('#cardHSK5').css('transform', '');
+			// change + to -
+			$('#toggleHSK').text('Minimise Learning Plan');
+		} else {
+			// show line
+			$('#lineHSK3').css('display', 'none');
+			$('#lineHSK4').css('display', 'none');
+			$('#lineHSK5').css('display', 'none');
+			// change + to -
+			$('#toggleHSK').text('Expand Learning Plan');
+		}
+
+	}
+
+	var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	if (region.indexOf("Australia") < 0) {
+		// convert to USD
+		document.getElementById('currencyCode').textContent = 'USD';
+		document.getElementById('pracPrice').textContent = '7';
+		document.getElementById('addPracPrice').textContent = '7';
+		document.getElementById('theoryPracPrice').textContent = '29';
+		document.getElementById('theoryPrice').textContent = '29';
+	}
+</script>

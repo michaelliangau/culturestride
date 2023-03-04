@@ -1,0 +1,221 @@
+<!-- MOMENT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <!-- bootstrap select -->
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" />
+    <!-- bootstrap select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+
+
+<section id="classSchedule" class="section" style="padding:0px 0px 80px 0px;z-index:0">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<h3 class="mobileText">Find Practical Class</h3>
+				<p class="subtext">Practical classes focus on student-to-student communication.<br>Can't make class times? <a href="/start">Sign up </a> and let us know when to open up a time slot for you.
+				<br>
+				<a href="/speakingtest" target="_blank">Not sure about your level?</a></p>
+				
+				<div class="row">
+					<div class="col-sm-4">
+	  
+					  <div class="form-group" style="max-width: 500px;">
+						<select id="filterByLevel" name="filterByLevel" class="selectpicker form-control"
+						  title="Filter by level" onchange="filter()" multiple>
+						  <option value="0">HSK 0 (absolute beginner)</option>
+						  <option value="1">HSK 1 (beginner)</option>
+						  <option value="2">HSK 2 (beginner)</option>
+						  <option value="3">HSK 3 (intermediate)</option>
+						  <option value="4">HSK 4 (intermediate)</option>
+						  <option value="5">HSK 5 (advanced)</option>
+						  <option value="6">HSK 6 (advanced)</option>
+	  
+						</select>
+	  
+					  </div>
+					</div>
+					<div class="col-sm-4">
+	  
+					  <div class="form-group" style="max-width: 500px;">
+						<select id="filterByDay" name="filterByDay" class="selectpicker form-control" onchange="filter()"
+						  title="Filter by day" multiple>
+						  <option value="1">Monday</option>
+						  <option value="2">Tuesday</option>
+						  <option value="3">Wednesday</option>
+						  <option value="4">Thursday</option>
+						  <option value="5">Friday</option>
+						  <option value="6">Saturday</option>
+						  <option value="7">Sunday</option>
+	  
+						</select>
+	  
+					  </div>
+					</div>
+					<div class="col-sm-4">
+	  
+					  <div class="form-group" style="max-width: 500px;">
+						<select id="filterByTeacher" name="filterByTeacher" class="selectpicker form-control" onchange="filter()"
+						  title="Filter by teacher" multiple>
+						<% for (var i = 0 ; i < uniqueTeacher.length ; i ++) { %>
+						  <option value="<%- uniqueTeacher[i].sohoUID %>"><%- uniqueTeacher[i].firstName + ' ' + uniqueTeacher[i].lastName %></option>
+						<% } %>
+	  
+						</select>
+	  
+					  </div>
+					</div>
+				  </div>
+			
+
+					<% for (var i = 0 ; i < classes.length ; i ++) { %>
+
+					<div class="cardWithShadow pracClassRow" id="pracClassRow<%- classes[i].sohoAID %>" style="padding:20px;margin:0px;max-width: none;width: 100%;position:inherit" data-level="<%- classes[i].level %>" data-teacher="<%- classes[i].sohoUID %>" data-day="">
+						<a href="/practical/<%- classes[i].sohoAID %>">
+							<span class="link-spanner"></span>
+						</a>
+						<div style="padding:10px;text-align:left">
+							<% if (classes[i].level == 0) { %>
+								<span class="badge badge-light" style="margin-bottom:10px;background-color:#2ecc71;color:white">HSK <%- classes[i].level %> (absolute beginner)</span>
+								<% } else if (classes[i].level == 1) { %>
+									<span class="badge badge-light" style="margin-bottom:10px;background-color:rgb(73, 80, 246);color:white;">HSK <%- classes[i].level %> (beginner)</span>
+							<% } else if (classes[i].level == 2) { %>
+								<span class="badge badge-light" style="margin-bottom:10px;background-color:#f1c40f;color:white;">HSK <%- classes[i].level %> (beginner)</span>
+							<% } else if (classes[i].level == 3) { %>
+								<span class="badge badge-light" style="margin-bottom:10px;background-color:#1abc9c;color:white;">HSK <%- classes[i].level %> (intermediate)</span>
+							<% } else if (classes[i].level == 4) { %>
+								<span class="badge badge-light" style="margin-bottom:10px;background-color:#e67e22;color:white;">HSK <%- classes[i].level %> (intermediate)</span>
+							<% } else if (classes[i].level == 5) { %>
+								<span class="badge badge-light" style="margin-bottom:10px;background-color:#9b59b6;color:white;">HSK <%- classes[i].level %> (advanced)</span>
+								<% } else if (classes[i].level == 6) { %>
+								<span class="badge badge-light" style="margin-bottom:10px;background-color:#34495e;color:white;">HSK <%- classes[i].level %> (advanced)</span>
+							<% } %>
+							<% if (classes[i].sCount >= 3) { %>
+							<span class="badge badge-light">Full class</span>
+							<% } else { %>
+								<span  class="badge badge-primary">Joinable</span>
+							<% } %>
+							<div style="margin: 10px 0px;">
+								When: <span id="when<%- i %>"></span> (<span class="region"></span>)
+							<script>
+								var mom = moment('<%- classes[i].start %>', 'YYYY-MM-DDTHH:mm:ssZ'); 
+								var day = mom.isoWeekday();
+
+								document.getElementById('when<%- i %>').textContent = mom.clone().local().format('LLLL');
+								document.getElementById('pracClassRow<%- classes[i].sohoAID %>').setAttribute("data-day", day);
+
+							  </script>
+							  </div>
+							<div style="margin: 10px 0px;">
+							<% if (classes[i].profileImage) { %>
+								<img src="<%- classes[i].profileImage %>" class="circle" style="width:30px;height:30px;display:inline;margin:0px 5px;">
+							<% } else { %>
+								<img src="/img/guru.png" style="display:inline;margin:0px 5px;width:30px;border-radius:50%;">
+							<% } %>
+							<span class="subtext">
+							<%- classes[i].tFirstName + ' ' + classes[i].tLastName %>
+							</span>
+						</div>
+
+
+						</div>
+						</div>
+					<% } %>
+					
+				  
+				  
+					<% if (classes.length == 0) { %>
+					<div class="mobileHide scrollHighlight" style="width: 100%;position:inherit;height:80vh; opacity: 1;">
+					  <div class="homework-box"
+						style="position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%); width:100%;text-align: center;">
+						There are no upcoming Practical classes, please be patient as we add more in the near future
+					  </div>
+					</div>
+					<% } %>
+				  
+				  
+
+
+				</div>
+
+
+
+	</div>
+</div>
+</section>
+
+<script>
+	
+	var region = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	var regionClass = document.getElementsByClassName('region');
+	for (let i = 0; i < regionClass.length; i++) {
+		const element = regionClass[i];
+		element.textContent = region;
+		
+	}
+				
+				$(function () {
+                $('[data-toggle="tooltip"]').tooltip({
+                  boundary: 'window',
+                });
+              });
+
+
+			  function filter() {
+        // get values of filters
+        var levelArr = Array.from($("#filterByLevel").find(':selected')).map(function (item) {
+          return $(item).val();
+        });
+
+        var dayArr = Array.from($("#filterByDay").find(':selected')).map(function (item) {
+          return $(item).val();
+        });
+        var teacherArr = Array.from($("#filterByTeacher").find(':selected')).map(function (item) {
+          return $(item).val();
+        });
+
+        var pracClassRow = document.getElementsByClassName("pracClassRow");
+        for (var i = 0; i < pracClassRow
+          .length; i++) { //rows would be accessed using the "row" variable assigned in the for loop
+          var rowLevel = pracClassRow[i].getAttribute('data-level');
+          var rowDay = pracClassRow[i].getAttribute('data-day');
+          var rowTeacher = pracClassRow[i].getAttribute('data-teacher');
+
+        var levelCheck,dayCheck,teacherCheck = 0;
+
+          // level check
+          if (levelArr.indexOf(rowLevel) != -1 || levelArr.length == 0) { 
+            levelCheck = 1;
+          } else {
+            levelCheck = 0;
+          }
+
+          // day check
+          if (dayArr.indexOf(rowDay) != -1 || dayArr.length == 0) { 
+          dayCheck = 1;
+            } else {
+              dayCheck = 0;
+            }
+
+            if (teacherArr.indexOf(rowTeacher) != -1 || teacherArr.length == 0) { 
+          teacherCheck = 1;
+            } else {
+              teacherCheck = 0;
+            }
+
+
+            // show hide row
+          if (levelCheck == 1 && dayCheck == 1 && teacherCheck == 1) {
+            pracClassRow[i].style.display = 'block';
+          } else {
+            pracClassRow[i].style.display = 'none';
+          }
+
+
+        }
+
+
+
+      }
+</script>

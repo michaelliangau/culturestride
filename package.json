@@ -1,0 +1,68 @@
+{
+  "name": "culturestride",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.5",
+    "async": "^3.2.0",
+    "aws-sdk": "^2.998.0",
+    "axios": "^0.21.1",
+    "basic-auth": "^2.0.1",
+    "bcrypt": "^5.0.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "chinese-lexicon": "^1.0.43",
+    "cookie-parser": "~1.3.5",
+    "cors": "^2.8.5",
+    "cron-parser": "^3.5.0",
+    "diff": "^4.0.2",
+    "ejs": "^2.6.2",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.4.0",
+    "express-mysql-session": "^2.1.5",
+    "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "googleapis": "^66.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "linkifyjs": "^2.1.9",
+    "moment": "^2.27.0",
+    "moment-range": "^4.0.2",
+    "moment-timezone": "^0.5.31",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "multer-s3": "^2.9.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^1.5.3",
+    "node-cron": "^2.0.3",
+    "node-pre-gyp": "^0.17.0",
+    "node-schedule": "^1.3.2",
+    "novel-segment": "^2.7.60",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "readline": "^1.3.0",
+    "serve-favicon": "^2.3.2",
+    "sinon": "^9.2.0",
+    "socket.io": "^2.3.0",
+    "sortablejs": "^1.10.0-rc3",
+    "stripe": "^8.111.0",
+    "uuid": "^8.3.1"
+  },
+  "scripts": {
+    "start": "node --max-old-space-size=4096 app.js"
+  },
+  "devDependencies": {
+    "dotenv": "^8.6.0"
+  },
+  "description": "Everyone in the team loves you for your support in this project. Thank you!",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelliangaustralia/culturestrideplatform.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelliangaustralia/culturestrideplatform/issues"
+  },
+  "homepage": "https://github.com/michaelliangaustralia/culturestrideplatform#readme"
+}

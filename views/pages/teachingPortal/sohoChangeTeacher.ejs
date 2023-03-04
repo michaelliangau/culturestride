@@ -1,0 +1,88 @@
+<div class="row">
+
+    <div class="col-sm-12">
+
+        <form method="post" id="" style="text-align: left">
+
+            <input type="hidden" name='sohoSlug' id="sohoSlug" value=''>
+            <input type="hidden" name='stuSlug' id="stuSlug" value=''>
+
+            <span>
+                <h3>Change Teacher</h3>
+            </span>
+            <br>
+
+            <div class="form-group">
+                <label for="class"><b>Class Name</b></label>
+                <span id="classDetails" class="badge badge-pill badge-light"></span>
+
+                <select id="class" name="class" class="custom-select"
+                    onchange="loadCurrentTeacher();updateStuSlug();updateCurTeaSlug()" required>
+                    <option value="">Please select...</option>
+                    <% for (var i = 0 ; i < (classes.length) ; i ++) { %>
+                    <option value="<%- classes[i].sohoCID %>"
+                        data-teacher="<%- classes[i].tFirstName + ' ' + classes[i].tLastName %>"
+                        data-slug="<%- classes[i].stuSlug %>" data-teaSlug="<%- classes[i].teaSlug %>">
+                        <%- classes[i].className %>
+                    </option>
+                    <% } %>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="teacher"><b>New Teacher</b></label>
+
+                <select id="teacher" name="teacher" class="custom-select" onchange="updateTeaSlug()" required>
+                    <option value="">Please select...</option>
+                    <% for (var i = 0 ; i < (teacher.length) ; i ++) { %>
+                    <option value="<%- teacher[i].sohoUID %>" data-slug="<%- teacher[i].slug %>">
+                        <%- teacher[i].firstName + ' ' + teacher[i].lastName %>
+                    </option>
+                    <% } %>
+                </select>
+            </div>
+
+
+            <button class="button button-primary button-block button-shadow"
+                style="margin: 10px 0px; display: inline-block" type="submit">Change Teacher</button>
+
+        </form>
+
+        <br>
+    </div>
+
+</div>
+
+<script>
+    function loadCurrentTeacher() {
+
+        var e = document.getElementById("class");
+        var option = e.options[e.selectedIndex];
+        var oldTeacher = option.getAttribute("data-teacher");
+        var stuSlug = option.getAttribute("data-slug");
+
+        document.getElementById("classDetails").textContent = 'Current Teacher: ' + oldTeacher;
+
+        document.getElementById("stuSlug").value = stuSlug;
+    }
+
+    function updateStuSlug() {
+
+        var e = document.getElementById("class");
+        var option = e.options[e.selectedIndex];
+        var stuSlug = option.getAttribute("data-slug");
+
+        document.getElementById("stuSlug").value = stuSlug;
+    }
+
+
+    function updateTeaSlug() {
+
+        var e = document.getElementById("teacher");
+        var option = e.options[e.selectedIndex];
+        var teacherSlug = option.getAttribute("data-slug");
+
+        document.getElementById("sohoSlug").value = teacherSlug;
+    }
+</script>

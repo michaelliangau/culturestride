@@ -1,0 +1,247 @@
+<script src="https://js.stripe.com/v3/"></script>
+
+<div class="features-wrap" style="margin-top:40px">
+	<div class="features-header text-center">
+		<div class="container-sm" style="padding: 0px 16px">
+			<h2 class="section-title mt-0" style="margin:0px 5px">Verify your card</h2>
+			<br>
+			<p style="padding: 0px 15px">
+        We may <a href="/a/classadmin">skip this step</a> now but you'll need to add a payment method before booking a class.
+        <br>
+
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col"></div>
+	<div class="col-sm-6">
+    <div class="feature text-center is-revealing box-shadow" style="margin:0 auto;max-width: 800px;width: 100%;position:inherit">
+      <div style="padding:40px 40px;text-align:center">
+        
+        <select style="margin-top:20px" id="cardCur" name="cardCur" class="custom-select" onchange="updateSPI();">
+          <option data-theory-value="<%- stripeTheoryPriceIdAUD %>" data-practical-value="<%- stripePracticalPriceIdAUD %>" data-cur="AUD" selected>This is an Australian card</option>
+          <option data-theory-value="<%- stripeTheoryPriceIdUSD %>" data-practical-value="<%- stripePracticalPriceIdUSD %>" data-cur="USD">This is not an Australian card</option>
+        </select>
+
+        <form id="subscription-form" style="margin: 30px 0px 0px 0px">
+          <div id="card-element" class="MyCardElement" style="margin-bottom:30px;">
+            <!-- Elements will create input elements here -->
+          </div>
+
+          <!-- We'll put the error messages in this element -->
+          <div id="card-errors" role="alert"></div>
+
+          <button id="addCardBtn" onclick="addCard()" class="button button-primary button-block button-shadow" type="submit"  style="margin: 10px auto;display: none;">Lets get started!</button>
+            <button id="loadingCardBtn" class="button button-primary button-block button-shadow" type="button"
+             style="margin: 10px auto 0px auto;display:none;">Submitting...</button>
+          <div id="sci" style="display:none"><%- stripeCustomerId %></div>
+          <div id="theoryspi" style="display:none"><%- stripeTheoryPriceIdAUD %></div>
+          <div id="practicalspi" style="display:none"><%- stripePracticalPriceIdAUD %></div>
+        <span class="subtext">You will not be charged today.</span>
+
+        </form>
+
+      </div>
+    </div>
+	<div class="col-sm-12" style="text-align:center;padding:30px 20%">
+    <p class="subtext" style="color:#bdc3c7">After your free classes, you will not enroll in any subscription plan. You will only pay for the classes you book in yourself. Late cancel or missed class 
+      <a href="/studentcode" target="_blank">fees apply</a>.</p>
+  </div>
+  </div>
+	<div class="col"></div>
+
+
+</div>
+<div id="classType" style="display:none"><%- sClassType %></div>
+<div id="plan" style="display:none">theoryAndPractical</div>
+
+
+
+
+
+
+<script>
+  // STRIPE LIVE PK
+  var stripe = Stripe(
+    'pk_live_51Hc3IkBHXwfbDpFltGO5koGeAg27QlKkWw6Cea2YSbiJedjlwXhUnkRyS1Z8su7AXfuZjNKpNhndjTRXxVUXOzUO00AbmrrtkZ'
+  );
+
+  // STRIPE TEST PK
+  // var stripe = Stripe(
+  //   'pk_test_51Hc3IkBHXwfbDpFleiAVbxvB7jRtvd33ldvDlCoy2fxoPLKHSh38Py5YBsN1ZrIza3CHtaC1eeIbRbSwJqLbLqDf00ixtUsPwb'
+  // );
+
+  var elements = stripe.elements();
+
+  // Set up Stripe.js and Elements to use in checkout form
+  var style = {
+    base: {
+      color: "#32325d",
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#aab7c4"
+      }
+    },
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a"
+    }
+  };
+
+  var cardElement = elements.create("card", {
+    hidePostalCode: true,
+    style: style
+  });
+  cardElement.mount("#card-element");
+
+  // invalid user inputs in CC
+  cardElement.on('change', showCardError);
+
+  function showCardError(event) {
+    let displayError = document.getElementById('card-errors');
+    document.getElementById("loadingCardBtn").style.display = "none";
+    document.getElementById("addCardBtn").style.display = "block";
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = '';
+    }
+  }
+
+
+  // addCard(); // add event
+  function addCard() {
+
+    var sci = document.getElementById("sci").innerHTML;
+    var theorySPI = document.getElementById("theoryspi").innerHTML;
+    var practicalSPI = document.getElementById("practicalspi").innerHTML;
+
+    var submitEventListener = function (e) {
+      document.getElementById('addCardBtn').style.display = 'none';
+      document.getElementById('loadingCardBtn').style.display = 'block'; // we do this to prevent double submitting
+      e.preventDefault();
+      createPaymentMethod(cardElement, sci, theorySPI, practicalSPI);
+    };
+    document.addEventListener('submit', submitEventListener, {once: true});
+
+  }
+
+
+  function createPaymentMethod(cardElement, customerId, theorySPI, practicalSPI) {
+    return stripe
+      .createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+      })
+      .then((result) => {
+        if (result.error) {
+          displayError(error);
+        } else {
+          createSubscription(
+            customerId,
+            result.paymentMethod.id,
+            theorySPI,
+            practicalSPI
+          );
+        }
+      });
+  }
+
+
+  function createSubscription(customerId, paymentMethodId, theorySPI, practicalSPI) {
+    return (
+      fetch('/create-subscription', {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerId: customerId,
+          paymentMethodId: paymentMethodId,
+          theorySPI: theorySPI,
+          practicalSPI: practicalSPI,
+        }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      // If the card is declined, display an error to the user.
+      .then((result) => {
+        if (result.error) {
+          // The card had an error when trying to attach it to a customer.
+          throw result;
+        }
+        return result;
+      })
+      // Normalize the result to contain the object returned by Stripe.
+      // Add the additional details we need.
+      .then((result) => {
+        return {
+          paymentMethodId: paymentMethodId,
+          theorySPI: theorySPI,
+          practicalSPI: practicalSPI,
+          subscription: result,
+        };
+      })
+      // Some payment methods require a customer to be on session
+      // to complete the payment process. Check the status of the
+      // payment intent to handle these actions.
+      // .then(handlePaymentThatRequiresCustomerAction)
+      // No more actions required. Provision your service for the user.
+      .then(onSubscriptionComplete)
+      .catch((error) => {
+        // An error has happened. Display the failure to the user here.
+        // We utilize the HTML element we created.
+        showCardError(error);
+      })
+    );
+
+
+    function onSubscriptionComplete(result) {
+      // Payment was successful.
+      if (result.subscription.status === 'active') {
+
+
+
+          window.location.href = '/a/classadmin';
+
+
+
+      }
+    }
+  }
+
+  function updateSPI() {
+    var selectedTheorySPI = document.getElementById("cardCur").querySelector(':checked').getAttribute('data-theory-value');
+    var selectedPracticalSPI = document.getElementById("cardCur").querySelector(':checked').getAttribute('data-practical-value');
+
+    document.getElementById("theoryspi").textContent = selectedTheorySPI;
+    document.getElementById("practicalspi").textContent = selectedPracticalSPI;
+  }
+
+  $(document).ready(function () {
+    ajaxGetSCI(); // get the sci that was just made, it's an async request so we have to do this
+	});
+
+  function ajaxGetSCI() {
+    $.ajax({
+      type: "POST",
+      url: "/ajaxGetSCI",
+      timeout: 30000,
+      success: function (data) {
+        //show content
+        console.log('successful post');
+        document.getElementById('sci').textContent = data;
+      },
+      error: function (jqXHR, textStatus, err) {
+        //show error message
+        console.log('unsuccessful post');
+      }
+    });
+  }
+
+</script>
